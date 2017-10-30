@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="95">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>Column_Store_Data.h</itemPath>
+      <itemPath>Column_Store_Import_methods.h</itemPath>
+      <itemPath>OpenCLExecutionColumnStore.h</itemPath>
+      <itemPath>OpenCLExecutionRowStore.h</itemPath>
+      <itemPath>QueryDataGenerator.h</itemPath>
+      <itemPath>Row_Store_Data.h</itemPath>
+      <itemPath>Row_Store_Import_Methods.h</itemPath>
+      <itemPath>TransactionsColumnStore.h</itemPath>
+      <itemPath>TransactionsRowStore.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>Column_Store_Import_methods.cpp</itemPath>
+      <itemPath>OpenCLExecutionColumnStore.cpp</itemPath>
+      <itemPath>OpenCLExecutionRowStore.cpp</itemPath>
+      <itemPath>QueryDataGenerator.cpp</itemPath>
+      <itemPath>Row_Store_Data.cpp</itemPath>
+      <itemPath>Row_Store_Import_Methods.cpp</itemPath>
+      <itemPath>TransactionsColumnStore.cpp</itemPath>
+      <itemPath>TransactionsRowStore.cpp</itemPath>
+      <itemPath>main.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <standard>10</standard>
+        </cTool>
+        <ccTool>
+          <standard>8</standard>
+          <commandlineTool>g++</commandlineTool>
+          <commandLine>-std=c++11 -I/usr/local/cuda/include -I/usr/local/cuda/bin/nvcc -L/usr/local/cuda/lib64/ -L/usr/lib/x86_64-linux-gnu/ -lcudart -lcuda</commandLine>
+        </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibLibItem>OpenCL</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="Column_Store_Data.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Column_Store_Import_methods.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Column_Store_Import_methods.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="OpenCLExecutionColumnStore.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="OpenCLExecutionColumnStore.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="OpenCLExecutionRowStore.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="OpenCLExecutionRowStore.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="QueryDataGenerator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="QueryDataGenerator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Row_Store_Data.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Row_Store_Data.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Row_Store_Import_Methods.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Row_Store_Import_Methods.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TransactionsColumnStore.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="TransactionsColumnStore.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TransactionsRowStore.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="TransactionsRowStore.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <commandLine>-std=c++11 -I/usr/local/cuda/include -I/usr/local/cuda/bin/nvcc -L/usr/local/cuda/lib64/ -L/usr/lib/x86_64-linux-gnu/ -lcudart -lcuda</commandLine>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibLibItem>OpenCL</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="Column_Store_Data.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Column_Store_Import_methods.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Column_Store_Import_methods.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="OpenCLExecutionColumnStore.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="OpenCLExecutionColumnStore.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="OpenCLExecutionRowStore.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="OpenCLExecutionRowStore.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="QueryDataGenerator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="QueryDataGenerator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Row_Store_Data.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Row_Store_Data.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Row_Store_Import_Methods.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Row_Store_Import_Methods.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TransactionsColumnStore.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="TransactionsColumnStore.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TransactionsRowStore.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="TransactionsRowStore.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

@@ -1,0 +1,6 @@
+Executing queries on GPU:
+
+Executing Row Store
+Update Time Taken: 1136.15
+duration: 94.12
+
