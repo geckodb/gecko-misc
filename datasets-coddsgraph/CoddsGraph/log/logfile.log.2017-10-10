@@ -1,0 +1,126 @@
+2017-10-10 01:12:36,614  INFO [main] - edu.ovgu.coddsgraph.CoddsGraph.CrawlAndIndex.getData 209 - Subscriprion key count - 1
+2017-10-10 01:12:36,629 DEBUG [main] - edu.ovgu.coddsgraph.CoddsGraph.CrawlAndIndex.getData 221 - Query - https://westus.api.cognitive.microsoft.com/academic/v1.0/evaluate?expr=And%28And%28Ti%3D%27a+relational+model+of+data+for+large+shared+data+banks%27%2CComposite%28AA.AuN%3D%3D%27e+f+codd%27%29%29%2CY%3D1970%29&model=latest&attributes=Id%2CRId%2CTi%2CY%2CCC%2CAA.AuN%2CAA.AuId%2CJ.JN%2CJ.JId%2CC.CN%2CC.CId%2CS.U%2CVSN&count=5&offset=0
+2017-10-10 01:12:36,700 DEBUG [main] - org.apache.http.client.protocol.RequestAddCookies.process 123 - CookieSpec selected: default
+2017-10-10 01:12:36,727 DEBUG [main] - org.apache.http.client.protocol.RequestAuthCache.process 77 - Auth cache not set in the context
+2017-10-10 01:12:36,730 DEBUG [main] - org.apache.http.impl.conn.PoolingHttpClientConnectionManager.requestConnection 255 - Connection request: [route: {s}->https://westus.api.cognitive.microsoft.com:443][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+2017-10-10 01:12:36,764 DEBUG [main] - org.apache.http.impl.conn.PoolingHttpClientConnectionManager.leaseConnection 288 - Connection leased: [id: 0][route: {s}->https://westus.api.cognitive.microsoft.com:443][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+2017-10-10 01:12:36,767 DEBUG [main] - org.apache.http.impl.execchain.MainClientExec.execute 235 - Opening connection {s}->https://westus.api.cognitive.microsoft.com:443
+2017-10-10 01:12:36,901 DEBUG [main] - org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect 139 - Connecting to westus.api.cognitive.microsoft.com/40.112.254.71:443
+2017-10-10 01:12:36,901 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.connectSocket 337 - Connecting socket to westus.api.cognitive.microsoft.com/40.112.254.71:443 with timeout 0
+2017-10-10 01:12:37,580 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.createLayeredSocket 390 - Enabled protocols: [TLSv1, TLSv1.1, TLSv1.2]
+2017-10-10 01:12:37,581 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.createLayeredSocket 391 - Enabled cipher suites:[TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256, TLS_DHE_RSA_WITH_AES_128_CBC_SHA256, TLS_DHE_DSS_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDH_RSA_WITH_AES_128_CBC_SHA, TLS_DHE_RSA_WITH_AES_128_CBC_SHA, TLS_DHE_DSS_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256, TLS_DHE_RSA_WITH_AES_128_GCM_SHA256, TLS_DHE_DSS_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA, SSL_RSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA, SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA, SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA, TLS_EMPTY_RENEGOTIATION_INFO_SCSV]
+2017-10-10 01:12:37,581 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.createLayeredSocket 395 - Starting handshake
+2017-10-10 01:12:41,049 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.verifyHostname 425 - Secure session established
+2017-10-10 01:12:41,050 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.verifyHostname 426 -  negotiated protocol: TLSv1.2
+2017-10-10 01:12:41,050 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.verifyHostname 427 -  negotiated cipher suite: TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+2017-10-10 01:12:41,051 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.verifyHostname 435 -  peer principal: CN=*.cognitive.microsoft.com
+2017-10-10 01:12:41,057 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.verifyHostname 444 -  peer alternative names: [*.cognitive.microsoft.com, *.api.cognitive.microsoft.com, *.dev.cognitive.microsoft.com]
+2017-10-10 01:12:41,058 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.verifyHostname 448 -  issuer principal: CN=Microsoft IT SSL SHA2, OU=Microsoft IT, O=Microsoft Corporation, L=Redmond, ST=Washington, C=US
+2017-10-10 01:12:41,066 DEBUG [main] - org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect 146 - Connection established 192.168.0.102:51768<->40.112.254.71:443
+2017-10-10 01:12:41,067 DEBUG [main] - org.apache.http.impl.execchain.MainClientExec.execute 256 - Executing request GET /academic/v1.0/evaluate?expr=And%28And%28Ti%3D%27a+relational+model+of+data+for+large+shared+data+banks%27%2CComposite%28AA.AuN%3D%3D%27e+f+codd%27%29%29%2CY%3D1970%29&model=latest&attributes=Id%2CRId%2CTi%2CY%2CCC%2CAA.AuN%2CAA.AuId%2CJ.JN%2CJ.JId%2CC.CN%2CC.CId%2CS.U%2CVSN&count=5&offset=0 HTTP/1.1
+2017-10-10 01:12:41,067 DEBUG [main] - org.apache.http.impl.execchain.MainClientExec.execute 261 - Target auth state: UNCHALLENGED
+2017-10-10 01:12:41,085 DEBUG [main] - org.apache.http.impl.execchain.MainClientExec.execute 267 - Proxy auth state: UNCHALLENGED
+2017-10-10 01:12:41,088 DEBUG [main] - org.apache.http.headers.onRequestSubmitted 133 - http-outgoing-0 >> GET /academic/v1.0/evaluate?expr=And%28And%28Ti%3D%27a+relational+model+of+data+for+large+shared+data+banks%27%2CComposite%28AA.AuN%3D%3D%27e+f+codd%27%29%29%2CY%3D1970%29&model=latest&attributes=Id%2CRId%2CTi%2CY%2CCC%2CAA.AuN%2CAA.AuId%2CJ.JN%2CJ.JId%2CC.CN%2CC.CId%2CS.U%2CVSN&count=5&offset=0 HTTP/1.1
+2017-10-10 01:12:41,088 DEBUG [main] - org.apache.http.headers.onRequestSubmitted 136 - http-outgoing-0 >> Ocp-Apim-Subscription-Key: dbe029f01ce145f5a41390c981f3bfc5
+2017-10-10 01:12:41,089 DEBUG [main] - org.apache.http.headers.onRequestSubmitted 136 - http-outgoing-0 >> Host: westus.api.cognitive.microsoft.com
+2017-10-10 01:12:41,089 DEBUG [main] - org.apache.http.headers.onRequestSubmitted 136 - http-outgoing-0 >> Connection: Keep-Alive
+2017-10-10 01:12:41,089 DEBUG [main] - org.apache.http.headers.onRequestSubmitted 136 - http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_131)
+2017-10-10 01:12:41,090 DEBUG [main] - org.apache.http.headers.onRequestSubmitted 136 - http-outgoing-0 >> Accept-Encoding: gzip,deflate
+2017-10-10 01:12:41,090 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 >> "GET /academic/v1.0/evaluate?expr=And%28And%28Ti%3D%27a+relational+model+of+data+for+large+shared+data+banks%27%2CComposite%28AA.AuN%3D%3D%27e+f+codd%27%29%29%2CY%3D1970%29&model=latest&attributes=Id%2CRId%2CTi%2CY%2CCC%2CAA.AuN%2CAA.AuId%2CJ.JN%2CJ.JId%2CC.CN%2CC.CId%2CS.U%2CVSN&count=5&offset=0 HTTP/1.1[\r][\n]"
+2017-10-10 01:12:41,091 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 >> "Ocp-Apim-Subscription-Key: dbe029f01ce145f5a41390c981f3bfc5[\r][\n]"
+2017-10-10 01:12:41,091 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 >> "Host: westus.api.cognitive.microsoft.com[\r][\n]"
+2017-10-10 01:12:41,092 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+2017-10-10 01:12:41,092 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_131)[\r][\n]"
+2017-10-10 01:12:41,092 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+2017-10-10 01:12:41,093 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 >> "[\r][\n]"
+2017-10-10 01:12:41,272 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "HTTP/1.1 200 OK[\r][\n]"
+2017-10-10 01:12:41,273 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "Content-Length: 403[\r][\n]"
+2017-10-10 01:12:41,274 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "Content-Type: application/json[\r][\n]"
+2017-10-10 01:12:41,274 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "Request-Context: appId=cid-v1:7cd06f0e-6d73-46a5-9c10-4ebe681d0156[\r][\n]"
+2017-10-10 01:12:41,275 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "X-Powered-By: ASP.NET[\r][\n]"
+2017-10-10 01:12:41,276 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "apim-request-id: 042c64d3-bee1-4fea-97b8-4a5f6e32956c[\r][\n]"
+2017-10-10 01:12:41,276 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "Strict-Transport-Security: max-age=31536000; includeSubDomains; preload[\r][\n]"
+2017-10-10 01:12:41,277 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "x-content-type-options: nosniff[\r][\n]"
+2017-10-10 01:12:41,277 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "Date: Mon, 09 Oct 2017 23:12:39 GMT[\r][\n]"
+2017-10-10 01:12:41,278 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "[\r][\n]"
+2017-10-10 01:12:41,278 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "{[\n]"
+2017-10-10 01:12:41,279 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << ""expr":"And(And(Ti='a relational model of data for large shared data banks',Composite(AA.AuN=='e f codd')),Y=1970)",[\n]"
+2017-10-10 01:12:41,279 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << ""entities":[\n]"
+2017-10-10 01:12:41,280 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "[[\n]"
+2017-10-10 01:12:41,280 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "{"logprob":-17.699,"Id":2165467455,"Ti":"a relational model of data for large shared data banks","Y":1970,"CC":4882,"RId":[1984820433,2104880663,2088549934,2022843269,2044618373,14947753],"AA":[{"AuN":"e f codd","AuId":1972300922}],"J":{"JN":"cacm","JId":103482838}}][\n]"
+2017-10-10 01:12:41,281 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "}[\n]"
+2017-10-10 01:12:41,297 DEBUG [main] - org.apache.http.headers.onResponseReceived 122 - http-outgoing-0 << HTTP/1.1 200 OK
+2017-10-10 01:12:41,297 DEBUG [main] - org.apache.http.headers.onResponseReceived 125 - http-outgoing-0 << Content-Length: 403
+2017-10-10 01:12:41,297 DEBUG [main] - org.apache.http.headers.onResponseReceived 125 - http-outgoing-0 << Content-Type: application/json
+2017-10-10 01:12:41,298 DEBUG [main] - org.apache.http.headers.onResponseReceived 125 - http-outgoing-0 << Request-Context: appId=cid-v1:7cd06f0e-6d73-46a5-9c10-4ebe681d0156
+2017-10-10 01:12:41,298 DEBUG [main] - org.apache.http.headers.onResponseReceived 125 - http-outgoing-0 << X-Powered-By: ASP.NET
+2017-10-10 01:12:41,298 DEBUG [main] - org.apache.http.headers.onResponseReceived 125 - http-outgoing-0 << apim-request-id: 042c64d3-bee1-4fea-97b8-4a5f6e32956c
+2017-10-10 01:12:41,299 DEBUG [main] - org.apache.http.headers.onResponseReceived 125 - http-outgoing-0 << Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+2017-10-10 01:12:41,299 DEBUG [main] - org.apache.http.headers.onResponseReceived 125 - http-outgoing-0 << x-content-type-options: nosniff
+2017-10-10 01:12:41,299 DEBUG [main] - org.apache.http.headers.onResponseReceived 125 - http-outgoing-0 << Date: Mon, 09 Oct 2017 23:12:39 GMT
+2017-10-10 01:12:41,310 DEBUG [main] - org.apache.http.impl.execchain.MainClientExec.execute 285 - Connection can be kept alive indefinitely
+2017-10-10 01:12:41,329 DEBUG [main] - org.apache.http.impl.conn.PoolingHttpClientConnectionManager.releaseConnection 320 - Connection [id: 0][route: {s}->https://westus.api.cognitive.microsoft.com:443] can be kept alive indefinitely
+2017-10-10 01:12:41,330 DEBUG [main] - org.apache.http.impl.conn.PoolingHttpClientConnectionManager.releaseConnection 326 - Connection released: [id: 0][route: {s}->https://westus.api.cognitive.microsoft.com:443][total kept alive: 1; route allocated: 1 of 2; total allocated: 1 of 20]
+2017-10-10 01:13:14,668  INFO [main] - edu.ovgu.coddsgraph.CoddsGraph.CrawlAndIndex.getData 209 - Subscriprion key count - 1
+2017-10-10 01:13:18,439 DEBUG [main] - edu.ovgu.coddsgraph.CoddsGraph.CrawlAndIndex.getData 221 - Query - https://westus.api.cognitive.microsoft.com/academic/v1.0/evaluate?expr=And%28And%28Ti%3D%27a+relational+model+of+data+for+large+shared+data+banks%27%2CComposite%28AA.AuN%3D%3D%27e+f+codd%27%29%29%2CY%3D1970%29&model=latest&attributes=Id%2CRId%2CTi%2CY%2CCC%2CAA.AuN%2CAA.AuId%2CJ.JN%2CJ.JId%2CC.CN%2CC.CId%2CS.U%2CVSN&count=5&offset=0
+2017-10-10 01:13:22,598 DEBUG [main] - org.apache.http.client.protocol.RequestAddCookies.process 123 - CookieSpec selected: default
+2017-10-10 01:13:22,621 DEBUG [main] - org.apache.http.client.protocol.RequestAuthCache.process 77 - Auth cache not set in the context
+2017-10-10 01:13:22,623 DEBUG [main] - org.apache.http.impl.conn.PoolingHttpClientConnectionManager.requestConnection 255 - Connection request: [route: {s}->https://westus.api.cognitive.microsoft.com:443][total kept alive: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+2017-10-10 01:13:22,652 DEBUG [main] - org.apache.http.impl.conn.PoolingHttpClientConnectionManager.leaseConnection 288 - Connection leased: [id: 0][route: {s}->https://westus.api.cognitive.microsoft.com:443][total kept alive: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+2017-10-10 01:13:22,655 DEBUG [main] - org.apache.http.impl.execchain.MainClientExec.execute 235 - Opening connection {s}->https://westus.api.cognitive.microsoft.com:443
+2017-10-10 01:13:22,793 DEBUG [main] - org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect 139 - Connecting to westus.api.cognitive.microsoft.com/40.112.254.71:443
+2017-10-10 01:13:22,794 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.connectSocket 337 - Connecting socket to westus.api.cognitive.microsoft.com/40.112.254.71:443 with timeout 0
+2017-10-10 01:13:23,495 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.createLayeredSocket 390 - Enabled protocols: [TLSv1, TLSv1.1, TLSv1.2]
+2017-10-10 01:13:23,495 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.createLayeredSocket 391 - Enabled cipher suites:[TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256, TLS_DHE_RSA_WITH_AES_128_CBC_SHA256, TLS_DHE_DSS_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDH_RSA_WITH_AES_128_CBC_SHA, TLS_DHE_RSA_WITH_AES_128_CBC_SHA, TLS_DHE_DSS_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256, TLS_DHE_RSA_WITH_AES_128_GCM_SHA256, TLS_DHE_DSS_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA, SSL_RSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA, SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA, SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA, TLS_EMPTY_RENEGOTIATION_INFO_SCSV]
+2017-10-10 01:13:23,496 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.createLayeredSocket 395 - Starting handshake
+2017-10-10 01:13:26,815 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.verifyHostname 425 - Secure session established
+2017-10-10 01:13:26,816 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.verifyHostname 426 -  negotiated protocol: TLSv1.2
+2017-10-10 01:13:26,816 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.verifyHostname 427 -  negotiated cipher suite: TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+2017-10-10 01:13:26,817 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.verifyHostname 435 -  peer principal: CN=*.cognitive.microsoft.com
+2017-10-10 01:13:26,823 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.verifyHostname 444 -  peer alternative names: [*.cognitive.microsoft.com, *.api.cognitive.microsoft.com, *.dev.cognitive.microsoft.com]
+2017-10-10 01:13:26,824 DEBUG [main] - org.apache.http.conn.ssl.SSLConnectionSocketFactory.verifyHostname 448 -  issuer principal: CN=Microsoft IT SSL SHA2, OU=Microsoft IT, O=Microsoft Corporation, L=Redmond, ST=Washington, C=US
+2017-10-10 01:13:26,835 DEBUG [main] - org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect 146 - Connection established 192.168.0.102:51772<->40.112.254.71:443
+2017-10-10 01:13:26,835 DEBUG [main] - org.apache.http.impl.execchain.MainClientExec.execute 256 - Executing request GET /academic/v1.0/evaluate?expr=And%28And%28Ti%3D%27a+relational+model+of+data+for+large+shared+data+banks%27%2CComposite%28AA.AuN%3D%3D%27e+f+codd%27%29%29%2CY%3D1970%29&model=latest&attributes=Id%2CRId%2CTi%2CY%2CCC%2CAA.AuN%2CAA.AuId%2CJ.JN%2CJ.JId%2CC.CN%2CC.CId%2CS.U%2CVSN&count=5&offset=0 HTTP/1.1
+2017-10-10 01:13:26,836 DEBUG [main] - org.apache.http.impl.execchain.MainClientExec.execute 261 - Target auth state: UNCHALLENGED
+2017-10-10 01:13:26,837 DEBUG [main] - org.apache.http.impl.execchain.MainClientExec.execute 267 - Proxy auth state: UNCHALLENGED
+2017-10-10 01:13:26,839 DEBUG [main] - org.apache.http.headers.onRequestSubmitted 133 - http-outgoing-0 >> GET /academic/v1.0/evaluate?expr=And%28And%28Ti%3D%27a+relational+model+of+data+for+large+shared+data+banks%27%2CComposite%28AA.AuN%3D%3D%27e+f+codd%27%29%29%2CY%3D1970%29&model=latest&attributes=Id%2CRId%2CTi%2CY%2CCC%2CAA.AuN%2CAA.AuId%2CJ.JN%2CJ.JId%2CC.CN%2CC.CId%2CS.U%2CVSN&count=5&offset=0 HTTP/1.1
+2017-10-10 01:13:26,839 DEBUG [main] - org.apache.http.headers.onRequestSubmitted 136 - http-outgoing-0 >> Ocp-Apim-Subscription-Key: dbe029f01ce145f5a41390c981f3bfc5
+2017-10-10 01:13:26,840 DEBUG [main] - org.apache.http.headers.onRequestSubmitted 136 - http-outgoing-0 >> Host: westus.api.cognitive.microsoft.com
+2017-10-10 01:13:26,840 DEBUG [main] - org.apache.http.headers.onRequestSubmitted 136 - http-outgoing-0 >> Connection: Keep-Alive
+2017-10-10 01:13:26,840 DEBUG [main] - org.apache.http.headers.onRequestSubmitted 136 - http-outgoing-0 >> User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_131)
+2017-10-10 01:13:26,841 DEBUG [main] - org.apache.http.headers.onRequestSubmitted 136 - http-outgoing-0 >> Accept-Encoding: gzip,deflate
+2017-10-10 01:13:26,841 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 >> "GET /academic/v1.0/evaluate?expr=And%28And%28Ti%3D%27a+relational+model+of+data+for+large+shared+data+banks%27%2CComposite%28AA.AuN%3D%3D%27e+f+codd%27%29%29%2CY%3D1970%29&model=latest&attributes=Id%2CRId%2CTi%2CY%2CCC%2CAA.AuN%2CAA.AuId%2CJ.JN%2CJ.JId%2CC.CN%2CC.CId%2CS.U%2CVSN&count=5&offset=0 HTTP/1.1[\r][\n]"
+2017-10-10 01:13:26,842 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 >> "Ocp-Apim-Subscription-Key: dbe029f01ce145f5a41390c981f3bfc5[\r][\n]"
+2017-10-10 01:13:26,842 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 >> "Host: westus.api.cognitive.microsoft.com[\r][\n]"
+2017-10-10 01:13:26,842 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+2017-10-10 01:13:26,842 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 >> "User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_131)[\r][\n]"
+2017-10-10 01:13:26,843 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+2017-10-10 01:13:26,843 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 >> "[\r][\n]"
+2017-10-10 01:13:27,014 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "HTTP/1.1 200 OK[\r][\n]"
+2017-10-10 01:13:27,014 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "Content-Length: 403[\r][\n]"
+2017-10-10 01:13:27,015 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "Content-Type: application/json[\r][\n]"
+2017-10-10 01:13:27,015 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "Request-Context: appId=cid-v1:7cd06f0e-6d73-46a5-9c10-4ebe681d0156[\r][\n]"
+2017-10-10 01:13:27,015 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "X-Powered-By: ASP.NET[\r][\n]"
+2017-10-10 01:13:27,016 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "apim-request-id: 23d657b3-09d3-472d-ac98-288003f43273[\r][\n]"
+2017-10-10 01:13:27,016 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "Strict-Transport-Security: max-age=31536000; includeSubDomains; preload[\r][\n]"
+2017-10-10 01:13:27,017 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "x-content-type-options: nosniff[\r][\n]"
+2017-10-10 01:13:27,017 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "Date: Mon, 09 Oct 2017 23:13:25 GMT[\r][\n]"
+2017-10-10 01:13:27,017 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "[\r][\n]"
+2017-10-10 01:13:27,018 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "{[\n]"
+2017-10-10 01:13:27,018 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << ""expr":"And(And(Ti='a relational model of data for large shared data banks',Composite(AA.AuN=='e f codd')),Y=1970)",[\n]"
+2017-10-10 01:13:27,018 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << ""entities":[\n]"
+2017-10-10 01:13:27,019 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "[[\n]"
+2017-10-10 01:13:27,019 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "{"logprob":-17.699,"Id":2165467455,"Ti":"a relational model of data for large shared data banks","Y":1970,"CC":4882,"RId":[1984820433,2104880663,2088549934,2022843269,2044618373,14947753],"AA":[{"AuN":"e f codd","AuId":1972300922}],"J":{"JN":"cacm","JId":103482838}}][\n]"
+2017-10-10 01:13:27,020 DEBUG [main] - org.apache.http.wire.wire 73 - http-outgoing-0 << "}[\n]"
+2017-10-10 01:13:27,024 DEBUG [main] - org.apache.http.headers.onResponseReceived 122 - http-outgoing-0 << HTTP/1.1 200 OK
+2017-10-10 01:13:27,024 DEBUG [main] - org.apache.http.headers.onResponseReceived 125 - http-outgoing-0 << Content-Length: 403
+2017-10-10 01:13:27,025 DEBUG [main] - org.apache.http.headers.onResponseReceived 125 - http-outgoing-0 << Content-Type: application/json
+2017-10-10 01:13:27,025 DEBUG [main] - org.apache.http.headers.onResponseReceived 125 - http-outgoing-0 << Request-Context: appId=cid-v1:7cd06f0e-6d73-46a5-9c10-4ebe681d0156
+2017-10-10 01:13:27,025 DEBUG [main] - org.apache.http.headers.onResponseReceived 125 - http-outgoing-0 << X-Powered-By: ASP.NET
+2017-10-10 01:13:27,025 DEBUG [main] - org.apache.http.headers.onResponseReceived 125 - http-outgoing-0 << apim-request-id: 23d657b3-09d3-472d-ac98-288003f43273
+2017-10-10 01:13:27,026 DEBUG [main] - org.apache.http.headers.onResponseReceived 125 - http-outgoing-0 << Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+2017-10-10 01:13:27,026 DEBUG [main] - org.apache.http.headers.onResponseReceived 125 - http-outgoing-0 << x-content-type-options: nosniff
+2017-10-10 01:13:27,026 DEBUG [main] - org.apache.http.headers.onResponseReceived 125 - http-outgoing-0 << Date: Mon, 09 Oct 2017 23:13:25 GMT
+2017-10-10 01:13:27,034 DEBUG [main] - org.apache.http.impl.execchain.MainClientExec.execute 285 - Connection can be kept alive indefinitely
+2017-10-10 01:13:36,572 DEBUG [main] - org.apache.http.impl.conn.PoolingHttpClientConnectionManager.releaseConnection 320 - Connection [id: 0][route: {s}->https://westus.api.cognitive.microsoft.com:443] can be kept alive indefinitely
+2017-10-10 01:13:36,572 DEBUG [main] - org.apache.http.impl.conn.PoolingHttpClientConnectionManager.releaseConnection 326 - Connection released: [id: 0][route: {s}->https://westus.api.cognitive.microsoft.com:443][total kept alive: 1; route allocated: 1 of 2; total allocated: 1 of 20]

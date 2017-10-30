@@ -1,0 +1,405 @@
+
+UniqueId,paperID:ID,Title,PublishInYear:int,Journal Id,Journal Name,Conference Series Id,Conference Series Name,Source URL,Venue Short Name,TimestampAdded,TimestampLastVisited,TimestampMod,:LABEL
+20171030024136-001-01-3,2165467455,a relational model of data for large shared data banks,1970,null,null,null,null,null,null,2017-10-3014:41:41,2017-10-3014:41:41,2017-10-3014:41:41,paper
+20171030024136-001-01-7,2165768634,adaptive query processing,2007,null,null,null,null,null,null,2017-10-3014:41:43,2017-10-3014:41:43,2017-10-3014:41:43,paper
+20171030024136-001-01-39,2168753403,resource space model its design method and applications,2004,null,null,null,null,null,null,2017-10-3014:41:43,2017-10-3014:41:43,2017-10-3014:41:43,paper
+20171030024136-001-01-71,2027750453,a language facility for designing database intensive applications,1980,null,null,null,null,null,null,2017-10-3014:41:43,2017-10-3014:41:43,2017-10-3014:41:43,paper
+20171030024136-001-01-4,1978282744,decomposing constraint satisfaction problems using database techniques,1994,null,null,null,null,null,null,2017-10-3014:41:43,2017-10-3014:41:43,2017-10-3014:41:43,paper
+20171030024136-001-01-36,2015109938,mining product maps for new product development,2008,null,null,null,null,null,null,2017-10-3014:41:43,2017-10-3014:41:43,2017-10-3014:41:43,paper
+20171030024136-001-01-10,2050465692,relational database a practical foundation for productivity,1982,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-42,2141701343,quorumpeps database chemical space microbial origin and functionality of quorum sensing peptides,2013,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-74,2032328887,using uml to model relational database operations,2007,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-7,1996941236,extended resource space model,2005,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-39,2060028997,spatiotemporal reasoning about epidemiological data,2006,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-71,2044108498,functional and embedded dependency inference a data mining point of view,2001,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-4,1997764051,finding fuzzy and gradual functional dependencies with summarysql,1999,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-36,2012078943,the semijoin algebra and the guarded fragment,2005,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-68,2117701113,a relational database for bibliometric analysis,2010,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-1,1983184768,model calcium sensors for network homeostasis sensor and readout parameter analysis from a database of model neuronal networks,2010,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-33,2204102041,an incident database for improving metro safety the case of shanghai,2016,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-65,2013984441,the expressive power of stratified logic programs with value invention,1998,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-97,1492988898,database management a survey,1989,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-30,2616271757,polyfuse a large scale hybrid data fusion system,2017,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-62,2516469144,unified data management for distributed experiments a model for collaborative grassroots scientific networks,2016,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-94,2491194948,design semantics on accessibility in unstructured data environments,2016,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-27,2026529490,owl schema matching,2010,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-59,1987512054,using gis to design a traffic information database for urban transport planning,1997,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-91,1983808534,perspectives in deductive databases,1988,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-24,2274584817,relational lattices via duality,2016,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-56,1963987932,mining marketing maps for business alliances,2008,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-88,2080747326,graph transformations and software engineering success stories and lost chances,2013,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-21,2157266858,autolabdb a substantial open source database schema to support a high throughput automated laboratory,2012,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-53,2122222257,logic programming and parallel complexity,1986,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-85,2063645305,candidate keys for relations,1978,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-18,1938446369,foundations for a fourth normal form over sql like databases,2012,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-50,2054577392,data schema evolution support in xml relational database systems,2008,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-82,2018843580,derivation digraphs for dependencies in ordinal and similarity based data,2014,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-15,2232563301,uncertainty representation and reasoning in the semantic web,2008,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-47,1984112214,synthesis of unnormalized relations incorporating more meaning,1983,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-79,8899338,interactively eliciting database constraints and dependencies,2011,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-12,1995266699,the development of a forestry geodatabase for natural forest management plans in costa rica,2014,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-44,2063323989,algebraic and calculus query languages for recursively typed complex objects,1993,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-76,2609335432,embeddability into relational lattices is undecidable,2017,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-9,2013973629,efficient self simulation algorithms for reconfigurable arrays,1986,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-41,2016282341,a comparison between algebraic query languages for flat and nested databases,1991,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-73,1503896613,database centric chain of custody in biometric forensic systems,2011,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-6,2016909265,ordered functional dependencies in relational databases,1999,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-38,2082395701,interactions between dependencies and nested relational structures,1985,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-70,2067573922,integrating relational databases and constraint languages,1989,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-3,2080293297,suxess towards a sound unification of extensions of the relational data model,1991,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-35,1995311648,storage cost considerations in secondary index selection,1975,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-67,2171686235,design and implementation of an extended relationship semantics in an odmg compliant oodbms,2005,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-0,2148224250,a database oriented approach to gis designing,2009,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-32,2559789746,strategies to reconstruct 3d coffea arabica l plant structure,2016,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-64,2050339452,modelling an information system using the merise method for agricultural research the example of a database for a study on performances in dairy cows,1992,null,null,null,null,null,null,2017-10-3014:41:45,2017-10-3014:41:45,2017-10-3014:41:45,paper
+20171030024136-001-01-52,2044652416,regular sequence operations and their use in database queries,1998,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-84,2009318529,a software environment for image database research,1992,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-17,2103070443,perfect error correcting databases,1990,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-49,1971095985,a grammar of integrity constraints in medical documentation systems,2007,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-81,2044837959,requesting heterogeneous data sources with array comprehensions in hop js,2015,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-14,1945780399,ceradat prototype of a web based relational database for archaeological ceramics,2012,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-46,2256084069,temporal data management and processing with column oriented nosql databases,2015,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-78,2076557592,equivalence and transformation of extended algebraic operators in fuzzy relational databases,2006,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-11,2015894067,an automated tool for relational database design,1989,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-43,1976417244,a new efficient and flexible algorithm for the design of testable subsystems,2010,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-75,2053059053,the complexity of evaluating relational queries,1984,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-8,2045017805,an enhanced construction specific sql,1994,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-40,1904102306,declarations of significance exploring the pragmatic nature of information models,2017,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-72,2087762073,multiple views and abstractions with an extended entity relationship model,1979,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-5,1982079276,structured systems analysis and design method ssadm,1988,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-37,2079445843,on the size of nonredundant fd covers,1987,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-69,2064615874,algebraic semantics of er models in the context of the calculus of relations,2003,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-2,2152795158,object data models,2009,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-34,2617573710,relational databases and biomedical big data,2017,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-66,1968854547,the database designer s workbench,1984,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-98,2082100731,an analysis of multivalued and join dependencies based on the entity relationship approach,1985,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-31,2061304372,a conceptual schema based temporal meta database schemas generation technique for 3d objects,2010,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-63,1998654922,the interaction of integrity constraints in an information system,1980,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-95,2064318029,deriving narrow syntax through constraints on information structure a parallel between linguistic models of displacement and database theory,2008,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-28,2055711191,the automatic generation of test data for a relational database,1983,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-60,2070417127,data schemata based on directed graphs,1979,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-92,1594207043,spatial data management in gis and the coupling of gis and environmental models,2014,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-25,1992747918,database technology in health care,1981,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-57,1995034227,a representation construct for roles,1985,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-89,1967580916,a straightforward formalization of the relational model,1985,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-22,2094959028,composite index in ddbms,1988,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-54,2028563211,formal aspects of the relational model,1978,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-86,1538638223,4 database systems,1993,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-19,2005477342,intelligent support for systems development the notion and the issues,1992,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-51,2055013820,issues in query model design in object oriented database systems,1991,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-83,2567445385,predicting product choice with symbolic regression and classification,2016,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-16,2059849575,an algebra of probability over finite product spaces with applications,1990,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-48,2117062398,spaces of information modeling action and decision making,2012,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-80,287018271,chapter 8 storage systems,2013,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-13,2069371041,relational algebraic framework for the modelling and analysis of petri nets,1995,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-45,2010613120,entwurf einer informationsstruktur fur die materialbedarfsermittlung auf der grundlage objektorientierter datenbanksysteme,1992,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-77,2029203269,convertibility in databases,1980,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-10,2033592565,roles and their role in posing recursive queries,1990,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-42,2016329518,an entity oriented data model mix,1991,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-74,2019282915,anunet the australian national university network structure functions and developments,1980,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-7,1676810881,4 understanding development methodologies,2011,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-39,999440596,15 physical database considerations,2011,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-71,1967957760,microcomputer implementations of an object oriented multiprocessing database programming language,1989,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-4,2072233670,the simplification of data processing systems,1974,null,null,null,null,null,null,2017-10-3014:41:48,2017-10-3014:41:48,2017-10-3014:41:48,paper
+20171030024136-001-01-72,1966415209,the organization and use of information contributions of information science computational linguistics and artificial intelligence,1981,null,null,null,null,null,null,2017-10-3014:41:51,2017-10-3014:41:51,2017-10-3014:41:51,paper
+20171030024136-001-01-65,2116436709,system r relational approach to database management,1976,null,null,null,null,null,null,2017-10-3014:41:53,2017-10-3014:41:53,2017-10-3014:41:53,paper
+20171030024136-001-01-62,2014575573,semantics preserving sparql to sql translation,2009,null,null,null,null,null,null,2017-10-3014:41:53,2017-10-3014:41:53,2017-10-3014:41:53,paper
+20171030024136-001-01-59,1985239372,database repairing and consistent query answering,2011,null,null,null,null,null,null,2017-10-3014:41:53,2017-10-3014:41:53,2017-10-3014:41:53,paper
+20171030024136-001-01-56,1560510652,a hybrid row column oltp database architecture for operational reporting,2008,null,null,null,null,null,null,2017-10-3014:41:53,2017-10-3014:41:53,2017-10-3014:41:53,paper
+20171030024136-001-01-53,2062564438,ontologies versus relational databases are they so different a comparison,2012,null,null,null,null,null,null,2017-10-3014:41:53,2017-10-3014:41:53,2017-10-3014:41:53,paper
+20171030024136-001-01-50,2000738254,an extensible and active semantic model of information organizing for the internet of things,2014,null,null,null,null,null,null,2017-10-3014:41:53,2017-10-3014:41:53,2017-10-3014:41:53,paper
+20171030024136-001-01-47,2070411573,grey sets and greyness,2012,null,null,null,null,null,null,2017-10-3014:41:53,2017-10-3014:41:53,2017-10-3014:41:53,paper
+20171030024136-001-01-44,2102759215,using customer knowledge in designing electronic catalog,2008,null,null,null,null,null,null,2017-10-3014:41:53,2017-10-3014:41:53,2017-10-3014:41:53,paper
+20171030024136-001-01-40,1990042298,a database of computational models of a half center oscillator for analyzing how neuronal parameters influence network activity,2011,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-37,1975458495,algorithmic program synthesis introduction,2013,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-34,1993796605,mining customer knowledge for electronic catalog marketing,2004,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-31,1989329332,pacsy a relational database management system for protein structure and chemical shift analysis,2012,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-28,2027386927,distinguishing and contrasting two strategies for design science research,2015,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-25,2070712658,differential privacy for relational algebra improving the sensitivity bounds via constraint systems,2012,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-22,2085721207,evaluating event visualization a usability study of coplink spatio temporal visualizer,2005,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-19,2047759722,adding decision support to workflow systems by reusable standard software components,2002,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-16,1989267168,queries with arithmetical constraints,1997,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-13,1500369165,how to formalize it formalization principles for information system development methods,1997,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-10,1964807114,a uml profile for the conceptual modelling of structurally complex data,2014,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-7,2073650102,the role of task analysis in systems design,1992,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-4,2170980999,on expanding the scope of design science in is research,2011,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-1,2135327836,creating socially networked knowledge through interdisciplinary collaboration,2012,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-97,1596906225,insect biodiversity in the afrotropical region,2009,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-94,2084592962,normalization based on fuzzy functional dependency in a fuzzy relational data model,1996,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-91,2064845711,toward a model of representation changes,1980,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-88,2024392593,querying moving events in wireless sensor networks,2015,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-85,2053293422,multi level security in database management systems,1987,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-82,1585796231,a time bound on the materialization of some recursively defined views,1985,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-79,2078590814,temporal semantics in information systems a survey,1992,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-76,2089795755,fuzzy conditional probability relations and their applications in fuzzy information systems,2004,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-73,2080040283,simple and safe sql queries with c templates,2010,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-70,2314037522,artificial intelligence in manufacturing planning and control,1980,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-67,2111743019,guidelines for representing complex cardinality constraints in binary and ternary relationships,2013,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-64,2504458531,syntax deep explorer,2016,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-61,1978694557,development of web based analysis system for real time decision support on arterial networks,2011,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-58,2007203829,the time dimension in conceptual modelling,1991,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-55,2092058806,adds a system for automatic database schema design based on the binary relationship model,1987,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-52,2065555837,the dependency preserving decomposition and a testing algorithm in a fuzzy relational data model,1995,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-49,1969368990,temporal aspects of logical procedure definition,1980,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-46,1569224571,a skeleton design theory for spatial data infrastructure,2009,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-43,2140157077,dynamic relational behaviour for large scale systems,2009,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-40,2015455166,an object oriented data model formalised through hypergraphs,1991,null,null,null,null,null,null,2017-10-3014:41:55,2017-10-3014:41:55,2017-10-3014:41:55,paper
+20171030024136-001-01-44,1986644012,role of data dictionaries in information resource management,1986,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-41,2043098786,architecture of distributed data base systems,1989,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-38,170143110,chapter 3 a practitioner s guide to data management and data integration in bioinformatics,2003,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-35,2004291479,logical foundations for database systems,1979,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-32,2189324248,concept oriented query language,2014,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-29,1985779625,logical aspects of learning concepts,1988,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-26,2007506522,on the number of databases and closure operations,1991,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-23,2031994147,integrating and mining distributed environmental archives on grids,2007,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-20,176406507,john mylopoulos sewing seeds of conceptual modelling,2009,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-17,2069597938,the powerset algebra as a natural tool to handle nested database relations,1992,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-14,1979809504,an integrated framework for enterprise modeling,1992,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-11,2330383524,the relational database system of km3net,2016,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-8,1999046676,normal forms and syntactic completeness proofs for functional independencies,2001,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-5,2049782102,identifying cognitive categories the basis for interpretative data analysis within soft systems methodology,1993,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-2,2074413209,anql an active networks query language,2006,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-98,1974974389,domains and semantic integrity,1990,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-95,2574964711,conceptualizing the silent risk of inadvertent information leakages,2017,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-92,2562829479,daten informationen und wissen,2017,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-89,2092495453,adequacy of decompositions of relational databases,1980,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-86,1985470198,minimalism justification and non monotonicity in deductive databases,1989,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-83,2743021819,big data management challenges in health research a literature review,2017,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-80,2053132910,a computer system for big scientometrics at the age of the world wide web,1997,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-77,36535456,bcnf via attribute splitting,2012,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-74,1585679332,literacy and data modeling,2010,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-71,2064709777,pseudofinite homogeneity isolation and reducibility,2007,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-68,2089210350,on the complementation rule for multivalued dependencies in database relations,1978,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-65,2015323293,management of complex immunogenetics information using an enhanced relational model,1991,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-62,2330801940,enhanced document traceability for development of complex high integrity software systems,2005,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-59,2148420033,development of a versatile database for transport properties of foods,2009,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-56,2003795441,navigational facilities for relational database,1983,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-53,2037875188,general transitive closure of relations containing duplicates,1990,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-50,2440099138,verfahren und werkzeuge zur informationsmodellierung,2016,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-47,2508200097,algebra of rdf graphs for querying large scale distributed triple store,2016,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-44,2133696345,databases on the web,2004,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-41,1991488198,data decay significance and confidentiality a time oriented data model for comprehensive care,1981,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-38,1966387298,cardiocod a query data base for clinical cardiology,1981,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-35,967932580,13 developing applications in corporate finance an object oriented database management approach,2002,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-32,2015784425,technical strategy for laboratory information management systems,1994,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-29,2094305813,logical design of data base systems,1989,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-26,2040911760,on characterizing boundedness of database schemes with bounded dependencies,1992,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-23,2035340860,on the design of a micro based mrp system a relational database approach,1988,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-20,1978993050,datalog extension for nested relations,1995,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-17,2126467979,a theory of well connected relations,1979,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-14,1992094834,the use of ai methodologies in production system modeling,1990,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-11,2087188217,formalization of algorithmic knowledge of object domains in terms of the algebra of algorithmics,2007,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-8,1996742209,applying simple theory of types to data bases,1981,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-5,1964739589,relational storage and processing of two dimensional diagrams,1985,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-2,1980257440,a graphical interpretation of dependency structures in relational data bases,1981,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-98,1979186433,polynomial tests of normal forms and some related results,1992,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-95,2035647727,structure of closures in relational schemas with join and functional dependencies,1991,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-92,2005290586,query by forms user oriented relational database retrieving system and its application in analysis of experiment data,1989,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-89,2084780978,data sharing and access protection in business system 12,1985,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-86,2047804538,problems in data management when studying chronic illness,1981,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-83,2049687398,relational databases a theoretical primer,1989,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-80,2048688869,axiomatization of generalized functional dependences in relational data bases,1981,null,null,null,null,null,null,2017-10-3014:41:58,2017-10-3014:41:58,2017-10-3014:41:58,paper
+20171030024136-001-01-77,130849394,a network structure study of the errors in databases,1981,null,null,null,null,null,null,2017-10-3014:41:59,2017-10-3014:41:59,2017-10-3014:41:59,paper
+20171030024136-001-01-74,2087848323,a calculus for hierarchical data structures,1985,null,null,null,null,null,null,2017-10-3014:41:59,2017-10-3014:41:59,2017-10-3014:41:59,paper
+20171030024136-001-01-71,2057035973,representation of relations and transformations of their tables,1981,null,null,null,null,null,null,2017-10-3014:41:59,2017-10-3014:41:59,2017-10-3014:41:59,paper
+20171030024136-001-01-29,2140437372,information modeling in the time of the revolution,1998,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-20,2034262006,fundamental study the multiple facets of the canonical direct unit implicational basis,2010,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-11,2159970693,general database for ground water site information,2006,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-2,2137937634,the curation paradigm and application tool used for manual curation of the scientific literature at the comparative toxicogenomics database,2011,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-92,2050063781,modeling and processing information for context aware computing a survey,2009,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-83,1997651539,temporal data classification using linear classifiers,2011,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-74,2082948153,data modeling for precision dairy farming within the competitive field of operational and analytical tasks,2007,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-65,2093369250,designing oql allowing objects to be queried,1998,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-56,2056850868,a supply chain of things the eaglet ontology for highly visible supply chains,2014,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-47,2044797496,fuzzy relational algebra for possibility distribution fuzzy relational model of fuzzy data,1994,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-38,2017995536,full predicate coverage for testing sql database queries,2010,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-29,2337003914,data science accelerating innovation and discovery in chemical engineering,2016,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-20,2088051528,ontology based data access an application to intermodal logistics,2013,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-11,6235636,on the conceptualization of a modeling language for semantic model annotations,2011,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-2,39833282,dynamic program analysis for database reverse engineering,2013,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-92,2066994354,a complete axiomatization of fuzzy functional dependencies using fuzzy function,2005,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-83,2166686713,from tables to frames,2005,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-74,2037381552,finitely representable databases,1997,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-65,2177930498,model based programming environments for spreadsheets,2014,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-56,2394825370,query support for bims using semantic and spatial conditions,2010,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-47,2088986879,expressiveness in conceptual data modelling,1993,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-38,2075079862,a framework for user driven data management,2014,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-29,1565612662,history of computers electronic commerce and agile methods,2008,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-20,2125881715,microbial variome database point mutations adaptive or not in bacterial core genomes,2013,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-11,2112723494,organizing research data,2011,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-2,1961315249,incremental computations over strongly distributed databases,2016,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-92,2055459693,reasoning about functional and full hierarchical dependencies over partial relations,2013,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-83,1802964627,the boyce codd heath normal form for sql,2011,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-74,2150155841,introduction to the disrupt postprandial database subjects studies and methodologies,2010,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-65,2053128629,design and analysis of techniques for detection of malicious activities in database systems,2005,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-56,1591993086,flextable using a dynamic relation model to store rdf data,2010,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-47,1972810101,on specifying software quality,1992,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-38,2041106259,an access structure for similarity based fuzzy databases,1999,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-29,1781727213,querying incomplete data with logic programs er strikes back,2007,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-20,1981314915,environmental informatics for solid and hazardous waste management advances challenges and perspectives,2013,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-11,2604064110,formal architecture modeling of sequential non recursive c programs,2017,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-2,2075420857,the relational model beginning of an era,2012,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-92,2554100246,inclusion dependencies and their interaction with functional dependencies in sql,2017,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-83,2389779077,symbioses between mathematical logic and computer science,2016,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-74,1976184976,storing and querying fuzzy xml data in relational databases,2013,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-65,1963498955,transformations of structures an algebraic approach,1981,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-56,2040094720,decision support system based on the history of flood and flash flood events in romania,2013,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-47,2070985263,functional dependencies are helpful for partial materialization of data cubes,2015,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-38,2244913846,sql data profiling of foreign keys,2015,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-29,1973716249,conceptual independence,2015,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-20,17135638,armstrong databases and reasoning for functional dependencies and cardinality constraints over partial bags,2012,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-11,2045388911,an expert system helps students learn database design,2005,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-2,1921474118,form ing institutional order the scaffolding of lists and identifiers,2016,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-92,2401355428,data storage and index models for graph databases,2011,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-83,2087257109,temporally oriented data definitions managing schema evolution in temporally oriented databases,1991,null,null,null,null,null,null,2017-10-3014:42:35,2017-10-3014:42:35,2017-10-3014:42:35,paper
+20171030024136-001-01-49,1978684550,a meta analysis comparing relational and semantic models,2011,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-40,2040230066,the relational database and the concept of the information system,2012,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-31,2089045415,a temporal object relational sql language with attribute timestamping in a temporal transparency environment,2008,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-22,2094323421,a data model for use with formatted and textual data,1986,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-13,2029702962,digital system for detecting classifying and fast retrieving corrosion generated defects,2001,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-4,2748055990,development of a knowledge base to support the consideration of groundwater protection in land use planning,2017,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-94,309331400,incorporating fuzziness in spatiotemporal xml and transforming fuzzy spatiotemporal data from xml to relational databases,2015,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-85,1983330561,gdb a tool to build deductive rules using a fuzzy relational database with scientific data,2008,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-76,1988853405,information systems records relations sets entities and things,1975,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-67,2091581556,inferences of multivalued dependencies in fixed and undetermined universes,1980,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-58,1986184516,foundations of relational similarity based query language resiql,2013,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-49,2093036286,weak n ary relational products in allegories,2014,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-40,1963792873,a practical approach to transforming extended er diagrams into the relational model,1987,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-31,2026513495,a database for qa qc in neutron activation analysis and gamma ray spectrometry,2007,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-22,2268505604,invariance of keys with respect to operations of table algebras,2015,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-13,2294929612,anatomy of functional components of healthcare information system,2015,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-4,1991107856,semantic data modelling and visualisation using noetica,2000,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-94,1975964053,mapping external views to a common data model,1978,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-85,1988955321,user models and world models for data information and knowledge,1989,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-76,2069467331,the design and implementation of a relational materials property data base,1988,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-67,1505505691,chapter one bioinformatics and computational biology for plant functional genomics,2002,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-58,2035423550,procedural and non procedural query languages revisited a comparison of relational algebra and relational calculus,1987,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-49,2604520757,semantic interoperability at big data scale with the open62541 opc ua implementation,2016,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-40,2489226218,semantic web services composition with case based reasoning,2011,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-31,2738787306,intuitionistic logic programming for sql,2016,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-22,2063324219,a model for optimizing indexed file structures,1974,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-13,1997726903,archetypal personalized recommender system for mobile phone users,2013,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-4,2110899919,succinctness in dependency systems,1983,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-94,1981895658,dependency preservation in semantic databases,1994,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-85,1996200798,a system to support high level data description and manipulation of an operational data base system,1976,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-76,2021805180,comparison of expressive power of some query languages for databases,2011,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-67,2022184075,algebraic algorithmic means for designing knowledge of object domains,2009,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-58,1584150229,model based data engineering for distributed simulations,2012,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-49,1970428406,linguistic approach to database theory ddl s for hierarchical model,1978,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-40,2610756041,technique for transformation of data from rdb to xml then to rdf,2017,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-31,1965484929,an alternative way to represent the cogroup of a relation in the context of nested databases,1989,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-22,2483305869,conventional and non conventional data modeling,2013,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-13,2048071707,grammars which describe large bodies of data,1978,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-4,160776894,protosystem 1 an automatic programming system prototype,1986,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-94,1983440936,on intelligent database systems,1992,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-85,2071966220,data definition and manipulation languages for a cad database,1983,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-76,1540100759,grundlagen einer theorie der datenstrukturen und zugriffssysteme,1975,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-67,2003196490,a sound and complete axiomatization of embedded cross dependencies,1984,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-58,2483248636,history of databases,2016,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-49,2488950806,31 hard constraints,2015,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-40,2050050023,organization and management of a database in the respiratory physiology,1990,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-31,2199398259,the architecture of a data processing system to support statistical studies,1984,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-22,2607735755,database dbms and data model,2004,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-13,2073541168,extremal problems in relational data bases,1985,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-4,2118797263,a table oriented database prolog system,1989,null,null,null,null,null,null,2017-10-3014:42:38,2017-10-3014:42:38,2017-10-3014:42:38,paper
+20171030024136-001-01-91,2737146846,finite information agency,2017,null,null,null,null,null,null,2017-10-3014:42:40,2017-10-3014:42:40,2017-10-3014:42:40,paper
+20171030024136-001-01-95,2114507260,survey of graph database models,2008,null,null,null,null,null,null,2017-10-3014:42:42,2017-10-3014:42:42,2017-10-3014:42:42,paper
+20171030024136-001-01-60,2123418328,web technologies for environmental big data,2015,null,null,null,null,null,null,2017-10-3014:42:42,2017-10-3014:42:42,2017-10-3014:42:42,paper
+20171030024136-001-01-9,2092842298,logic and databases a deductive approach,1984,null,null,null,null,null,null,2017-10-3014:42:44,2017-10-3014:42:44,2017-10-3014:42:44,paper
+20171030024136-001-01-73,2130872776,principles of programming with complex objects and collection types,1995,null,null,null,null,null,null,2017-10-3014:42:44,2017-10-3014:42:44,2017-10-3014:42:44,paper
+20171030024136-001-01-38,2068026167,microsimulation a survey of principles developments and applications,1991,null,null,null,null,null,null,2017-10-3014:42:44,2017-10-3014:42:44,2017-10-3014:42:44,paper
+20171030024136-001-01-78,2099525917,a framework for testing dbms features,2010,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-43,2129918481,bimql an open query language for building information models,2013,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-8,2079399699,using semantic networks for data base management,1975,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-72,2006633728,neurosys a semistructured laboratory database,2003,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-37,2120948145,towards the implementation of a generalized fuzzy relational database model,1995,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-2,2032352315,implementing imprecision in information systems,1985,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-66,2518912002,modeling and interoperability of heterogeneous genomic big data for integrative processing and querying,2016,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-31,1975796366,discovering and exploiting statistical properties for query optimization in relational databases a survey,2009,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-95,2106619679,characterising nested database dependencies by fragments of propositional logic,2008,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-60,2018569661,ontological aspects of information modeling,1996,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-25,2182469000,concept oriented model,2014,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-89,2056299038,fuzzy rough set techniques for uncertainty processing in a relational database,2000,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-54,2077005267,towards a deductive object oriented database language,1990,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-19,1559962185,automating data exchange in process choreographies,2015,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-83,2083641979,cardinality constraints in semantic data models,1993,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-48,2030743401,comparing a rule based approach with a pattern based approach at different levels of complexity of conceptual data modelling tasks,2004,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-13,2000025733,estimating record selectivities,1983,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-77,2079595337,prediction of irrigation return flows through a hierarchical modeling approach,2009,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-42,1990855883,functional dependencies in relational databases a lattice point of view,1992,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-7,2118676023,chapter 6 the kleisli query system as a backbone for bioinformatics data integration and analysis,2003,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-71,2760481745,framework for ontology driven decision making,2017,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-36,2091849010,negation in rule based database languages a survey,1991,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-1,2183519765,relational division in rank aware databases,2016,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-65,2131935659,automatic optimized discovery creation and processing of astronomical catalogs,2013,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-30,2008191602,privacy leakage in multi relational databases a semi supervised learning perspective,2006,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-94,2031460417,normal design algebra,2010,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-59,2233864206,measuring semantic based structural similarity in multi relational networks,2016,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-24,1517591738,vagueness and roughness,2008,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-88,2019949936,design with objects an approach to object oriented design,1998,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-53,2067631864,complex objects for relational databases,1990,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-18,1539983305,biql a query language for analyzing information networks,2012,null,null,null,null,null,null,2017-10-3014:42:47,2017-10-3014:42:47,2017-10-3014:42:47,paper
+20171030024136-001-01-38,1987358974,a hyperknowledge framework of decision support systems,1994,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-3,1989673910,imas an integrated manufacturing data administration system,1988,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-67,2082747269,graqula a graphical query language for entity relationship or relational databases,1993,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-32,2747409681,logic and databases a history of deductive databases,2014,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-96,2057537938,constructing armstrong tables for general cardinality constraints and not null constraints,2015,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-61,1996935935,loose coupling of kaus with existing rdbmss,1990,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-26,2087515863,on the expressive power of the relational algebra,1978,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-90,2131259392,characterizing the result of the division of fuzzy relations,2005,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-55,2136150317,aldat a retrospective on a work in progress,2007,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-20,1761813188,approximate instance retrieval on ontologies,2010,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-84,2609030187,software development in relation algebra with ampersand,2017,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-49,2049709040,finite queries do not have effective syntax,1999,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-14,201227444,chapter 13 bioinformatics concepts methods and data,2014,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-78,47659085,maximum segment sum monadically distilled tutorial with solutions,2011,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-43,2063236246,insight into object oriented databases,1990,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-8,2593197694,big data technologies and management,2017,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-72,2150575980,the relational model in information retrieval,1981,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-37,2156999259,fuzzy identification in fuzzy databases the nuanced relational division,1994,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-2,1975966225,approaches to deductive object oriented databases,1992,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-66,2273471938,reducing the search space by closure and simplification paradigms,2017,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-31,1964053375,a relational rock mechanics database scheme with a hierarchical structure,2011,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-95,1995404223,from orthogonal projections to a generalized quantum search,2013,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-60,2041118191,efficient representation and algebraic manipulation of infinite relations in paraconsistent databases,2000,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-25,2013877038,er modelling from first relational principles,2004,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-89,2575089608,the semiotics of configurations for the immanent design of interactive computational systems,2017,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-54,2012808855,capturing chemical information in an extended relational database system,1988,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-19,2073950437,the world as database on the relation of software development query methods and interpretative independence,2012,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-83,2487612957,evolutionary database design enhancing data abstraction through database modularization to achieve graceful schema evolution,2016,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-48,2270335673,exact learning of multivalued dependencies,2015,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-13,1908227512,optimal covers in the relational database model,2016,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-77,2090799017,extending semantic object model towards more unified view of information objects,1991,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-42,2051065032,correctness of semantic integrity checking in database management systems,1988,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-7,2005968860,on the integration of data and mathematical modeling languages,1992,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-71,2077156984,access synchronization and deadlock analysis in database systems an implementation oriented approach,1975,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-36,2050636943,an information system to support collaborative brain tumor research,1997,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-1,2104127688,an improved division operator for relational algebra,1989,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-65,2074350464,the implementation of a standard irds repository for the tasis software engineering environment,1992,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-30,2084309704,databases and expert systems for high temperature corrosion and coatings,1993,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-94,2076836287,geo link correlations of heterogeneous geo spatial entities,2014,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-59,2048954306,taxonomy and formal properties of distributed joins,1986,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-24,2008129477,a processing algorithm for master detail records in a relational database,1987,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-88,2004984830,an interactive fashion design system infads,1975,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-53,2051190538,on the number of candidate keys,1978,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-18,2060304179,minimal lossless decompositions and some normal forms between 4nf and pj nf,1998,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-82,2011613137,familial model of data,1984,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-47,2068100443,optimizing the evaluation of calculus expressions in a relational database system,1980,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-12,1966810531,coping with indefinite and negative data in deductive databases a survey,1987,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-76,2317897117,from semantic data models to object orientation in design,1989,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-41,1992452199,membership problem for embedded multivalued dependencies under some restricted conditions,1983,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-6,1968297926,genpro automatic generation of prolog clause files for knowledge based systems in the biomedical sciences,1989,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-70,2031354460,towards an information retrieval language based on a relational view of data,1977,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-35,1982731436,automatic process design from nonprocedural specification,1995,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-0,2078540045,recent developments in the theory of data structures,1978,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-64,2075446321,application of a model of abstraction to spatial data modelling,1992,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-29,2509355130,algorithms for database keys discovery assistance,2016,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-93,2058150235,database user interfaces in a scientific environment,1990,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-58,161165287,logical inference as an aid to analysis in large databases,1981,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-23,2019943666,process model and resource management in a distributed database,1982,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-87,2043605040,bradford musical instrument simulator and workstation,1988,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-52,2045030167,shelter s donor datamart,2001,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-17,2014399947,a prescriptive database interface methodology for end users,1982,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-81,1976624535,a comparison of join operations in dbase iv,1991,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-46,1040508663,chapter 4 databases and database management,1992,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper
+20171030024136-001-01-11,91334535,the application of parallelism in commercial dynamic information systems the forth clyde project,1991,null,null,null,null,null,null,2017-10-3014:42:50,2017-10-3014:42:50,2017-10-3014:42:50,paper

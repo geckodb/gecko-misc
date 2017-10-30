@@ -1,0 +1,6 @@
+2017-10-04 10:59:35,093 DEBUG [main] - edu.ovgu.coddsgraph.CoddsGraph.CrawlAndIndex.loadToListFromFiles 725 - Loading of Id's from file started..
+2017-10-04 10:59:49,904 DEBUG [main] - edu.ovgu.coddsgraph.CoddsGraph.CrawlAndIndex.loadToListFromFiles 746 - Id's from file is loaded to list.
+2017-10-04 10:59:54,335 DEBUG [main] - edu.ovgu.coddsgraph.CoddsGraph.CrawlAndIndex.loadToListFromFiles 725 - Loading of Id's from file started..
+2017-10-04 10:59:54,340 DEBUG [main] - edu.ovgu.coddsgraph.CoddsGraph.CrawlAndIndex.loadToListFromFiles 746 - Id's from file is loaded to list.
+2017-10-04 10:59:58,366 DEBUG [main] - edu.ovgu.coddsgraph.CoddsGraph.CrawlAndIndex.loadToListFromFiles 725 - Loading of Id's from file started..
+2017-10-04 10:59:58,372 DEBUG [main] - edu.ovgu.coddsgraph.CoddsGraph.CrawlAndIndex.loadToListFromFiles 746 - Id's from file is loaded to list.
