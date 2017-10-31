@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<deployment>
+    <cluster hostcount="1" sitesperhost="1" />
+    <partition-detection/>
+    <heartbeat/>
+    <ssl/>
+    <httpd enabled="true">
+        <jsonapi enabled="true"/>
+    </httpd>
+    <snapshot enabled="false"/>
+    <commandlog enabled="false">
+        <frequency/>
+    </commandlog>
+    <systemsettings>
+        <temptables/>
+        <snapshot/>
+        <elastic/>
+        <query timeout="2147483647"/>
+        <resourcemonitor>
+            <memorylimit size="20"/>
+  	    <disklimit>
+        	<feature name="snapshots" size="289"/>
+       	 	<feature name="commandlog" size="289"/>
+     	     </disklimit>
+        </resourcemonitor>	
+    </systemsettings>
+    <security/>
+</deployment>

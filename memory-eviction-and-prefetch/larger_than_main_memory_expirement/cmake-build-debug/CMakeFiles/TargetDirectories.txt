@@ -1,0 +1,3 @@
+/home/pegasus/Dokumente/work/COOPeR/code/main_memory_expirement/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/pegasus/Dokumente/work/COOPeR/code/main_memory_expirement/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/pegasus/Dokumente/work/COOPeR/code/main_memory_expirement/cmake-build-debug/CMakeFiles/tpch.dir
