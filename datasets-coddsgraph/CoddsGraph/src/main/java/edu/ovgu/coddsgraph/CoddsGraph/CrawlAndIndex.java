@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -65,7 +66,6 @@ public class CrawlAndIndex
 	private static int subscriptionKeyLimit;
 	static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH-mm");
 	static LocalDateTime now = LocalDateTime.now();
-	private static LocalDateTime startTime=LocalDateTime.now();
 	private static String isFirstCrawl;
 	private static Long startTimeInMilSec;
 	final static Logger logger = Logger.getLogger(CrawlAndIndex.class);
@@ -82,7 +82,6 @@ public class CrawlAndIndex
 		NUM_HOPS=Integer.parseInt(args[2]);
 		loadFromFilesRequired=args[3];
 		String temp="";
-		//int count=0;
 		IdsOfBatchResult=new HashMap<>();
 		IdsOfBatchQuery=new HashMap<>();
 		String JSONResult_seed="";
@@ -138,7 +137,7 @@ public class CrawlAndIndex
 			while(!nextHopFinished){
 				ScanResult<String> idsOfNextHop = jedis.sscan(Constants.IDSTOVISIT_IN_CURRENTHOP, cursor, countParams);
 				List<String> result = idsOfNextHop.getResult();
-				Iterator it=result.listIterator();
+				Iterator<String> it=result.listIterator();
 
 				while (it.hasNext()) {
 					if(!jsonreqobj.checkForTimeOut()){
@@ -190,7 +189,7 @@ public class CrawlAndIndex
 			List<String> result = scanResult.getResult();
 
 
-			Iterator it=result.listIterator();
+			Iterator<String> it=result.listIterator();
 			while(it.hasNext()){	
 				String pair = (String) it.next();
 				jedis.smove(Constants.IDSTOVISIT_IN_NEXTHOP, Constants.IDSTOVISIT_IN_CURRENTHOP, pair);
@@ -562,7 +561,7 @@ public class CrawlAndIndex
 				IdsOfBatchResult.put(json.getAsJsonObject().get("Id").toString(), referenceIds);
 			}
 
-			Iterator it = IdsOfBatchResult.entrySet().iterator();
+			Iterator<Entry<String, String[]>> it = IdsOfBatchResult.entrySet().iterator();
 
 			while (it.hasNext()) {
 				Map.Entry pair = (Map.Entry)it.next();
@@ -714,8 +713,7 @@ public class CrawlAndIndex
 
 
 	private static void writeToFiles(String fileName, String setname){
-		try{
-			String line = null;   
+		try{ 
 			backUpFN = fileName;     
 			backUpFW = new FileWriter(new File(backUpFN), true);	  
 			ScanParams scanParams = new ScanParams().count(100000);
@@ -724,7 +722,7 @@ public class CrawlAndIndex
 			while(!cycleIsFinished){
 				ScanResult<String> scanResult = jedis.sscan(setname, cur, scanParams);
 				java.util.List<String> result = scanResult.getResult();    
-				Iterator it=result.listIterator();
+				Iterator<String> it=result.listIterator();
 				while(it.hasNext()){	
 					String pair = (String) it.next();
 					try {	
