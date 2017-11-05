@@ -40,7 +40,7 @@ import org.apache.http.util.EntityUtils;
 
 public class CrawlAndIndex 
 {
-	private static CrawlAndIndex jsonreqobj=new CrawlAndIndex();
+	private static CrawlAndIndex crawlIndexobj=new CrawlAndIndex();
 	private  String vertexFileName;
 	private  String edgeFileName;
 	private  String authorFileName;
@@ -48,6 +48,7 @@ public class CrawlAndIndex
 	private static  String backUpFN;
 	private String subscriptionKeyMaintainingFN;
 	public static int totalCount=0;
+	public static int count=0;
 	private  StringBuilder sb;
 	DateTimeFormatter uniqueId_ts = DateTimeFormatter.ofPattern("yyyyMMddhhmmss");
 	DateTimeFormatter dtf_ts = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm:ss");
@@ -67,7 +68,7 @@ public class CrawlAndIndex
 	static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH-mm");
 	static LocalDateTime now = LocalDateTime.now();
 	private static String isFirstCrawl;
-	private static Long startTimeInMilSec;
+	private Long startTimeInMilSec;
 	final static Logger logger = Logger.getLogger(CrawlAndIndex.class);
 	public static JedisPool pool;
 	public static Jedis jedis;
@@ -76,12 +77,12 @@ public class CrawlAndIndex
 
 	public static void main(String[] args) 
 	{  	
-		startTimeInMilSec = System.currentTimeMillis();	
+		crawlIndexobj.startTimeInMilSec = System.currentTimeMillis();	
 		isFirstCrawl=args[0];
 		subscriptionKeyLimit=Integer.parseInt(args[1]);
 		NUM_HOPS=Integer.parseInt(args[2]);
 		loadFromFilesRequired=args[3];
-		String temp="";
+		String idsToQuery="";
 		IdsOfBatchResult=new HashMap<>();
 		IdsOfBatchQuery=new HashMap<>();
 		String JSONResult_seed="";
@@ -99,7 +100,7 @@ public class CrawlAndIndex
 			PropertyConfigurator.configure(properties);
 
 			if(isFirstCrawl.toUpperCase().equals("TRUE")){	
-				JSONResult_seed= jsonreqobj.getData("And(And(Ti='a relational model of data for large shared data banks',Composite(AA.AuN=='e f codd')),Y=1970)" ,"Id,RId,Ti,Y,CC,AA.AuN,AA.AuId,J.JN,J.JId,C.CN,C.CId,S.U,VSN","5","0");			
+				JSONResult_seed= crawlIndexobj.getData("And(And(Ti='a relational model of data for large shared data banks',Composite(AA.AuN=='e f codd')),Y=1970)" ,"Id,RId,Ti,Y,CC,AA.AuN,AA.AuId,J.JN,J.JId,C.CN,C.CId,S.U,VSN","5","0");			
 
 				logger.debug("Indexing started..Executing first hour crawl");
 
@@ -109,28 +110,28 @@ public class CrawlAndIndex
 				for(JsonElement json:jsonarray){  			
 					jedis.sadd(Constants.IDSTOVISIT_IN_CURRENTHOP, json.getAsJsonObject().get("Id").toString());	
 				}	
-				jsonreqobj.indexVertex(JSONResult_seed); 	
+				crawlIndexobj.indexVertex(JSONResult_seed); 	
 			}
-			else{
-				if(loadFromFilesRequired.toUpperCase().equals("TRUE")){
+
+			if(loadFromFilesRequired.toUpperCase().equals("TRUE")){
 				logger.debug("Indexing started..Execution after first crawl");
-				jsonreqobj.loadToListFromFiles(Constants.IDSTOVISIT_IN_CURRENTHOP+".csv", Constants.IDSTOVISIT_IN_CURRENTHOP);
+				crawlIndexobj.loadToListFromFiles(Constants.IDSTOVISIT_IN_CURRENTHOP+".csv", Constants.IDSTOVISIT_IN_CURRENTHOP);
 				Path pathofidsToVisitInCurrentHop=Paths.get(Paths.get(".").toAbsolutePath().normalize().toString()+"//idsToVisitInCurrentHop.csv");
 				Files.delete(pathofidsToVisitInCurrentHop);
 
-				jsonreqobj.loadToListFromFiles(Constants.IDSTOVISIT_IN_NEXTHOP+".csv", Constants.IDSTOVISIT_IN_NEXTHOP);
+				crawlIndexobj.loadToListFromFiles(Constants.IDSTOVISIT_IN_NEXTHOP+".csv", Constants.IDSTOVISIT_IN_NEXTHOP);
 				Path pathofidsToVisitofNextHop=Paths.get(Paths.get(".").toAbsolutePath().normalize().toString()+"//idsToVisitNextHop.csv");
 				Files.delete(pathofidsToVisitofNextHop);
 
-				jsonreqobj.loadToListFromFiles(Constants.IDSVISITED+".csv", Constants.IDSVISITED);
+				crawlIndexobj.loadToListFromFiles(Constants.IDSVISITED+".csv", Constants.IDSVISITED);
 				Path pathofidsVisited=Paths.get(Paths.get(".").toAbsolutePath().normalize().toString()+"//idsVisited.csv");
 				Files.delete(pathofidsVisited);
 
 				if(jedis.scard(Constants.IDSTOVISIT_IN_CURRENTHOP)==0){
 					moveIdsFromCurrentToNextHop();
-				}		
-			  }
+				}			  
 			}
+
 			ScanParams countParams = new ScanParams().count(100);
 			String cursor = redis.clients.jedis.ScanParams.SCAN_POINTER_START; 
 			boolean nextHopFinished = false;
@@ -140,47 +141,49 @@ public class CrawlAndIndex
 				Iterator<String> it=result.listIterator();
 
 				while (it.hasNext()) {
-					if(!jsonreqobj.checkForTimeOut()){
+					if(!crawlIndexobj.checkForTimeOut()){
 						String pair = (String) it.next();
-						temp= temp+"Id="+ pair.toString()+",";
-						//count++;
-						totalCount++;
-						//removed in if count==Constants.TOTAL_ID_COUNT_TOQUERY||
-						if (!(it.hasNext())){ 
-							JSONResult= jsonreqobj.getData("OR("+temp.substring(0, temp.length()-1)+")" ,"Id,RId,Ti,Y,CC,AA.AuN,AA.AuId,J.JN,J.JId,C.CN,C.CId,S.U,VSN","500","0");	   
-							printListSizes();
-							jsonreqobj.indexVertex(JSONResult); 
-							//count=0;
-							temp="";
+						idsToQuery= idsToQuery+"Id="+ pair.toString()+",";
+						//removed -- if count==Constants.TOTAL_ID_COUNT_TOQUERY||
+						if (!(it.hasNext())){ 	
+							JSONResult= crawlIndexobj.getData("OR("+idsToQuery.substring(0, idsToQuery.length()-1)+")" ,"Id,RId,Ti,Y,CC,AA.AuN,AA.AuId,J.JN,J.JId,C.CN,C.CId,S.U,VSN","500","0");	   
+							crawlIndexobj.indexVertex(JSONResult); 
+							idsToQuery="";
 						}
 					}
 					else{
-						printListSizes();
-						jsonreqobj.backUp();
-						logger.info("Transaction count during termination - "+subscriptionKeyLimit);
-						logger.info("Exiting after 45 minutes");
-						exitCrawl();  
-						System.exit(0);
+						Thread.sleep(1800000);
+						crawlIndexobj.startTimeInMilSec = System.currentTimeMillis();	
 					}
 				}
 				cursor = idsOfNextHop.getStringCursor();
 				if (cursor.equals("0")){
+					if(jedis.scard(Constants.IDSTOVISIT_IN_CURRENTHOP)>0){
+						cursor = redis.clients.jedis.ScanParams.SCAN_POINTER_START;
+					}else{
+					logger.warn("No more IDS to visit in current hop or next hop");
 					nextHopFinished = true;
+					}
 				}
 			} 
 		}
 		catch (Exception e1) {
 			printListSizes();
-			jsonreqobj.backUp();
+			crawlIndexobj.backUp();
+			logger.info("Transaction count during termination - "+subscriptionKeyLimit);
 			e1.printStackTrace();
 		}	
+		printListSizes();
 		exitCrawl();    	
 		logger.debug("Indexing ends");
 
 	}
 
+	/***
+	 * Moves all the items in current hop set to the next hop set
+	 */
 	private static void moveIdsFromCurrentToNextHop(){
-		ScanParams scanParams = new ScanParams().count(100000);
+		ScanParams scanParams = new ScanParams().count(10000);
 		String cur = redis.clients.jedis.ScanParams.SCAN_POINTER_START; 
 		boolean cycleIsFinished = false;
 		while(!cycleIsFinished){
@@ -203,13 +206,18 @@ public class CrawlAndIndex
 
 	}
 
-
+	/***
+	 * prints the size of the sets to the log before backup
+	 */
 	private static void printListSizes() {
 		logger.debug("Current Hop list :"+ jedis.scard(Constants.IDSTOVISIT_IN_CURRENTHOP));
 		logger.debug("Next Hop list :"+ jedis.scard(Constants.IDSTOVISIT_IN_NEXTHOP));
 		logger.debug("Visited list :"+ jedis.scard(Constants.IDSVISITED));
 	}
 
+	/***
+	 * closes all the files and jedis connection 
+	 */
 	private static void exitCrawl() {
 		try {
 			vertexFW.close();
@@ -223,12 +231,21 @@ public class CrawlAndIndex
 		}
 	}
 
+	/***
+	 * Forms the query and gets the data from Microsoft API for the requested query
+	 * @param expression - String (query expression)
+	 * @param attributes - String 
+	 * @param count - String
+	 * @param from - String
+	 * @return String
+	 * @throws Exception - exception from Microsoft API
+	 */
 	private  String getData(String expression, String attributes, String count,String from) throws Exception {
 		HttpClient httpclient = HttpClients.createDefault();       
 		String JSONResult=null;
 
 		if(subscriptionKeyCountLimitReached()){		
-			jsonreqobj.backUp();
+			crawlIndexobj.backUp();
 			exitCrawl();
 		}else{
 			subscriptionKeyLimit++;
@@ -286,7 +303,10 @@ public class CrawlAndIndex
 
 	}
 
-
+	/***
+	 * Parse and write the result info to the papers.csv file
+	 * @param jsonArray - String
+	 */
 	public void indexVertex(String jsonArray){	
 		sb = new StringBuilder();
 		String uniqueId_paper;
@@ -351,34 +371,39 @@ public class CrawlAndIndex
 					if(!ReferenceIds.isEmpty()&&sumCitationCount>0){
 						try {
 							JSONResult_edges=getData("OR("+ReferenceIds.substring(0, ReferenceIds.length()-1)+")", "Id,RId", "1000","0");						
-							jsonreqobj.indexEdges(ReferenceIds.substring(0, ReferenceIds.length()-1) , JSONResult_edges,true);
-
+							crawlIndexobj.indexEdges(ReferenceIds.substring(0, ReferenceIds.length()-1) , JSONResult_edges,true);
 							sumCitationCount=0;
 							ReferenceIds="";
-						} catch (Exception e) {
+						} 
+						catch (Exception e) {
 							printListSizes();
-							jsonreqobj.backUp();
+							crawlIndexobj.backUp();
+							exitCrawl();
 							e.printStackTrace();
+							System.exit(0);
 						}
 
 					}
 
+					
 					quotient=citedCount/1000; 
-
 					for(int i=0;i<=quotient;i++){				
 						try {
 							JSONResult_edges=getData(RId, "Id,RId", citationCount,Integer.toString(from));								
-							jsonreqobj.indexEdges(json.getAsJsonObject().get("Id").toString() , JSONResult_edges, false);
-						} catch (Exception e) {
+							crawlIndexobj.indexEdges(json.getAsJsonObject().get("Id").toString() , JSONResult_edges, false);
+						} 
+						catch (Exception e) {
 							printListSizes();
-							jsonreqobj.backUp();
+							crawlIndexobj.backUp();
+							exitCrawl();
 							e.printStackTrace();
+							System.exit(0);
 						}
 						from=from+1000;
 					}
 				}
 				else{
-					//make a batch of 1000 and place a call to the API
+					//make a batch of <= 1000 and place a call to the API
 					sumCitationCount=sumCitationCount+citedCount;
 					if(sumCitationCount<1000){
 						ReferenceIds=ReferenceIds+ RId+",";	
@@ -386,15 +411,17 @@ public class CrawlAndIndex
 					else{
 						try {
 							JSONResult_edges=getData("OR("+ReferenceIds.substring(0, ReferenceIds.length()-1)+")", "Id,RId", "1000","0");				
-							jsonreqobj.indexEdges(ReferenceIds.substring(0, ReferenceIds.length()-1) , JSONResult_edges,true);
+							crawlIndexobj.indexEdges(ReferenceIds.substring(0, ReferenceIds.length()-1) , JSONResult_edges,true);
 							sumCitationCount=0;
 							ReferenceIds="";
 							sumCitationCount=citedCount;
 							ReferenceIds=ReferenceIds+ RId+",";
 						} catch (Exception e) {
 							printListSizes();
-							jsonreqobj.backUp();
+							crawlIndexobj.backUp();
+							exitCrawl();
 							e.printStackTrace();
+							System.exit(0);
 						}
 
 					}
@@ -438,30 +465,33 @@ public class CrawlAndIndex
 				writeToUpstream(operation.CREATE, subject.PAPERS,uniqueId_paper, root.toString());
 
 				//write author details to author.csv
-				jsonreqobj.indexAuthor(json.getAsJsonObject().get("Id").toString(), jsonArray);
+				crawlIndexobj.indexAuthor(json.getAsJsonObject().get("Id").toString(), jsonArray);
 
 				jedis.smove(Constants.IDSTOVISIT_IN_CURRENTHOP, Constants.IDSVISITED, json.getAsJsonObject().get("Id").toString());
 
-			
+
 			} catch (IOException e) {
 				logger.info("Exception occured in indexVertex() - "+e.getMessage());
 				printListSizes();
-				jsonreqobj.backUp();
+				crawlIndexobj.backUp();
+				exitCrawl();
 				logger.info("BackUp done due to exception in indexVertex()");	
+				System.exit(0);
 			}   		
 		} 
 		logger.debug("Out of for loop, Ref Id - "+ReferenceIds);
 
 		if(!ReferenceIds.isEmpty()&&sumCitationCount>0){
 			try {
-				JSONResult_edges=getData("OR("+ReferenceIds.substring(0, ReferenceIds.length()-1)+")", "Id,RId", "1000","0"); //We are putting 50k here. Will it work? //change it to 1000
-				jsonreqobj.indexEdges(ReferenceIds, JSONResult_edges,true);
+				JSONResult_edges=getData("OR("+ReferenceIds.substring(0, ReferenceIds.length()-1)+")", "Id,RId", "1000","0"); 
+				crawlIndexobj.indexEdges(ReferenceIds, JSONResult_edges,true);
 
 			} catch (Exception e) {
 				logger.info("Exception occured in indexVertex() - "+e.getMessage());
 				printListSizes();
-				jsonreqobj.backUp();
-				logger.info("BackUp done due to exception in indexVertex()");
+				crawlIndexobj.backUp();
+				exitCrawl();
+				System.exit(0);
 			}	
 		}	
 
@@ -475,10 +505,12 @@ public class CrawlAndIndex
 
 
 
-	/**
+
+	/***
 	 *  Adds cites relationship to cites.csv and fills in idsToVisitInNexthop set
-	 * @param fromPaperId
-	 * @param jsonArray
+	 * @param fromPaperId -String
+	 * @param jsonArray - String
+	 * @param isBatchResult - boolean (pass true, if batch queried result)
 	 */
 	public void indexEdges(String fromPaperId,String jsonArray,boolean isBatchResult){	 
 		sb = new StringBuilder();	
@@ -596,11 +628,19 @@ public class CrawlAndIndex
 		}
 	}
 
-
+	/*
+	 * Generates unique ID 
+	 */
 	public String getUniqueId(){
 		return  (uniqueId_ts.format(now)+"-"+"001"+"-"+"01"+"-"+((uniqueIdCounter++)%99));
 	}
 
+
+	/***
+	 * Write each author details into files
+	 * @param fromPaperId - String
+	 * @param jsonArray - String
+	 */
 	public void indexAuthor(String fromPaperId,String jsonArray){
 		sb = new StringBuilder();	
 		String authorName=new String();
@@ -661,6 +701,13 @@ public class CrawlAndIndex
 		}
 	}
 
+	/***
+	 * Each time any result is written to any of the output files(papers/cites/authors.csv) it is logged in upstream
+	 * @param operation_value -  enum values (CREATE/UPDATE/DELETE)
+	 * @param sub_value - enum values (PAPERS/CITES/AUTHORS)
+	 * @param uniqueId - String 
+	 * @param jsonObj - String (query result)
+	 */
 	public void writeToUpstream(operation operation_value, subject sub_value, String uniqueId, String jsonObj){	  
 		sb = new StringBuilder();			
 		if (UpstreamFileName == null) {
@@ -703,6 +750,10 @@ public class CrawlAndIndex
 
 	} 
 
+	/***
+	 * Check for number of transactions < 200k
+	 * @return boolean
+	 */
 	public static boolean subscriptionKeyCountLimitReached(){
 		if(subscriptionKeyLimit>=200000){
 			logger.info("Ran out of Money!!!, You have completed 200K transactions");
@@ -711,7 +762,11 @@ public class CrawlAndIndex
 		return false;
 	}
 
-
+	/***
+	 * Writes all the items in sets to the files during backup
+	 * @param fileName - String
+	 * @param setname - String
+	 */
 	private static void writeToFiles(String fileName, String setname){
 		try{ 
 			backUpFN = fileName;     
@@ -752,6 +807,9 @@ public class CrawlAndIndex
 		}
 	}
 
+	/***
+	 * backs up all data in redis sets to file, usually called when exception is raised
+	 */
 	public void backUp(){		 
 		logger.info("NUM_HOPS during Backup -" + NUM_HOPS);
 		logger.info("Subscription key count during backup - " + subscriptionKeyLimit);
@@ -774,7 +832,11 @@ public class CrawlAndIndex
 
 	}
 
-
+	/***
+	 * loads all the data in files onto the set
+	 * @param backUpFile - String
+	 * @param redisSetName - String
+	 */
 	public void loadToListFromFiles(String backUpFile, String redisSetName){
 		String filePath = backUpFile;
 		String line;
@@ -815,6 +877,10 @@ public class CrawlAndIndex
 
 	}
 
+	/***
+	 * Checks if 45 minutes is reached from the start of the crawl
+	 * @return boolean
+	 */
 	public boolean checkForTimeOut(){		 
 		long currentTimeInMilSec = System.currentTimeMillis();
 		long tDelta = currentTimeInMilSec - startTimeInMilSec;
