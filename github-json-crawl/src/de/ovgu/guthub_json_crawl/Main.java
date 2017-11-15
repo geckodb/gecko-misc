@@ -8,7 +8,7 @@ public class Main {
 
         RepositoryCrawler crawler = new RepositoryCrawler();
 
-        int since = 0;
+        int since = 227054;
         while (true) {
             try {
                 int status = crawler.crawl(since);

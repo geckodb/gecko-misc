@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.json:json:20131018" level="project" />
+    <orderEntry type="library" name="org.apache.httpcomponents:httpclient:4.0" level="project" />
   </component>
 </module>
