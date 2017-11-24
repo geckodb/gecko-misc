@@ -1,1 +1,1 @@
-/usr/bin/cc   -pthread -O3   CMakeFiles/docker_scan_exp.dir/main.c.o  -o docker_scan_exp 
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc   -pthread -O3 -g -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/docker_scan_exp.dir/main.c.o  -o docker_scan_exp  

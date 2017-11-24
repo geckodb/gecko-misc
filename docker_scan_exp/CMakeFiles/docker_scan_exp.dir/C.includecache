@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/pinnecke/gecko-misc/docker_scan_exp/main.c
+/Users/marcus/git/gecko/gecko-misc/docker_scan_exp/main.c
 stdio.h
 -
 stdlib.h

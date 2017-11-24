@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/pinnecke/gecko-misc/docker_scan_exp/main.c" "/home/pinnecke/gecko-misc/docker_scan_exp/CMakeFiles/docker_scan_exp.dir/main.c.o"
+  "/Users/marcus/git/gecko/gecko-misc/docker_scan_exp/main.c" "/Users/marcus/git/gecko/gecko-misc/docker_scan_exp/CMakeFiles/docker_scan_exp.dir/main.c.o"
   )
-set(CMAKE_C_COMPILER_ID "GNU")
+set(CMAKE_C_COMPILER_ID "AppleClang")
 
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH

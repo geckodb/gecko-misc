@@ -5,7 +5,7 @@
 #include <assert.h>
 #include <sys/time.h>
 
-#define MAX_SAMPLES 100
+#define MAX_SAMPLES 50
 
 typedef struct thread_data_t {
     size_t tid;
@@ -46,7 +46,7 @@ int randint(int n) {
 
 void *scan_function(void *args) {
     thread_data_t *local = (thread_data_t *) args;
-    fprintf(stderr, "thread#%zu is starting...\n", local->tid);
+    //fprintf(stderr, "thread#%zu is starting...\n", local->tid);
     local->result_set_size = 0;
     for (const uint32_t *lhs = local->begin; lhs < local->end; lhs++) {
         for (const uint32_t *rhs = local->begin; rhs < local->end; rhs++) {
@@ -55,7 +55,7 @@ void *scan_function(void *args) {
             }
         }
     }
-    fprintf(stderr, "thread#%zu finished\n", local->tid);
+  //  fprintf(stderr, "thread#%zu finished\n", local->tid);
     return NULL;
 }
 
@@ -72,14 +72,17 @@ int main() {
         col[i] = randint(10000);
     }
 
-    fprintf(stdout, "num_requests;num_threads;job_wallclock_time_msec\n");
+    fprintf(stdout, "num_requests;num_threads;job_wallclock_time_msec;sample_num;batch_num\n");
+    fflush(stdout);
 
 
-    for (size_t NUM_REQUESTS = 1; NUM_REQUESTS < MAX_NUM_REQUESTS; NUM_REQUESTS *= 2) {
+    for (size_t NUM_REQUESTS = 2048; NUM_REQUESTS < MAX_NUM_REQUESTS; NUM_REQUESTS *= 2) {
         for (size_t THREAD_POOL_SIZE = 1; THREAD_POOL_SIZE <= 2048; THREAD_POOL_SIZE *= 2) {
-            double time_taken_avg = 0;
+
 
             for (size_t sample = 0; sample < MAX_SAMPLES; sample++) {
+
+                long time_taken_avg = 0;
 
                 size_t max_spawned_threads = (NUM_REQUESTS < THREAD_POOL_SIZE) ? NUM_REQUESTS : THREAD_POOL_SIZE;
                 int64_t remaining_requests = NUM_REQUESTS;
@@ -88,7 +91,7 @@ int main() {
                 thread_data_t *thread_data = malloc(max_spawned_threads * sizeof(thread_data_t));
 
                 fprintf(stderr, "======================================================================\n");
-                fprintf(stderr, "#requests: %d\t#threads: %d, sample:%d\n", NUM_REQUESTS, max_spawned_threads, sample);
+                fprintf(stderr, "#requests: %zu\t#threads: %zu, sample:%zu\n", NUM_REQUESTS, max_spawned_threads, sample);
                 fprintf(stderr, "======================================================================\n");
                 fprintf(stderr, "\n\n");
 
@@ -99,7 +102,10 @@ int main() {
                     thread_data[i].result_set = malloc((num_fields * num_fields) * sizeof(size_t));
                 }
 
+                size_t num_batches = 0;
+
                 do {
+                    num_batches++;
                     long time_begin = STOP_TIMER();
 
                     for (unsigned i = 0; i < max_spawned_threads; i++) {
@@ -114,12 +120,18 @@ int main() {
                     }
 
                     long time_end = STOP_TIMER();
-                    time_taken_avg += time_end - time_begin;
+                    long this_time = time_end - time_begin;
+                    time_taken_avg += this_time;
                     remaining_requests -= max_spawned_threads;
 
-                    fprintf(stderr, "\t + request batched processing time: %fmsec\n", time_taken_avg);
+                    fprintf(stderr, "\t + request batched processing time (this/total): %d msec / %d msec\n", this_time, time_taken_avg);
 
                 } while (remaining_requests > 0);
+
+                fprintf(stderr, "\t ----------------------------------------\n\t =         %f\n", (time_taken_avg));
+                fprintf(stderr, "\n\n\n\n");
+                fprintf(stdout, "%zu;%zu;%zu;%d;%zu\n", NUM_REQUESTS, THREAD_POOL_SIZE, time_taken_avg, sample, num_batches);
+                fflush(stdout);
 
                 for (unsigned i = 0; i < max_spawned_threads; i++) {
                     free(thread_data[i].result_set);
@@ -130,9 +142,7 @@ int main() {
 
             }
 
-            fprintf(stderr, "\t ----------------------------------------\n\t =         %f\n", (time_taken_avg / (float) MAX_SAMPLES));
-            fprintf(stderr, "\n\n\n\n");
-            fprintf(stdout, "%zu;%zu;%f\n", NUM_REQUESTS, THREAD_POOL_SIZE, (time_taken_avg / (float) MAX_SAMPLES));
+
         }
     }
 
