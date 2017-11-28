@@ -4,8 +4,9 @@
 #include <pthread.h>
 #include <assert.h>
 #include <sys/time.h>
+#include <string.h>
 
-#define MAX_SAMPLES 50
+#define MAX_SAMPLES 1
 
 typedef struct thread_data_t {
     size_t tid;
@@ -72,17 +73,17 @@ int main() {
         col[i] = randint(10000);
     }
 
-    fprintf(stdout, "num_requests;num_threads;job_wallclock_time_msec;sample_num;batch_num\n");
+    fprintf(stdout, "num_requests;num_threads;job_process_wallclock_time_msec;job_merge_wallclock_time_msec;job_full_wallclock_time_msec;sample_num;batch_num\n");
     fflush(stdout);
 
 
     for (size_t NUM_REQUESTS = 2048; NUM_REQUESTS < MAX_NUM_REQUESTS; NUM_REQUESTS *= 2) {
-        for (size_t THREAD_POOL_SIZE = 1; THREAD_POOL_SIZE <= 2048; THREAD_POOL_SIZE *= 2) {
+        for (size_t THREAD_POOL_SIZE = 4; THREAD_POOL_SIZE <= 2048; THREAD_POOL_SIZE *= 2) {
 
 
             for (size_t sample = 0; sample < MAX_SAMPLES; sample++) {
 
-                long time_taken_avg = 0;
+                long total_time_process = 0;
 
                 size_t max_spawned_threads = (NUM_REQUESTS < THREAD_POOL_SIZE) ? NUM_REQUESTS : THREAD_POOL_SIZE;
                 int64_t remaining_requests = NUM_REQUESTS;
@@ -106,7 +107,7 @@ int main() {
 
                 do {
                     num_batches++;
-                    long time_begin = STOP_TIMER();
+                    long time_process_begin = STOP_TIMER();
 
                     for (unsigned i = 0; i < max_spawned_threads; i++) {
                         if ((pthread_create(thread_pool + i, NULL, scan_function, thread_data + i))) {
@@ -119,18 +120,42 @@ int main() {
                         pthread_join(thread_pool[i], NULL);
                     }
 
-                    long time_end = STOP_TIMER();
-                    long this_time = time_end - time_begin;
-                    time_taken_avg += this_time;
+                    long time_process_end = STOP_TIMER();
+
+                    long this_time_process = time_process_end - time_process_begin;
+
+                    total_time_process += this_time_process;
                     remaining_requests -= max_spawned_threads;
 
-                    fprintf(stderr, "\t + request batched processing time (this/total): %d msec / %d msec\n", this_time, time_taken_avg);
+                    fprintf(stderr, "\t + request batched processing time (this/total): %ld msec / %ld msec\n", this_time_process, total_time_process);
 
                 } while (remaining_requests > 0);
 
-                fprintf(stderr, "\t ----------------------------------------\n\t =         %f\n", (time_taken_avg));
+                long time_merge_begin = STOP_TIMER();
+
+                size_t final_result_set_size = 0;
+                for (unsigned i = 0; i < max_spawned_threads; i++) {
+                    final_result_set_size += thread_data[i].result_set_size;
+                }
+
+                void *result_position_list = malloc(final_result_set_size * sizeof(size_t));
+                size_t result_list_offset = 0;
+                for (unsigned i = 0; i < max_spawned_threads; i++) {
+                    size_t local_result_set_bytes = thread_data[i].result_set_size * sizeof(size_t);
+                    memcpy(result_position_list + local_result_set_bytes,
+                           thread_data[i].result_set, local_result_set_bytes);
+                    result_list_offset += local_result_set_bytes;
+                }
+
+                long time_merge_end = STOP_TIMER();
+
+                long total_time_merge = time_merge_end - time_merge_begin;
+
+                free (result_position_list);
+
+                fprintf(stderr, "\t ----------------------------------------\n\t =         %ld\n", (total_time_process));
                 fprintf(stderr, "\n\n\n\n");
-                fprintf(stdout, "%zu;%zu;%zu;%d;%zu\n", NUM_REQUESTS, THREAD_POOL_SIZE, time_taken_avg, sample, num_batches);
+                fprintf(stdout, "%zu;%zu;%ld;%ld;%ld;%ld;%zu\n", NUM_REQUESTS, THREAD_POOL_SIZE, total_time_process, total_time_merge, (total_time_process + total_time_merge), sample, num_batches);
                 fflush(stdout);
 
                 for (unsigned i = 0; i < max_spawned_threads; i++) {
