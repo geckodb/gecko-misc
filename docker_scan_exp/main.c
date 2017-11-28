@@ -6,12 +6,12 @@
 #include <sys/time.h>
 #include <string.h>
 
-#define MAX_SAMPLES 50
+#define MAX_SAMPLES 25
 
 typedef struct thread_data_t {
     size_t tid;
     const uint32_t *begin, *end;
-    uint32_t *result_set;
+    uint16_t *result_set;
     size_t result_set_size;
 } thread_data_t;
 
@@ -51,7 +51,7 @@ void *scan_function(void *args) {
     local->result_set_size = 0;
     for (const uint32_t *lhs = local->begin; lhs < local->end; lhs++) {
         if (*lhs % 2 == 0) {
-            local->result_set[local->result_set_size++] = (uint32_t) (lhs - local->begin);
+            local->result_set[local->result_set_size++] = (uint16_t) (lhs - local->begin);
         }
 
     }
@@ -99,7 +99,7 @@ int main() {
                     thread_data[i].tid = i;
                     thread_data[i].begin = col;
                     thread_data[i].end = col + num_fields;
-                    thread_data[i].result_set = malloc(num_fields * sizeof(uint32_t));
+                    thread_data[i].result_set = malloc(num_fields * sizeof(uint16_t));
                 }
 
                 size_t num_batches = 0;
@@ -142,7 +142,7 @@ int main() {
                 void *result_position_list = malloc(final_result_set_size * sizeof(uint32_t));
                 size_t result_list_offset = 0;
                 for (unsigned i = 0; i < max_spawned_threads; i++) {
-                    size_t local_result_set_bytes = thread_data[i].result_set_size * sizeof(uint32_t);
+                    size_t local_result_set_bytes = thread_data[i].result_set_size * sizeof(uint16_t);
                     if(local_result_set_bytes > 0) {
                         memcpy(result_position_list + result_list_offset,
                                thread_data[i].result_set, local_result_set_bytes);
