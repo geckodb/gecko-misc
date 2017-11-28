@@ -77,7 +77,7 @@ int main() {
 
 
     for (size_t NUM_REQUESTS = 2048; NUM_REQUESTS <= MAX_NUM_REQUESTS; NUM_REQUESTS *= 2) {
-        for (size_t THREAD_POOL_SIZE = 1024; THREAD_POOL_SIZE <= NUM_REQUESTS; THREAD_POOL_SIZE *= 2) {
+        for (size_t THREAD_POOL_SIZE = 1; THREAD_POOL_SIZE <= NUM_REQUESTS; THREAD_POOL_SIZE *= 2) {
 
 
             for (size_t sample = 0; sample < MAX_SAMPLES; sample++) {
