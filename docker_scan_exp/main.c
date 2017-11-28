@@ -11,7 +11,7 @@
 typedef struct thread_data_t {
     size_t tid;
     const uint32_t *begin, *end;
-    size_t *result_set;
+    uint32_t *result_set;
     size_t result_set_size;
 } thread_data_t;
 
@@ -51,7 +51,7 @@ void *scan_function(void *args) {
     local->result_set_size = 0;
     for (const uint32_t *lhs = local->begin; lhs < local->end; lhs++) {
         if (*lhs % 2 == 0) {
-            local->result_set[local->result_set_size++] = (lhs - local->begin);
+            local->result_set[local->result_set_size++] = (uint32_t) (lhs - local->begin);
         }
 
     }
@@ -99,7 +99,7 @@ int main() {
                     thread_data[i].tid = i;
                     thread_data[i].begin = col;
                     thread_data[i].end = col + num_fields;
-                    thread_data[i].result_set = malloc(0.66f * num_fields * sizeof(size_t));
+                    thread_data[i].result_set = malloc(num_fields * sizeof(uint32_t));
                 }
 
                 size_t num_batches = 0;
@@ -139,10 +139,10 @@ int main() {
 
                 assert(final_result_set_size > 0);
 
-                void *result_position_list = malloc(final_result_set_size * sizeof(size_t));
+                void *result_position_list = malloc(final_result_set_size * sizeof(uint32_t));
                 size_t result_list_offset = 0;
                 for (unsigned i = 0; i < max_spawned_threads; i++) {
-                    size_t local_result_set_bytes = thread_data[i].result_set_size * sizeof(size_t);
+                    size_t local_result_set_bytes = thread_data[i].result_set_size * sizeof(uint32_t);
                     if(local_result_set_bytes > 0) {
                         memcpy(result_position_list + result_list_offset,
                                thread_data[i].result_set, local_result_set_bytes);
