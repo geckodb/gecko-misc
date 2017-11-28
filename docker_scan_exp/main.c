@@ -90,10 +90,10 @@ int main() {
                 pthread_t *thread_pool = malloc(max_spawned_threads * sizeof(pthread_t));
                 thread_data_t *thread_data = malloc(max_spawned_threads * sizeof(thread_data_t));
 
-                fprintf(stderr, "======================================================================\n");
-                fprintf(stderr, "#requests: %zu\t#threads: %zu, sample:%zu\n", NUM_REQUESTS, max_spawned_threads, sample);
-                fprintf(stderr, "======================================================================\n");
-                fprintf(stderr, "\n\n");
+             //   fprintf(stderr, "======================================================================\n");
+                //   fprintf(stderr, "#requests: %zu\t#threads: %zu, sample:%zu\n", NUM_REQUESTS, max_spawned_threads, sample);
+                //   fprintf(stderr, "======================================================================\n");
+                //   fprintf(stderr, "\n\n");
 
                 for (unsigned i = 0; i < max_spawned_threads; i++) {
                     thread_data[i].tid = i;
@@ -126,7 +126,7 @@ int main() {
                     total_time_process += this_time_process;
                     remaining_requests -= max_spawned_threads;
 
-                    fprintf(stderr, "\t + request batched processing time (this/total): %ld msec / %ld msec\n", this_time_process, total_time_process);
+                    //           fprintf(stderr, "\t + request batched processing time (this/total): %ld msec / %ld msec\n", this_time_process, total_time_process);
 
                 } while (remaining_requests > 0);
 
@@ -157,8 +157,8 @@ int main() {
 
 
 
-                fprintf(stderr, "\t ----------------------------------------\n\t =         %ld\n", (total_time_process));
-                fprintf(stderr, "\n\n\n\n");
+                //        fprintf(stderr, "\t ----------------------------------------\n\t =         %ld\n", (total_time_process));
+                //      fprintf(stderr, "\n\n\n\n");
                 fprintf(stdout, "%zu;%zu;%ld;%ld;%ld;%ld;%zu\n", NUM_REQUESTS, THREAD_POOL_SIZE, total_time_process, total_time_merge, (total_time_process + total_time_merge), sample, num_batches);
                 fflush(stdout);
 
