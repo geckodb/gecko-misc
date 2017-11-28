@@ -6,7 +6,7 @@
 #include <sys/time.h>
 #include <string.h>
 
-#define MAX_SAMPLES 1
+#define MAX_SAMPLES 500
 
 typedef struct thread_data_t {
     size_t tid;
@@ -50,18 +50,17 @@ void *scan_function(void *args) {
     //fprintf(stderr, "thread#%zu is starting...\n", local->tid);
     local->result_set_size = 0;
     for (const uint32_t *lhs = local->begin; lhs < local->end; lhs++) {
-        for (const uint32_t *rhs = local->begin; rhs < local->end; rhs++) {
-            if ((*lhs > 2) && (lhs != rhs) && (*lhs == *rhs)) {
-                local->result_set[local->result_set_size++] = (lhs - local->begin);
-            }
+        if (*lhs % 2 == 0) {
+            local->result_set[local->result_set_size++] = (lhs - local->begin);
         }
+
     }
   //  fprintf(stderr, "thread#%zu finished\n", local->tid);
     return NULL;
 }
 
 #define TARGET_GB 0.00002
-#define MAX_NUM_REQUESTS 32768
+#define MAX_NUM_REQUESTS 2048
 
 int main() {
 
@@ -77,8 +76,8 @@ int main() {
     fflush(stdout);
 
 
-    for (size_t NUM_REQUESTS = 2048; NUM_REQUESTS < MAX_NUM_REQUESTS; NUM_REQUESTS *= 2) {
-        for (size_t THREAD_POOL_SIZE = 4; THREAD_POOL_SIZE <= 2048; THREAD_POOL_SIZE *= 2) {
+    for (size_t NUM_REQUESTS = 2048; NUM_REQUESTS <= MAX_NUM_REQUESTS; NUM_REQUESTS *= 2) {
+        for (size_t THREAD_POOL_SIZE = 1; THREAD_POOL_SIZE <= NUM_REQUESTS; THREAD_POOL_SIZE *= 2) {
 
 
             for (size_t sample = 0; sample < MAX_SAMPLES; sample++) {
@@ -100,7 +99,7 @@ int main() {
                     thread_data[i].tid = i;
                     thread_data[i].begin = col;
                     thread_data[i].end = col + num_fields;
-                    thread_data[i].result_set = malloc((num_fields * num_fields) * sizeof(size_t));
+                    thread_data[i].result_set = malloc(num_fields * sizeof(size_t));
                 }
 
                 size_t num_batches = 0;
@@ -138,20 +137,25 @@ int main() {
                     final_result_set_size += thread_data[i].result_set_size;
                 }
 
+                assert(final_result_set_size > 0);
+
                 void *result_position_list = malloc(final_result_set_size * sizeof(size_t));
                 size_t result_list_offset = 0;
                 for (unsigned i = 0; i < max_spawned_threads; i++) {
                     size_t local_result_set_bytes = thread_data[i].result_set_size * sizeof(size_t);
-                    memcpy(result_position_list + local_result_set_bytes,
-                           thread_data[i].result_set, local_result_set_bytes);
-                    result_list_offset += local_result_set_bytes;
+                    if(local_result_set_bytes > 0) {
+                        memcpy(result_position_list + result_list_offset,
+                               thread_data[i].result_set, local_result_set_bytes);
+                        result_list_offset += local_result_set_bytes;
+                    }
+
                 }
 
                 long time_merge_end = STOP_TIMER();
 
                 long total_time_merge = time_merge_end - time_merge_begin;
 
-                free (result_position_list);
+
 
                 fprintf(stderr, "\t ----------------------------------------\n\t =         %ld\n", (total_time_process));
                 fprintf(stderr, "\n\n\n\n");
@@ -164,12 +168,15 @@ int main() {
 
                 free(thread_data);
                 free(thread_pool);
+                free (result_position_list);
 
             }
 
 
         }
     }
+
+    free (col);
 
     return 0;
 }
