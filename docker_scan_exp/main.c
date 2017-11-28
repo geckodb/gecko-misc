@@ -6,7 +6,7 @@
 #include <sys/time.h>
 #include <string.h>
 
-#define MAX_SAMPLES 500
+#define MAX_SAMPLES 50
 
 typedef struct thread_data_t {
     size_t tid;
@@ -59,12 +59,12 @@ void *scan_function(void *args) {
     return NULL;
 }
 
-#define TARGET_GB 0.00002
+#define TARGET_GB 2
 #define MAX_NUM_REQUESTS 2048
 
 int main() {
 
-    size_t num_fields = (TARGET_GB * 1024 * 1024 * 1204) / 4;
+    size_t num_fields = (TARGET_GB * 1024 * 1024) / sizeof(uint32_t);
 
 
     uint32_t *col = malloc (num_fields * sizeof(uint32_t));
