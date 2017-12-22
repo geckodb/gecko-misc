@@ -1,0 +1,161 @@
+﻿path.link {
+    fill: none;
+    stroke: #666;
+    stroke-width: 2px;
+}
+
+marker#licensing {
+    fill: lightgreen;
+}
+
+path.link.licensing {
+    stroke: lightgreen;
+}
+
+path.link.resolved {
+    stroke-dasharray: 0, 2 1;
+}
+
+circle {
+    fill: #23a058;
+    stroke: #333;
+    stroke-width: 3px;
+}
+
+text {
+    font: 14px sans-serif;
+    pointer-events: none;
+}
+
+    text.shadow {
+        stroke: #fff;
+        stroke-width: 4px;
+    }
+
+// here .navbar {
+    margin-bottom: 0;
+    background-color: #f4511e;
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+    font-family: Montserrat, sans-serif;
+}
+
+.navbar li a, .navbar .navbar-brand {
+    font-family: serif;
+    font-size: large;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: #ffffff !important;
+    background-color: #3d3d3d !important;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: #848484;
+    color: #fffff !important;
+}
+
+/* Add a gray background color and some padding to the footer */
+.footerClass {
+    background-color: #c0c0c0;
+    color: black;
+}
+
+#navbarId {
+    background-color: #c0c0c0;
+    font-family: serif;
+    font-size: large;
+    color: black;
+}
+
+.link {
+    stroke: #ccc;
+    pointer-events: none;
+}
+
+.node text {
+    pointer-events: none;
+    font: 10px sans-serif;
+}
+
+.node:hover {
+    stroke-width: 20px;
+}
+
+div.tooltip {
+    position: absolute;
+    width: auto;
+    height: auto;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: #ffbf80;
+    border: 3px;
+    border-radius: 2px;
+    pointer-events: none;
+}
+
+.context-menu {
+    position: absolute;
+    display: none;
+    background-color: #ffffff;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    width: auto;
+    height: auto;
+    border: 1px solid #d4d4d4;
+    z-index: 1200;
+}
+
+    .context-menu ul {
+        list-style-type: none;
+        margin: 4px 0px;
+        padding: 0px;
+        cursor: default;
+    }
+
+        .context-menu ul li {
+            padding: 4px 16px;
+        }
+
+            .context-menu ul li:hover {
+                background-color: #ff671e;
+                color: #fefefe;
+            }
+
+// tip style .d3-tip {
+    line-height: 1;
+    font-weight: bold;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 10px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+}
+
+.nav-tabs {
+    margin-top: 50px;
+}

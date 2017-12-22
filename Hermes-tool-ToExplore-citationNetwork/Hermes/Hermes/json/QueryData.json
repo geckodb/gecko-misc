@@ -1,0 +1,38 @@
+{
+	"nodes": [
+		{
+			"PaperId": "123",
+			"title": "Paper A",
+			"authors": [
+				{
+					"name": "Mladen Kezunovic",
+					"org": "Texas A&M University"
+				},
+				{
+					"name": "Jinfeng Ren",
+					"org": "Alstom Grid"
+				},
+				{
+					"name": "Saeed Lotfifard",
+					"org": "Washington State University"
+				}
+			],
+			"year": 1992
+		},
+		{
+			"PaperId": "234",
+			"title": "Paper B",
+			"authors": [
+				{
+					"name": "Margarita Su\u00e1rez",
+					"org": "Pontificia Universidad Cat\u00f3lica del Per\u00fa, Lima, Per\u00fa"
+				}
+			],
+			"year": 1990
+		}
+	],
+	
+	"links" : [
+	{"source": "123", "target":"234"}
+	]
+}
