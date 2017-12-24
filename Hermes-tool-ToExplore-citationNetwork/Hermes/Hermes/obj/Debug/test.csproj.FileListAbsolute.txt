@@ -1,9 +1,0 @@
-F:\Hermes_Webapp\test\test\bin\test.dll.config
-F:\Hermes_Webapp\test\test\bin\test.dll
-F:\Hermes_Webapp\test\test\bin\test.pdb
-F:\Hermes_Webapp\test\test\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-F:\Hermes_Webapp\test\test\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-F:\Hermes_Webapp\test\test\obj\Debug\test.csprojResolveAssemblyReference.cache
-F:\Hermes_Webapp\test\test\obj\Debug\test.csproj.CoreCompileInputs.cache
-F:\Hermes_Webapp\test\test\obj\Debug\test.dll
-F:\Hermes_Webapp\test\test\obj\Debug\test.pdb
