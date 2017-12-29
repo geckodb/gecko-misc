@@ -1,4 +1,6 @@
-﻿var width = 500,
+﻿
+
+var width = 500,
     height = 500;
 
 var dataArray = new Array();
@@ -17,20 +19,7 @@ var force = d3.layout.force()
     .gravity(0.1)
     .alpha(0);
 
-svg.append("defs").selectAll("marker")
-    .data(["arrowhead", "licensing", "resolved"])
-    .enter().append("marker")
-    .attr("id", function (d) { return d; })
-    .attr("viewBox", "0 -5 10 10")
-    .attr("refX", 24)
-    .attr("refY", 0)
-    .attr("markerWidth", 15)
-    .attr("markerHeight", 10)
-    .attr("orient", "auto")
-    .append("path")
-    .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-    .attr('fill', '#ccc')
-    .attr('stroke', '#ccc');
+
 
 d3.json("../JSON/QueryData.json", function (error, json) {
     if (error) throw error;
@@ -55,17 +44,32 @@ d3.json("../JSON/QueryData.json", function (error, json) {
 
 function createGraph(nodes, links,check) {
 
+    svg.append("defs").selectAll("marker")
+        .data(["arrowhead", "licensing", "resolved"])
+        .enter().append("marker")
+        .attr("id", function (d) { return d; })
+        .attr("viewBox", "0 -5 10 10")
+        .attr("refX", 24)
+        .attr("refY", 0)
+        .attr("markerWidth", 15)
+        .attr("markerHeight", 10)
+        .attr("orient", "auto")
+        .append("path")
+        .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+        .attr('fill', '#ccc')
+        .attr('stroke', '#ccc');
+
     force.nodes(nodes)
         .links(links)
         .start();
 
-    var link = svg.selectAll(".link")
+    var link = svg.selectAll("link")
         .data(links)
         .enter().append("line")
         .attr("class", "link")
         .attr("marker-end", "url(#arrowhead)");
 
-    var node = svg.selectAll(".node")
+    var node = svg.selectAll("node")
         .data(nodes)
         .enter().append("g")
         .attr("class", "node")
@@ -97,7 +101,7 @@ function createGraph(nodes, links,check) {
                 .selectAll('li')
                 .data(menuItems).enter()
                 .append('li')
-                .on('click', function (d) { parseData(); })
+                .on('click', function (d) { parseData(d.PaperId); })
                 .text(function (d) { return d; });
             d3.select('.context-menu').style('display', 'none');
             // show the context menu
@@ -178,19 +182,23 @@ function createLinks(source, target) {
     this.target = target;
 }
 
-function parseData() {
+function parseData(idToEXpand) {
     var intial_length = dataArray.length;
     for (var i = 0; i < intial_length; i++) {
-        for (var j = 0; j < dataArray[i].authors.length; j++) {
-            var obj = new createAuthorNode(dataArray[i].PaperId, dataArray[i].authors[j].name)
-            dataArray.push(obj);
-            //mappingLinks.links.push('{"source": '+( dataArray.length-1) + ','+ '"target":' + i +'}');
-            var obj1 = new createLinks(dataArray.length - 1, i)
-            linksArray.push(obj1);
-        }
 
+           for (var j = 0; j < dataArray[i].authors.length; j++) {
+               // var newNode = {"PaperId":dataArray[i].PaperId,"authors":dataArray[i].authors[j].name};
+               var newNode = new createAuthorNode(dataArray[i].PaperId, dataArray[i].authors[j].name)
+               dataArray.push(newNode);
+               //mappingLinks.links.push('{"source": '+( dataArray.length-1) + ','+ '"target":' + i +'}');
+               // var newLink = {"source":dataArray.length - 1,"target":i};
+               var newLink = new createLinks(dataArray.length - 1, i)
+               linksArray.push(newLink);
+           }
     }
     JSON.stringify(linksArray);
     JSON.stringify(dataArray);
+    d3.selectAll("svg > *").remove();
+
     createGraph(dataArray, linksArray);
 }
