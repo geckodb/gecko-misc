@@ -17,7 +17,8 @@
 					"org": "Washington State University"
 				}
 			],
-			"year": 1992
+			"year": 1992,
+			"type": "paper"
 		},
 		{
 			"PaperId": "234",
@@ -28,7 +29,8 @@
 					"org": "Pontificia Universidad Cat\u00f3lica del Per\u00fa, Lima, Per\u00fa"
 				}
 			],
-			"year": 1990
+			"year": 1990,
+			"type": "paper"
 		}
 	],
 	

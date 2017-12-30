@@ -1,7 +1,7 @@
 ﻿
 
-var width = 500,
-    height = 500;
+var width = 1200,
+    height = 700;
 
 var dataArray = new Array();
 var linksArray = new Array();
@@ -18,8 +18,6 @@ var force = d3.layout.force()
     .size([width, height])
     .gravity(0.1)
     .alpha(0);
-
-
 
 d3.json("../JSON/QueryData.json", function (error, json) {
     if (error) throw error;
@@ -75,8 +73,16 @@ function createGraph(nodes, links,check) {
         .attr("class", "node")
         .call(force.drag);
 
+
     node.append("image")
-        .attr("xlink:href", "../Images/Document.ico")
+        .attr("xlink:href", function (d) {
+            if(d.type==="paper"){
+                return "../Images/Document.ico";
+            }
+            else if (d.type==="author"){
+                return "../Images/author.png";
+            }
+        })
         .attr("x", -8)
         .attr("y", -8)
         .attr("width", 30)
@@ -101,8 +107,12 @@ function createGraph(nodes, links,check) {
                 .selectAll('li')
                 .data(menuItems).enter()
                 .append('li')
-                .on('click', function (d) { parseData(d.PaperId); })
-                .text(function (d) { return d; });
+                .on('click', function (d) {
+                    console.log("context menu-" +d);
+                    if(d==="Authorship")
+                    parseData(paperId);
+                })
+                .text(function (d) { console.log(d); return d;});
             d3.select('.context-menu').style('display', 'none');
             // show the context menu
             d3.select('.context-menu')
@@ -110,6 +120,7 @@ function createGraph(nodes, links,check) {
                 .style('top', d3.event.pageY - 2 + 'px')
                 .style('display', 'block');
             d3.event.preventDefault();
+            var paperId = d.PaperId;
         })
         //To display tooltip
         .on("mouseover", function (d) {
@@ -136,25 +147,23 @@ function createGraph(nodes, links,check) {
             .attr("dx", 20)
             .attr("dy", ".35em")
             .text(function (d) {
-                var a = "";
-                if (d.title !== null) {
-                    a = d.title.substring(0, 3)
+                if(d.type==="paper"){
+                    var a = "";
+                    if (d.title !== null) {
+                        a = d.title.substring(0, 3)
+                    }
+                    if (d.year !== null) {
+                        a = a.concat((d.year).toString().substring(1, 3))
+                    }
+                    return a
                 }
-                if (d.year !== null) {
-                    a = a.concat((d.year).toString().substring(1, 3))
+                else if(d.type==="author"){
+                    return d.authors;
                 }
-                return a
-            });
-    }
-    else {
-        node.append("text")
-            .attr("dx", 20)
-            .attr("dy", ".35em")
-            .text(function (d) {
-                return d.authors;
-            });
-    }
 
+            });
+    }
+  
     //	Define the div for the tooltip
     var div = d3.select("body").append("div")
         .attr("class", "tooltip")
@@ -175,6 +184,7 @@ function createGraph(nodes, links,check) {
 function createAuthorNode(paperId, authorName) {
     this.PaperId = paperId;
     this.authors = authorName;
+    this.type="author";
 }
 
 function createLinks(source, target) {
@@ -185,20 +195,22 @@ function createLinks(source, target) {
 function parseData(idToEXpand) {
     var intial_length = dataArray.length;
     for (var i = 0; i < intial_length; i++) {
-
-           for (var j = 0; j < dataArray[i].authors.length; j++) {
-               // var newNode = {"PaperId":dataArray[i].PaperId,"authors":dataArray[i].authors[j].name};
-               var newNode = new createAuthorNode(dataArray[i].PaperId, dataArray[i].authors[j].name)
-               dataArray.push(newNode);
-               //mappingLinks.links.push('{"source": '+( dataArray.length-1) + ','+ '"target":' + i +'}');
-               // var newLink = {"source":dataArray.length - 1,"target":i};
-               var newLink = new createLinks(dataArray.length - 1, i)
-               linksArray.push(newLink);
-           }
+            if(dataArray[i].PaperId===idToEXpand){
+                for (var j = 0; j < dataArray[i].authors.length; j++) {
+                    // var newNode = {"PaperId":dataArray[i].PaperId,"authors":dataArray[i].authors[j].name};
+                    var newNode = new createAuthorNode(dataArray[i].PaperId, dataArray[i].authors[j].name)
+                    dataArray.push(newNode);
+                    //mappingLinks.links.push('{"source": '+( dataArray.length-1) + ','+ '"target":' + i +'}');
+                    // var newLink = {"source":dataArray.length - 1,"target":i};
+                    var newLink = new createLinks(dataArray.length - 1, i)
+                    linksArray.push(newLink);
+                }
+            }
     }
     JSON.stringify(linksArray);
     JSON.stringify(dataArray);
     d3.selectAll("svg > *").remove();
 
-    createGraph(dataArray, linksArray);
+    createGraph(dataArray, linksArray,true);
+    d3.select('.context-menu').style('display', 'none');
 }
