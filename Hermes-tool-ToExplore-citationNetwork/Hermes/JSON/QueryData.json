@@ -35,10 +35,28 @@
 			],
 			"year": 1990,
 			"type": "paper"
+		},
+		{
+			"PaperId": "456",
+			"title": "Paper C",
+			"authors": [
+				{
+					"name": "Margarita Su\u00e1rez",
+					"org": "Pontificia Universidad Cat\u00f3lica del Per\u00fa, Lima, Per\u00fa"
+				},
+				{
+					"name": "Karl Ren",
+					"org": "Alstom Grid"
+				}
+			],
+			"year": 1998,
+			"type": "paper"
 		}
+
 	],
 	
 	"links" : [
-	{"source": "123", "target":"234"}
+	{"source": "123", "target":"234"},
+		{"source": "456", "target":"234"}
 	]
 }

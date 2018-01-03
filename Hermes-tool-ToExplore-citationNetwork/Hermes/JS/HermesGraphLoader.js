@@ -5,9 +5,8 @@ var width = 1200,
 
 var dataArray = new Array();
 var linksArray = new Array();
-
 var authorDetails=new Map();
-
+var paperExpanded= new Set();
 var svg = d3.select("#paperGraphArea").append("svg")
     .attr("width", width)
     .attr("height", height);
@@ -117,8 +116,11 @@ function createGraph(nodes, links,check) {
                 .append('li')
                 .on('click', function (d) {
                     console.log("context menu-" +d);
-                    if(d==="Authorship")
-                    parseData(paperId);
+                    if((d==="Authorship")&& !(paperExpanded.has(paperId))){
+                        parseData(paperId);
+                        paperExpanded.add(paperId);
+                    }
+
                 })
                 .text(function (d) { console.log(d); return d;});
             d3.select('.context-menu').style('display', 'none');
