@@ -26,11 +26,10 @@ d3.json("../JSON/QueryData.json", function (error, json) {
 
     dataArray = json.nodes;
     linksArray = json.links;
-
+//Replacing paperId values in source and target to indexes of dataArray as required by d3, to form graph
     for (var k = 0; k < linksArray.length; k++) {
         for (l = 0; l < dataArray.length; l++) {
             if (linksArray[k].source === dataArray[l].PaperId) {
-                //console.log("replacing source");
                 linksArray[k].source = l;
             }
             else if (linksArray[k].target === dataArray[l].PaperId) {
@@ -134,12 +133,22 @@ function createGraph(nodes, links,check) {
         })
         //To display tooltip
         .on("mouseover", function (d) {
-            div.transition()
-                .duration(200)
-                .style("opacity", .9);
-            div.html(d.title + "<br/>")
-                .style("left", (d3.event.pageX) + "px")
-                .style("top", (d3.event.pageY - 30) + "px");
+            if(d.type==="paper"){
+                div.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                div.html(d.title + "<br/>")
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 30) + "px");
+            }
+    else if(d.type==="author"){
+                div.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                div.html(d.authors + "<br/>")
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 30) + "px");
+            }
         })
         //to disbale tooltip
         .on("mouseout", function (d) {
@@ -158,14 +167,15 @@ function createGraph(nodes, links,check) {
             .attr("dy", ".35em")
             .text(function (d) {
                 if(d.type==="paper"){
-                    var a = "";
+                    return d.title;
+                   /* var a = "";
                     if (d.title !== null) {
                         a = d.title.substring(0, 3)
                     }
                     if (d.year !== null) {
                         a = a.concat((d.year).toString().substring(1, 3))
                     }
-                    return a
+                    return a*/
                 }
                 else if(d.type==="author"){
                     return d.authors;

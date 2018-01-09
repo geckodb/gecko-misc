@@ -51,12 +51,24 @@
 			],
 			"year": 1998,
 			"type": "paper"
+		},
+		{
+			"PaperId": "678",
+			"title": "Paper D",
+			"authors": [
+				{
+					"name": "Karl Ren",
+					"org": "Alstom Grid"
+				}
+			],
+			"year": 1998,
+			"type": "paper"
 		}
 
 	],
 	
 	"links" : [
-	{"source": "123", "target":"234"},
+		{"source": "123", "target":"234"},
 		{"source": "456", "target":"234"}
 	]
 }
