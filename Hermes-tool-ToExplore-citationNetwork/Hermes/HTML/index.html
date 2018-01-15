@@ -10,39 +10,43 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
+    <script src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js"></script>
+    <script src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
 </head>
+
 <body>
-    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <div id="header"></div>
-    <!-- <div id="graphArea" class="container-fluid"></div> -->
 
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#paperGraphArea">Paper</a></li>
-        <li><a data-toggle="tab" href="#authorGraphArea">Author</a></li>
-        <li><a data-toggle="tab" href="#institutionGraphArea">Institution</a></li>
-        <li><a data-toggle="tab" href="#venueGraphArea">Venue</a></li>
-        <li><a data-toggle="tab" href="#eventGraphArea">Event</a></li>
-        <li><a data-toggle="tab" href="#fosGraphArea">FOS</a></li>
-    </ul>
+    <div id="content" class="tab-content">
+        <table>
+            <tr>
 
-    <div class="tab-content">
-        <div id="paperGraphArea" class="tab-pane fade in active"></div>
+                <td>
+                    <div id="paperGraphArea" class="tab-pane fade in active">
+                        <div style="width: 1000px">
+                            <table>
+                                <tr>
+                                    <td width="50px" ><a href="#" title="Export data" onclick=downloadGraphAsData()><span class="glyphicon glyphicon-save-file" id="download_glyphicons"></span></a></td>
+                                    <td width="50px"><a href="" title="Save as svg" onclick=downloadGraphAsSVG()><span class="glyphicon glyphicon-download-alt" id="download_glyphicons"></span></a></td>
+                                    <td width="200px"></td>
+                                    <td width="500px"></td>
+                                    <td width="200px"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div style="width: 510px">
 
-        <div id="authorGraphArea" class="tab-pane fade" onload="author_load()">
-
-        </div>
-
-        <div id="institutionGraphArea" class="tab-pane fade">
-            <h1>Blank screen</h1>
-        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
 
     </div>
-
-
-
+    <script src="../JS/Search.js"></script>
     <script src="../JS/HermesGraphLoader.js"></script>
-    <!--  <script src="jsonParser.js"></script>  -->
     <div id="footer" class="footerClass"></div>
     <script>
         $(function () {
@@ -50,5 +54,6 @@
             $("#footer").load("Footer.html");
         });
     </script>
+
 </body>
 </html>

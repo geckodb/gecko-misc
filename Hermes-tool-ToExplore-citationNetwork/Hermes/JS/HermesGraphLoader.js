@@ -1,7 +1,7 @@
 ﻿
 
-var width = 1200,
-    height = 700;
+var width = 1000,
+    height = 600;
 
 var dataArray = new Array();
 var linksArray = new Array();
@@ -13,10 +13,12 @@ var svg = d3.select("#paperGraphArea").append("svg")
 var menuItems = ["Authorship", "Co-word", "Bibliographic"];
 var authorMenuItems=["Co-word", "Bibliographic"];
 
+
+
 var force = d3.layout.force()
     .distance(100)
-    .linkDistance([100])
-    .charge(-300)
+    .linkDistance([150])
+    .charge(-500)
     .size([width, height])
     .gravity(0.1)
     .alpha(0);
@@ -41,8 +43,29 @@ d3.json("../JSON/QueryData.json", function (error, json) {
     createGraph(json.nodes, linksArray,true);
 });
 
-function createGraph(nodes, links,check) {
+function downloadGraphAsSVG() {
+    try {
+        var isFileSaverSupported = !!new Blob();
+    } catch (e) {
+        alert("blob not supported");
+    }
 
+    var html = d3.select("svg")
+        .attr("version", 1.1)
+        .attr("xmlns", "http://www.w3.org/2000/svg")
+        .node().parentNode.innerHTML;
+
+    var blob = new Blob([html], {type: "image/svg+xml"});
+    saveAs(blob, "myProfile.svg");
+
+}
+
+
+
+function createGraph(nodes, links,check) {
+var label=new Array();
+var ilabel=0;
+//To form arrowhead
     svg.append("defs").selectAll("marker")
         .data(["arrowhead", "licensing", "resolved"])
         .enter().append("marker")
@@ -68,11 +91,64 @@ function createGraph(nodes, links,check) {
         .attr("class", "link")
         .attr("marker-end", "url(#arrowhead)");
 
+
+    var node_drag = d3.behavior.drag()
+        .on("dragstart", dragstart)
+        .on("drag", dragmove)
+        .on("dragend", dragend);
+
+    function dragstart(d, i) {
+        force.stop() // stops the force auto positioning before you start dragging
+    }
+
+    function dragmove(d, i) {
+        d.px += d3.event.dx;
+        d.py += d3.event.dy;
+        d.x += d3.event.dx;
+        d.y += d3.event.dy;
+        tick(); // this is the key to make it work together with updating both px,py,x,y on d !
+    }
+
+    function dragend(d, i) {
+        d.fixed = true; // of course set the node to fixed so the force doesn't include the node in its auto positioning stuff
+        tick();
+        force.resume();
+    }
+
     var node = svg.selectAll("node")
         .data(nodes)
         .enter().append("g")
         .attr("class", "node")
-        .call(force.drag);
+        .call(node_drag);
+
+    var edgepaths = svg.selectAll(".edgepath")
+        .data(links)
+        .enter()
+        .append('path')
+        .attr({'d': function(d) { return 'M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y},
+            'class':'edgepath',
+            'fill-opacity':0,
+            'stroke-opacity':0,
+            'id':function(d,i) { return 'edgepath'+i;}})
+        .style("pointer-events", "none");
+
+    var edgelabels = svg.selectAll(".edgelabel")
+        .data(links)
+        .enter()
+        .append('text')
+        .style("pointer-events", "none")
+        .attr({'class':'edgelabel',
+            'id':function(d,i){return 'edgelabel'+i},
+            'dx':80,
+            'dy':0,
+            'font-size':20,
+            'fill':'#aaa'});
+
+        edgelabels.append("textPath")
+        .attr('xlink:href',function(d,i) {return '#edgepath'+i})
+        .style("pointer-events", "none")
+        .text(function(d,i){return 'relation';});
+
 
 
     node.append("image")
@@ -86,8 +162,20 @@ function createGraph(nodes, links,check) {
         })
         .attr("x", -8)
         .attr("y", -8)
-        .attr("width", 30)
-        .attr("height", 25)
+        .attr("width",function (d) {
+            if(d.PaperId==="456"){
+                return 60;
+            }else{
+                return 30;
+            }
+        })
+        .attr("height", function (d) {
+            if(d.PaperId==="456"){
+                return 60;
+            }else{
+                return 30;
+            }
+        })
         .style("stroke", "black")
         .style("stroke-width", "10")
         //to populate context menu
@@ -189,7 +277,9 @@ function createGraph(nodes, links,check) {
         .attr("class", "tooltip")
         .style("opacity", 0);
 
-    force.on("tick", function () {
+    force.on("tick",tick );
+
+        function tick() {
         link.attr("x1", function (d) { return d.source.x; })
             .attr("y1", function (d) { return d.source.y; })
             .attr("x2", function (d) { return d.target.x; })
@@ -197,7 +287,23 @@ function createGraph(nodes, links,check) {
 
 
         node.attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; });
-    });
+
+        edgepaths.attr('d', function (d) {
+            return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y;
+        });
+
+        edgelabels.attr('transform',function(d,i){
+            if (d.target.x<d.source.x){
+                bbox = this.getBBox();
+                rx = bbox.x+bbox.width/2;
+                ry = bbox.y+bbox.height/2;
+                return 'rotate(180 '+rx+' '+ry+')';
+            }
+            else {
+                return 'rotate(0)';
+            }
+        });
+    }
 }
 
 

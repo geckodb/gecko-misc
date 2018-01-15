@@ -12,12 +12,11 @@
     <link href="Styles.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="./bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="./JScripts/search.js"></script>
-
+    <script src="../JS/Search.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top" id="navbarId">
-    <div class="container">
+    <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse"
                     data-target="#myNavbar">
@@ -25,15 +24,26 @@
             </button>
             <a class="navbar-brand" href="#myPage">HERMES</a>
         </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
+        <div class="collapse navbar-collapse justify-content-end" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#about">GETSTARTED</a></li>
-                <li><a href="#services">ABOUT</a></li>
-                <li><a href="#contact">CONTACT</a></li>
+                <li><a href="#about">Get Started</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#services">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#search"  id="searchButton" >
+                    <span class='glyphicon glyphicon-search'></span></a></li>
             </ul>
         </div>
     </div>
 </nav>
 
+<div id="search">
+    <button type="button" class="close">X</button>
+    <form>
+        <input id="searchinput" type="search" value="" placeholder="type keyword(s) here" />
+        <button type="submit" onclick=searchClicked() class="btn btn-primary">Search</button>
+    </form>
+</div>
 </body>
 </html>
+
