@@ -20,9 +20,8 @@
     <div id="content" class="tab-content">
         <table>
             <tr>
-
-                <td>
-                    <div id="paperGraphArea" class="tab-pane fade in active">
+                <td >
+                    <div id="graphArea" class="startSize">
                         <div style="width: 1000px">
                             <table>
                                 <tr>
@@ -30,20 +29,24 @@
                                     <td width="50px"><a href="" title="Save as svg" onclick=downloadGraphAsSVG()><span class="glyphicon glyphicon-download-alt" id="download_glyphicons"></span></a></td>
                                     <td width="200px"></td>
                                     <td width="500px"></td>
-                                    <td width="200px"></td>
+                                    <td width="150px"></td>
+                                    <td width="50px"><a href="#" title="" onclick=resize()><span class="glyphicon glyphicon-resize-full" id="enlarge_glyphicons"></span></a></td>
                                 </tr>
                             </table>
                         </div>
+
+                    <div id="paperGraphArea">
+
+                    </div>
                     </div>
                 </td>
-                <td>
+                <td id="searchArea">
                     <div style="width: 510px">
-
+                        <p>Search Results</p>
                     </div>
                 </td>
             </tr>
         </table>
-
     </div>
     <script src="../JS/Search.js"></script>
     <script src="../JS/HermesGraphLoader.js"></script>

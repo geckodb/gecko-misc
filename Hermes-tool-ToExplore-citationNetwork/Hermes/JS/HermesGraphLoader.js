@@ -7,12 +7,19 @@ var dataArray = new Array();
 var linksArray = new Array();
 var authorDetails=new Map();
 var paperExpanded= new Set();
-var svg = d3.select("#paperGraphArea").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+var svg = d3.select("#paperGraphArea")
+            .append("svg")
+            .attr("width",width)
+             .attr("height",height);
+            /*.attr("preserveAspectRatio","xMinYMin meet")
+            .attr("viewBox","20 20 1000 650")
+            .classed("svg-content",true);*/
+
+
+
 var menuItems = ["Authorship", "Co-word", "Bibliographic"];
 var authorMenuItems=["Co-word", "Bibliographic"];
-
+var fullscreen=true;
 
 
 var force = d3.layout.force()
@@ -23,25 +30,26 @@ var force = d3.layout.force()
     .gravity(0.1)
     .alpha(0);
 
-d3.json("../JSON/QueryData.json", function (error, json) {
-    if (error) throw error;
+    d3.json("../JSON/QueryData.json", function (error, json) {
+        if (error) throw error;
 
-    dataArray = json.nodes;
-    linksArray = json.links;
+        dataArray = json.nodes;
+        linksArray = json.links;
 //Replacing paperId values in source and target to indexes of dataArray as required by d3, to form graph
-    for (var k = 0; k < linksArray.length; k++) {
-        for (l = 0; l < dataArray.length; l++) {
-            if (linksArray[k].source === dataArray[l].PaperId) {
-                linksArray[k].source = l;
-            }
-            else if (linksArray[k].target === dataArray[l].PaperId) {
-                linksArray[k].target = l;
+        for (var k = 0; k < linksArray.length; k++) {
+            for (l = 0; l < dataArray.length; l++) {
+                if (linksArray[k].source === dataArray[l].PaperId) {
+                    linksArray[k].source = l;
+                }
+                else if (linksArray[k].target === dataArray[l].PaperId) {
+                    linksArray[k].target = l;
+                }
             }
         }
-    }
 
-    createGraph(json.nodes, linksArray,true);
-});
+        createGraph(json.nodes, linksArray, true);
+
+    });
 
 function downloadGraphAsSVG() {
     try {
@@ -58,9 +66,21 @@ function downloadGraphAsSVG() {
     var blob = new Blob([html], {type: "image/svg+xml"});
     saveAs(blob, "myProfile.svg");
 
+
+
+   /* // Add some critical information
+    $("svg").attr({ version: '1.1' , xmlns:"http://www.w3.org/2000/svg"});
+
+    var svg = $("#chart-canvas").html();
+    var b64 = Base64.encode(svg); // or use btoa if supported
+
+    // Works in recent Webkit(Chrome)
+    $("body").append($("<img src='data:image/svg+xml;base64,\n"+b64+"' alt='file.svg'/>"));
+
+    // Works in Firefox 3.6 and Webit and possibly any browser which supports the data-uri
+    $("body").append($("<a href-lang='image/svg+xml' href='data:image/svg+xml;base64,\n"+b64+"' title='file.svg'>Download</a>"));
+    */
 }
-
-
 
 function createGraph(nodes, links,check) {
 var label=new Array();
@@ -93,15 +113,15 @@ var ilabel=0;
 
 
     var node_drag = d3.behavior.drag()
-        .on("dragstart", dragstart)
-        .on("drag", dragmove)
-        .on("dragend", dragend);
+        .on("dragstart", drag_start)
+        .on("drag", drag_move)
+        .on("dragend", drag_end);
 
-    function dragstart(d, i) {
+    function drag_start(d, i) {
         force.stop() // stops the force auto positioning before you start dragging
     }
 
-    function dragmove(d, i) {
+    function drag_move(d, i) {
         d.px += d3.event.dx;
         d.py += d3.event.dy;
         d.x += d3.event.dx;
@@ -109,8 +129,8 @@ var ilabel=0;
         tick(); // this is the key to make it work together with updating both px,py,x,y on d !
     }
 
-    function dragend(d, i) {
-        d.fixed = true; // of course set the node to fixed so the force doesn't include the node in its auto positioning stuff
+    function drag_end(d, i) {
+        d.fixed = true; // set the node to fixed, so the force doesn't include the node in its auto positioning
         tick();
         force.resume();
     }
@@ -121,6 +141,17 @@ var ilabel=0;
         .attr("class", "node")
         .call(node_drag);
 
+    //append icons to svg
+    /*svg.append("image")
+        .attr("xlink:href", "../Images/Download_img.png")
+        .attr("x", 10)
+        .attr("y", 10)
+        .attr("width", 25)
+        .attr("height", 25)
+        .on("click",function () {
+            console.log("ttttt")
+        });
+*/
     var edgepaths = svg.selectAll(".edgepath")
         .data(links)
         .enter()
@@ -147,7 +178,7 @@ var ilabel=0;
         edgelabels.append("textPath")
         .attr('xlink:href',function(d,i) {return '#edgepath'+i})
         .style("pointer-events", "none")
-        .text(function(d,i){return 'relation';});
+        .text(function(d,i){return '';});
 
 
 
@@ -164,14 +195,14 @@ var ilabel=0;
         .attr("y", -8)
         .attr("width",function (d) {
             if(d.PaperId==="456"){
-                return 60;
+                return 30;
             }else{
                 return 30;
             }
         })
         .attr("height", function (d) {
             if(d.PaperId==="456"){
-                return 60;
+                return 30;
             }else{
                 return 30;
             }
@@ -304,6 +335,20 @@ var ilabel=0;
             }
         });
     }
+}
+
+function resize() {
+    if(fullscreen){
+        $("#graphArea").removeClass("startSize").addClass("newSize");
+
+        fullscreen=false;
+    }
+    else{
+        $("#graphArea").removeClass("newSize").addClass("startSize");
+
+        fullscreen=true;
+    }
+
 }
 
 

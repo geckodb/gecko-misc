@@ -16,3 +16,4 @@ $(function () {
 function searchClicked() {
     alert(document.getElementById("searchinput").value);
 }
+

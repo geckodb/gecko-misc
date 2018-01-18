@@ -1,74 +1,139 @@
 {
-	"nodes": [
-		{
-			"PaperId": "123",
-			"title": "Paper A",
-			"authors": [
-				{
-					"name": "Mladen Kezunovic",
-					"org": "Texas A&M University"
-				},
-				{
-					"name": "Jinfeng Ren",
-					"org": "Alstom Grid"
-				},
-				{
-					"name": "Saeed Lotfifard",
-					"org": "Washington State University"
-				}
-			],
-			"year": 1992,
-			"type": "paper"
-		},
-		{
-			"PaperId": "234",
-			"title": "Paper B",
-			"authors": [
-				{
-					"name": "Margarita Su\u00e1rez",
-					"org": "Pontificia Universidad Cat\u00f3lica del Per\u00fa, Lima, Per\u00fa"
-				},
-				{
-					"name": "Jinfeng Ren",
-					"org": "Alstom Grid"
-				}
-			],
-			"year": 1990,
-			"type": "paper"
-		},
-		{
-			"PaperId": "456",
-			"title": "Paper C",
-			"authors": [
-				{
-					"name": "Margarita Su\u00e1rez",
-					"org": "Pontificia Universidad Cat\u00f3lica del Per\u00fa, Lima, Per\u00fa"
-				},
-				{
-					"name": "Karl Ren",
-					"org": "Alstom Grid"
-				}
-			],
-			"year": 1998,
-			"type": "paper"
-		},
-		{
-			"PaperId": "678",
-			"title": "Paper D",
-			"authors": [
-				{
-					"name": "Karl Ren",
-					"org": "Alstom Grid"
-				}
-			],
-			"year": 1998,
-			"type": "paper"
-		}
+  "nodes": [
+    {
+      "PaperId": "123",
+      "title": "Paper A",
+      "authors": [
+        {
+          "name": "Mladen Kezunovic",
+          "org": "Texas A&M University"
+        },
+        {
+          "name": "Jinfeng Ren",
+          "org": "Alstom Grid"
+        },
+        {
+          "name": "Saeed Lotfifard",
+          "org": "Washington State University"
+        }
+      ],
+      "year": 1992,
+      "type": "paper"
+    },
+    {
+      "PaperId": "234",
+      "title": "Paper B",
+      "authors": [
+        {
+          "name": "Margarita Su\u00e1rez",
+          "org": "Pontificia Universidad Cat\u00f3lica del Per\u00fa, Lima, Per\u00fa"
+        },
+        {
+          "name": "Jinfeng Ren",
+          "org": "Alstom Grid"
+        }
+      ],
+      "year": 1990,
+      "type": "paper"
+    },
+    {
+      "PaperId": "456",
+      "title": "Paper C",
+      "authors": [
+        {
+          "name": "Margarita Su\u00e1rez",
+          "org": "Pontificia Universidad Cat\u00f3lica del Per\u00fa, Lima, Per\u00fa"
+        },
+        {
+          "name": "Karl Ren",
+          "org": "Alstom Grid"
+        }
+      ],
+      "year": 1998,
+      "type": "paper"
+    },
+    {
+      "PaperId": "678",
+      "title": "Paper D",
+      "authors": [
+        {
+          "name": "Karl Ren",
+          "org": "Alstom Grid"
+        }
+      ],
+      "year": 1998,
+      "type": "paper"
+    },
+    {
+      "PaperId": "789",
+      "title": "Paper E",
+      "authors": [
+        {
+          "name": "EEEEEE",
+          "org": "Alstom Grid"
+        }
+      ],
+      "year": 1992,
+      "type": "paper"
+    },
+    {
+      "PaperId": "890",
+      "title": "Paper F",
+      "authors": [
+        {
+          "name": "FFFFFF",
+          "org": "Alstom Grid"
+        }
+      ],
+      "year": 1993,
+      "type": "paper"
+    },
+    {
+      "PaperId": "891",
+      "title": "Paper G",
+      "authors": [
+        {
+          "name": "GGGGGG",
+          "org": "Alstom Grid"
+        }
+      ],
+      "year": 1996,
+      "type": "paper"
+    },
+    {
+      "PaperId": "892",
+      "title": "Paper H",
+      "authors": [
+        {
+          "name": "HHHHH",
+          "org": "Alstom Grid"
+        }
+      ],
+      "year": 1999,
+      "type": "paper"
+    },
+    {
+      "PaperId": "893",
+      "title": "Paper I",
+      "authors": [
+        {
+          "name": "IIIIII",
+          "org": "Alstom Grid"
+        }
+      ],
+      "year": 2000,
+      "type": "paper"
+    }
 
-	],
-	
-	"links" : [
-		{"source": "123", "target":"234"},
-		{"source": "456", "target":"234"}
-	]
+
+  ],
+
+  "links" : [
+    {"source": "123", "target":"234"},
+    {"source": "456", "target":"234"},
+    {"source": "678", "target":"893"},
+    {"source": "893", "target":"892"},
+    {"source": "891", "target":"890"},
+    {"source": "789", "target":"678"}
+  ]
 }
