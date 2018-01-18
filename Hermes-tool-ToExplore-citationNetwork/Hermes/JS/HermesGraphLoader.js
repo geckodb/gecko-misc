@@ -1,7 +1,7 @@
 ﻿
 
-var width = 1000,
-    height = 600;
+var width = 1100,
+    height = 650;
 
 var dataArray = new Array();
 var linksArray = new Array();
@@ -172,14 +172,19 @@ var ilabel=0;
             'id':function(d,i){return 'edgelabel'+i},
             'dx':80,
             'dy':0,
-            'font-size':20,
+            'font-size':10,
             'fill':'#aaa'});
 
         edgelabels.append("textPath")
         .attr('xlink:href',function(d,i) {return '#edgepath'+i})
         .style("pointer-events", "none")
-        .text(function(d,i){return '';});
-
+        .text(function(d,i){
+            if(i<10){
+                return 'cites';
+            }else{
+                return 'author'
+            }
+            });
 
 
     node.append("image")
