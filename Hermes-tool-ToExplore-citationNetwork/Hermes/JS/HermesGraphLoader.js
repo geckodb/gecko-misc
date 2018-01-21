@@ -1,7 +1,7 @@
 ﻿
 
 var width = 1100,
-    height = 650;
+    height = 580;
 
 var dataArray = new Array();
 var linksArray = new Array();
@@ -93,8 +93,8 @@ var ilabel=0;
         .attr("viewBox", "0 -5 10 10")
         .attr("refX", 24)
         .attr("refY", 0)
-        .attr("markerWidth", 15)
-        .attr("markerHeight", 10)
+        .attr("markerWidth", 25)
+        .attr("markerHeight", 15)
         .attr("orient", "auto")
         .append("path")
         .attr('d', 'M 0,-5 L 10 ,0 L 0,5')

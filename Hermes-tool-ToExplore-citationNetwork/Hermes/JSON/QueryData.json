@@ -19,7 +19,8 @@
           },
           "references": ["28"],
           "type": "paper",
-          "fos": ["graph property Internet topology network topology the Internet randomness topology distributed computing computer science"]},
+          "fos": ["graph property Internet topology network topology the Internet randomness topology distributed computing computer science"],
+          "citedby":6297},
 
         {"title": "The Structure and Function of Complex Networks",
           "lang": "en",
@@ -38,7 +39,8 @@
             },
             "references": ["417"],
             "type": "paper",
-            "fos": ["evolving networks hierarchical network model network science network dynamics complex network mathematical optimization artificial intelligence machine learning mathematics"]},
+            "fos": ["evolving networks hierarchical network model network science network dynamics complex network mathematical optimization artificial intelligence machine learning mathematics"],
+            "citedby":16585},
 
             {"title": "Community structure in social and biological networks",
               "lang": "en",
@@ -58,7 +60,8 @@
                   },
                   "references": ["31"],
                   "type": "paper",
-                  "fos": ["network motif biological network degree distribution community structure social network data mining mathematics"]
+                  "fos": ["network motif biological network degree distribution community structure social network data mining mathematics"],
+                  "citedby":10307
                 },
 
                 {"title": "Collective dynamics of 'small-world' networks",
@@ -79,7 +82,8 @@
                       },
                       "references": ["29"],
                       "type": "paper",
-                      "fos": ["evolving networks analogy complex network random graph distributed computing mathematics collaboration graph"]
+                      "fos": ["evolving networks analogy complex network random graph distributed computing mathematics collaboration graph"],
+                      "citedby":6297
                     },
 
                     {"title": "Complex networks: Structure and dynamics",
@@ -103,7 +107,8 @@
                           },
                           "references": ["500"],
                           "type": "paper",
-                          "fos": ["evolving networks analogy complex network random graph distributed computing mathematics collaboration graph"]
+                          "fos": ["evolving networks analogy complex network random graph distributed computing mathematics collaboration graph"],
+                      "citedby":7979
                         },
                         {"title": "Exploring complex networks",
                           "lang": "en",
@@ -122,7 +127,8 @@
                             },
                             "references": ["92"],
                             "type": "paper",
-                            "fos": [" network dynamics complex network dynamical systems theory architecture human dynamics distributed computing bio informatics biology"]
+                            "fos": [" network dynamics complex network dynamical systems theory architecture human dynamics distributed computing bio informatics biology"],
+                          "citedby":7468
                           },
                             {"title": "Error and attack tolerance of complex networks",
                               "lang": "en",
@@ -143,7 +149,9 @@
                                   },
                                   "references": ["27"],
                                   "type": "paper",
-                                  "fos": ["complex network small world network redundancy fault tolerance robustness distributed computing computer science"]
+                                  "fos": ["complex network small world network redundancy fault tolerance robustness distributed computing computer science"],
+                              "citedby":8158
+
                                 },
 
                                 {"title": "Evolution of networks",
@@ -234,15 +242,15 @@
                                               ],
 
                                               "links" : [
-                                                {"source": "00001", "target":"00002"},
-                                                {"source": "00001", "target":"00003"},
-                                                {"source": "00001", "target":"00004"},
-                                                {"source": "00001", "target":"00005"},
-                                                {"source": "00001", "target":"00006"},
-                                                {"source": "00001", "target":"00007"},
-                                                {"source": "00001", "target":"00008"},
-                                                {"source": "00001", "target":"00009"},
-                                                {"source": "00001", "target":"00010"},
-                                                {"source": "00001", "target":"00011"}
+                                                {"source": "00002", "target":"00001"},
+                                                {"source": "00003", "target":"00001"},
+                                                {"source": "00004", "target":"00001"},
+                                                {"source": "00005", "target":"00001"},
+                                                {"source": "00006", "target":"00001"},
+                                                {"source": "00007", "target":"00001"},
+                                                {"source": "00008", "target":"00001"},
+                                                {"source": "00009", "target":"00001"},
+                                                {"source": "00010", "target":"00001"},
+                                                {"source": "00011", "target":"00001"}
                                               ]
                                             }

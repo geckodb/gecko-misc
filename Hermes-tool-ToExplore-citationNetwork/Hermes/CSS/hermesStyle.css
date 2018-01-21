@@ -206,10 +206,9 @@ body {
 }
 #content {
     min-height: calc(88vh - 25px);
-
 }
 #footer {
-    height: 0px;
+    height: 30px;
     background: #222;
     color: white;
 }
@@ -229,10 +228,9 @@ body {
 }
 
 .startSize{
-
     width: 1100px;
-    height: 650px;
-    border-radius: 4px;
+    height: 670px;
+   /* border-radius: 4px;*/
     position: relative;
 }
 
@@ -250,6 +248,11 @@ body {
     margin: 0;
     z-index: 10000;
     cursor: pointer;
+}
+
+.searchsize{
+    width: 430px;
+    border-radius: 4px;
 }
 
 .fullscreen-svg{
@@ -277,3 +280,30 @@ body {
     left: 0;
 }
 
+.pagination a {
+    color: black;
+    float: left;
+    padding: 5px 8px;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: background-color .3s;
+}
+
+.pagination a.active {
+    background-color: #396fad;
+    color: white;
+}
+
+.graphpagination a {
+    color: black;
+    padding: 5px 8px;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: background-color .3s;
+    align-content: center;
+}
+
+.graphpagination a.active {
+    background-color:#c95426;
+    color: white;
+}
