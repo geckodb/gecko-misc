@@ -169,7 +169,7 @@ var ilabel=0;
         .append('text')
         .style("pointer-events", "none")
         .attr({'class':'edgelabel',
-            'id':function(d,i){return 'edgelabel'+i},
+            'id':function(d,i){return 'edgelabel'+i;},
             'dx':80,
             'dy':0,
             'font-size':10,
@@ -179,11 +179,12 @@ var ilabel=0;
         .attr('xlink:href',function(d,i) {return '#edgepath'+i})
         .style("pointer-events", "none")
         .text(function(d,i){
-            if(i<10){
-                return 'cites';
+            if(d.source.type==="paper"){
+                return "cites"
             }else{
-                return 'author'
+                return "author"
             }
+
             });
 
 
