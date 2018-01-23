@@ -294,6 +294,10 @@ body {
     color: white;
 }
 
+.graphpagination{
+    /*border:1px solid black;*/
+}
+
 .graphpagination a {
     color: black;
     padding: 5px 8px;
@@ -306,4 +310,5 @@ body {
 .graphpagination a.active {
     background-color:#c95426;
     color: white;
+
 }

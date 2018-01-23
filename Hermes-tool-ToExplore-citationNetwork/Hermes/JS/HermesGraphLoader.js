@@ -10,11 +10,7 @@ var paperExpanded= new Set();
 var svg = d3.select("#paperGraphArea")
             .append("svg")
             .attr("width",width)
-             .attr("height",height);
-            /*.attr("preserveAspectRatio","xMinYMin meet")
-            .attr("viewBox","20 20 1000 650")
-            .classed("svg-content",true);*/
-
+            .attr("height",height);
 
 
 var menuItems = ["Authorship", "Co-word", "Bibliographic"];
@@ -51,36 +47,7 @@ var force = d3.layout.force()
 
     });
 
-function downloadGraphAsSVG() {
-    try {
-        var isFileSaverSupported = !!new Blob();
-    } catch (e) {
-        alert("blob not supported");
-    }
 
-    var html = d3.select("svg")
-        .attr("version", 1.1)
-        .attr("xmlns", "http://www.w3.org/2000/svg")
-        .node().parentNode.innerHTML;
-
-    var blob = new Blob([html], {type: "image/svg+xml"});
-    saveAs(blob, "myProfile.svg");
-
-
-
-   /* // Add some critical information
-    $("svg").attr({ version: '1.1' , xmlns:"http://www.w3.org/2000/svg"});
-
-    var svg = $("#chart-canvas").html();
-    var b64 = Base64.encode(svg); // or use btoa if supported
-
-    // Works in recent Webkit(Chrome)
-    $("body").append($("<img src='data:image/svg+xml;base64,\n"+b64+"' alt='file.svg'/>"));
-
-    // Works in Firefox 3.6 and Webit and possibly any browser which supports the data-uri
-    $("body").append($("<a href-lang='image/svg+xml' href='data:image/svg+xml;base64,\n"+b64+"' title='file.svg'>Download</a>"));
-    */
-}
 
 function createGraph(nodes, links,check) {
 var label=new Array();
@@ -101,6 +68,8 @@ var ilabel=0;
         .attr('fill', '#ccc')
         .attr('stroke', '#ccc');
 
+
+
     force.nodes(nodes)
         .links(links)
         .start();
@@ -109,7 +78,9 @@ var ilabel=0;
         .data(links)
         .enter().append("line")
         .attr("class", "link")
-        .attr("marker-end", "url(#arrowhead)");
+        .attr("marker-end", "url(#arrowhead)")
+        .attr('fill', '#ccc')
+        .attr('stroke', '#ccc');;
 
 
     var node_drag = d3.behavior.drag()
@@ -188,7 +159,7 @@ var ilabel=0;
             });
 
 
-    node.append("image")
+   /* node.append("image")
         .attr("xlink:href", function (d) {
             if(d.type==="paper"){
                 return "../Images/Document.ico";
@@ -213,8 +184,41 @@ var ilabel=0;
                 return 30;
             }
         })
-        .style("stroke", "black")
-        .style("stroke-width", "10")
+
+   node.append("circle")
+       .attr("cx", -8)
+       .attr("cy", -8)
+       .attr("r",18)
+       .attr("fill","orange")
+       .style("stroke", "black")*/
+
+    node.append("image")
+       .attr("xlink:href", function (d) {
+           if(d.type==="paper"){
+               return "../Images/Document.ico";
+           }
+           else if (d.type==="author"){
+               return "../Images/author.png";
+           }
+       })
+       .attr("x", -8)
+       .attr("y", -8)
+       .attr("width",function (d) {
+           if(d.PaperId==="456"){
+               return 30;
+           }else{
+               return 30;
+           }
+       })
+       .attr("height", function (d) {
+           if(d.PaperId==="456"){
+               return 30;
+           }else{
+               return 30;
+           }
+       })
+        .attr("alt","abc")
+      /*  .style("stroke-width", "10")*/
         //to populate context menu
         .on('contextmenu', function (d, i) {
             // create the div element that will hold the context menu
@@ -247,6 +251,8 @@ var ilabel=0;
 
                 })
                 .text(function (d) { console.log(d); return d;});
+
+
             d3.select('.context-menu').style('display', 'none');
             // show the context menu
             d3.select('.context-menu')
@@ -354,7 +360,6 @@ function resize() {
 
         fullscreen=true;
     }
-
 }
 
 
@@ -404,4 +409,23 @@ function parseData(idToEXpand) {
     for(let item of mydata) console.log(item);
     createGraph(dataArray, linksArray,true);
     d3.select('.context-menu').style('display', 'none');
+}
+
+
+function downloadGraphAsSVG() {
+    try {
+        var isFileSaverSupported = !!new Blob();
+    } catch (e) {
+        alert("blob not supported");
+    }
+
+    var graphDwn = d3.select("svg")
+    .attr("version", 1.1)
+    .attr("xmlns", "http://www.w3.org/2000/svg")
+    .node().parentNode.innerHTML;
+
+
+    var blob = new Blob([graphDwn], {type: "image/svg+xml"});
+    saveAs(blob, "scholarlyNetwork.svg");
+
 }
