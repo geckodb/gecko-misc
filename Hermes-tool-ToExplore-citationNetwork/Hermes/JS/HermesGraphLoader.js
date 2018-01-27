@@ -26,6 +26,7 @@ var force = d3.layout.force()
     .gravity(0.1)
     .alpha(0);
 
+var init=
     d3.json("../JSON/QueryData.json", function (error, json) {
         if (error) throw error;
 
@@ -46,7 +47,6 @@ var force = d3.layout.force()
         createGraph(json.nodes, linksArray, true);
 
     });
-
 
 
 function createGraph(nodes, links,check) {
@@ -112,17 +112,8 @@ var ilabel=0;
         .attr("class", "node")
         .call(node_drag);
 
-    //append icons to svg
-    /*svg.append("image")
-        .attr("xlink:href", "../Images/Download_img.png")
-        .attr("x", 10)
-        .attr("y", 10)
-        .attr("width", 25)
-        .attr("height", 25)
-        .on("click",function () {
-            console.log("ttttt")
-        });
-*/
+
+
     var edgepaths = svg.selectAll(".edgepath")
         .data(links)
         .enter()
@@ -195,10 +186,12 @@ var ilabel=0;
     node.append("image")
        .attr("xlink:href", function (d) {
            if(d.type==="paper"){
-               return "../Images/Document.ico";
+               return "http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/512/Document-icon.png"
+               //return "../Images/Document.ico";
            }
            else if (d.type==="author"){
-               return "../Images/author.png";
+               return "http://www.clker.com/cliparts/3/V/U/m/W/U/admin-button-icon-md.png"
+               //return "../Images/author.png";
            }
        })
        .attr("x", -8)
@@ -428,4 +421,10 @@ function downloadGraphAsSVG() {
     var blob = new Blob([graphDwn], {type: "image/svg+xml"});
     saveAs(blob, "scholarlyNetwork.svg");
 
+}
+
+function downloadGraphAsData() {
+    var data=JSON.stringify(dataArray);
+    var blob_json = new Blob([data], { type: 'text/data;charset=utf-8;' });
+    saveAs(blob_json,"data.json");
 }
