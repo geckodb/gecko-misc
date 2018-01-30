@@ -228,7 +228,7 @@ body {
 }
 
 .startSize{
-    width: 1100px;
+    width: 1085px;
     height: 670px;
    /* border-radius: 4px;*/
     position: relative;
@@ -311,4 +311,17 @@ body {
     background-color:#c95426;
     color: white;
 
+}
+
+#tabContainer{
+   height: 530px;
+
+}
+
+#resultTab{
+width: 430px;
+}
+
+#pagination{
+    margin-bottom: -30px;
 }

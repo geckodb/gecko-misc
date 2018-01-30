@@ -1,6 +1,4 @@
-﻿
-
-var width = 1100,
+﻿var width = 1050,
     height = 580;
 
 var dataArray = new Array();
@@ -26,7 +24,7 @@ var force = d3.layout.force()
     .gravity(0.1)
     .alpha(0);
 
-var init=
+
     d3.json("../JSON/QueryData.json", function (error, json) {
         if (error) throw error;
 
@@ -46,8 +44,71 @@ var init=
 
         createGraph(json.nodes, linksArray, true);
 
-    });
+        $(document).ready(function(){
 
+            var $pagination = $('#pagination'),
+                totalRecords = 0,
+                records = [],
+                displayRecords = [],
+                recPerPage = 6,
+                page = 1,
+                totalPages = 0;
+
+            records=dataArray
+            console.log(records);
+            totalRecords = records.length;
+            totalPages = Math.ceil(totalRecords / recPerPage);
+            apply_pagination();
+
+            function generate_table() {
+                $('#searchResults').html('');
+                var doc=document.getElementById("searchResults");
+                for (var i = 0; i < displayRecords.length; i++) {
+                    var tr = document.createElement("tr");
+                    var td=document.createElement("td");
+
+                    a = document.createElement("a");
+                    linebreak= document.createElement("br");
+                    h5= document.createElement("b");
+                    handler_a= td.appendChild(a);
+                    h5.innerText=displayRecords[i].title;
+                    handler_a.appendChild(h5);
+                    p=document.createElement("p");
+
+                    handler_p=td.appendChild(p); //change to doc to keep it out of a tag
+                    b= document.createElement("b");
+                    b.innerText="Citation Count :  ";
+                    span=document.createElement("span");
+                    span.innerText=displayRecords[i].citedby;
+                    handler_p.appendChild(b);
+                    handler_p.appendChild(span);
+
+                    b1= document.createElement("b");
+                    b1.innerText=" Reference Count : ";
+                    span1=document.createElement("span");
+                    span1.innerText=displayRecords[i].reference_count;
+                    handler_p.append(' ');
+                    handler_p.appendChild(b1);
+                    handler_p.appendChild(span1);
+                    td.appendChild(linebreak);
+                    tr.appendChild(td);
+                    doc.appendChild(tr);
+                }
+            }
+            function apply_pagination() {
+                $pagination.twbsPagination({
+                    totalPages: totalPages,
+                    visiblePages: totalPages,
+                    onPageClick: function (event, page) {
+                        displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
+                        endRec = (displayRecordsIndex) + recPerPage;
+                        displayRecords = records.slice(displayRecordsIndex, endRec);
+                        generate_table();
+                    }
+                });
+            }
+        });
+});
 
 function createGraph(nodes, links,check) {
 var label=new Array();
@@ -149,39 +210,6 @@ var ilabel=0;
 
             });
 
-
-   /* node.append("image")
-        .attr("xlink:href", function (d) {
-            if(d.type==="paper"){
-                return "../Images/Document.ico";
-            }
-            else if (d.type==="author"){
-                return "../Images/author.png";
-            }
-        })
-        .attr("x", -8)
-        .attr("y", -8)
-        .attr("width",function (d) {
-            if(d.PaperId==="456"){
-                return 30;
-            }else{
-                return 30;
-            }
-        })
-        .attr("height", function (d) {
-            if(d.PaperId==="456"){
-                return 30;
-            }else{
-                return 30;
-            }
-        })
-
-   node.append("circle")
-       .attr("cx", -8)
-       .attr("cy", -8)
-       .attr("r",18)
-       .attr("fill","orange")
-       .style("stroke", "black")*/
 
     node.append("image")
        .attr("xlink:href", function (d) {
@@ -340,6 +368,8 @@ var ilabel=0;
             }
         });
     }
+
+
 }
 
 function resize() {
@@ -428,3 +458,4 @@ function downloadGraphAsData() {
     var blob_json = new Blob([data], { type: 'text/data;charset=utf-8;' });
     saveAs(blob_json,"data.json");
 }
+

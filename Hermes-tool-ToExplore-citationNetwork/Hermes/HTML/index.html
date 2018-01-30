@@ -12,6 +12,11 @@
 
     <script src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js"></script>
     <script src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="jquery.twbsPagination.min.js"></script>
+
 </head>
 
 <body>
@@ -60,58 +65,17 @@
                             </tr>
                             <tr>
                                 <td>
-                                        <div class="list-group" style="width: 430px">
-                                            <a href="#" class="list-group-item active">
-                                                <h5 class="list-group-item-heading">On power-law relationships of the Internet topology</h5>
-                                                <p class="list-group-item-text"><b>Citation count :</b> <span class="badge">6297</span> <b>References :</b> <span class="badge">28</span></p>
-                                            </a>
-
-                                            <a href="#" class="list-group-item">
-                                                <h5 class="list-group-item-heading">A brief history of generative models for power law and lognormal distributions</h5>
-                                                <p class="list-group-item-text"><b>Citation count :</b> <span class="badge">1589</span> <b>References :</b> <span class="badge">73</span></p>
-                                            </a>
-
-                                            <a href="#" class="list-group-item">
-                                                <h5 class="list-group-item-heading">On the effectiveness of route-based packet filtering for distributed DoS attack prevention in power-law internets</h5>
-                                                <p class="list-group-item-text"><b>Citation count :</b> <span class="badge">797</span> <b>References :</b> <span class="badge">27</span></p>
-                                            </a>
-
-                                            <a href="#" class="list-group-item">
-                                                <h5 class="list-group-item-heading">The origin of power laws in Internet topologies revisited</h5>
-                                                <p class="list-group-item-text"><b>Citation count :</b> <span class="badge">618</span> <b>References :</b> <span class="badge">20</span></p>
-                                            </a>
-
-                                            <a href="#" class="list-group-item">
-                                                <h5 class="list-group-item-heading">On the origin of power laws in Internet topologies</h5>
-                                                <p class="list-group-item-text"><b>Citation count :</b> <span class="badge">580</span> <b>References :</b> <span class="badge">16</span></p>
-                                            </a>
-
-                                            <a href="#" class="list-group-item">
-                                                <h5 class="list-group-item-heading">Power laws and the AS-level internet topology</h5>
-                                                <p class="list-group-item-text"><b>Citation count :</b> <span class="badge">495</span> <b>References :</b> <span class="badge">64</span></p>
-                                            </a>
-
-                                            <a href="#" class="list-group-item">
-                                                <h5 class="list-group-item-heading">Generating network topologies that obey power laws</h5>
-                                                <p class="list-group-item-text"><b>Citation count :</b> <span class="badge">262</span> <b>References :</b> <span class="badge">10</span></p>
-                                            </a>
-
-                                            <a href="#" class="list-group-item">
-                                                <h5 class="list-group-item-heading">Power law distributions in class relationships</h5>
-                                                <p class="list-group-item-text"><b>Citation count :</b> <span class="badge">141</span> <b>References :</b> <span class="badge">21</span></p>
-                                            </a>
-
+                                        <div class="list-group" id="list" style="width: 430px">
+                                            <div id="tabContainer">
+                                            <table  class="table-hover" id="resultTab" style="word-break: break-all;">
+                                                <tbody id="searchResults">
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                            <div id="pager">
+                                                <ul id="pagination" class="pagination-sm"></ul>
+                                            </div>
                                         </div>
-                                    <div class="pagination">
-                                        <a href="#">&laquo;</a>
-                                        <a class="active" href="#">1</a>
-                                        <a href="#">2</a>
-                                        <a href="#">3</a>
-                                        <a href="#">4</a>
-                                        <a href="#">5</a>
-                                        <a href="#">6</a>
-                                        <a href="#">&raquo;</a>
-                                    </div>
                                 </td>
                             </tr>
                         </table>
