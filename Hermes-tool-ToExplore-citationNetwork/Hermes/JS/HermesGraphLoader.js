@@ -43,7 +43,7 @@ var force = d3.layout.force()
         }
 
         createGraph(json.nodes, linksArray, true);
-
+        //Pagination code
         $(document).ready(function(){
 
             var $pagination = $('#pagination'),
@@ -95,10 +95,11 @@ var force = d3.layout.force()
                     doc.appendChild(tr);
                 }
             }
+            //calculates start and end indices and sends set of records to display
             function apply_pagination() {
                 $pagination.twbsPagination({
                     totalPages: totalPages,
-                    visiblePages: totalPages,
+                    visiblePages: 6,
                     onPageClick: function (event, page) {
                         displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
                         endRec = (displayRecordsIndex) + recPerPage;

@@ -213,7 +213,12 @@ body {
     color: white;
 }
 
-#download_glyphicons{
+#exportSVG_glyphicons{
+    font-size: 22px;
+    color: black;
+}
+
+#exportData_glyphicons{
     font-size: 22px;
     color: black;
 }
@@ -225,10 +230,11 @@ body {
 #searchArea{
     border:1px solid black;
 
+
 }
 
 .startSize{
-    width: 1085px;
+    width: 1055px;
     height: 670px;
    /* border-radius: 4px;*/
     position: relative;
@@ -251,7 +257,7 @@ body {
 }
 
 .searchsize{
-    width: 430px;
+    width: 460px;
     border-radius: 4px;
 }
 
@@ -324,4 +330,5 @@ width: 430px;
 
 #pagination{
     margin-bottom: -30px;
+    margin-left: 10px;
 }
