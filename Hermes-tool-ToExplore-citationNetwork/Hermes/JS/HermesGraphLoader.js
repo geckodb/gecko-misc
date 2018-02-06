@@ -129,7 +129,8 @@ function poplateClickedNode(nodeId) {
         if(nodeId==dataArray[i].PaperId){
             tempArray.push(dataArray[i]);
             d3.selectAll("svg > *").remove();
-            createGraph(tempArray,'',true);
+
+            createGraph(tempArray,linksArray,false);
             break;
         }
     }
@@ -324,7 +325,7 @@ function createGraph(nodes, links, drawnodesOnly) {
                 .append('li')
                 .on('click', function (d) {
                     console.log("context menu-" +d);
-                    if((d==="Authorship")&& !(paperExpanded.has(paperId))){
+                    if((d==="Authorship")){
                         parseData(paperId);
                         paperExpanded.add(paperId);
                     }
@@ -439,11 +440,6 @@ function createGraph(nodes, links, drawnodesOnly) {
     }
 }
 
-
-
-
-
-
 function resize() {
     if(fullscreen){
         $("#graphArea").removeClass("startSize").addClass("newSize");
@@ -457,9 +453,8 @@ function resize() {
     }
 }
 
-
 function createAuthorNode(paperId, authorName) {
-    this.PaperId = paperId;
+    this.authorId = paperId;
     this.authors = authorName;
     this.type="author";
 }
@@ -470,15 +465,15 @@ function createLinks(source, target) {
 }
 
 function parseData(idToEXpand) {
-    var authorArray=new Array();
-    var intial_length = dataArray.length;
+
+    var intial_length = tempArray.length;
     for (var i = 0; i < intial_length; i++) {
-        if(dataArray[i].PaperId===idToEXpand){
-            for (var j = 0; j < dataArray[i].authors.length; j++) {
-                if(!authorDetails.has(dataArray[i].authors[j].name)) {
-                    var newNode = new createAuthorNode(dataArray[i].PaperId, dataArray[i].authors[j].name)
+        if(tempArray[i].PaperId===idToEXpand){
+            for (var j = 0; j < tempArray[i].authors.length; j++) {
+                if(!authorDetails.has(tempArray[i].authors[j].name)) {
+                    var newNode = new createAuthorNode(tempArray[i].PaperId, tempArray[i].authors[j].name)
                     var index= tempArray.push(newNode);
-                    authorDetails.set(dataArray[i].authors[j].name,index-1);
+                    authorDetails.set(tempArray[i].authors[j].name,index-1);
                     var newLink = new createLinks(tempArray.length - 1, i);
                     linksArray.push(newLink);
                 }
@@ -488,10 +483,10 @@ function parseData(idToEXpand) {
     }
 
     for (var i = 0; i < intial_length; i++) {
-        if(dataArray[i].PaperId!==idToEXpand) {
-            for (var j = 0; j < dataArray[i].authors.length; j++) {
-                if(authorDetails.has(dataArray[i].authors[j].name)){
-                    var newLink = new createLinks(authorDetails.get(dataArray[i].authors[j].name), i);
+        if(tempArray[i].PaperId!==idToEXpand) {
+            for (var j = 0; j < tempArray[i].authors.length; j++) {
+                if(authorDetails.has(tempArray[i].authors[j].name)){
+                    var newLink = new createLinks(authorDetails.get(tempArray[i].authors[j].name), i);
                     linksArray.push(newLink);
                 }
             }
@@ -499,11 +494,11 @@ function parseData(idToEXpand) {
     }
 
     JSON.stringify(linksArray);
-    JSON.stringify(dataArray);
+    JSON.stringify(tempArray);
     d3.selectAll("svg > *").remove();
-    var mydata=new Set(dataArray);
+    var mydata=new Set(tempArray);
     for(let item of mydata) console.log(item);
-    createGraph(dataArray, linksArray);
+    createGraph(tempArray, linksArray,false);
     d3.select('.context-menu').style('display', 'none');
 }
 
