@@ -9,7 +9,6 @@ String DB Gen
     <a href="#motivation">Motivation</a> &bull; 
     <a href="#installation">Installation</a> &bull; 
     <a href="#quick start">Quick Start</a> &bull; 
-    <a href="#additional-options">Additional options</a> &bull; 
     <a href="#license">License</a> &bull; 
     <a href="#contributing">Contributing</a>
 </p>
