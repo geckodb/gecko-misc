@@ -69,12 +69,12 @@ public class StringProvider implements Iterable<String> {
 
     NumberGenerator numberGenerator;
     Random uniformRandom;
-    StringBuilder builder;
+    TextGenerator textGenerator;
 
-    public StringProvider(NumberGenerator generator) {
+    public StringProvider(NumberGenerator generator, String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile) {
         this.numberGenerator = generator;
-        this.builder = new StringBuilder();
         this.uniformRandom = new Random();
+        textGenerator = new TextGenerator(wordFrequencyFile, subsequentWordsFile, starterWordsFile);
     }
 
 
@@ -88,14 +88,8 @@ public class StringProvider implements Iterable<String> {
 
             @Override
             public String next() {
-
-                builder.delete(0, builder.length());
                 int stringLength = numberGenerator.next();
-                while (stringLength-- > 0) {
-                    builder.append((char) uniformRandom.nextInt(255));
-                }
-
-                return builder.toString();
+                return textGenerator.generate(stringLength);
             }
         };
     }

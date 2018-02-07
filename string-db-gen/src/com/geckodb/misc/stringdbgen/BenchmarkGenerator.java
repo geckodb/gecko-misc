@@ -31,8 +31,11 @@ public final class BenchmarkGenerator {
         }
     }
 
-    public BenchmarkGenerator(Scenario scenario) {
+    public BenchmarkGenerator(Scenario scenario, String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile) {
         this.scenario = scenario;
+        this.wordFrequencyFile = wordFrequencyFile;
+        this.subsequentWordsFile = subsequentWordsFile;
+        this.starterWordsFile = starterWordsFile;
     }
 
     public static final class Scenarios {
@@ -56,6 +59,10 @@ public final class BenchmarkGenerator {
         ContinueState consume(AtomicReferenceArray<String> strings);
     }
 
+    String wordFrequencyFile;
+    String subsequentWordsFile;
+    String starterWordsFile;
+
     void generateString(Callback callback) {
 
         Thread[] threads = new Thread[numThreads];
@@ -65,7 +72,7 @@ public final class BenchmarkGenerator {
             for (int idx = 0; idx < numThreads; idx++) {
                 threads[idx] = new Thread(new Runnable() {
 
-                    StringProvider provider = new StringProvider(scenario.numberGenerator);
+                    StringProvider provider = new StringProvider(scenario.numberGenerator, wordFrequencyFile, subsequentWordsFile, starterWordsFile);
                     Iterator<String> it = provider.iterator();
 
 

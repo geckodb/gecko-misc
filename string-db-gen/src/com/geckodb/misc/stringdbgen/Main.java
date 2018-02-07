@@ -3,6 +3,8 @@ package com.geckodb.misc.stringdbgen;
 import org.apache.commons.cli.*;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
@@ -43,6 +45,19 @@ public class Main {
         size.setRequired(true);
         options.addOption(size);
 
+        Option wordfreq = new Option("a", "word-freq-file", true, "path to word frequency file");
+        wordfreq.setRequired(false);
+        options.addOption(wordfreq);
+
+        Option nextwords = new Option("b", "next-words-file", true, "path to next words file");
+        nextwords.setRequired(false);
+        options.addOption(nextwords);
+
+        Option starterwords = new Option("c", "starter-words-file", true, "path to starter words file");
+        starterwords.setRequired(false);
+        options.addOption(starterwords);
+
+
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
         CommandLine cmd;
@@ -52,6 +67,22 @@ public class Main {
             String scenarioName = cmd.getOptionValue('s');
             String outputFileName = cmd.getOptionValue('o');
             String targetSize = cmd.getOptionValue('t');
+
+
+            String wordFrequencyFile = cmd.getOptionValue('a');
+            String subsequentWordsFile = cmd.getOptionValue('b');
+            String starterWordsFile = cmd.getOptionValue('c');
+
+            wordFrequencyFile = (wordFrequencyFile == null) ? "dwiki-dataset/files/dewiki-articles-word-freq.csv" : wordFrequencyFile;
+            subsequentWordsFile = (subsequentWordsFile == null) ? "dwiki-dataset/files/dewiki-articles-next-words.txt" : subsequentWordsFile;
+            starterWordsFile = (starterWordsFile == null) ? "dwiki-dataset/files/dewiki-articles-starter-words.csv" : starterWordsFile;
+
+            if (!Files.exists(Paths.get(wordFrequencyFile)) || !Files.exists(Paths.get(subsequentWordsFile)) || !Files.exists(Paths.get(starterWordsFile))) {
+                System.out.println("Unable open analysis files (word frequency, next words, and/or starter words). " +
+                        "Did you forgot to download these files ('https://www.dropbox.com/s/vhbq52vrti8isxx/dewiki-dataset.tar.gz?dl=1') or to put them into 'dwiki-dataset/files/' directory?");
+                formatter.printHelp("stringdbgen", options);
+                System.exit(1);
+            }
 
             try {
                 long maxSize[] = {Long.valueOf(targetSize)};
@@ -69,7 +100,8 @@ public class Main {
                 {
                     System.setOut(new PrintStream(new BufferedOutputStream(fileStream)));
 
-                    BenchmarkGenerator benchmarkGenerator = new BenchmarkGenerator(BenchmarkGenerator.Scenarios.INSTANT_MESSAGING_SERVICE);
+                    BenchmarkGenerator benchmarkGenerator = new BenchmarkGenerator(BenchmarkGenerator.Scenarios.INSTANT_MESSAGING_SERVICE,
+                            wordFrequencyFile, subsequentWordsFile, starterWordsFile);
 
                     final int[] total = {0};
                     final long[] totalSize = {0};

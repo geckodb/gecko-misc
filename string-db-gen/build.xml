@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="string-db-gen" default="all">
+  
+  
+  <property file="build.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.swc"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.egg"/>
+    <include name="*.ane"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="lib/ant-javafx.jar"/>
+      <include name="lib/dt.jar"/>
+      <include name="lib/javafx-mx.jar"/>
+      <include name="lib/jconsole.jar"/>
+      <include name="lib/packager.jar"/>
+      <include name="lib/sa-jdi.jar"/>
+      <include name="lib/tools.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.commons-cli:commons-cli:1.4.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-cli/commons-cli/1.4/commons-cli-1.4.jar"/>
+  </path>
+  
+  <path id="library.org.apache.commons:commons-math3:3.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-math3/3.3/commons-math3-3.3.jar"/>
+  </path>
+  
+  
+  <!-- Global Libraries -->
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module string-db-gen -->
+  
+  <dirname property="module.string-db-gen.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.string-db-gen" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.string-db-gen" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.string-db-gen" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.string-db-gen" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="string-db-gen.output.dir" value="${module.string-db-gen.basedir}/out/production/string-db-gen"/>
+  <property name="string-db-gen.testoutput.dir" value="${module.string-db-gen.basedir}/out/test/string-db-gen"/>
+  
+  <path id="string-db-gen.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="string-db-gen.module.production.classpath">
+    <path refid="${module.jdk.classpath.string-db-gen}"/>
+    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
+    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
+  </path>
+  
+  <path id="string-db-gen.runtime.production.module.classpath">
+    <pathelement location="${string-db-gen.output.dir}"/>
+    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
+    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
+  </path>
+  
+  <path id="string-db-gen.module.classpath">
+    <path refid="${module.jdk.classpath.string-db-gen}"/>
+    <pathelement location="${string-db-gen.output.dir}"/>
+    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
+    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
+  </path>
+  
+  <path id="string-db-gen.runtime.module.classpath">
+    <pathelement location="${string-db-gen.testoutput.dir}"/>
+    <pathelement location="${string-db-gen.output.dir}"/>
+    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
+    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.string-db-gen">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.string-db-gen">
+    <patternset refid="excluded.from.module.string-db-gen"/>
+  </patternset>
+  
+  <path id="string-db-gen.module.sourcepath">
+    <dirset dir="${module.string-db-gen.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.string-db-gen" depends="compile.module.string-db-gen.production,compile.module.string-db-gen.tests" description="Compile module string-db-gen"/>
+  
+  <target name="compile.module.string-db-gen.production" description="Compile module string-db-gen; production classes">
+    <mkdir dir="${string-db-gen.output.dir}"/>
+    <javac destdir="${string-db-gen.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.string-db-gen}/javac">
+      <compilerarg line="${compiler.args.string-db-gen}"/>
+      <bootclasspath refid="string-db-gen.module.bootclasspath"/>
+      <classpath refid="string-db-gen.module.production.classpath"/>
+      <src refid="string-db-gen.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.string-db-gen"/>
+    </javac>
+    
+    <copy todir="${string-db-gen.output.dir}">
+      <fileset dir="${module.string-db-gen.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.string-db-gen.tests" depends="compile.module.string-db-gen.production" description="compile module string-db-gen; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.string-db-gen" description="cleanup module">
+    <delete dir="${string-db-gen.output.dir}"/>
+    <delete dir="${string-db-gen.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.string-db-gen" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.string-db-gen" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.string-db-gen:jar" value="${basedir}/build"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.string-db-gen.jar" value="${artifacts.temp.dir}/string-db-gen.jar"/>
+  </target>
+  
+  <target name="artifact.string-db-gen:jar" depends="init.artifacts, compile.module.string-db-gen" description="Build &#39;string-db-gen:jar&#39; artifact">
+    <property name="artifact.temp.output.string-db-gen:jar" value="${artifacts.temp.dir}/string_db_gen_jar"/>
+    <mkdir dir="${artifact.temp.output.string-db-gen:jar}"/>
+    <jar destfile="${temp.jar.path.string-db-gen.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${string-db-gen.output.dir}"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/commons/commons-math3/3.3/commons-math3-3.3.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/commons-cli/commons-cli/1.4/commons-cli-1.4.jar"/>
+      <manifest>
+        <attribute name="Main-Class" value="com.geckodb.misc.stringdbgen.Main"/>
+      </manifest>
+    </jar>
+    <copy file="${temp.jar.path.string-db-gen.jar}" tofile="${artifact.temp.output.string-db-gen:jar}/string-db-gen.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.string-db-gen:jar" description="Build all artifacts">
+    <mkdir dir="${artifact.output.string-db-gen:jar}"/>
+    <copy todir="${artifact.output.string-db-gen:jar}">
+      <fileset dir="${artifact.temp.output.string-db-gen:jar}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>
