@@ -98,7 +98,9 @@ public class Main {
 
                 try(FileOutputStream fileStream = new FileOutputStream(outputFileName, true))
                 {
+                    System.out.println("This is String-DB-Gen. Copyright (c) Marcus Pinnecke 2018\nhttps://github.com/geckodb/gecko-misc/string-db-gen");
                     System.setOut(new PrintStream(new BufferedOutputStream(fileStream)));
+
 
                     BenchmarkGenerator benchmarkGenerator = new BenchmarkGenerator(BenchmarkGenerator.Scenarios.INSTANT_MESSAGING_SERVICE,
                             wordFrequencyFile, subsequentWordsFile, starterWordsFile);

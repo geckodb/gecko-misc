@@ -66,13 +66,14 @@ public final class BenchmarkGenerator {
     void generateString(Callback callback) {
 
         Thread[] threads = new Thread[numThreads];
+        StringProvider provider = new StringProvider(scenario.numberGenerator, wordFrequencyFile, subsequentWordsFile, starterWordsFile);
 
         do {
             numCreated.set(0);
             for (int idx = 0; idx < numThreads; idx++) {
                 threads[idx] = new Thread(new Runnable() {
 
-                    StringProvider provider = new StringProvider(scenario.numberGenerator, wordFrequencyFile, subsequentWordsFile, starterWordsFile);
+
                     Iterator<String> it = provider.iterator();
 
 

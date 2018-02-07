@@ -36,7 +36,7 @@ public class TextGenerator {
         parseSubsequentWordsFile(subsequentWordsFile);
         System.err.println("Loading starter words...");
         parseStarterWordsFile(starterWordsFile);
-        System.err.println("Generating...");
+        System.err.println("Start data generator...");
     }
 
     public String generate(int stringLength) {
