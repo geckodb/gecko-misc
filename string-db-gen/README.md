@@ -8,7 +8,7 @@ String DB Gen
 <p align="center">
     <a href="#motivation">Motivation</a> &bull; 
     <a href="#installation">Installation</a> &bull; 
-    <a href="#quick start">Quick Start</a> &bull; 
+    <a href="#quick-start">Quick Start</a> &bull; 
     <a href="#license">License</a> &bull; 
     <a href="#contributing">Contributing</a>
 </p>
