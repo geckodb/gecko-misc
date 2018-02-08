@@ -129,7 +129,7 @@ public class Main {
                             long diff = System.currentTimeMillis() - start;
                             float percent = 100 * totalSize[0]/(float)(maxSize[0]);
                             long exp = (long) (diff * 100 / percent);
-                            String eta = formatTimeSpan((long)(exp / 1000));
+                            String eta = formatTimeSpan((long)(Math.max(0,(diff-exp)) / 1000));
                             String elpased = formatTimeSpan((long)(diff / 1000));
                             System.err.println("Elapsed: " + elpased + "\t\tETA: " + eta + "\t\t" + formatByte(totalSize[0]) + " of " + formatByte(maxSize[0]) + "\t\t" + formatter.format(percent) + "%");
 
