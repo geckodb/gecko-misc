@@ -48,7 +48,7 @@ public final class BenchmarkGenerator {
     Scenario scenario;
     AtomicInteger total = new AtomicInteger(0);
     AtomicInteger numCreated = new AtomicInteger(0);
-    int numThreads = 1024;
+    int numThreads = 16;
     int numElementsToGenerate = 1024;
     int upperBoundByThread = numElementsToGenerate / numThreads;
     AtomicReferenceArray<String> atomicReferenceArray = new AtomicReferenceArray<String>(numElementsToGenerate);
