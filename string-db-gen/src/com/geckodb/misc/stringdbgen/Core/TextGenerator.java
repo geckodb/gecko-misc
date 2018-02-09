@@ -45,16 +45,10 @@ public class TextGenerator {
         String sentence = new String();
 
         do {
-
-
-            if (starterWords.size() <= 0) {
-                System.exit(-1);
-            }
             String last = starterWords.get(random.nextInt(starterWords.size()));
             sentence += last + " ";
             while (sentence.length() < stringLength) {
                 ArrayList<SubWord> subWords = nextWords.get(last);
-                last = null;
                 if (subWords != null) {
                     int max = 0, agg = 0;
                     String word = null;
@@ -69,14 +63,25 @@ public class TextGenerator {
                         } else agg += w.freq;
                     }
                     assert (word != null);
-                    SubWord sw = subWords.get(random.nextInt(subWords.size()));
-                    last = sw.word;
+                   // SubWord sw = subWords.get(random.nextInt(subWords.size()));
+
+                    if (word != null && last != null) {
+                        last = ((word.compareTo(last) != 0)) ? word : null;
+                    } else {
+                        last = null;
+                    }
+
                 }
 
                 if (last == null || last.length() == 0) {
                     last = starterWords.get(random.nextInt(starterWords.size()));
                 } else {
-                    sentence += last + " ";
+                    if (!sentence.endsWith(last + " ")) {
+                        sentence += last + " ";
+                    } else {
+                        last = starterWords.get(random.nextInt(starterWords.size()));
+                    }
+
                 }
 
             }
