@@ -1,6 +1,5 @@
-package com.geckodb.misc.stringdbgen;
+package com.geckodb.misc.stringdbgen.Core;
 
-import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
@@ -36,9 +35,10 @@ public final class BenchmarkGenerator {
         this.wordFrequencyFile = wordFrequencyFile;
         this.subsequentWordsFile = subsequentWordsFile;
         this.starterWordsFile = starterWordsFile;
+        this.provider = new StringProvider(scenario.numberGenerator, wordFrequencyFile, subsequentWordsFile, starterWordsFile);
     }
 
-    public static final class Scenarios {
+    public static abstract class Scenarios {
         public static final Scenario SOCIAL_NETWORKING_SERVICE = new Scenario(1, 280, StringProvider.NormalNumberGenerator.class);
         public static final Scenario INSTANT_MESSAGING_SERVICE = new Scenario(1, 65536, StringProvider.ZipfNumberGenerator.class);
         public static final Scenario SYNTHETIC_BENCHMARK = new Scenario(10, 50, StringProvider.UniformNumberGenerator.class);
@@ -53,9 +53,9 @@ public final class BenchmarkGenerator {
     int upperBoundByThread = numElementsToGenerate / numThreads;
     AtomicReferenceArray<String> atomicReferenceArray = new AtomicReferenceArray<String>(numElementsToGenerate);
 
-    enum ContinueState { CONTINUE, STOP }
+    public enum ContinueState { CONTINUE, STOP }
 
-    interface Callback {
+    public interface Callback {
         ContinueState consume(AtomicReferenceArray<String> strings);
     }
 
@@ -63,10 +63,13 @@ public final class BenchmarkGenerator {
     String subsequentWordsFile;
     String starterWordsFile;
 
-    void generateString(Callback callback) {
+    Thread[] threads = new Thread[numThreads];
+    StringProvider provider;
 
-        Thread[] threads = new Thread[numThreads];
-        StringProvider provider = new StringProvider(scenario.numberGenerator, wordFrequencyFile, subsequentWordsFile, starterWordsFile);
+    public void generateString(Callback callback) {
+
+
+
 
         do {
             numCreated.set(0);
@@ -74,14 +77,13 @@ public final class BenchmarkGenerator {
                 threads[idx] = new Thread(new Runnable() {
 
 
-                    Iterator<String> it = provider.iterator();
 
 
                     @Override
                     public void run() {
                         for (int i = 0; i < upperBoundByThread; i++) {
-                            String string = it.next();
-                            atomicReferenceArray.set(numCreated.get(), string);
+                            String text = provider.next();
+                            atomicReferenceArray.set(numCreated.get(), text);
                             numCreated.getAndAdd(1);
                         }
                     }

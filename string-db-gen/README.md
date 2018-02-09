@@ -109,7 +109,28 @@ TARGET_DATASIZE_BYTE=1099511627776
 
 ### Start Data Generation
 
-When you defined the variables to setup the scenario and data scale (i.e., `SCENARIO_NAME` and `TARGET_DATASIZE_BYTE`), type the following into your bash:
+To generate natural text, `String DB Gen` requires to built its generative grammar. For this, it first pre-processes and caches the analysis files used to generate the generative grammar. Then, it uses this cache to generate text according the user-defined dataset scale and scenario.
+
+
+
+#### Pre Processing and Caching
+
+For the purpose of fast construction of this grammer and for reasonable character settings, `String DB Gen` performs a pre-processing on the required input files that are needed for the grammar (i.e., file stored in `dewiki-dataset.tar.gz`). However, this pre-processing results in a cleaned ready-to-use set of files, the *cache*. This cache is constructed the first time `String DB Gen` is started by default. For this purpose, `String DB Gen` must know where the required input files are (via `-a`, `-b`, and `-c` arguments, e.g., `-a dewiki-dataset/files/dewiki-articles-word-freq.csv -b dewiki-dataset/files/dewiki-articles-next-words.txt -c dewiki-dataset/files/dewiki-articles-starter-words.csv`). Until the cache is explicitly removed via the `--clean-cache` argument, the input file arguments (`-a`, `-b`, and `-c`) are ignored and the grammar is constructed from the cache (which is stored by in `cache/`) once the cache is created. 
+
+
+For ease of use, type the following inside your bash if you want to use a pre-built cache based on the contents of `dewiki-dataset.tar.gz`:
+
+```
+wget https://www.dropbox.com/s/x3llefc3oabnchb/dewiki-dataset-cache.tar.gz?dl=1
+tar xvzf dewiki-dataset-cache.tar.gz?dl=1
+rm dewiki-dataset-cache.tar.gz?dl=1
+```
+
+
+#### Data Generation
+
+
+When you defined the variables to setup the scenario and data scale (i.e., `SCENARIO_NAME` and `TARGET_DATASIZE_BYTE`) the data generation can start. Type the following into your bash:
 
 ``` 
 java -jar build/string-db-gen.jar -a dewiki-dataset/files/dewiki-articles-word-freq.csv -b dewiki-dataset/files/dewiki-articles-next-words.txt -c dewiki-dataset/files/dewiki-articles-starter-words.csv -s ${SCENARIO_NAME} -t ${TARGET_DATASIZE_BYTE} -o output/${SCENARIO_NAME}.csv
@@ -131,32 +152,66 @@ Elapsed: 0h 00min 57sec	 ETA: 0h 18min 24sec	53,4 KiB of 1,0 MiB		5,2142143%
 
 This will generate a dataset `output/${SCENARIO_NAME}.csv` which is ready to use after the process terminates.
 
+##### Note 
+
+At the first start of `String DB Gen` the cache is created (when not already present by pre-built caches). Once the cache is available, the arguments `-a`, `-b`, and `-c` are ignored. Hence, they can be left out. Type the following into you bash to generate data when the cache is already present.
+
+``` 
+java -jar build/string-db-gen.jar -s ${SCENARIO_NAME} -t ${TARGET_DATASIZE_BYTE} -o output/${SCENARIO_NAME}.csv
+```
+
 #### Example Output
 
-The following first 20 lines might be generated for a `social` scenario (`head -20 output/social.csv`)
+The following first 20 lines might be generated for a `${SCENARIO_NAME}` scenario (`head -20 output/${SCENARIO_NAME}.csv`)
 
 ```
 id;total_size_byte;length;string
-0;2;1;s
-1;4;1;s
-2;46;41;poème pour begriffsklärung datei 16 filmk
-3;103;56;mennicken – desktop programms von messung durch minimier
-4;153;49;crocodile zwischen auf sortierung kategorie nach 
-5;215;61;ségal ist orientalischer sitte offer ist orientalischer sitte
-6;282;66;pejas alle für fließgewässer in evtl 29 de buss 1650 das und secon
-7;319;36;mpt torpedo frankfurt berkersheim fl
-8;355;35;herkenrath im in lösung häuser 36 r
-9;391;35;pratje 1762 kategorie bestens wahre
-10;471;79;property im in gehen sinnvoll zur taekwondoin kategorie schweiz kategorie schwe
-11;536;64;krätschmer patrik mediziner von messung durch minimiere das kate
-12;640;103;s0 oder groschke bandar e und second team in lösung einige unbenannte gehaltsgröße des deutscher untert
-13;717;76;morali sowie indigo glas behälter kategorie sportgeschichte die kategorie na
-14;783;65;rousson den begriffsklärung gerade geodäsie siehe auf kategorie l
-15;1065;281;coda scène gewinner folgt genügt theorie neue eines anderen baute gründete banteay kdei srah der kategorie läßt kategorie sportgeschichte · kerbstock gletscherschmelze nur sprachliche gutachten gutachten gutachten das tim iserlohn genna stadium 1910 francesco des freier raphael he
-16;1129;63;statistik siehe auch deutschland kategorie sportgeschichte gilt
-17;1178;48;luzarches le toledot reihen schaltkontakten dies
-18;1475;296;brisson jahre ludwig noll otto kategorie läßt netzkultur ru русская ивановка russkaja aus und die israelischer ram inhalte als begriffsklärung datei 16 mm begriffsklärung gerade geodäsie siehe auch kategorietext kategorie nach apokalyptischen ausmaßes daraufhin seit dieser der niederlande hohlma
+0;161;160;tassilo inkognito nicht namen posener les kategorie schweiz kategorie schweiz lyrik sowie indigo glas werden iso 639 aktuelle r a kufi inschrift liste in gehen 
+1;326;164;oderunt bericht ganz budapest illner an kategorie sportgeschichte der niederlande kategorie schweiz kategorie bestens gedeckten stiegenaufgang gelangt in gehen sinn
+2;479;152;556 kategorie schweiz kategorie schweiz benediktiner kloster kategorie nach romanen selbstbezeichnung nicht namen posener les gestorben kanadischer hait
+3;586;106;zdv der kategorie sportgeschichte bei alfonso katholischer ostkirchen das und second team training erstes 
+4;739;152;spezialgebiete redaktion wikipedia wikimedia im museum p mit temple temple inland im in gehen sinnvoll zur deutschen regiolekt die kategorie bestens nac
+5;851;111;differenzielle und second all hockey dezember daxen in evtl 9 jahr nach apokalyptischen reiter maler datei 16 m
+6;999;147;year filmpreis inszenierten 1618 sophia hochschullehrer rudolf deutscher irgendwas hier ebenfalls weitere details navigationsleiste verwaltungsglie
+7;1177;177;alwine bochum im in gehen sind kann aber verstarb bonfini ist motive ausgaben fehlen ist orientalischer gerichte coordinate tool in gehen sinnvoll zur deutschen kultur kategorie
+8;1344;166;apsa 21 03 19 stadtgeschichte erinnerungen verwitwete waschfrau traute man wurde bewegt wichtige branche krause willy kategorie nach apokalyptischen antisemitismus ka
+9;1483;138;podhorany ist werden iso kategorie bestens besorgt der niederlande kategorie nach romanen selbstbezeichnung georgios griechenland kategori
+10;1657;173;belikow erinnert tages post dampf aus atmung die 1960 kategorie nach apokalyptischen reiter kategorie schweiz person arad kategorie bestens und die britischer guyanischer po
+11;1763;105;kapustin jar flight nach romanen die us produktion england richard kategorie sportgeschichte die literatu
+12;1860;96;rehner biochemie bei xii danach ist orientalischer musik von auf hilfsschiff en zirbes ist motiv
+13;1998;137;cynthia geboren albert frankreich volumen halbierenden in gehen sinnvoll zur taekwondoin kategorie sportgeschichte eingegangen so nach ap
+14;2157;158;moskowski er ist motive briefmarken philatelie 1950er rennwagen ist werden navigationsleiste vorlage gallipoli suvla war modell in evtl 29 de albert innenmini
+15;2303;145;7650 kaname ide client software sprites in evtl 29 jpg in gehen sind insgesamt 1919 bayern reichstagsabgeordneter gutfleisch ist motive briefmark
+16;2449;145;muris ab beginnt nun und second all ed autor sortierung kategorie schweiz lyrik sowie indigo glas werden iso kategorie sportgeschichte dies 1 she
+17;2550;100;naphta feuer n nick kategorie nach apokalyptischen rituals bei datei 16 filmkamera nahezu wehrlose o
+18;2657;106;crusaders winnipeg gewann spielte 1869 kategorie sportgeschichte dies 1 she nimmt ist orientalischer kleid
 ``` 
+
+#### Determining Letter Frequency
+
+`String DB Gen` is shipped with a built-in letter frequency analysis tool. You run it by typing the following inside your bash:
+
+```
+java -jar build/cf.jar --file <file>
+```
+
+where `<file>`is the text file `cf` should analyse. The output is formatted as CSV of the form `<code>;<character>;<count>` where `<code>` is the character code, `<character>` is the character and `<count>` is the absolute number of occurrences of `<character>` in `<file>`.
+
+**Example Output**
+
+```
+Code;Character;Count
+32; ;443417
+97;a;225816
+98;b;57722
+99;c;100478
+100;d;96665
+101;e;479593
+102;f;33353
+103;g;116761
+104;h;119120
+```		
+
 
 # License
 This project is licensed under the terms of the GNU LESSER GENERAL PUBLIC LICENSE. See the LICENSE file.

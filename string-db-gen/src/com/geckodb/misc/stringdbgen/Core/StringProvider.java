@@ -1,15 +1,14 @@
-package com.geckodb.misc.stringdbgen;
+package com.geckodb.misc.stringdbgen.Core;
 
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.distribution.ZipfDistribution;
 
-import java.util.Iterator;
 import java.util.Random;
 
 /**
  * Created by marcus on 06.02.18.
  */
-public class StringProvider implements Iterable<String> {
+public class StringProvider {
 
     public static abstract class NumberGenerator
     {
@@ -77,20 +76,8 @@ public class StringProvider implements Iterable<String> {
         textGenerator = new TextGenerator(wordFrequencyFile, subsequentWordsFile, starterWordsFile);
     }
 
-
-    @Override
-    public Iterator<String> iterator() {
-        return new Iterator<String>() {
-            @Override
-            public boolean hasNext() {
-                return true;
-            }
-
-            @Override
-            public String next() {
-                int stringLength = numberGenerator.next();
-                return textGenerator.generate(stringLength);
-            }
-        };
+    public String next() {
+        int stringLength = numberGenerator.next();
+        return textGenerator.generate(stringLength);
     }
 }
