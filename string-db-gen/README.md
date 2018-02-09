@@ -196,7 +196,7 @@ id;total_size_byte;length;string
 java -jar build/cf.jar --file <file>
 ```
 
-where `<file>`is the text file `cf` should analyse. The output is formatted as CSV of the form `<code>;<character>;<count>` where `<code>` is the character code, `<character>` is the character and `<count>` is the absolute number of occurrences of `<character>` in `<file>`.
+where `<file>`is the text file `cf` should analyse. The output is formatted as CSV of the form `<code>;<character>;<count>` where `<code>` is the character code, `<character>` is the character and `<count>` is the absolute number of occurrences of `<character>` in `<file>`. Please note that `cf` is *case insensitive*.
 
 **Example Output**
 
@@ -218,7 +218,7 @@ Code;Character;Count
 To check the letter frequency of generated scenarios, use `cf`. For example:
 
 ```
-TARGET_DATASIZE_BYTE=1024
+TARGET_DATASIZE_BYTE=1048576
 java -jar build/string-db-gen.jar -s social -t ${TARGET_DATASIZE_BYTE} -o output/social.csv
 java -jar build/string-db-gen.jar -s instant -t ${TARGET_DATASIZE_BYTE} -o output/instant.csv
 java -jar build/string-db-gen.jar -s synth -t ${TARGET_DATASIZE_BYTE} -o output/synth.csv

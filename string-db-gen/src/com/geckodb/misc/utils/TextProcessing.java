@@ -12,6 +12,7 @@ public class TextProcessing {
         Dictionary dictionary = new Dictionary();
 
         public Dictionary put(String s) {
+            s = s.toLowerCase();
             for (int i = 0; i < s.length(); i++) {
                 char c = s.charAt(i);
                 if (StringUtils.isSimpleChar(c)) {
