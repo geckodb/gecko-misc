@@ -12,7 +12,7 @@ String DB Gen
     <a href="#license">License</a> &bull; 
     <a href="#contributing">Contributing</a>
 </p>
-
+ 
 -------
 
 Get in contact with the developer on Twitter: [@marcus_pinnecke](https://twitter.com/marcus_pinnecke)
