@@ -213,6 +213,22 @@ Code;Character;Count
 104;h;119120
 ```		
 
+**Check Letter Frequency of Generated Scenarios**
+
+To check the letter frequency of generated scenarios, use `cf`. For example:
+
+```
+TARGET_DATASIZE_BYTE=1024
+java -jar build/string-db-gen.jar -s social -t ${TARGET_DATASIZE_BYTE} -o output/social.csv
+java -jar build/string-db-gen.jar -s instant -t ${TARGET_DATASIZE_BYTE} -o output/instant.csv
+java -jar build/string-db-gen.jar -s synth -t ${TARGET_DATASIZE_BYTE} -o output/synth.csv
+java -jar build/string-db-gen.jar -s base -t ${TARGET_DATASIZE_BYTE} -o output/base.csv
+java -jar build/cf.jar --file output/social.csv > output/social-cf.csv
+java -jar build/cf.jar --file output/instant.csv > output/instant-cf.csv
+java -jar build/cf.jar --file output/synth.csv > output/synth-cf.csv
+java -jar build/cf.jar --file output/base.csv > output/base-cf.csv
+```
+
 
 # License
 This project is licensed under the terms of the GNU LESSER GENERAL PUBLIC LICENSE. See the LICENSE file.
