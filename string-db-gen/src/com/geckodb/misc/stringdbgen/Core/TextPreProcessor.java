@@ -166,16 +166,19 @@ public class TextPreProcessor {
     private void parseNextWordsFile(String file) {
         try {
             BufferedReader reader = openRead(file);
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String words[] = line.split(" ");
-                String first = StringUtils.cleanup(words[0]);
+            String line, first, sub;
+            String words[];
+	    int freq;
+            ArrayList<TextGenerator.SubWord> subWords = new ArrayList<>();
+	    while ((line = reader.readLine()) != null) {
+                words = line.split(" ");
+                first = StringUtils.cleanup(words[0]);
                 if (first.length() > 0 && wordFrequencies.containsKey(first)) {
-                    ArrayList<TextGenerator.SubWord> subWords = new ArrayList<>();
+                    subWords.clear();
                     for (int i = 1; i < words.length; i++) {
-                        String sub = StringUtils.cleanup(words[i]);
+                        sub = StringUtils.cleanup(words[i]);
                         if (sub.length() > 0) {
-                            int freq = wordFrequencies.getOrDefault(sub, 0);
+                            freq = wordFrequencies.getOrDefault(sub, 0);
                             if (freq > 0) {
                                 subWords.add(new TextGenerator.SubWord(sub, freq));
                             }
@@ -194,14 +197,15 @@ public class TextPreProcessor {
     private void parseWordFrequency(String file) {
         try {
             BufferedReader reader = openRead(file);
-            String line;
+            String line, freqString, word;
+	    int freq;
             while ((line = reader.readLine()) != null) {
-                String freqString = line.substring(0, line.indexOf(";"));
+                freqString = line.substring(0, line.indexOf(";"));
                 line = line.substring(line.indexOf(";") + 1);
-                String word = StringUtils.cleanup(line.substring(line.indexOf(";") + 1));
+                word = StringUtils.cleanup(line.substring(line.indexOf(";") + 1));
                 if (word.length() > 0 && isWordString(word)) {
                     try {
-                        int freq = Integer.valueOf(freqString);
+                        freq = Integer.valueOf(freqString);
                         wordFrequencies.put(word, freq);
                     } catch (NumberFormatException e)
                     { }
