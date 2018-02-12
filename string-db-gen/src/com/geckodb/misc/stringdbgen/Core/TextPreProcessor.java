@@ -168,9 +168,9 @@ public class TextPreProcessor {
             BufferedReader reader = openRead(file);
             String line, first, sub;
             String words[];
-	    int freq;
+            int freq;
             ArrayList<TextGenerator.SubWord> subWords = new ArrayList<>();
-	    while ((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 words = line.split(" ");
                 first = StringUtils.cleanup(words[0]);
                 if (first.length() > 0 && wordFrequencies.containsKey(first)) {
