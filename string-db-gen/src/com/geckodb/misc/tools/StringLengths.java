@@ -28,6 +28,14 @@ public class StringLengths {
                 .hasArg()
                 .argName("NAME")
                 .required(false).build());
+        options.addOption(Option.builder("n").longOpt("no-header")
+                .desc("Don't print the CSV header to standard out")
+                .hasArg(false)
+                .required(false).build());
+        options.addOption(Option.builder("x").longOpt("no-content")
+                .desc("Don't analysis <FILE> and don't print results to standard out")
+                .hasArg(false)
+                .required(false).build());
         options.addOption(Option.builder("h").longOpt("help")
                 .desc("Prints usage information")
                 .hasArg(false)
@@ -55,9 +63,14 @@ public class StringLengths {
 
             reader = new BufferedReader(new FileReader(inputFileName));
 
-            System.out.println("StringLength;Tag");
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line.length() + ";" + tag);
+            if (!cmd.hasOption("no-header")) {
+                System.out.println("StringLength;Tag");
+            }
+
+            if (!cmd.hasOption("no-content")) {
+                while ((line = reader.readLine()) != null) {
+                    System.out.println(line.length() + ";" + tag);
+                }
             }
 
         } catch (Exception e) {

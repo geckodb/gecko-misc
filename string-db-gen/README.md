@@ -234,10 +234,10 @@ java -jar build/cf.jar --file output/base.csv > output/base-cf.csv
 `String DB Gen` is shipped with a built-in string length analysis tool. You run it by typing the following into your bash:
 
 ```
-java -jar build/sl.jar -f <FILE> [-h] [-t <NAME>]
+java -jar sl.jar -f <FILE> [-h] [-n] [-t <NAME>] [-x]
 ```
 
-where `FILE` is the file name of a textural files, and `NAME` is a optional tag name (`Default` by default). The tool maps each line in `FILE` to its number of characters and outputs the result formatted as CSV to standard out.
+where `FILE` is the file name of a textural files, and `NAME` is a optional tag name (`Default` by default). The tool maps each line in `FILE` to its number of characters and outputs the result formatted as CSV to standard out. Optinally, you can disable to print the CSV header by using `-n` (resp. `--no-header`) and disable to print results by using `-x` (resp. `--no-content`). Feel free to combine `-n`, `-x`, and `-tag` for weird piping stuff.
 
 **Example Input** (stored in `misc/sample-text.txt`)
 
@@ -265,6 +265,27 @@ StringLength;Tag
 49;SAMPLE
 ```
 
+**Example For Weird Piping Stuff**
+
+```
+java -jar build/sl.jar -file /dev/null --no-content >> output/sl-test.csv && 
+java -jar build/sl.jar -file misc/sample-text.txt -tag "source 1" --no-header >> output/sl-test.csv && 
+java -jar build/sl.jar -file misc/sample-text-2.txt -tag "source 2" --no-header >> output/sl-test.csv && 
+cat output/sl-test.csv
+
+StringLength;Tag
+57;source 1
+39;source 1
+68;source 1
+49;source 1
+18;source 2
+23;source 2
+41;source 2
+26;source 2
+49;source 2
+49;source 2
+49;source 2
+```
 
 
 # License
