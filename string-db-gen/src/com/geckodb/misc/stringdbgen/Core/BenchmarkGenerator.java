@@ -42,7 +42,7 @@ public final class BenchmarkGenerator {
         public static final Scenario SOCIAL_NETWORKING_SERVICE = new Scenario(1, 280, StringProvider.NormalNumberGenerator.class);
         public static final Scenario INSTANT_MESSAGING_SERVICE = new Scenario(1, 65536, StringProvider.ZipfNumberGenerator.class);
         public static final Scenario SYNTHETIC_BENCHMARK = new Scenario(10, 50, StringProvider.UniformNumberGenerator.class);
-        public static final Scenario PUBLIC_KNOWLEDGE_BASE = new Scenario(160, 2776418, StringProvider.ZipfNumberGenerator.class);
+        public static final Scenario PUBLIC_KNOWLEDGE_BASE = new Scenario(0, 1861692, StringProvider.ZipfNumberGenerator2.class);
     }
 
     Scenario scenario;

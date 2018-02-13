@@ -39,9 +39,23 @@ public class StringProvider {
         @Override
         public int next() {
             if (zipfRandom == null) {
-                zipfRandom = new ZipfDistribution(span, 1);
+                zipfRandom = new ZipfDistribution(span, 1.1);
             }
             return (int) (minLen + span * zipfRandom.probability(i ++ % span));
+        }
+    }
+
+    public static class ZipfNumberGenerator2 extends NumberGenerator {
+
+        ZipfDistribution zipfRandom = null;
+        int i = 0;
+
+        @Override
+        public int next() {
+            if (zipfRandom == null) {
+                zipfRandom = new ZipfDistribution(span, 1);
+            }
+            return (int) Math.max(1, minLen + span * zipfRandom.probability(i ++ % span));
         }
     }
 

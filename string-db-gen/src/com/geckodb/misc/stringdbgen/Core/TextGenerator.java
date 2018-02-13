@@ -42,11 +42,11 @@ public class TextGenerator {
     //StringBuilder sentence;
 
     public String generate(int stringLength) {
-        String sentence = new String();
+      //  String sentence = new String();
 
-        do {
+    //    do {
             String last = starterWords.get(random.nextInt(starterWords.size()));
-            sentence += last + " ";
+        String sentence = last + " ";
             while (sentence.length() < stringLength) {
                 ArrayList<SubWord> subWords = nextWords.get(last);
                 if (subWords != null) {
@@ -85,7 +85,7 @@ public class TextGenerator {
                 }
 
             }
-        } while (sentence.length() < stringLength);
+    //    } while (sentence.length() < stringLength);
         return String.valueOf(sentence.subSequence(0, stringLength));
     }
 
