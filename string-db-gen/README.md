@@ -42,8 +42,40 @@ mkdir output
 Afterwards, the exectuable jar `build/string-db-gen.jar` is ready to generate datasets.
 
 ### Behind the Scenes
-The bash commands above fetch `dewiki-dataset.tar.gz` from our public DropBox folder. This archive contains analysis results of the German Wikipedia articles dump as of 2018/Feb/05 and is used for string generating. In case you want to setup other files, see usage information of  `build/string-db-gen.jar`.
+The bash commands above fetch `dewiki-dataset.tar.gz` from our public DropBox folder. This archive contains analysis results of the German Wikipedia articles dump as of 2018/Feb/05 and is used for string generating. In case you want to setup other files, see usage information of  `build/string-db-gen.jar`. What it needs to change the entire string creation process from a `dewiki`-based analysis to a custom one, is to provide 3 files:
+####  Start Words File
+A plain text file where each line is one word that was used as the first word in one sentence from the original corpus. Avoid duplicate entries.
 
+*Example*
+```
+Word
+anschluss
+diese
+die
+(...)
+```
+
+### Word Frequency File
+A CSV file formatted as `<Frequency>;<Length>;<Word>` (with header) where `word` is one word in the corpus, `frequency` is the total number of occurrences of `word` in the corpus, and `length` is the length of `word` (exclusing null terminator).
+
+*Example*
+```
+Frequency;Length;Word
+67888;1;%
+24632;1;+
+15033;1;0
+(...)
+```
+
+### Next Words File
+A plain text file that maps each word to successor words in the form `<word> <succ1> <succ2> ... <succN>` where `word` is some word in the corpus, and `succ1` was one word directly written after `word` in the corpus, `succ2` is another word somewhere else written directly after `word` and so on.
+
+*Example*
+```
+kosten fixkostenproportionalisierung forderung forderungsmanagement    
+seefahrer landen heinrich ließen zugleich
+(...)
+```
 
 ## Quick Start
 
