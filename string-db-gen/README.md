@@ -320,6 +320,44 @@ StringLength;Tag
 ```
 
 
+### Creating Histogram-Based Distributions
+In order to create random values based on a non-uniform custom-defined distribution, we ship `String DB Gen` is a tool to create a number generator that creates numbers according a given histogram. To create the input files for this number generator, use the tool `hd.jar` in `build/`. The usage is as follows:
+
+```
+java -jar build/hd.jar -f <FILE> [-h] -w <SIZE>
+```
+where `FILE` is the file name of a CSV file that matches the form `<StringLength>;...` (with header), and `-w` is a parameter to set the bin size to the valuer `SIZE`. 
+
+**Example Input** (using `sl.jar`)
+```
+mkdir sample-sl-hd-temp && 
+java -jar build/sl.jar -f misc/sample-text-3.txt -tag "SAMPLE" > sample-sl-hd-temp/test-sl-text && 
+java -jar build/hd.jar --f sample-sl-hd-temp/test-sl-text -w 2 > sample-sl-hd-temp/histogram.csv && 
+cat sample-sl-hd-temp/histogram.csv && 
+rm -rf sample-sl-hd-temp/
+```
+
+**Example Output**
+```
+MaxLength;Count;Threshold
+68;12;0
+8;2;12
+72;1;14
+12;1;15
+20;6;16
+22;4;22
+88;6;26
+24;1;32
+26;2;33
+30;5;35
+38;5;40
+52;11;45
+54;6;56
+56;6;62
+60;5;68
+```
+
+
 # License
 This project is licensed under the terms of the GNU LESSER GENERAL PUBLIC LICENSE. See the LICENSE file.
 

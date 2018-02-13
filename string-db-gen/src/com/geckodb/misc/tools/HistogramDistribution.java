@@ -43,7 +43,7 @@ public class HistogramDistribution {
 
             if (cmd.hasOption("help")) {
                 HelpFormatter formatter = new HelpFormatter();
-                formatter.printHelp("java -jar sl.jar", header, options, footer, true);
+                formatter.printHelp("java -jar hd.jar", header, options, footer, true);
                 System.exit(1);
             }
 
@@ -77,7 +77,7 @@ public class HistogramDistribution {
             System.err.println("\n\n");
 
             HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("java -jar sl.jar", header, options, footer, true);
+            formatter.printHelp("java -jar hd.jar", header, options, footer, true);
             System.exit(1);
         }
 
