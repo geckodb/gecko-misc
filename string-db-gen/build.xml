@@ -118,6 +118,7 @@
   <dirname property="module.string-db-gen.basedir" file="${ant.file}"/>
   <dirname property="module.cf.basedir" file="${ant.file}"/>
   <dirname property="module.sl.basedir" file="${ant.file}"/>
+  <dirname property="module.hd.basedir" file="${ant.file}"/>
   
   
   <property name="module.jdk.home.string-db-gen" value="${project.jdk.home}"/>
@@ -131,17 +132,22 @@
   <property name="module.jdk.home.sl" value="${project.jdk.home}"/>
   <property name="module.jdk.bin.sl" value="${project.jdk.bin}"/>
   <property name="module.jdk.classpath.sl" value="${project.jdk.classpath}"/>
+
+  <property name="module.jdk.home.hd" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.hd" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.hd" value="${project.jdk.classpath}"/>
   
   <property name="compiler.args.string-db-gen" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
   <property name="compiler.args.cf" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
   <property name="compiler.args.sl" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  <property name="compiler.args.hd" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
   
   <property name="string-db-gen.output.dir" value="${module.string-db-gen.basedir}/out/production/string-db-gen"/>
   <property name="string-db-gen.testoutput.dir" value="${module.string-db-gen.basedir}/out/test/string-db-gen"/>
-
-  <property name="cf.output.dir" value="${module.cf.basedir}/out/production/cf"/>
+   <property name="cf.output.dir" value="${module.cf.basedir}/out/production/cf"/>
   <property name="cf.testoutput.dir" value="${module.cf.basedir}/out/test/cf"/>
-
+  <property name="hd.output.dir" value="${module.hd.basedir}/out/production/hd"/>
+  <property name="hd.testoutput.dir" value="${module.hd.basedir}/out/test/hd"/>
   <property name="sl.output.dir" value="${module.sl.basedir}/out/production/sl"/>
   <property name="sl.testoutput.dir" value="${module.sl.basedir}/out/test/sl"/>
   
@@ -152,6 +158,9 @@
     <!-- Paths to be included in compilation bootclasspath -->
   </path>
   <path id="sl.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  <path id="hd.module.bootclasspath">
     <!-- Paths to be included in compilation bootclasspath -->
   </path>
   
@@ -172,6 +181,12 @@
     <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
     <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
   </path>
+
+  <path id="hd.module.production.classpath">
+    <path refid="${module.jdk.classpath.hd}"/>
+    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
+    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
+  </path>
   
   <path id="string-db-gen.runtime.production.module.classpath">
     <pathelement location="${string-db-gen.output.dir}"/>
@@ -185,6 +200,11 @@
   </path>
   <path id="sl.runtime.production.module.classpath">
     <pathelement location="${sl.output.dir}"/>
+    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
+    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
+  </path>
+  <path id="hd.runtime.production.module.classpath">
+    <pathelement location="${hd.output.dir}"/>
     <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
     <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
   </path>
@@ -207,6 +227,12 @@
     <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
     <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
   </path>
+  <path id="hd.module.classpath">
+    <path refid="${module.jdk.classpath.hd}"/>
+    <pathelement location="${hd.output.dir}"/>
+    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
+    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
+  </path>
   
   <path id="string-db-gen.runtime.module.classpath">
     <pathelement location="${string-db-gen.testoutput.dir}"/>
@@ -226,6 +252,12 @@
     <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
     <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
   </path>
+  <path id="hd.runtime.module.classpath">
+    <pathelement location="${hd.testoutput.dir}"/>
+    <pathelement location="${hd.output.dir}"/>
+    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
+    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
+  </path>
 
 
   <patternset id="excluded.from.module.string-db-gen">
@@ -237,6 +269,9 @@
   <patternset id="excluded.from.module.sl">
     <patternset refid="ignored.files"/>
   </patternset>
+  <patternset id="excluded.from.module.hd">
+    <patternset refid="ignored.files"/>
+  </patternset>
   
   <patternset id="excluded.from.compilation.string-db-gen">
     <patternset refid="excluded.from.module.string-db-gen"/>
@@ -246,6 +281,9 @@
   </patternset>
   <patternset id="excluded.from.compilation.sl">
     <patternset refid="excluded.from.module.sl"/>
+  </patternset>
+  <patternset id="excluded.from.compilation.hd">
+    <patternset refid="excluded.from.module.hd"/>
   </patternset>
   
   <path id="string-db-gen.module.sourcepath">
@@ -263,11 +301,17 @@
       <include name="src"/>
     </dirset>
   </path>
+  <path id="hd.module.sourcepath">
+    <dirset dir="${module.hd.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
   
   
   <target name="compile.module.string-db-gen" depends="compile.module.string-db-gen.production,compile.module.string-db-gen.tests" description="Compile module string-db-gen"/>
   <target name="compile.module.cf" depends="compile.module.cf.production,compile.module.cf.tests" description="Compile module cf"/>
   <target name="compile.module.sl" depends="compile.module.sl.production,compile.module.sl.tests" description="Compile module sl"/>
+  <target name="compile.module.hd" depends="compile.module.hd.production,compile.module.hd.tests" description="Compile module hd"/>
   
   <target name="compile.module.string-db-gen.production" description="Compile module string-db-gen; production classes">
     <mkdir dir="${string-db-gen.output.dir}"/>
@@ -314,9 +358,25 @@
       <src refid="sl.module.sourcepath"/>
       <patternset refid="excluded.from.compilation.sl"/>
     </javac>
-
     <copy todir="${sl.output.dir}">
       <fileset dir="${module.sl.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="compile.module.hd.production" description="Compile module hd; production classes">
+    <mkdir dir="${hd.output.dir}"/>
+    <javac destdir="${hd.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.hd}/javac">
+      <compilerarg line="${compiler.args.hd}"/>
+      <bootclasspath refid="hd.module.bootclasspath"/>
+      <classpath refid="hd.module.production.classpath"/>
+      <src refid="hd.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.hd"/>
+    </javac>
+    <copy todir="${hd.output.dir}">
+      <fileset dir="${module.hd.basedir}/src">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
@@ -326,6 +386,7 @@
   <target name="compile.module.string-db-gen.tests" depends="compile.module.string-db-gen.production" description="compile module string-db-gen; test classes" unless="skip.tests"/>
   <target name="compile.module.cf.tests" depends="compile.module.cf.production" description="compile module cf; test classes" unless="skip.tests"/>
   <target name="compile.module.sl.tests" depends="compile.module.sl.production" description="compile module sl; test classes" unless="skip.tests"/>
+  <target name="compile.module.hd.tests" depends="compile.module.hd.production" description="compile module hd; test classes" unless="skip.tests"/>
 
 
   <target name="clean.module.string-db-gen" description="cleanup module">
@@ -340,24 +401,30 @@
     <delete dir="${sl.output.dir}"/>
     <delete dir="${sl.testoutput.dir}"/>
   </target>
+  <target name="clean.module.hd" description="cleanup module">
+    <delete dir="${hd.output.dir}"/>
+    <delete dir="${hd.testoutput.dir}"/>
+  </target>
   
   <target name="init" description="Build initialization">
     <!-- Perform any build initialization in this target -->
   </target>
   
-  <target name="clean" depends="clean.module.string-db-gen, clean.module.cf, clean.module.sl" description="cleanup all"/>
+  <target name="clean" depends="clean.module.string-db-gen, clean.module.cf, clean.module.sl, clean.module.hd" description="cleanup all"/>
   
-  <target name="build.modules" depends="init, clean, compile.module.string-db-gen, compile.module.cf, compile.module.sl" description="build all modules"/>
+  <target name="build.modules" depends="init, clean, compile.module.string-db-gen, compile.module.cf, compile.module.sl,  compile.module.hd" description="build all modules"/>
   
   <target name="init.artifacts">
     <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
     <property name="artifact.output.string-db-gen:jar" value="${basedir}/build"/>
     <property name="artifact.output.cf:jar" value="${basedir}/build"/>
     <property name="artifact.output.sl:jar" value="${basedir}/build"/>
+    <property name="artifact.output.hd:jar" value="${basedir}/build"/>
     <mkdir dir="${artifacts.temp.dir}"/>
     <property name="temp.jar.path.string-db-gen.jar" value="${artifacts.temp.dir}/string-db-gen.jar"/>
     <property name="temp.jar.path.cf.jar" value="${artifacts.temp.dir}/cf.jar"/>
     <property name="temp.jar.path.sl.jar" value="${artifacts.temp.dir}/sl.jar"/>
+    <property name="temp.jar.path.hd.jar" value="${artifacts.temp.dir}/hd.jar"/>
   </target>
   
   <target name="artifact.string-db-gen:jar" depends="init.artifacts, compile.module.string-db-gen" description="Build &#39;string-db-gen:jar&#39; artifact">
@@ -401,11 +468,28 @@
     </jar>
     <copy file="${temp.jar.path.sl.jar}" tofile="${artifact.temp.output.sl:jar}/sl.jar"/>
   </target>
-  
-  <target name="build.all.artifacts" depends="artifact.string-db-gen:jar, artifact.cf:jar, artifact.sl:jar" description="Build all artifacts">
+
+  <target name="artifact.hd:jar" depends="init.artifacts, compile.module.hd" description="Build &#39;hd:jar&#39; artifact">
+    <property name="artifact.temp.output.hd:jar" value="${artifacts.temp.dir}/hd"/>
+    <mkdir dir="${artifact.temp.output.hd:jar}"/>
+    <jar destfile="${temp.jar.path.hd.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${hd.output.dir}"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/commons/commons-math3/3.3/commons-math3-3.3.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/commons-cli/commons-cli/1.4/commons-cli-1.4.jar"/>
+      <manifest>
+        <attribute name="Main-Class" value="com.geckodb.misc.tools.HistogramDistribution"/>
+      </manifest>
+    </jar>
+    <copy file="${temp.jar.path.hd.jar}" tofile="${artifact.temp.output.hd:jar}/hd.jar"/>
+  </target>
+
+
+
+  <target name="build.all.artifacts" depends="artifact.string-db-gen:jar, artifact.cf:jar, artifact.sl:jar, artifact.hd:jar" description="Build all artifacts">
     <mkdir dir="${artifact.output.string-db-gen:jar}"/>
     <mkdir dir="${artifact.output.cf:jar}"/>
     <mkdir dir="${artifact.output.sl:jar}"/>
+    <mkdir dir="${artifact.output.hd:jar}"/>
     <copy todir="${artifact.output.string-db-gen:jar}">
       <fileset dir="${artifact.temp.output.string-db-gen:jar}"/>
     </copy>
@@ -415,10 +499,15 @@
     <copy todir="${artifact.output.sl:jar}">
       <fileset dir="${artifact.temp.output.sl:jar}"/>
     </copy>
+    <copy todir="${artifact.output.hd:jar}">
+      <fileset dir="${artifact.temp.output.hd:jar}"/>
+    </copy>
     
     <!-- Delete temporary files -->
     <delete dir="${artifacts.temp.dir}"/>
   </target>
+
+
   
   <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
 </project>
