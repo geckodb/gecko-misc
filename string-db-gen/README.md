@@ -188,7 +188,7 @@ id;total_size_byte;length;string
 18;2657;106;crusaders winnipeg gewann spielte 1869 kategorie sportgeschichte dies 1 she nimmt ist orientalischer kleid
 ``` 
 
-#### Determining Letter Frequency
+### Determining Letter Frequency
 
 `String DB Gen` is shipped with a built-in letter frequency analysis tool. You run it by typing the following inside your bash:
 
@@ -229,7 +229,7 @@ java -jar build/cf.jar --file output/synth.csv > output/synth-cf.csv
 java -jar build/cf.jar --file output/base.csv > output/base-cf.csv
 ```
 
-#### Determining String Lengths
+### Determining String Lengths
 
 `String DB Gen` is shipped with a built-in string length analysis tool. You run it by typing the following into your bash:
 
