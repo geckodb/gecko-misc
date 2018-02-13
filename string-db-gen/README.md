@@ -229,6 +229,43 @@ java -jar build/cf.jar --file output/synth.csv > output/synth-cf.csv
 java -jar build/cf.jar --file output/base.csv > output/base-cf.csv
 ```
 
+#### Determining String Lengths
+
+`String DB Gen` is shipped with a built-in string length analysis tool. You run it by typing the following into your bash:
+
+```
+java -jar build/sl.jar -f <FILE> [-h] [-t <NAME>]
+```
+
+where `FILE` is the file name of a textural files, and `NAME` is a optional tag name (`Default` by default). The tool maps each line in `FILE` to its number of characters and outputs the result formatted as CSV to standard out.
+
+**Example Input** (stored in `misc/sample-text.txt`)
+
+```
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+sed diam nonumy eirmod tempor invidunt 
+ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero 
+eos et accusam et justo duo dolores et ea rebum. 
+```
+
+**Example Output**
+
+
+By running
+```
+java -jar build/sl.jar -file misc/sample-text.txt -tag "SAMPLE"
+```
+the following is prompt to standard output
+
+```
+StringLength;Tag
+57;SAMPLE
+39;SAMPLE
+68;SAMPLE
+49;SAMPLE
+```
+
+
 
 # License
 This project is licensed under the terms of the GNU LESSER GENERAL PUBLIC LICENSE. See the LICENSE file.
