@@ -76,8 +76,6 @@ d3.json("../JSON/QueryData.json", function (error, json) {
                 a = document.createElement("a");
                 a.setAttribute("id",displayRecords[i].PaperId)
                 a.onclick=function (d) {
-
-                    //alert(a.getAttribute("id"))
                     poplateClickedNode(d.path[1].getAttribute("id"));
                 }
                 linebreak= document.createElement("br");
@@ -129,7 +127,6 @@ function poplateClickedNode(nodeId) {
         if(nodeId==dataArray[i].PaperId){
             tempArray.push(dataArray[i]);
             d3.selectAll("svg > *").remove();
-
             createGraph(tempArray,linksArray,false);
             break;
         }
@@ -140,8 +137,6 @@ function poplateClickedNode(nodeId) {
 
 function createGraph(nodes, links, drawnodesOnly) {
     var label=new Array();
-
-    if(!drawnodesOnly) {
 
 //To form arrowhead
         svg.append("defs").selectAll("marker")
@@ -232,37 +227,6 @@ function createGraph(nodes, links, drawnodesOnly) {
                 }
 
             });
-    }
-    else{
-
-        force.nodes(nodes)
-            .start();
-
-        var node_drag = d3.behavior.drag()
-            .on("dragstart", drag_start)
-            .on("drag", drag_move)
-            .on("dragend", drag_end);
-
-
-        function drag_start(d, i) {
-            force.stop() // stops the force auto positioning before you start dragging
-        }
-
-        function drag_move(d, i) {
-            d.px += d3.event.dx;
-            d.py += d3.event.dy;
-            d.x += d3.event.dx;
-            d.y += d3.event.dy;
-            node_tick(); // this is the key to make it work together with updating both px,py,x,y on d !
-        }
-
-        function drag_end(d, i) {
-            d.fixed = true; // set the node to fixed, so the force doesn't include the node in its auto positioning
-            node_tick();
-            force.resume();
-        }
-    }
-
 
 
     var node = svg.selectAll("node")
@@ -386,7 +350,6 @@ function createGraph(nodes, links, drawnodesOnly) {
             }
 
         });
-
 
     //	Define the div for the tooltip
     var div = d3.select("body").append("div")
