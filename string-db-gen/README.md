@@ -105,7 +105,7 @@ The following scenarios are supported out-of-the-box:
 | Social Networking Service | 1 | 280 | normal distribution | `social` |
 | Instant Messaging Service | 10 | 65536 | zipf distribution | `instant` |
 | Synthetic Transaction Benchmark | 10 | 50 | uniform distribution | `synth` |
-| Public Knowledge Base Articles | 16 | 2776418 | zipf distribution | `base` |
+| Public Knowledge Base Articles | 16 | 2776418 | histogram-based distribution | `base` |
 
 Each scenario generates a different set of strings according the min/max string length and the number generator used. The generated strings themself are constructed internally using a probabilistic generatative grammar that result from a analysis of approx. 2 billion articles of the German Wikipedia.
 
