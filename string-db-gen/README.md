@@ -179,7 +179,7 @@ rm dewiki-dataset-cache.tar.gz?dl=1
 When you defined the variables to setup the scenario and data scale (i.e., `SCENARIO_NAME` and `TARGET_DATASIZE_BYTE`) the data generation can start. Type the following into your bash:
 
 ``` 
-java -jar build/string-db-gen.jar -a dewiki-dataset/files/dewiki-articles-word-freq.csv -b dewiki-dataset/files/dewiki-articles-next-words.txt -c dewiki-dataset/files/dewiki-articles-starter-words.csv -s ${SCENARIO_NAME} -t ${TARGET_DATASIZE_BYTE} -o output/${SCENARIO_NAME}.csv
+java -jar build/string-db-gen.jar -a dewiki-dataset/files/dewiki-articles-word-freq.csv -b dewiki-dataset/files/dewiki-articles-next-words.txt -c dewiki-dataset/files/dewiki-articles-starter-words.csv -d dewiki-dataset/files/dewiki-articles-lengths.txt -s ${SCENARIO_NAME} -t ${TARGET_DATASIZE_BYTE} -o output/${SCENARIO_NAME}.csv
 ```
 
 `String DB Gen` will provide you with status information similar to these:
@@ -200,7 +200,7 @@ This will generate a dataset `output/${SCENARIO_NAME}.csv` which is ready to use
 
 ##### Note 
 
-At the first start of `String DB Gen` the cache is created (when not already present by pre-built caches). Once the cache is available, the arguments `-a`, `-b`, and `-c` are ignored. Hence, they can be left out. Type the following into you bash to generate data when the cache is already present.
+At the first start of `String DB Gen` the cache is created (when not already present by pre-built caches). Once the cache is available, the arguments `-a`, `-b`, `-c`, and `-d` are ignored. Hence, they can be left out. Type the following into you bash to generate data when the cache is already present.
 
 ``` 
 java -jar build/string-db-gen.jar -s ${SCENARIO_NAME} -t ${TARGET_DATASIZE_BYTE} -o output/${SCENARIO_NAME}.csv

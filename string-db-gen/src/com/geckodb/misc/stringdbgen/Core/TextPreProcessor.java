@@ -20,7 +20,7 @@ public class TextPreProcessor {
     HashMap<String, Integer> wordFrequencies = new HashMap<>();
     HashMap<String, ArrayList<TextGenerator.SubWord>> nextWords = new HashMap<>();
     ArrayList<String> starterWords = new ArrayList<>();
-    String path;
+    static String path;
 
     public Path getCachePath() {
         return Paths.get(path);
@@ -50,19 +50,19 @@ public class TextPreProcessor {
         deleteFile(getCacheFileArticleLengths());
     }
 
-    public String getCacheFileWordFrequency() {
+    public static String getCacheFileWordFrequency() {
         return path + "/word-frequency.cache";
     }
 
-    public String getCacheFileNextWords() {
+    public static String getCacheFileNextWords() {
         return path + "/next-words.cache";
     }
 
-    public String getCacheFileStarterWords() {
+    public static String getCacheFileStarterWords() {
         return path + "/starter-words.cache";
     }
 
-    public String getCacheFileArticleLengths() {
+    public static String getCacheFileArticleLengths() {
         return path + "/sentence-lengths.cache";
     }
 

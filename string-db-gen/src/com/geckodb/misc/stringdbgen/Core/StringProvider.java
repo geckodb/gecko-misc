@@ -1,8 +1,10 @@
 package com.geckodb.misc.stringdbgen.Core;
 
+import com.geckodb.misc.tools.HistogramDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.distribution.ZipfDistribution;
 
+import java.io.IOException;
 import java.util.Random;
 
 /**
@@ -45,17 +47,21 @@ public class StringProvider {
         }
     }
 
-    public static class ZipfNumberGenerator2 extends NumberGenerator {
+    public static class HistogramNumberGenerator extends NumberGenerator {
 
-        ZipfDistribution zipfRandom = null;
+        NonUniformNumberGenerator gen = null;
         int i = 0;
 
         @Override
         public int next() {
-            if (zipfRandom == null) {
-                zipfRandom = new ZipfDistribution(span, 1);
+            if (gen == null) {
+                try {
+                    gen = new NonUniformNumberGenerator(TextPreProcessor.getCacheFileArticleLengths());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-            return (int) Math.max(1, minLen + span * zipfRandom.probability(i ++ % span));
+            return gen.next();
         }
     }
 
