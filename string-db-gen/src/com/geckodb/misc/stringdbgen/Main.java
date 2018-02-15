@@ -58,6 +58,14 @@ public class Main {
         nextwords.setRequired(false);
         options.addOption(nextwords);
 
+        Option starterwords = new Option("c", "starter-words-file", true, "path to starter words file");
+        starterwords.setRequired(false);
+        options.addOption(starterwords);
+
+        Option lengthhist = new Option("d", "length-histogram-file", true, "path to sentence length histogram file");
+        lengthhist.setRequired(false);
+        options.addOption(lengthhist);
+
         Option cleanCache = new Option("x", "clean-cache", false, "cleans the cache and considers -a, -b, -c again");
         cleanCache.setRequired(false);
         options.addOption(cleanCache);
@@ -66,9 +74,6 @@ public class Main {
         cachePathOption.setRequired(false);
         options.addOption(cachePathOption);
 
-        Option starterwords = new Option("c", "starter-words-file", true, "path to starter words file");
-        starterwords.setRequired(false);
-        options.addOption(starterwords);
 
 
         CommandLineParser parser = new DefaultParser();
@@ -83,16 +88,18 @@ public class Main {
             String wordFrequencyFile = cmd.getOptionValue('a');
             String subsequentWordsFile = cmd.getOptionValue('b');
             String starterWordsFile = cmd.getOptionValue('c');
+            String lengthHistogramFile = cmd.getOptionValue('d');
             String cachePath = cmd.getOptionValue('p');
             boolean cleanCacheFlag = cmd.hasOption('x');
 
-            wordFrequencyFile = (wordFrequencyFile == null) ? "dwiki-dataset/files/dewiki-articles-word-freq.csv" : wordFrequencyFile;
-            subsequentWordsFile = (subsequentWordsFile == null) ? "dwiki-dataset/files/dewiki-articles-next-words.txt" : subsequentWordsFile;
-            starterWordsFile = (starterWordsFile == null) ? "dwiki-dataset/files/dewiki-articles-starter-words.csv" : starterWordsFile;
+            wordFrequencyFile = (wordFrequencyFile == null) ? "dewiki-dataset/files/dewiki-articles-word-freq.csv" : wordFrequencyFile;
+            subsequentWordsFile = (subsequentWordsFile == null) ? "dewiki-dataset/files/dewiki-articles-next-words.txt" : subsequentWordsFile;
+            starterWordsFile = (starterWordsFile == null) ? "dewiki-dataset/files/dewiki-articles-starter-words.csv" : starterWordsFile;
+            lengthHistogramFile = (lengthHistogramFile == null) ? "dewiki-dataset/files/dewiki-articles-lengths.txt" : lengthHistogramFile;
 
             cachePath = StringUtils.ensurePath((cachePath == null) ? System.getProperty("user.dir") + "/cache" : cachePath);
 
-            TextPreProcessor preProcessor = new TextPreProcessor(wordFrequencyFile, subsequentWordsFile, starterWordsFile, cachePath);
+            TextPreProcessor preProcessor = new TextPreProcessor(wordFrequencyFile, subsequentWordsFile, starterWordsFile, lengthHistogramFile, cachePath);
 
             if (cleanCacheFlag || !preProcessor.cacheExists()) {
                 if (!Files.exists(Paths.get(wordFrequencyFile)) || !Files.exists(Paths.get(subsequentWordsFile)) || !Files.exists(Paths.get(starterWordsFile))) {
