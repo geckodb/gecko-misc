@@ -34,7 +34,7 @@ tar xvzf dewiki-dataset.tar.gz?dl=1
 rm dewiki-dataset.tar.gz?dl=1
 mkdir -p dewiki-dataset/files
 mv files/* dewiki-dataset/files
-rm files/
+rm -rf files/
 ant
 mkdir output
 ``` 
@@ -89,6 +89,8 @@ StringLength;Tag
 20475;Default
 3392;Default
 ```	
+
+This file will be processed during cache building with `hd.jar` internally. Which bin width is used can be controlled via the `-w` parameter in `build/string-db-gen.jar`.
 
 ## Quick Start
 
@@ -161,7 +163,7 @@ To generate natural text, `String DB Gen` requires to built its generative gramm
 
 #### Pre Processing and Caching
 
-For the purpose of fast construction of this grammer and for reasonable character settings, `String DB Gen` performs a pre-processing on the required input files that are needed for the grammar (i.e., file stored in `dewiki-dataset.tar.gz`). However, this pre-processing results in a cleaned ready-to-use set of files, the *cache*. This cache is constructed the first time `String DB Gen` is started by default. For this purpose, `String DB Gen` must know where the required input files are (via `-a`, `-b`, and `-c` arguments, e.g., `-a dewiki-dataset/files/dewiki-articles-word-freq.csv -b dewiki-dataset/files/dewiki-articles-next-words.txt -c dewiki-dataset/files/dewiki-articles-starter-words.csv`). Until the cache is explicitly removed via the `--clean-cache` argument, the input file arguments (`-a`, `-b`, and `-c`) are ignored and the grammar is constructed from the cache (which is stored by in `cache/`) once the cache is created. 
+For the purpose of fast construction of this grammer and for reasonable character settings, `String DB Gen` performs a pre-processing on the required input files that are needed for the grammar (i.e., file stored in `dewiki-dataset.tar.gz`). However, this pre-processing results in a cleaned ready-to-use set of files, the *cache*. This cache is constructed the first time `String DB Gen` is started by default. For this purpose, `String DB Gen` must know where the required input files are (via `-a`, `-b`, `-c` and `-d` arguments, e.g., `-a dewiki-dataset/files/dewiki-articles-word-freq.csv -b dewiki-dataset/files/dewiki-articles-next-words.txt -c dewiki-dataset/files/dewiki-articles-starter-words.csv -d dewiki-dataset/files/dewiki-articles-lengths.txt`). Further, the file for `-d` will be processed internally with `build/hd.jar` (see below) in order to create a histogram on the sentences length for the non-uniform number generator. Until the cache is explicitly removed via the `--clean-cache` argument, the input file arguments (`-a`, `-b`, `-c`, `-d`, and `-w`) are ignored and the grammar is constructed from the cache (which is stored by in `cache/`) once the cache is created. 
 
 
 For ease of use, type the following inside your bash if you want to use a pre-built cache based on the contents of `dewiki-dataset.tar.gz`:

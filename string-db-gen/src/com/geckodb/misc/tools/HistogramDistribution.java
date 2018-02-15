@@ -2,8 +2,7 @@ package com.geckodb.misc.tools;
 
 import org.apache.commons.cli.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +10,41 @@ import java.util.Map;
  * Created by marcus on 13.02.18.
  */
 public class HistogramDistribution {
+
+    String inputFileName;
+    int binSize;
+
+    public HistogramDistribution(String inputFileName, int binSize) {
+        this.inputFileName = inputFileName;
+        this.binSize = binSize;
+    }
+
+    public void createHistogram(PrintStream out) throws IOException {
+
+        String line;
+        BufferedReader reader = new BufferedReader(new FileReader(inputFileName));
+
+        Map<Integer, Long> histogram = new HashMap<>();
+
+        reader.readLine(); // Skip header
+
+        while ((line = reader.readLine()) != null) {
+            String[] fields = line.split(";");
+            Integer length = Integer.valueOf(fields[0]);
+            Integer binIndex = length / binSize;
+            long count = histogram.getOrDefault(binIndex, 0L);
+            histogram.put(binIndex, ++count);
+        }
+
+        long sum = 0;
+        out.println("MaxLength;Count;Threshold");
+        for (Map.Entry<Integer, Long> entry : histogram.entrySet()) {
+            long maxLength = (1 + entry.getKey()) * binSize;
+            long count = entry.getValue();
+            out.println(maxLength + ";" + entry.getValue() + ";" + sum);
+            sum += count;
+        }
+    }
 
     public static void main(String... args) {
 
@@ -49,28 +83,9 @@ public class HistogramDistribution {
 
             inputFileName = cmd.getOptionValue("file");
             binSize = Integer.valueOf(cmd.getOptionValue("bin-width"));
-            reader = new BufferedReader(new FileReader(inputFileName));
 
-            Map<Integer, Long> histogram = new HashMap<>();
-
-            reader.readLine(); // Skip header
-
-            while ((line = reader.readLine()) != null) {
-                String[] fields = line.split(";");
-                Integer length = Integer.valueOf(fields[0]);
-                Integer binIndex = length / binSize;
-                long count = histogram.getOrDefault(binIndex, 0L);
-                histogram.put(binIndex, ++count);
-            }
-
-            long sum = 0;
-            System.out.println("MaxLength;Count;Threshold");
-            for (Map.Entry<Integer, Long> entry : histogram.entrySet()) {
-                long maxLength = (1 + entry.getKey()) * binSize;
-                long count = entry.getValue();
-                System.out.println(maxLength + ";" + entry.getValue() + ";" + sum);
-                sum += count;
-            }
+            HistogramDistribution histogramDistribution = new HistogramDistribution(inputFileName, binSize);
+            histogramDistribution.createHistogram(System.out);
 
         } catch (Exception e) {
             e.printStackTrace();

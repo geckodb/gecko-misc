@@ -1,5 +1,6 @@
 package com.geckodb.misc.stringdbgen.Core;
 
+import com.geckodb.misc.tools.HistogramDistribution;
 import com.geckodb.misc.utils.FileUtils;
 import com.geckodb.misc.utils.StringUtils;
 
@@ -70,32 +71,37 @@ public class TextPreProcessor {
     String subsequentWordsFile;
     String starterWordsFile;
     String sentenceLengthHistogram;
+    int histBinSize;
 
-    public TextPreProcessor(String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile, String sentenceLengthHistogram, String path) {
+    public TextPreProcessor(String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile,
+                            String sentenceLengthHistogram, int histBinSize, String path) {
         this.path = StringUtils.ensurePath(path);
         this.wordFrequencyFile = wordFrequencyFile;
         this.subsequentWordsFile = subsequentWordsFile;
         this.starterWordsFile = starterWordsFile;
         this.sentenceLengthHistogram = sentenceLengthHistogram;
+        this.histBinSize = histBinSize;
     }
 
     public void start() throws IOException {
         System.err.print("Pre-processing is running. This might take some minutes.\n");
-        buildCache(wordFrequencyFile, subsequentWordsFile, starterWordsFile);
+        buildCache(wordFrequencyFile, subsequentWordsFile, starterWordsFile, sentenceLengthHistogram, histBinSize);
         System.err.println("Writing cache");
-        storeCache(sentenceLengthHistogram);
+        storeCache();
     }
 
-    private void buildCache(String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile) {
-        System.err.println("  - process word frequencies ('" +  wordFrequencyFile + "')");
+    private void buildCache(String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile, String sentenceLengthHistogramFile, int binSize) {
+        System.err.println("  - processing word frequencies ('" +  wordFrequencyFile + "')");
         parseWordFrequency(wordFrequencyFile);
-        System.err.println("  - process next words ('" +  subsequentWordsFile + "')");
+        System.err.println("  - processing next words ('" +  subsequentWordsFile + "')");
         parseNextWordsFile(subsequentWordsFile);
-        System.err.println("  - process starter words ('" +  starterWordsFile + "')");
+        System.err.println("  - processing starter words ('" +  starterWordsFile + "')");
         parseStarterWordsFile(starterWordsFile);
+        System.err.println("  - creating histogram for sentence lengths ('" +  starterWordsFile + "')");
+        createHistogramForSentenceLengthFile(getCacheFileArticleLengths(), sentenceLengthHistogramFile, binSize);
     }
 
-    public void storeCache(String sentenceLengthHistogramFile) throws IOException {
+    public void storeCache() throws IOException {
         if (!Files.exists(getCachePath())) {
             Files.createDirectory(getCachePath());
         }
@@ -103,13 +109,13 @@ public class TextPreProcessor {
         dumpWordFrequency(getCacheFileWordFrequency());
         dumpNextWords(getCacheFileNextWords());
         dumpStarterWords(getCacheFileStarterWords());
-        copySentenceLengthFile(getCacheFileArticleLengths(), sentenceLengthHistogramFile);
     }
 
-    private void copySentenceLengthFile(String dstFile, String srcFile) {
+    private void createHistogramForSentenceLengthFile(String dstFile, String srcFile, int binSize) {
         try {
+            HistogramDistribution hist = new HistogramDistribution(srcFile, binSize);
             BufferedOutputStream buf = new BufferedOutputStream(new FileOutputStream(dstFile));
-            Files.copy(Paths.get(srcFile), buf);
+            hist.createHistogram(new PrintStream(buf));
             buf.flush();
             buf.close();
         } catch (FileNotFoundException e) {

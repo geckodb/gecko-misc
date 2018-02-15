@@ -66,13 +66,17 @@ public class Main {
         lengthhist.setRequired(false);
         options.addOption(lengthhist);
 
-        Option cleanCache = new Option("x", "clean-cache", false, "cleans the cache and considers -a, -b, -c again");
+        Option cleanCache = new Option("x", "clean-cache", false, "cleans the cache and considers -a, -b, -c, -d, -w again");
         cleanCache.setRequired(false);
         options.addOption(cleanCache);
 
         Option cachePathOption = new Option("p", "cache-path", false, "sets directory in which the cache is stored (default is working directory)");
         cachePathOption.setRequired(false);
         options.addOption(cachePathOption);
+
+        Option binwidth = new Option("w", "hist-bin-width", true, "bin width for histograms on sentence lengths (default is 1)");
+        binwidth.setRequired(false);
+        options.addOption(binwidth);
 
 
 
@@ -91,6 +95,7 @@ public class Main {
             String lengthHistogramFile = cmd.getOptionValue('d');
             String cachePath = cmd.getOptionValue('p');
             boolean cleanCacheFlag = cmd.hasOption('x');
+            int binSize = Integer.valueOf(cmd.getOptionValue('w') != null ? cmd.getOptionValue('w') : "1");
 
             wordFrequencyFile = (wordFrequencyFile == null) ? "dewiki-dataset/files/dewiki-articles-word-freq.csv" : wordFrequencyFile;
             subsequentWordsFile = (subsequentWordsFile == null) ? "dewiki-dataset/files/dewiki-articles-next-words.txt" : subsequentWordsFile;
@@ -99,12 +104,12 @@ public class Main {
 
             cachePath = StringUtils.ensurePath((cachePath == null) ? System.getProperty("user.dir") + "/cache" : cachePath);
 
-            TextPreProcessor preProcessor = new TextPreProcessor(wordFrequencyFile, subsequentWordsFile, starterWordsFile, lengthHistogramFile, cachePath);
+            TextPreProcessor preProcessor = new TextPreProcessor(wordFrequencyFile, subsequentWordsFile, starterWordsFile, lengthHistogramFile, binSize, cachePath);
 
             if (cleanCacheFlag || !preProcessor.cacheExists()) {
                 if (!Files.exists(Paths.get(wordFrequencyFile)) || !Files.exists(Paths.get(subsequentWordsFile)) || !Files.exists(Paths.get(starterWordsFile))) {
                     System.out.println("Unable open analysis files (word frequency, next words, and/or starter words), and no cache file exists. " +
-                            "Did you forgot to download these files ('https://www.dropbox.com/s/vhbq52vrti8isxx/dewiki-dataset.tar.gz?dl=1') or to put them into 'dwiki-dataset/files/' directory?");
+                            "Did you forgot to download these files ('https://www.dropbox.com/s/vhbq52vrti8isxx/dewiki-dataset.tar.gz?dl=1') or to put them into 'dewiki-dataset/files/' directory?");
                     formatter.printHelp("stringdbgen", options);
                     System.exit(1);
                 }
@@ -118,7 +123,7 @@ public class Main {
             if (preProcessor.cacheExists()) {
                 if (cmd.getOptionValue('a') != null || cmd.getOptionValue('b') != null  ||
                         cmd.getOptionValue('c') != null ) {
-                    System.err.println("NOTE: the cache is used for processing (-a, -b, -c options are ignored). Use --cache-clean to build a cache on new files.");
+                    System.err.println("NOTE: the cache is used for processing (-a, -b, -c, -d, -w options are ignored). Use --cache-clean to build a cache on new files.");
                 }
 
                 writeOutputFile(cmd, options, formatter, preProcessor.getCacheFileWordFrequency(), preProcessor.getCacheFileNextWords(), preProcessor.getCacheFileStarterWords());
