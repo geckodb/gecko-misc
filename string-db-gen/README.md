@@ -77,6 +77,19 @@ seefahrer landen heinrich ließen zugleich
 (...)
 ```
 
+
+### Sentence Length File
+A CSV file formatted as `<StringLength>;...` (with header) where `<StringLength>` is a article/sentence lengths in the original corpus. This file is used to create a histogram on the sentence lengths in order to create a non-uniform distribution which is used in `String DB Gen`s random number generator for sentence lengths. 
+
+*Example*
+```
+StringLength;Tag
+7772;Default
+18526;Default
+20475;Default
+3392;Default
+```	
+
 ## Quick Start
 
 `String DB Gen` is shipped with four pre-configured string generation configurations, called Scenarios. A scenario is a description of the minimum/maximum string length along with particular number generator to model a certain real-world domain. Before a data generation process can be started, the scenario must be specified over the program argument `-s <alias>`.

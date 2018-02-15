@@ -29,7 +29,8 @@ public class TextPreProcessor {
     public boolean cacheExists() {
         return (Files.exists(Paths.get(getCacheFileWordFrequency())) &&
                 Files.exists(Paths.get(getCacheFileNextWords())) &&
-                Files.exists(Paths.get(getCacheFileStarterWords())));
+                Files.exists(Paths.get(getCacheFileStarterWords())) &&
+                Files.exists(Paths.get(getCacheFileArticleLengths())));
     }
 
     private void deleteFile(String file) throws IOException {
@@ -46,6 +47,7 @@ public class TextPreProcessor {
         deleteFile(getCacheFileWordFrequency());
         deleteFile(getCacheFileNextWords());
         deleteFile(getCacheFileStarterWords());
+        deleteFile(getCacheFileArticleLengths());
     }
 
     public String getCacheFileWordFrequency() {
@@ -60,22 +62,28 @@ public class TextPreProcessor {
         return path + "/starter-words.cache";
     }
 
+    public String getCacheFileArticleLengths() {
+        return path + "/sentence-lengths.cache";
+    }
+
     String wordFrequencyFile;
     String subsequentWordsFile;
     String starterWordsFile;
+    String sentenceLengthHistogram;
 
-    public TextPreProcessor(String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile, String path) {
+    public TextPreProcessor(String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile, String sentenceLengthHistogram, String path) {
         this.path = StringUtils.ensurePath(path);
         this.wordFrequencyFile = wordFrequencyFile;
         this.subsequentWordsFile = subsequentWordsFile;
         this.starterWordsFile = starterWordsFile;
+        this.sentenceLengthHistogram = sentenceLengthHistogram;
     }
 
     public void start() throws IOException {
         System.err.print("Pre-processing is running. This might take some minutes.\n");
         buildCache(wordFrequencyFile, subsequentWordsFile, starterWordsFile);
         System.err.println("Writing cache");
-        storeCache();
+        storeCache(sentenceLengthHistogram);
     }
 
     private void buildCache(String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile) {
@@ -87,7 +95,7 @@ public class TextPreProcessor {
         parseStarterWordsFile(starterWordsFile);
     }
 
-    public void storeCache() throws IOException {
+    public void storeCache(String sentenceLengthHistogramFile) throws IOException {
         if (!Files.exists(getCachePath())) {
             Files.createDirectory(getCachePath());
         }
@@ -95,6 +103,20 @@ public class TextPreProcessor {
         dumpWordFrequency(getCacheFileWordFrequency());
         dumpNextWords(getCacheFileNextWords());
         dumpStarterWords(getCacheFileStarterWords());
+        copySentenceLengthFile(getCacheFileArticleLengths(), sentenceLengthHistogramFile);
+    }
+
+    private void copySentenceLengthFile(String dstFile, String srcFile) {
+        try {
+            BufferedOutputStream buf = new BufferedOutputStream(new FileOutputStream(dstFile));
+            Files.copy(Paths.get(srcFile), buf);
+            buf.flush();
+            buf.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void dumpStarterWords(String file) {

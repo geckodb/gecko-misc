@@ -1,0 +1,15 @@
+github-json-crawl/raw
+github-json-crawl/lib
+docker_scan_exp
+github-json-crawl
+string-db-gen/out
+string-db-gen/build/string-db-gen.jar
+string-db-gen/dewiki-dataset/files/dewiki-articles-next-words.txt
+string-db-gen/dewiki-dataset/files/dewiki-articles-starter-words.csv
+string-db-gen/dewiki-dataset/files/dewiki-articles-word-freq.csv
+string-db-gen/dewiki-dataset/files/README.md
+string-db-gen/output/social.csv
+string-db-gen/build
+string-db-gen/cache
+string-db-gen/output
+string-db-gen/temp
