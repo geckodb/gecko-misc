@@ -42,10 +42,7 @@ public class TextGenerator {
     //StringBuilder sentence;
 
     public String generate(int stringLength) {
-      //  String sentence = new String();
-
-    //    do {
-            String last = starterWords.get(random.nextInt(starterWords.size()));
+        String last = starterWords.get(random.nextInt(starterWords.size()));
         String sentence = last + " ";
             while (sentence.length() < stringLength) {
                 ArrayList<SubWord> subWords = nextWords.get(last);
@@ -63,7 +60,6 @@ public class TextGenerator {
                         } else agg += w.freq;
                     }
                     assert (word != null);
-                   // SubWord sw = subWords.get(random.nextInt(subWords.size()));
 
                     if (word != null && last != null) {
                         last = ((word.compareTo(last) != 0)) ? word : null;
@@ -83,110 +79,9 @@ public class TextGenerator {
                     }
 
                 }
-
             }
-    //    } while (sentence.length() < stringLength);
         return String.valueOf(sentence.subSequence(0, stringLength));
     }
-
-   /* private void parseStarterWordsFile(String file) {
-        try (FileInputStream is = new FileInputStream(file)) {
-
-            InputStreamReader isr = new InputStreamReader(is, Charset.defaultCharset());
-            BufferedReader br = new BufferedReader(isr);
-
-            String line = br.readLine(); // skip header
-
-            long numLines = 0;
-            do {
-
-                line = br.readLine();
-
-
-                String word = StringUtils.cleanup(line);
-
-               // System.out.println(word);
-
-                if (word != null && word.length() > 0) {
-
-                    if (wordFrequencies.containsKey(word)) {
-                        starterWords.add(word);
-                     //   System.out.println("add ... " + word);
-                    }
-                }
-
-            } while (line != null);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void parseSubsequentWordsFile(String file) {
-        try (FileReader fr = new FileReader(file)) {
-
-            BufferedReader br = new BufferedReader(fr);
-            String line = null;
-            long numLines = 0;
-            do {
-                line = br.readLine();
-                if (line != null) {
-                    String words[] = line.split(" ");
-                    String first = words[0];
-                    if (wordFrequencies.containsKey(first)) {
-                        ArrayList<SubWord> subWords = new ArrayList<>();
-                        for (int i = 1; i < words.length; i++) {
-                            String sub = words[i];
-
-                            int freq = wordFrequencies.getOrDefault(sub, 0);
-                            if (freq > 0) {
-                                subWords.add(new SubWord(sub, freq));
-                            }
-                        }
-                        if (!subWords.isEmpty()) {
-                            nextWords.put(first, subWords);
-                        }
-                    }
-
-                    //System.out.println(line);
-
-                }
-            }
-            while (line != null);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void parseWordFrequency(String file) {
-        try (FileReader fr = new FileReader(file)) {
-
-            BufferedReader br = new BufferedReader(fr);
-            String line = null;
-            long numLines = 0;
-            do {
-                line = br.readLine();
-                if (line != null) {
-                    String freqString = line.substring(0, line.indexOf(";"));
-
-                    line = line.substring(line.indexOf(";") + 1);
-                    String word = line.substring(line.indexOf(";") + 1);
-                    //  System.out.println(freqString + "    " + word);
-
-                    try {
-                        int freq = Integer.valueOf(freqString);
-                        wordFrequencies.put(word, freq);
-                    } catch (NumberFormatException e) {
-
-                    }
-                }
-            } while (line != null);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 
     private void parseStarterWordsFile(String file) {
         try {
