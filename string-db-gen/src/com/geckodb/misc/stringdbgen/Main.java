@@ -4,13 +4,11 @@ import com.geckodb.misc.stringdbgen.Core.BenchmarkGenerator;
 import com.geckodb.misc.stringdbgen.Core.TextPreProcessor;
 import com.geckodb.misc.utils.StringUtils;
 import org.apache.commons.cli.*;
-import org.apache.commons.math3.optim.nonlinear.scalar.ObjectiveFunction;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
-import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
 public class Main {
@@ -18,7 +16,8 @@ public class Main {
     public static final String SCENARIO_NAME_SOCIAL = "social";
     public static final String SCENARIO_NAME_INSTNAT = "instant";
     public static final String SCENARIO_NAME_SYNTH = "synth";
-    public static final String SCENARIO_NAME_SBASE = "base";
+    public static final String SCENARIO_NAME_BASE = "base";
+    public static final String SCENARIO_NAME_BASE_ZIPF = "base-zipf";
 
     public static String formatTimeSpan(long seconds) {
         long s = seconds % 60;
@@ -38,7 +37,7 @@ public class Main {
 
         Options options = new Options();
 
-        Option scenario = new Option("s", "scenario", true, "scenario name ('"+SCENARIO_NAME_SOCIAL+"', '"+SCENARIO_NAME_INSTNAT+"', '"+SCENARIO_NAME_SYNTH+"', '"+SCENARIO_NAME_SBASE+"')");
+        Option scenario = new Option("s", "scenario", true, "scenario name ('"+SCENARIO_NAME_SOCIAL+"', '"+SCENARIO_NAME_INSTNAT+"', '"+SCENARIO_NAME_SYNTH+"', '"+ SCENARIO_NAME_BASE +"', '" + SCENARIO_NAME_BASE_ZIPF + "')");
         scenario.setRequired(true);
         options.addOption(scenario);
 
@@ -159,7 +158,8 @@ public class Main {
             if (!scenarioName.equalsIgnoreCase(SCENARIO_NAME_SOCIAL) &&
                     !scenarioName.equalsIgnoreCase(SCENARIO_NAME_INSTNAT) &&
                     !scenarioName.equalsIgnoreCase(SCENARIO_NAME_SYNTH) &&
-                    !scenarioName.equalsIgnoreCase(SCENARIO_NAME_SBASE)) {
+                    !scenarioName.equalsIgnoreCase(SCENARIO_NAME_BASE) &&
+                    !scenarioName.equalsIgnoreCase(SCENARIO_NAME_BASE_ZIPF)) {
                 System.out.println("Unknown scenario name: '" + scenarioName + "'");
                 formatter.printHelp("stringdbgen", options);
                 System.exit(1);
@@ -177,8 +177,10 @@ public class Main {
                     scenarios = BenchmarkGenerator.Scenarios.INSTANT_MESSAGING_SERVICE;
                 } else if (scenarioName.equalsIgnoreCase(SCENARIO_NAME_SYNTH)) {
                     scenarios = BenchmarkGenerator.Scenarios.SYNTHETIC_BENCHMARK;
-                } else {
+                } else if (scenarioName.equalsIgnoreCase(SCENARIO_NAME_BASE)) {
                     scenarios = BenchmarkGenerator.Scenarios.PUBLIC_KNOWLEDGE_BASE;
+                } else {
+                    scenarios = BenchmarkGenerator.Scenarios.PUBLIC_KNOWLEDGE_BASE_ZIPF;
                 }
 
                 BenchmarkGenerator benchmarkGenerator = new BenchmarkGenerator(scenarios,
