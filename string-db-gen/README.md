@@ -42,7 +42,7 @@ mkdir output
 Afterwards, the exectuable jar `build/string-db-gen.jar` is ready to generate datasets.
 
 ### Behind the Scenes
-The bash commands above fetch `dewiki-dataset.tar.gz` from our public DropBox folder. This archive contains analysis results of the German Wikipedia articles dump as of 2018/Feb/05 and is used for string generating. In case you want to setup other files, see usage information of  `build/string-db-gen.jar`. What it needs to change the entire string creation process from a `dewiki`-based analysis to a custom one, is to provide 3 files:
+The bash commands above fetch `dewiki-dataset.tar.gz` from our public DropBox folder. This archive contains analysis results of the German Wikipedia articles dump as of 2018/Feb/05 and is used for string generating. In case you want to setup other files, see usage information of  `build/string-db-gen.jar`. What it needs to change the entire string creation process from a `dewiki`-based analysis to a custom one, is to provide 4 files:
 ####  Start Words File
 A plain text file where each line is one word that was used as the first word in one sentence from the original corpus. Avoid duplicate entries.
 
