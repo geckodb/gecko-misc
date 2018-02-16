@@ -68,13 +68,13 @@ public class NonUniformNumberGenerator {
 
         int span = Math.abs(upper - lower);
         int rand = this.random.nextInt(span);
-        return lower + rand;
+        return lower + span/2;//+ rand;
     }
 
     public static void main(String... args) throws IOException {
 
-        NonUniformNumberGenerator numberGenerator = new NonUniformNumberGenerator("/Users/marcus/git/gecko/gecko-misc/string-db-gen/temp/dewiki-strlen-histogram-1.csv");
-        System.setOut(new PrintStream(new FileOutputStream("/Users/marcus/temp/numbers13")));
+        NonUniformNumberGenerator numberGenerator = new NonUniformNumberGenerator("/Users/marcus/git/gecko/gecko-misc/string-db-gen/cache/sentence-lengths.cache");
+        System.setOut(new PrintStream(new FileOutputStream("/Users/marcus/temp/numbers15")));
         System.out.println("number");
         while(true) {
             System.out.println(numberGenerator.next());

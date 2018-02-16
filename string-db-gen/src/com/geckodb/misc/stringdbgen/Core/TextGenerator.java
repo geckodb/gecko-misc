@@ -2,7 +2,10 @@ package com.geckodb.misc.stringdbgen.Core;
 
 import com.geckodb.misc.utils.StringUtils;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -53,7 +56,8 @@ public class TextGenerator {
                         max += w.freq;
                     }
                     int choose = random.nextInt(max);
-                    for (SubWord w : subWords) {
+                    for (int i = 0; i < subWords.size(); i++) {
+                        SubWord w = subWords.get(i);
                         if (choose >= agg && choose < agg + w.freq) {
                             word = w.word;
                             break;

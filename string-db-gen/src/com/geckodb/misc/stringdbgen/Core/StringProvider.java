@@ -12,6 +12,21 @@ import java.util.Random;
  */
 public class StringProvider {
 
+    private static StringProvider instance;
+
+    private StringProvider(NumberGenerator generator, String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile) {
+        this.numberGenerator = generator;
+        this.uniformRandom = new Random();
+        textGenerator = new TextGenerator(wordFrequencyFile, subsequentWordsFile, starterWordsFile);
+    }
+
+    public static synchronized StringProvider getInstance (NumberGenerator generator, String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile) {
+        if (StringProvider.instance == null) {
+            StringProvider.instance = new StringProvider (generator, wordFrequencyFile, subsequentWordsFile, starterWordsFile);
+        }
+        return StringProvider.instance;
+    }
+
     public static abstract class NumberGenerator
     {
         public int minLen;
@@ -41,16 +56,57 @@ public class StringProvider {
         @Override
         public int next() {
             if (zipfRandom == null) {
-                zipfRandom = new ZipfDistribution(span, 1.1);
+                zipfRandom = new ZipfDistribution(span, 1);
             }
             return (int) (minLen + span * zipfRandom.probability(i ++ % span));
+        }
+    }
+
+    public static class ZipfNumberGeneratorE1 extends NumberGenerator {
+
+        ZipfDistribution zipfRandom = null;
+        int i = 0;
+
+        @Override
+        public int next() {
+            if (zipfRandom == null) {
+                zipfRandom = new ZipfDistribution(span, 1);
+            }
+            return (int) (minLen + span * zipfRandom.probability(i ++ % span)) + 2500;
+        }
+    }
+
+    public static class ZipfNumberGeneratorE2 extends NumberGenerator {
+
+        ZipfDistribution zipfRandom = null;
+        int i = 0;
+
+        @Override
+        public int next() {
+            if (zipfRandom == null) {
+                zipfRandom = new ZipfDistribution(span, 2);
+            }
+            return (int) (minLen + span * zipfRandom.probability(i ++ % span)) + 2500;
+        }
+    }
+
+    public static class ZipfNumberGeneratorE3 extends NumberGenerator {
+
+        ZipfDistribution zipfRandom = null;
+        int i = 0;
+
+        @Override
+        public int next() {
+            if (zipfRandom == null) {
+                zipfRandom = new ZipfDistribution(span, 3);
+            }
+            return (int) (minLen + span * zipfRandom.probability(i ++ % span)) + 2500;
         }
     }
 
     public static class HistogramNumberGenerator extends NumberGenerator {
 
         NonUniformNumberGenerator gen = null;
-        int i = 0;
 
         @Override
         public int next() {
@@ -90,11 +146,7 @@ public class StringProvider {
     Random uniformRandom;
     TextGenerator textGenerator;
 
-    public StringProvider(NumberGenerator generator, String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile) {
-        this.numberGenerator = generator;
-        this.uniformRandom = new Random();
-        textGenerator = new TextGenerator(wordFrequencyFile, subsequentWordsFile, starterWordsFile);
-    }
+
 
     public String next() {
         int stringLength = numberGenerator.next();

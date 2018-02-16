@@ -18,6 +18,8 @@ public class Main {
     public static final String SCENARIO_NAME_SYNTH = "synth";
     public static final String SCENARIO_NAME_BASE = "base";
     public static final String SCENARIO_NAME_BASE_ZIPF = "base-zipf";
+    public static final String SCENARIO_NAME_BASE_ZIPF2 = "base-zipf-2";
+    public static final String SCENARIO_NAME_BASE_ZIPF3 = "base-zipf-3";
 
     public static String formatTimeSpan(long seconds) {
         long s = seconds % 60;
@@ -37,7 +39,7 @@ public class Main {
 
         Options options = new Options();
 
-        Option scenario = new Option("s", "scenario", true, "scenario name ('"+SCENARIO_NAME_SOCIAL+"', '"+SCENARIO_NAME_INSTNAT+"', '"+SCENARIO_NAME_SYNTH+"', '"+ SCENARIO_NAME_BASE +"', '" + SCENARIO_NAME_BASE_ZIPF + "')");
+        Option scenario = new Option("s", "scenario", true, "scenario name ('"+SCENARIO_NAME_SOCIAL+"', '"+SCENARIO_NAME_INSTNAT+"', '"+SCENARIO_NAME_SYNTH+"', '"+ SCENARIO_NAME_BASE +"', '" + SCENARIO_NAME_BASE_ZIPF+"', '" + SCENARIO_NAME_BASE_ZIPF2+"', '" + SCENARIO_NAME_BASE_ZIPF3 + "')");
         scenario.setRequired(true);
         options.addOption(scenario);
 
@@ -170,7 +172,7 @@ public class Main {
                 System.out.println("This is String-DB-Gen. Copyright (c) Marcus Pinnecke 2018\nhttps://github.com/geckodb/gecko-misc/string-db-gen");
                 System.setOut(new PrintStream(new BufferedOutputStream(fileStream)));
 
-                BenchmarkGenerator.Scenario scenarios;
+                BenchmarkGenerator.Scenario scenarios = null;
                 if (scenarioName.equalsIgnoreCase(SCENARIO_NAME_SOCIAL)) {
                     scenarios = BenchmarkGenerator.Scenarios.SOCIAL_NETWORKING_SERVICE;
                 } else if (scenarioName.equalsIgnoreCase(SCENARIO_NAME_INSTNAT)) {
@@ -179,8 +181,15 @@ public class Main {
                     scenarios = BenchmarkGenerator.Scenarios.SYNTHETIC_BENCHMARK;
                 } else if (scenarioName.equalsIgnoreCase(SCENARIO_NAME_BASE)) {
                     scenarios = BenchmarkGenerator.Scenarios.PUBLIC_KNOWLEDGE_BASE;
+                } else if (scenarioName.equalsIgnoreCase(SCENARIO_NAME_BASE_ZIPF)) {
+                    scenarios = BenchmarkGenerator.Scenarios.PUBLIC_KNOWLEDGE_BASE_ZIPF1;
+                } else if (scenarioName.equalsIgnoreCase(SCENARIO_NAME_BASE_ZIPF2)) {
+                    scenarios = BenchmarkGenerator.Scenarios.PUBLIC_KNOWLEDGE_BASE_ZIPF2;
+                } else if (scenarioName.equalsIgnoreCase(SCENARIO_NAME_BASE_ZIPF3)) {
+                    scenarios = BenchmarkGenerator.Scenarios.PUBLIC_KNOWLEDGE_BASE_ZIPF3;
                 } else {
-                    scenarios = BenchmarkGenerator.Scenarios.PUBLIC_KNOWLEDGE_BASE_ZIPF;
+                    System.err.println("Unknown scenario");
+                    System.exit(1);
                 }
 
                 BenchmarkGenerator benchmarkGenerator = new BenchmarkGenerator(scenarios,
