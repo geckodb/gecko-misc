@@ -109,7 +109,7 @@ The following scenarios are supported out-of-the-box:
 
 Each scenario generates a different set of strings according the min/max string length and the number generator used. The generated strings themself are constructed internally using a probabilistic generatative grammar that result from a analysis of approx. 2 billion articles of the German Wikipedia.
 
-To select a particular scenario either use `-s <alias>` directly, or create a (temporary) variable in bash. Optionally, you can use `base-zipf` as replacement for the alias `base` to switch from a histogram-based number generator to a zipf-based number generator.
+To select a particular scenario either use `-s <alias>` directly, or create a (temporary) variable in bash. Optionally, you can use `base-zipf` as replacement for the alias `base` to switch from a histogram-based number generator to a zipf-based number generator (with exponent `1`). If you want zipf-based number generation for base with exponent `2` or `3`, use `base-zipf-2` or `base-zipf-3` instead.
 
 #### Select Social Networking Service
 ```
