@@ -161,7 +161,9 @@ public class Main {
                     !scenarioName.equalsIgnoreCase(SCENARIO_NAME_INSTNAT) &&
                     !scenarioName.equalsIgnoreCase(SCENARIO_NAME_SYNTH) &&
                     !scenarioName.equalsIgnoreCase(SCENARIO_NAME_BASE) &&
-                    !scenarioName.equalsIgnoreCase(SCENARIO_NAME_BASE_ZIPF)) {
+                    !scenarioName.equalsIgnoreCase(SCENARIO_NAME_BASE_ZIPF) &&
+                    !scenarioName.equalsIgnoreCase(SCENARIO_NAME_BASE_ZIPF2) &&
+                    !scenarioName.equalsIgnoreCase(SCENARIO_NAME_BASE_ZIPF3)) {
                 System.out.println("Unknown scenario name: '" + scenarioName + "'");
                 formatter.printHelp("stringdbgen", options);
                 System.exit(1);
