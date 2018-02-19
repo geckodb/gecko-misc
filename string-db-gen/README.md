@@ -38,6 +38,8 @@ rm -rf files/
 mvn dependency:resolve
 ant
 mkdir output
+git checkout -b origin/student_pallavi
+
 ``` 
 
 Afterwards, the exectuable jar `build/string-db-gen.jar` is ready to generate datasets.
