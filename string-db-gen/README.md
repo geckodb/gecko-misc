@@ -35,6 +35,7 @@ rm dewiki-dataset.tar.gz?dl=1
 mkdir -p dewiki-dataset/files
 mv files/* dewiki-dataset/files
 rm -rf files/
+mvn dependency:resolve
 ant
 mkdir output
 ``` 

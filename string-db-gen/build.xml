@@ -63,11 +63,11 @@
   <!-- Project Libraries -->
   
   <path id="library.commons-cli:commons-cli:1.4.classpath">
-    <pathelement location="${path.variable.maven_repository}/commons-cli/commons-cli/1.4/commons-cli-1.4.jar"/>
+    <pathelement location="${user.home}/.m2/repository/commons-cli/commons-cli/1.4/commons-cli-1.4.jar"/>
   </path>
   
   <path id="library.org.apache.commons:commons-math3:3.3.classpath">
-    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-math3/3.3/commons-math3-3.3.jar"/>
+    <pathelement location="${user.home}/.m2/repository/org/apache/commons/commons-math3/3.3/commons-math3-3.3.jar"/>
   </path>
   
   
