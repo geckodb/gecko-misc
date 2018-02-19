@@ -3,12 +3,8 @@
 
   <property environment="env"/>
   <property file="build.properties"/>
-  <!-- Uncomment the following property if no tests compilation is needed -->
-  <!-- 
-  <property name="skip.tests" value="true"/>
-   -->
-  
-  <!-- Compiler options -->
+
+   <!-- Compiler options -->
   
   <property name="compiler.debug" value="on"/>
   <property name="compiler.generate.no.warnings" value="off"/>
@@ -64,13 +60,7 @@
   <path id="library.org.apache.commons:commons-math3:3.3.classpath">
     <pathelement location="${user.home}/.m2/repository/org/apache/commons/commons-math3/3.0/commons-math3-3.0.jar"/>
   </path>
-  
-  
-  <!-- Global Libraries -->
-  
-  <!-- Modules -->
-  
-  
+
   <!-- Module string-db-gen -->
   
   <dirname property="module.string-db-gen.basedir" file="${ant.file}"/>
@@ -110,32 +100,14 @@
     <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
   </path>
 
-  <patternset id="excluded.from.module.string-db-gen">
+  <patternset id="excluded.from.module.default">
     <patternset refid="ignored.files"/>
   </patternset>
-  <patternset id="excluded.from.module.cf">
-    <patternset refid="ignored.files"/>
+
+  <patternset id="excluded.from.compilation.default">
+    <patternset refid="excluded.from.module.default"/>
   </patternset>
-  <patternset id="excluded.from.module.sl">
-    <patternset refid="ignored.files"/>
-  </patternset>
-  <patternset id="excluded.from.module.hd">
-    <patternset refid="ignored.files"/>
-  </patternset>
-  
-  <patternset id="excluded.from.compilation.string-db-gen">
-    <patternset refid="excluded.from.module.string-db-gen"/>
-  </patternset>
-  <patternset id="excluded.from.compilation.cf">
-    <patternset refid="excluded.from.module.cf"/>
-  </patternset>
-  <patternset id="excluded.from.compilation.sl">
-    <patternset refid="excluded.from.module.sl"/>
-  </patternset>
-  <patternset id="excluded.from.compilation.hd">
-    <patternset refid="excluded.from.module.hd"/>
-  </patternset>
-  
+
   <path id="string-db-gen.module.sourcepath">
   <dirset dir="${module.string-db-gen.basedir}">
     <include name="src"/>
@@ -170,7 +142,7 @@
       <bootclasspath refid="string-db-gen.module.bootclasspath"/>
       <classpath refid="default.classpath"/>
       <src refid="string-db-gen.module.sourcepath"/>
-      <patternset refid="excluded.from.compilation.string-db-gen"/>
+      <patternset refid="excluded.from.compilation.default"/>
     </javac>
     <copy todir="${string-db-gen.output.dir}">
       <fileset dir="${module.string-db-gen.basedir}/src">
@@ -187,7 +159,7 @@
       <bootclasspath refid="cf.module.bootclasspath"/>
       <classpath refid="default.classpath"/>
       <src refid="cf.module.sourcepath"/>
-      <patternset refid="excluded.from.compilation.cf"/>
+      <patternset refid="excluded.from.compilation.default"/>
     </javac>
 
     <copy todir="${cf.output.dir}">
@@ -206,7 +178,7 @@
       <bootclasspath refid="sl.module.bootclasspath"/>
       <classpath refid="default.classpath"/>
       <src refid="sl.module.sourcepath"/>
-      <patternset refid="excluded.from.compilation.sl"/>
+      <patternset refid="excluded.from.compilation.default"/>
     </javac>
     <copy todir="${sl.output.dir}">
       <fileset dir="${module.sl.basedir}/src">
@@ -223,7 +195,7 @@
       <bootclasspath refid="hd.module.bootclasspath"/>
       <classpath refid="default.classpath"/>
       <src refid="hd.module.sourcepath"/>
-      <patternset refid="excluded.from.compilation.hd"/>
+      <patternset refid="excluded.from.compilation.default"/>
     </javac>
     <copy todir="${hd.output.dir}">
       <fileset dir="${module.hd.basedir}/src">
