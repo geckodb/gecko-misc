@@ -25,7 +25,20 @@ public class Main {
         long s = seconds % 60;
         long m = (seconds / 60) % 60;
         long h = (seconds / (60 * 60)) % 24;
-        return String.format("%dh %02dmin %02dsec", h,m,s);
+        long d = ((seconds / (60 * 60)) / 24) % 30;
+        long w = (((seconds / (60 * 60)) / 24) / 30) % 7;
+        long mn = ((((seconds / (60 * 60)) / 24) / 30) / 7) % 4;
+        if (mn > 0) {
+            return String.format("%dm %dw %dd %dh %02dmin %02dsec", mn, w, d, h,m,s);
+        } else if (w > 0) {
+            return String.format("%dw %dd %dh %02dmin %02dsec", w, d, h,m,s);
+        } else if (d > 0) {
+            return String.format("%dd %dh %02dmin %02dsec", d, h,m,s);
+        } else if (h > 0) {
+            return String.format("%dh %02dmin %02dsec", h,m,s);
+        } else {
+            return String.format("%02dmin %02dsec", m,s);
+        }
     }
 
     public static String formatByte(long bytes) {
