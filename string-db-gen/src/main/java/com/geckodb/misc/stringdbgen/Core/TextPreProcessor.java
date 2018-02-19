@@ -115,7 +115,7 @@ public class TextPreProcessor {
         try {
             HistogramDistribution hist = new HistogramDistribution(srcFile, binSize);
             BufferedOutputStream buf = new BufferedOutputStream(new FileOutputStream(dstFile));
-            hist.createHistogram(new PrintStream(buf));
+            hist.createHistogram(new PrintStream(buf), false);
             buf.flush();
             buf.close();
         } catch (FileNotFoundException e) {

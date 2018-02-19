@@ -14,3 +14,6 @@ string-db-gen/cache
 string-db-gen/output
 string-db-gen/temp
 string-db-gen/dewiki-dataset/files
+string-db-gen/target/classes/com/geckodb/misc/stringdbgen
+string-db-gen/target/classes/com/geckodb/misc/tools
+string-db-gen/target/classes/com/geckodb/misc/utils

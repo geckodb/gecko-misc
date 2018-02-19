@@ -14,7 +14,7 @@ public class StringLengths {
 
     public static void main(String... args)  {
 
-        String inputFileName, line, tag;
+        String inputFileName, tag;
         BufferedReader reader;
 
         Options options = new Options();
@@ -60,7 +60,6 @@ public class StringLengths {
             tag = cmd.getOptionValue("tag");
             tag = tag != null ? tag : "Default";
 
-
             reader = new BufferedReader(new FileReader(inputFileName));
 
             if (!cmd.hasOption("no-header")) {
@@ -68,9 +67,7 @@ public class StringLengths {
             }
 
             if (!cmd.hasOption("no-content")) {
-                while ((line = reader.readLine()) != null) {
-                    System.out.println(line.length() + ";" + tag);
-                }
+                processAbsoluteCount(reader, tag);
             }
 
         } catch (Exception e) {
@@ -80,6 +77,13 @@ public class StringLengths {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("java -jar sl.jar", header, options, footer, true);
             System.exit(1);
+        }
+    }
+
+    private static void processAbsoluteCount(BufferedReader reader, String tag) throws IOException {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line.length() + ";" + tag);
         }
     }
 

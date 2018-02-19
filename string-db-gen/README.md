@@ -340,9 +340,9 @@ StringLength;Tag
 In order to create random values based on a non-uniform custom-defined distribution, we ship `String DB Gen` is a tool to create a number generator that creates numbers according a given histogram. To create the input files for this number generator, use the tool `hd.jar` in `build/`. The usage is as follows:
 
 ```
-java -jar build/hd.jar -f <FILE> [-h] -w <SIZE>
+java -jar build/hd.jar -f <FILE> [-h] -w [-r] <SIZE>
 ```
-where `FILE` is the file name of a CSV file that matches the form `<StringLength>;...` (with header), and `-w` is a parameter to set the bin size to the valuer `SIZE`. 
+where `FILE` is the file name of a CSV file that matches the form `<StringLength>;...` (with header), and `-w` is a parameter to set the bin size to the valuer `SIZE`. By using `-r` (`--relative`), the tool will produce relative numbers per bucket instead of absolute one.
 
 **Example Input** (using `sl.jar`)
 ```

@@ -19,7 +19,7 @@ public class HistogramDistribution {
         this.binSize = binSize;
     }
 
-    public void createHistogram(PrintStream out) throws IOException {
+    public void createHistogram(PrintStream out, boolean useRelativeCount) throws IOException {
 
         String line;
         BufferedReader reader = new BufferedReader(new FileReader(inputFileName));
@@ -28,12 +28,14 @@ public class HistogramDistribution {
 
         reader.readLine(); // Skip header
 
+        long total = 0;
         while ((line = reader.readLine()) != null) {
             String[] fields = line.split(";");
             Integer length = Integer.valueOf(fields[0]);
             Integer binIndex = length / binSize;
             long count = histogram.getOrDefault(binIndex, 0L);
             histogram.put(binIndex, ++count);
+            total++;
         }
 
         long sum = 0;
@@ -41,7 +43,12 @@ public class HistogramDistribution {
         for (Map.Entry<Integer, Long> entry : histogram.entrySet()) {
             long maxLength = (1 + entry.getKey()) * binSize;
             long count = entry.getValue();
-            out.println(maxLength + ";" + entry.getValue() + ";" + sum);
+            if (useRelativeCount) {
+                out.println(maxLength + ";" + count/(double) total + ";" + sum);
+            } else {
+                out.println(maxLength + ";" + count + ";" + sum);
+            }
+
             sum += count;
         }
     }
@@ -51,6 +58,7 @@ public class HistogramDistribution {
         String inputFileName, line;
         Integer binSize;
         BufferedReader reader;
+        boolean useRelativeCount = false;
 
         Options options = new Options();
         options.addOption(Option.builder("f").longOpt("file")
@@ -58,6 +66,10 @@ public class HistogramDistribution {
                 .hasArg()
                 .argName("FILE")
                 .required().build());
+        options.addOption(Option.builder("r").longOpt("relative")
+                .desc("Calculates relative number of length occurrence (default is absolute number)")
+                .hasArg(false)
+                .required(false).build());
         options.addOption(Option.builder("w").longOpt("bin-width")
                 .desc("Tag attached for this processing")
                 .hasArg()
@@ -83,9 +95,10 @@ public class HistogramDistribution {
 
             inputFileName = cmd.getOptionValue("file");
             binSize = Integer.valueOf(cmd.getOptionValue("bin-width"));
+            useRelativeCount = cmd.hasOption('r');
 
             HistogramDistribution histogramDistribution = new HistogramDistribution(inputFileName, binSize);
-            histogramDistribution.createHistogram(System.out);
+            histogramDistribution.createHistogram(System.out, useRelativeCount);
 
         } catch (Exception e) {
             e.printStackTrace();
