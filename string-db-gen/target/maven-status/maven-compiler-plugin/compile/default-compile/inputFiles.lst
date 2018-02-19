@@ -1,0 +1,14 @@
+/Users/marcus/git/gecko/gecko-misc/string-db-gen/src/main/java/com/geckodb/misc/tools/ExtractText.java
+/Users/marcus/git/gecko/gecko-misc/string-db-gen/src/main/java/com/geckodb/misc/stringdbgen/Core/StringProvider.java
+/Users/marcus/git/gecko/gecko-misc/string-db-gen/src/main/java/com/geckodb/misc/utils/FileUtils.java
+/Users/marcus/git/gecko/gecko-misc/string-db-gen/src/main/java/com/geckodb/misc/tools/MaxLength.java
+/Users/marcus/git/gecko/gecko-misc/string-db-gen/src/main/java/com/geckodb/misc/stringdbgen/Main.java
+/Users/marcus/git/gecko/gecko-misc/string-db-gen/src/main/java/com/geckodb/misc/tools/CharacterFrequency.java
+/Users/marcus/git/gecko/gecko-misc/string-db-gen/src/main/java/com/geckodb/misc/stringdbgen/Core/TextGenerator.java
+/Users/marcus/git/gecko/gecko-misc/string-db-gen/src/main/java/com/geckodb/misc/tools/StringLengths.java
+/Users/marcus/git/gecko/gecko-misc/string-db-gen/src/main/java/com/geckodb/misc/stringdbgen/Core/TextPreProcessor.java
+/Users/marcus/git/gecko/gecko-misc/string-db-gen/src/main/java/com/geckodb/misc/tools/HistogramDistribution.java
+/Users/marcus/git/gecko/gecko-misc/string-db-gen/src/main/java/com/geckodb/misc/utils/TextProcessing.java
+/Users/marcus/git/gecko/gecko-misc/string-db-gen/src/main/java/com/geckodb/misc/stringdbgen/Core/BenchmarkGenerator.java
+/Users/marcus/git/gecko/gecko-misc/string-db-gen/src/main/java/com/geckodb/misc/stringdbgen/Core/NonUniformNumberGenerator.java
+/Users/marcus/git/gecko/gecko-misc/string-db-gen/src/main/java/com/geckodb/misc/utils/StringUtils.java
