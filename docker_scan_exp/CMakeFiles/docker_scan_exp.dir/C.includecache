@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/marcus/git/gecko/gecko-misc/docker_scan_exp/main.c
+stdio.h
+-
+stdlib.h
+-
+stdint.h
+-
+pthread.h
+-
+assert.h
+-
+sys/time.h
+-
+string.h
+-
+
