@@ -315,7 +315,7 @@
   
   <target name="compile.module.string-db-gen.production" description="Compile module string-db-gen; production classes">
     <mkdir dir="${string-db-gen.output.dir}"/>
-    <javac includeantruntime="false" destdir="${string-db-gen.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.string-db-gen}/javac">
+    <javac includeantruntime="false" destdir="${string-db-gen.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${env.JAVA_HOME}/bin/javac">
       <compilerarg line="${compiler.args.string-db-gen}"/>
       <bootclasspath refid="string-db-gen.module.bootclasspath"/>
       <classpath refid="string-db-gen.module.production.classpath"/>
@@ -332,7 +332,7 @@
 
   <target name="compile.module.cf.production" description="Compile module cf; production classes">
     <mkdir dir="${cf.output.dir}"/>
-    <javac includeantruntime="false" destdir="${cf.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.cf}/javac">
+    <javac includeantruntime="false" destdir="${cf.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${env.JAVA_HOME}/bin/javac">
       <compilerarg line="${compiler.args.cf}"/>
       <bootclasspath refid="cf.module.bootclasspath"/>
       <classpath refid="cf.module.production.classpath"/>
@@ -351,7 +351,7 @@
 
   <target name="compile.module.sl.production" description="Compile module sl; production classes">
     <mkdir dir="${sl.output.dir}"/>
-    <javac includeantruntime="false" destdir="${sl.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.sl}/javac">
+    <javac includeantruntime="false" destdir="${sl.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${env.JAVA_HOME}/bin/javac">
       <compilerarg line="${compiler.args.sl}"/>
       <bootclasspath refid="sl.module.bootclasspath"/>
       <classpath refid="sl.module.production.classpath"/>
@@ -368,7 +368,7 @@
 
   <target name="compile.module.hd.production" description="Compile module hd; production classes">
     <mkdir dir="${hd.output.dir}"/>
-    <javac includeantruntime="false" destdir="${hd.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.hd}/javac">
+    <javac includeantruntime="false" destdir="${hd.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${env.JAVA_HOME}/bin/javac">
       <compilerarg line="${compiler.args.hd}"/>
       <bootclasspath refid="hd.module.bootclasspath"/>
       <classpath refid="hd.module.production.classpath"/>
