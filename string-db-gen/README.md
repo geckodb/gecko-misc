@@ -342,7 +342,7 @@ In order to create random values based on a non-uniform custom-defined distribut
 ```
 java -jar build/hd.jar -f <FILE> [-h] -w [-r] <SIZE>
 ```
-where `FILE` is the file name of a CSV file that matches the form `<StringLength>;...` (with header), and `-w` is a parameter to set the bin size to the valuer `SIZE`. By using `-r` (`--relative`), the tool will produce relative numbers per bucket instead of absolute one.
+where `FILE` is the file name of a CSV file that matches the form `<StringLength>;...` (with header), and `-w` is a parameter to set the bin size to the valuer `SIZE`. By using `-r` (`--relative`), the tool will produce relative numbers per bucket instead of absolute ones.
 
 **Example Input** (using `sl.jar`)
 ```
