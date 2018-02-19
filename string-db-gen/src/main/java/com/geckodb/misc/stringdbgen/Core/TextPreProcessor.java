@@ -28,10 +28,12 @@ public class TextPreProcessor {
     }
 
     public boolean cacheExists() {
+        System.err.println("[INFO]\t'"+getCacheFileArticleLengths()+"' was not removed. You may remove it by hand");
         return (Files.exists(Paths.get(getCacheFileWordFrequency())) &&
                 Files.exists(Paths.get(getCacheFileNextWords())) &&
-                Files.exists(Paths.get(getCacheFileStarterWords())) &&
-                Files.exists(Paths.get(getCacheFileArticleLengths())));
+                Files.exists(Paths.get(getCacheFileStarterWords()))// &&
+                //Files.exists(Paths.get(getCacheFileArticleLengths()))
+        );
     }
 
     private void deleteFile(String file) throws IOException {
