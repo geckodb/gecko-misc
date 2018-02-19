@@ -13,3 +13,4 @@ string-db-gen/build
 string-db-gen/cache
 string-db-gen/output
 string-db-gen/temp
+string-db-gen/dewiki-dataset/files
