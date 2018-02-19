@@ -28,8 +28,8 @@ For this, type into the bash
 
 ```
 git clone https://github.com/geckodb/gecko-misc.git
-git checkout -b origin/student_pallavi
 cd gecko-misc/string-db-gen
+git checkout -b origin/student_pallavi
 wget https://www.dropbox.com/s/vhbq52vrti8isxx/dewiki-dataset.tar.gz?dl=1
 tar xvzf dewiki-dataset.tar.gz?dl=1
 rm dewiki-dataset.tar.gz?dl=1
