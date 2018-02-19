@@ -105,93 +105,10 @@
     <!-- Paths to be included in compilation bootclasspath -->
   </path>
   
-  <path id="string-db-gen.module.production.classpath">
+  <path id="default.classpath">
     <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
     <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
   </path>
-
-  <path id="cf.module.production.classpath">
-    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
-    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
-  </path>
-
-  <path id="sl.module.production.classpath">
-    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
-    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
-  </path>
-
-  <path id="hd.module.production.classpath">
-    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
-    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
-  </path>
-  
-  <path id="string-db-gen.runtime.production.module.classpath">
-    <pathelement location="${string-db-gen.output.dir}"/>
-    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
-    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
-  </path>
-  <path id="cf.runtime.production.module.classpath">
-    <pathelement location="${cf.output.dir}"/>
-    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
-    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
-  </path>
-  <path id="sl.runtime.production.module.classpath">
-    <pathelement location="${sl.output.dir}"/>
-    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
-    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
-  </path>
-  <path id="hd.runtime.production.module.classpath">
-    <pathelement location="${hd.output.dir}"/>
-    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
-    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
-  </path>
-  
-  <path id="string-db-gen.module.classpath">
-    <pathelement location="${string-db-gen.output.dir}"/>
-    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
-    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
-  </path>
-  <path id="cf.module.classpath">
-    <pathelement location="${cf.output.dir}"/>
-    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
-    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
-  </path>
-  <path id="sl.module.classpath">
-    <pathelement location="${sl.output.dir}"/>
-    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
-    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
-  </path>
-  <path id="hd.module.classpath">
-    <pathelement location="${hd.output.dir}"/>
-    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
-    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
-  </path>
-  
-  <path id="string-db-gen.runtime.module.classpath">
-    <pathelement location="${string-db-gen.testoutput.dir}"/>
-    <pathelement location="${string-db-gen.output.dir}"/>
-    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
-    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
-  </path>
-  <path id="cf.runtime.module.classpath">
-    <pathelement location="${cf.testoutput.dir}"/>
-    <pathelement location="${cf.output.dir}"/>
-    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
-    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
-  </path>
-  <path id="sl.runtime.module.classpath">
-    <pathelement location="${sl.testoutput.dir}"/>
-    <pathelement location="${sl.output.dir}"/>
-    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
-    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
-  </path>
-  <path id="hd.runtime.module.classpath">
-    <pathelement location="${hd.testoutput.dir}"/>
-    <pathelement location="${hd.output.dir}"/>
-    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
-    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
-  </path>
-
 
   <patternset id="excluded.from.module.string-db-gen">
     <patternset refid="ignored.files"/>
@@ -251,7 +168,7 @@
     <javac includeantruntime="false" destdir="${string-db-gen.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
       <compilerarg line="${compiler.args.string-db-gen}"/>
       <bootclasspath refid="string-db-gen.module.bootclasspath"/>
-      <classpath refid="string-db-gen.module.production.classpath"/>
+      <classpath refid="default.classpath"/>
       <src refid="string-db-gen.module.sourcepath"/>
       <patternset refid="excluded.from.compilation.string-db-gen"/>
     </javac>
@@ -268,7 +185,7 @@
     <javac includeantruntime="false" destdir="${cf.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
       <compilerarg line="${compiler.args.cf}"/>
       <bootclasspath refid="cf.module.bootclasspath"/>
-      <classpath refid="cf.module.production.classpath"/>
+      <classpath refid="default.classpath"/>
       <src refid="cf.module.sourcepath"/>
       <patternset refid="excluded.from.compilation.cf"/>
     </javac>
@@ -287,7 +204,7 @@
     <javac includeantruntime="false" destdir="${sl.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
       <compilerarg line="${compiler.args.sl}"/>
       <bootclasspath refid="sl.module.bootclasspath"/>
-      <classpath refid="sl.module.production.classpath"/>
+      <classpath refid="default.classpath"/>
       <src refid="sl.module.sourcepath"/>
       <patternset refid="excluded.from.compilation.sl"/>
     </javac>
@@ -304,7 +221,7 @@
     <javac includeantruntime="false" destdir="${hd.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
       <compilerarg line="${compiler.args.hd}"/>
       <bootclasspath refid="hd.module.bootclasspath"/>
-      <classpath refid="hd.module.production.classpath"/>
+      <classpath refid="default.classpath"/>
       <src refid="hd.module.sourcepath"/>
       <patternset refid="excluded.from.compilation.hd"/>
     </javac>
