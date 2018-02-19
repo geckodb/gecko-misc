@@ -57,44 +57,7 @@
   </patternset>
   
   <!-- JDK definitions -->
-  
-  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
-  <path id="jdk.classpath.1.8">
-    <fileset dir="${jdk.home.1.8}">
-      <include name="jre/lib/charsets.jar"/>
-      <include name="jre/lib/deploy.jar"/>
-      <include name="jre/lib/ext/cldrdata.jar"/>
-      <include name="jre/lib/ext/dnsns.jar"/>
-      <include name="jre/lib/ext/jaccess.jar"/>
-      <include name="jre/lib/ext/jfxrt.jar"/>
-      <include name="jre/lib/ext/localedata.jar"/>
-      <include name="jre/lib/ext/nashorn.jar"/>
-      <include name="jre/lib/ext/sunec.jar"/>
-      <include name="jre/lib/ext/sunjce_provider.jar"/>
-      <include name="jre/lib/ext/sunpkcs11.jar"/>
-      <include name="jre/lib/ext/zipfs.jar"/>
-      <include name="jre/lib/javaws.jar"/>
-      <include name="jre/lib/jce.jar"/>
-      <include name="jre/lib/jfr.jar"/>
-      <include name="jre/lib/jfxswt.jar"/>
-      <include name="jre/lib/jsse.jar"/>
-      <include name="jre/lib/management-agent.jar"/>
-      <include name="jre/lib/plugin.jar"/>
-      <include name="jre/lib/resources.jar"/>
-      <include name="jre/lib/rt.jar"/>
-      <include name="lib/ant-javafx.jar"/>
-      <include name="lib/dt.jar"/>
-      <include name="lib/javafx-mx.jar"/>
-      <include name="lib/jconsole.jar"/>
-      <include name="lib/packager.jar"/>
-      <include name="lib/sa-jdi.jar"/>
-      <include name="lib/tools.jar"/>
-    </fileset>
-  </path>
-  
-  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
-  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
-  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+
   
   
   <!-- Project Libraries -->
@@ -119,24 +82,7 @@
   <dirname property="module.cf.basedir" file="${ant.file}"/>
   <dirname property="module.sl.basedir" file="${ant.file}"/>
   <dirname property="module.hd.basedir" file="${ant.file}"/>
-  
-  
-  <property name="module.jdk.home.string-db-gen" value="${project.jdk.home}"/>
-  <property name="module.jdk.bin.string-db-gen" value="${project.jdk.bin}"/>
-  <property name="module.jdk.classpath.string-db-gen" value="${project.jdk.classpath}"/>
 
-  <property name="module.jdk.home.cf" value="${project.jdk.home}"/>
-  <property name="module.jdk.bin.cf" value="${project.jdk.bin}"/>
-  <property name="module.jdk.classpath.cf" value="${project.jdk.classpath}"/>
-
-  <property name="module.jdk.home.sl" value="${project.jdk.home}"/>
-  <property name="module.jdk.bin.sl" value="${project.jdk.bin}"/>
-  <property name="module.jdk.classpath.sl" value="${project.jdk.classpath}"/>
-
-  <property name="module.jdk.home.hd" value="${project.jdk.home}"/>
-  <property name="module.jdk.bin.hd" value="${project.jdk.bin}"/>
-  <property name="module.jdk.classpath.hd" value="${project.jdk.classpath}"/>
-  
   <property name="compiler.args.string-db-gen" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
   <property name="compiler.args.cf" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
   <property name="compiler.args.sl" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
@@ -165,25 +111,21 @@
   </path>
   
   <path id="string-db-gen.module.production.classpath">
-    <path refid="${module.jdk.classpath.string-db-gen}"/>
     <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
     <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
   </path>
 
   <path id="cf.module.production.classpath">
-    <path refid="${module.jdk.classpath.cf}"/>
     <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
     <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
   </path>
 
   <path id="sl.module.production.classpath">
-    <path refid="${module.jdk.classpath.sl}"/>
     <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
     <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
   </path>
 
   <path id="hd.module.production.classpath">
-    <path refid="${module.jdk.classpath.hd}"/>
     <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
     <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
   </path>
@@ -210,25 +152,21 @@
   </path>
   
   <path id="string-db-gen.module.classpath">
-    <path refid="${module.jdk.classpath.string-db-gen}"/>
     <pathelement location="${string-db-gen.output.dir}"/>
     <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
     <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
   </path>
   <path id="cf.module.classpath">
-    <path refid="${module.jdk.classpath.cf}"/>
     <pathelement location="${cf.output.dir}"/>
     <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
     <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
   </path>
   <path id="sl.module.classpath">
-    <path refid="${module.jdk.classpath.sl}"/>
     <pathelement location="${sl.output.dir}"/>
     <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
     <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
   </path>
   <path id="hd.module.classpath">
-    <path refid="${module.jdk.classpath.hd}"/>
     <pathelement location="${hd.output.dir}"/>
     <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
     <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
