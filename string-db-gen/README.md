@@ -387,6 +387,33 @@ MaxLength;Count;Threshold
 60;5;68
 ```
 
+### Extract Strings from JSON Documents
+`String DB Gen` comes with a tool to extract values by a given key in a sequence of JSON documents. For this purpose, use the tool `build/je.jar`. This tool reads a file where each line is one complete JSON document. From each line, the value for a user-defined key is extracted and printed to standard out (if the key is present at the first level of the document). 
+
+The usage is as follows:
+
+```
+java -jar je.jar -f <FILE> [-h] -k <STRING>
+```
+where `<FILE>` is the path to a text file (example see below), and `<STRING>` is the key name that is used (cases are ignored). 
+
+**Example Input**
+
+```
+$ cat misc/jsonstream.txt 
+{"created_at":"Fri Dec 01 10:20:00 +0000 2017", "text":"Hello"}
+{"created_at":"Thu Oct 06 03:16:40 +0000 2016", "text":"World"}
+```
+
+**Example Output**
+
+```
+$ java -jar build/je.jar -f misc/jsonstream.txt -k "text"
+Hello
+World
+```
+
+
 
 # License
 This project is licensed under the terms of the GNU LESSER GENERAL PUBLIC LICENSE. See the LICENSE file.

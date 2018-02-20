@@ -144,7 +144,16 @@ public class Main {
             cachePath = StringUtils.ensurePath((cachePath == null) ? System.getProperty("user.dir") + "/cache" : cachePath);
 
             TextPreProcessor preProcessor = new TextPreProcessor(wordFrequencyFile, subsequentWordsFile, starterWordsFile, lengthHistogramFile, binSize, cachePath);
-            statisticsWriter = writeStatistics ? FileUtils.openWriteEx(statisticsFile, true) : null;
+            if (writeStatistics) {
+                if (!Files.exists(Paths.get(statisticsFile))) {
+                    statisticsWriter = FileUtils.openWriteEx(statisticsFile, true);
+                    statisticsWriter.write("WallClockTimeMs;Tag;PercentGenerated\n");
+                    statisticsWriter.flush();
+                    statisticsWriter.close();
+                }
+                statisticsWriter = FileUtils.openWriteEx(statisticsFile, true);
+            }
+
 
             if (cleanCacheFlag || !preProcessor.cacheExists()) {
                 if (!Files.exists(Paths.get(wordFrequencyFile)) || !Files.exists(Paths.get(subsequentWordsFile)) || !Files.exists(Paths.get(starterWordsFile))) {
@@ -240,6 +249,7 @@ public class Main {
                 final long[] totalSize = {0};
                 long start = System.currentTimeMillis();
                 final long[] diff = new long[1];
+                final float[] percent = new float[1];
 
                 System.out.println("id;total_size_byte;length;string");
 
@@ -259,18 +269,18 @@ public class Main {
                         System.out.flush();
 
                         diff[0] = System.currentTimeMillis() - start;
-                        float percent = 100 * totalSize[0] / (float) (maxSize[0]);
-                        long exp = (long) (diff[0] * 100 / percent);
+                        percent[0] = 100 * totalSize[0] / (float) (maxSize[0]);
+                        long exp = (long) (diff[0] * 100 / percent[0]);
                         String eta = formatTimeSpan((long) (Math.max(0, (exp - diff[0])) / 1000));
                         String elpased = formatTimeSpan((long) (diff[0] / 1000));
-                        System.err.println("Elapsed: " + elpased + "\t\tETA: " + eta + "\t\t" + formatByte(totalSize[0]) + " of " + formatByte(maxSize[0]) + "\t\t" + formatter.format(percent) + "%");
+                        System.err.println("Elapsed: " + elpased + "\t\tETA: " + eta + "\t\t" + formatByte(totalSize[0]) + " of " + formatByte(maxSize[0]) + "\t\t" + formatter.format(percent[0]) + "%");
 
                         return (totalSize[0] < maxSize[0]) ? BenchmarkGenerator.ContinueState.CONTINUE : BenchmarkGenerator.ContinueState.STOP;
                     }
                 }, none -> {
                     if (writeStatistics) {
                         try {
-                            statisticsWriter.write(diff[0] + ";" + statisticsTag + "\n");
+                            statisticsWriter.write(diff[0] + ";" + statisticsTag + ";" + percent[0] + "\n");
                             statisticsWriter.flush();
                             statisticsWriter.close();
                         } catch (IOException e) {

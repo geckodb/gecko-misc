@@ -52,52 +52,27 @@
     <exclude name="**/?*.aj"/>
   </patternset>
 
-  <!-- Project Libraries -->
-  <path id="library.commons-cli:commons-cli:1.4.classpath">
-    <pathelement location="${user.home}/.m2/repository/commons-cli/commons-cli/1.4/commons-cli-1.4.jar"/>
-  </path>
-
-  <path id="library.org.apache.commons:commons-math3:3.3.classpath">
-    <pathelement location="${user.home}/.m2/repository/org/apache/commons/commons-math3/3.0/commons-math3-3.0.jar"/>
-  </path>
-
   <!-- Module string-db-gen -->
   
-  <dirname property="module.string-db-gen.basedir" file="${ant.file}"/>
-  <dirname property="module.cf.basedir" file="${ant.file}"/>
-  <dirname property="module.sl.basedir" file="${ant.file}"/>
-  <dirname property="module.hd.basedir" file="${ant.file}"/>
+  <dirname property="module.all.basedir" file="${ant.file}"/>
 
   <property name="compiler.args.string-db-gen" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
   <property name="compiler.args.cf" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
   <property name="compiler.args.sl" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
   <property name="compiler.args.hd" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  <property name="compiler.args.je" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
   
-  <property name="string-db-gen.output.dir" value="${module.string-db-gen.basedir}/out/production/string-db-gen"/>
-  <property name="string-db-gen.testoutput.dir" value="${module.string-db-gen.basedir}/out/test/string-db-gen"/>
-   <property name="cf.output.dir" value="${module.cf.basedir}/out/production/cf"/>
-  <property name="cf.testoutput.dir" value="${module.cf.basedir}/out/test/cf"/>
-  <property name="hd.output.dir" value="${module.hd.basedir}/out/production/hd"/>
-  <property name="hd.testoutput.dir" value="${module.hd.basedir}/out/test/hd"/>
-  <property name="sl.output.dir" value="${module.sl.basedir}/out/production/sl"/>
-  <property name="sl.testoutput.dir" value="${module.sl.basedir}/out/test/sl"/>
-  
-  <path id="string-db-gen.module.bootclasspath">
+  <property name="all.output.dir" value="${module.all.basedir}/out/production/all"/>
+  <property name="all.testoutput.dir" value="${module.all.basedir}/out/production/all/tests"/>
+
+  <path id="all.module.bootclasspath">
     <!-- Paths to be included in compilation bootclasspath -->
   </path>
-  <path id="cf.module.bootclasspath">
-    <!-- Paths to be included in compilation bootclasspath -->
-  </path>
-  <path id="sl.module.bootclasspath">
-    <!-- Paths to be included in compilation bootclasspath -->
-  </path>
-  <path id="hd.module.bootclasspath">
-    <!-- Paths to be included in compilation bootclasspath -->
-  </path>
-  
+
   <path id="default.classpath">
-    <path refid="library.org.apache.commons:commons-math3:3.3.classpath"/>
-    <path refid="library.commons-cli:commons-cli:1.4.classpath"/>
+    <pathelement location="${user.home}/.m2/repository/commons-cli/commons-cli/1.4/commons-cli-1.4.jar"/>
+    <pathelement location="${user.home}/.m2/repository/org/apache/commons/commons-math3/3.0/commons-math3-3.0.jar"/>
+    <pathelement location="${user.home}/.m2/repository/org/json/json/20160810/json-20160810.jar"/>
   </path>
 
   <patternset id="excluded.from.module.default">
@@ -108,44 +83,29 @@
     <patternset refid="excluded.from.module.default"/>
   </patternset>
 
-  <path id="string-db-gen.module.sourcepath">
-  <dirset dir="${module.string-db-gen.basedir}">
+  <path id="all.module.sourcepath">
+  <dirset dir="${module.all.basedir}">
     <include name="src"/>
   </dirset>
   </path>
-  <path id="cf.module.sourcepath">
-    <dirset dir="${module.cf.basedir}">
-      <include name="src"/>
-    </dirset>
-  </path>
-  <path id="sl.module.sourcepath">
-    <dirset dir="${module.sl.basedir}">
-      <include name="src"/>
-    </dirset>
-  </path>
-  <path id="hd.module.sourcepath">
-    <dirset dir="${module.hd.basedir}">
-      <include name="src"/>
-    </dirset>
-  </path>
-  
-  
+
   <target name="compile.module.string-db-gen" depends="compile.module.string-db-gen.production,compile.module.string-db-gen.tests" description="Compile module string-db-gen"/>
   <target name="compile.module.cf" depends="compile.module.cf.production,compile.module.cf.tests" description="Compile module cf"/>
   <target name="compile.module.sl" depends="compile.module.sl.production,compile.module.sl.tests" description="Compile module sl"/>
   <target name="compile.module.hd" depends="compile.module.hd.production,compile.module.hd.tests" description="Compile module hd"/>
+  <target name="compile.module.je" depends="compile.module.je.production,compile.module.je.tests" description="Compile module je"/>
   
   <target name="compile.module.string-db-gen.production" description="Compile module string-db-gen; production classes">
-    <mkdir dir="${string-db-gen.output.dir}"/>
-    <javac includeantruntime="false" destdir="${string-db-gen.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+    <mkdir dir="${all.output.dir}"/>
+    <javac includeantruntime="false" destdir="${all.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
       <compilerarg line="${compiler.args.string-db-gen}"/>
-      <bootclasspath refid="string-db-gen.module.bootclasspath"/>
+      <bootclasspath refid="all.module.bootclasspath"/>
       <classpath refid="default.classpath"/>
-      <src refid="string-db-gen.module.sourcepath"/>
+      <src refid="all.module.sourcepath"/>
       <patternset refid="excluded.from.compilation.default"/>
     </javac>
-    <copy todir="${string-db-gen.output.dir}">
-      <fileset dir="${module.string-db-gen.basedir}/src">
+    <copy todir="${all.output.dir}">
+      <fileset dir="${module.all.basedir}/src">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
@@ -153,17 +113,17 @@
 </target>
 
   <target name="compile.module.cf.production" description="Compile module cf; production classes">
-    <mkdir dir="${cf.output.dir}"/>
-    <javac includeantruntime="false" destdir="${cf.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+    <mkdir dir="${all.output.dir}"/>
+    <javac includeantruntime="false" destdir="${all.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
       <compilerarg line="${compiler.args.cf}"/>
-      <bootclasspath refid="cf.module.bootclasspath"/>
+      <bootclasspath refid="all.module.bootclasspath"/>
       <classpath refid="default.classpath"/>
-      <src refid="cf.module.sourcepath"/>
+      <src refid="all.module.sourcepath"/>
       <patternset refid="excluded.from.compilation.default"/>
     </javac>
 
-    <copy todir="${cf.output.dir}">
-      <fileset dir="${module.cf.basedir}/src">
+    <copy todir="${all.output.dir}">
+      <fileset dir="${module.all.basedir}/src">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
@@ -172,16 +132,16 @@
 
 
   <target name="compile.module.sl.production" description="Compile module sl; production classes">
-    <mkdir dir="${sl.output.dir}"/>
-    <javac includeantruntime="false" destdir="${sl.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+    <mkdir dir="${all.output.dir}"/>
+    <javac includeantruntime="false" destdir="${all.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
       <compilerarg line="${compiler.args.sl}"/>
-      <bootclasspath refid="sl.module.bootclasspath"/>
+      <bootclasspath refid="all.module.bootclasspath"/>
       <classpath refid="default.classpath"/>
-      <src refid="sl.module.sourcepath"/>
+      <src refid="all.module.sourcepath"/>
       <patternset refid="excluded.from.compilation.default"/>
     </javac>
-    <copy todir="${sl.output.dir}">
-      <fileset dir="${module.sl.basedir}/src">
+    <copy todir="${all.output.dir}">
+      <fileset dir="${module.all.basedir}/src">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
@@ -189,16 +149,33 @@
   </target>
 
   <target name="compile.module.hd.production" description="Compile module hd; production classes">
-    <mkdir dir="${hd.output.dir}"/>
-    <javac includeantruntime="false" destdir="${hd.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+    <mkdir dir="${all.output.dir}"/>
+    <javac includeantruntime="false" destdir="${all.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
       <compilerarg line="${compiler.args.hd}"/>
-      <bootclasspath refid="hd.module.bootclasspath"/>
+      <bootclasspath refid="all.module.bootclasspath"/>
       <classpath refid="default.classpath"/>
-      <src refid="hd.module.sourcepath"/>
+      <src refid="all.module.sourcepath"/>
       <patternset refid="excluded.from.compilation.default"/>
     </javac>
-    <copy todir="${hd.output.dir}">
-      <fileset dir="${module.hd.basedir}/src">
+    <copy todir="${all.output.dir}">
+      <fileset dir="${module.all.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="compile.module.je.production" description="Compile module je; production classes">
+    <mkdir dir="${all.output.dir}"/>
+    <javac includeantruntime="false" destdir="${all.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.hd}"/>
+      <bootclasspath refid="all.module.bootclasspath"/>
+      <classpath refid="default.classpath"/>
+      <src refid="all.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.default"/>
+    </javac>
+    <copy todir="${all.output.dir}">
+      <fileset dir="${module.all.basedir}/src">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
@@ -209,32 +186,23 @@
   <target name="compile.module.cf.tests" depends="compile.module.cf.production" description="compile module cf; test classes" unless="skip.tests"/>
   <target name="compile.module.sl.tests" depends="compile.module.sl.production" description="compile module sl; test classes" unless="skip.tests"/>
   <target name="compile.module.hd.tests" depends="compile.module.hd.production" description="compile module hd; test classes" unless="skip.tests"/>
+  <target name="compile.module.je.tests" depends="compile.module.je.production" description="compile module je; test classes" unless="skip.tests"/>
 
 
-  <target name="clean.module.string-db-gen" description="cleanup module">
-    <delete dir="${string-db-gen.output.dir}"/>
-    <delete dir="${string-db-gen.testoutput.dir}"/>
+  <target name="clean.modules" description="cleanup modules">
+    <delete dir="${all.output.dir}"/>
+    <delete dir="${all.testoutput.dir}"/>
   </target>
-  <target name="clean.module.cf" description="cleanup module">
-    <delete dir="${cf.output.dir}"/>
-    <delete dir="${cf.testoutput.dir}"/>
-  </target>
-  <target name="clean.module.sl" description="cleanup module">
-    <delete dir="${sl.output.dir}"/>
-    <delete dir="${sl.testoutput.dir}"/>
-  </target>
-  <target name="clean.module.hd" description="cleanup module">
-    <delete dir="${hd.output.dir}"/>
-    <delete dir="${hd.testoutput.dir}"/>
-  </target>
-  
+
   <target name="init" description="Build initialization">
     <!-- Perform any build initialization in this target -->
   </target>
   
-  <target name="clean" depends="clean.module.string-db-gen, clean.module.cf, clean.module.sl, clean.module.hd" description="cleanup all"/>
+  <target name="clean" depends="clean.modules" description="cleanup all"/>
   
-  <target name="build.modules" depends="init, clean, compile.module.string-db-gen, compile.module.cf, compile.module.sl,  compile.module.hd" description="build all modules"/>
+  <target name="build.modules" depends="init, clean, compile.module.string-db-gen, compile.module.cf,
+                                        compile.module.sl, compile.module.hd, compile.module.je"
+                               description="build all modules"/>
   
   <target name="init.artifacts">
     <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
@@ -242,20 +210,24 @@
     <property name="artifact.output.cf:jar" value="${basedir}/build"/>
     <property name="artifact.output.sl:jar" value="${basedir}/build"/>
     <property name="artifact.output.hd:jar" value="${basedir}/build"/>
+    <property name="artifact.output.je:jar" value="${basedir}/build"/>
     <mkdir dir="${artifacts.temp.dir}"/>
     <property name="temp.jar.path.string-db-gen.jar" value="${artifacts.temp.dir}/string-db-gen.jar"/>
     <property name="temp.jar.path.cf.jar" value="${artifacts.temp.dir}/cf.jar"/>
     <property name="temp.jar.path.sl.jar" value="${artifacts.temp.dir}/sl.jar"/>
     <property name="temp.jar.path.hd.jar" value="${artifacts.temp.dir}/hd.jar"/>
+    <property name="temp.jar.path.je.jar" value="${artifacts.temp.dir}/hd.jar"/>
   </target>
   
   <target name="artifact.string-db-gen:jar" depends="init.artifacts, compile.module.string-db-gen" description="Build &#39;string-db-gen:jar&#39; artifact">
     <property name="artifact.temp.output.string-db-gen:jar" value="${artifacts.temp.dir}/string_db_gen_jar"/>
     <mkdir dir="${artifact.temp.output.string-db-gen:jar}"/>
     <jar destfile="${temp.jar.path.string-db-gen.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
-      <zipfileset dir="${string-db-gen.output.dir}"/>
+      <zipfileset dir="${all.output.dir}"/>
       <zipfileset src="${user.home}/.m2/repository/org/apache/commons/commons-math3/3.0/commons-math3-3.0.jar"/>
       <zipfileset src="${user.home}/.m2/repository/commons-cli/commons-cli/1.4/commons-cli-1.4.jar"/>
+      <zipfileset src="${user.home}/.m2/repository/commons-cli/commons-cli/1.4/commons-cli-1.4.jar"/>
+      <zipfileset src="${user.home}/.m2/repository/org/json/json/20160810/json-20160810.jar"/>
       <manifest>
         <attribute name="Main-Class" value="com.geckodb.misc.stringdbgen.Main"/>
       </manifest>
@@ -267,9 +239,10 @@
     <property name="artifact.temp.output.cf:jar" value="${artifacts.temp.dir}/cf"/>
     <mkdir dir="${artifact.temp.output.cf:jar}"/>
     <jar destfile="${temp.jar.path.cf.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
-      <zipfileset dir="${cf.output.dir}"/>
+      <zipfileset dir="${all.output.dir}"/>
       <zipfileset src="${user.home}/.m2/repository/org/apache/commons/commons-math3/3.0/commons-math3-3.0.jar"/>
       <zipfileset src="${user.home}/.m2/repository/commons-cli/commons-cli/1.4/commons-cli-1.4.jar"/>
+      <zipfileset src="${user.home}/.m2/repository/org/json/json/20160810/json-20160810.jar"/>
       <manifest>
         <attribute name="Main-Class" value="com.geckodb.misc.tools.CharacterFrequency"/>
       </manifest>
@@ -281,9 +254,10 @@
     <property name="artifact.temp.output.sl:jar" value="${artifacts.temp.dir}/sl"/>
     <mkdir dir="${artifact.temp.output.sl:jar}"/>
     <jar destfile="${temp.jar.path.sl.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
-      <zipfileset dir="${sl.output.dir}"/>
+      <zipfileset dir="${all.output.dir}"/>
       <zipfileset src="${user.home}/.m2/repository/org/apache/commons/commons-math3/3.0/commons-math3-3.0.jar"/>
       <zipfileset src="${user.home}/.m2/repository/commons-cli/commons-cli/1.4/commons-cli-1.4.jar"/>
+      <zipfileset src="${user.home}/.m2/repository/org/json/json/20160810/json-20160810.jar"/>
       <manifest>
         <attribute name="Main-Class" value="com.geckodb.misc.tools.StringLengths"/>
       </manifest>
@@ -295,9 +269,10 @@
     <property name="artifact.temp.output.hd:jar" value="${artifacts.temp.dir}/hd"/>
     <mkdir dir="${artifact.temp.output.hd:jar}"/>
     <jar destfile="${temp.jar.path.hd.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
-      <zipfileset dir="${hd.output.dir}"/>
+      <zipfileset dir="${all.output.dir}"/>
       <zipfileset src="${user.home}/.m2/repository/org/apache/commons/commons-math3/3.0/commons-math3-3.0.jar"/>
       <zipfileset src="${user.home}/.m2/repository/commons-cli/commons-cli/1.4/commons-cli-1.4.jar"/>
+      <zipfileset src="${user.home}/.m2/repository/org/json/json/20160810/json-20160810.jar"/>
       <manifest>
         <attribute name="Main-Class" value="com.geckodb.misc.tools.HistogramDistribution"/>
       </manifest>
@@ -305,13 +280,29 @@
     <copy file="${temp.jar.path.hd.jar}" tofile="${artifact.temp.output.hd:jar}/hd.jar"/>
   </target>
 
+  <target name="artifact.je:jar" depends="init.artifacts, compile.module.je" description="Build &#39;je:jar&#39; artifact">
+    <property name="artifact.temp.output.je:jar" value="${artifacts.temp.dir}/je"/>
+    <mkdir dir="${artifact.temp.output.je:jar}"/>
+    <jar destfile="${temp.jar.path.je.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${all.output.dir}"/>
+      <zipfileset src="${user.home}/.m2/repository/org/apache/commons/commons-math3/3.0/commons-math3-3.0.jar"/>
+      <zipfileset src="${user.home}/.m2/repository/commons-cli/commons-cli/1.4/commons-cli-1.4.jar"/>
+      <zipfileset src="${user.home}/.m2/repository/org/json/json/20160810/json-20160810.jar"/>
+      <manifest>
+        <attribute name="Main-Class" value="com.geckodb.misc.tools.JSONExtract"/>
+      </manifest>
+    </jar>
+    <copy file="${temp.jar.path.je.jar}" tofile="${artifact.temp.output.je:jar}/je.jar"/>
+  </target>
 
 
-  <target name="build.all.artifacts" depends="artifact.string-db-gen:jar, artifact.cf:jar, artifact.sl:jar, artifact.hd:jar" description="Build all artifacts">
+
+  <target name="build.all.artifacts" depends="artifact.string-db-gen:jar, artifact.cf:jar, artifact.sl:jar, artifact.hd:jar, artifact.je:jar" description="Build all artifacts">
     <mkdir dir="${artifact.output.string-db-gen:jar}"/>
     <mkdir dir="${artifact.output.cf:jar}"/>
     <mkdir dir="${artifact.output.sl:jar}"/>
     <mkdir dir="${artifact.output.hd:jar}"/>
+    <mkdir dir="${artifact.output.je:jar}"/>
     <copy todir="${artifact.output.string-db-gen:jar}">
       <fileset dir="${artifact.temp.output.string-db-gen:jar}"/>
     </copy>
@@ -323,6 +314,9 @@
     </copy>
     <copy todir="${artifact.output.hd:jar}">
       <fileset dir="${artifact.temp.output.hd:jar}"/>
+    </copy>
+    <copy todir="${artifact.output.je:jar}">
+      <fileset dir="${artifact.temp.output.je:jar}"/>
     </copy>
     
     <!-- Delete temporary files -->
