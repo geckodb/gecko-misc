@@ -96,7 +96,7 @@ public class Main {
         socialLengthhist.setArgName("FILE");
         options.addOption(socialLengthhist);
 
-        Option cleanCache = new Option("x", "clean-cache", false, "cleans the cache and considers -a, -b, -c, -d, -w again");
+        Option cleanCache = new Option("x", "clean-cache", false, "cleans the cache and considers -a, -b, -c, -d, -e, -w again");
         cleanCache.setRequired(false);
         options.addOption(cleanCache);
 
