@@ -144,7 +144,7 @@ public class Main {
             cachePath = StringUtils.ensurePath((cachePath == null) ? System.getProperty("user.dir") + "/cache" : cachePath);
 
             TextPreProcessor preProcessor = new TextPreProcessor(wordFrequencyFile, subsequentWordsFile, starterWordsFile, lengthHistogramFile, binSize, cachePath);
-            statisticsWriter = writeStatistics ? FileUtils.openWrite(statisticsFile) : null;
+            statisticsWriter = writeStatistics ? FileUtils.openWriteEx(statisticsFile, true) : null;
 
             if (cleanCacheFlag || !preProcessor.cacheExists()) {
                 if (!Files.exists(Paths.get(wordFrequencyFile)) || !Files.exists(Paths.get(subsequentWordsFile)) || !Files.exists(Paths.get(starterWordsFile))) {

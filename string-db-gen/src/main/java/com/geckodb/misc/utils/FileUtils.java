@@ -14,10 +14,13 @@ public class FileUtils {
         return new BufferedReader(isr);
     }
 
-    public static final BufferedWriter openWrite(String file) throws FileNotFoundException {
-        FileOutputStream os = new FileOutputStream(file);
-        OutputStreamWriter osw = new OutputStreamWriter(os, Charset.defaultCharset());
-        return new BufferedWriter(osw);
+    public static final BufferedWriter openWrite(String file) throws IOException {
+        return openWriteEx(file, false);
+    }
+
+    public static final BufferedWriter openWriteEx(String file, boolean append) throws IOException {
+        FileWriter writer = new FileWriter(file, append);
+        return new BufferedWriter(writer);
     }
 
 }
