@@ -209,6 +209,20 @@ At the first start of `String DB Gen` the cache is created (when not already pre
 java -jar build/string-db-gen.jar -s ${SCENARIO_NAME} -t ${TARGET_DATASIZE_BYTE} -o output/${SCENARIO_NAME}.csv
 ```
 
+##### Profiling
+
+Whenever you want to store the time it takes to generate a specific dataset, use `-i` (`--profile`) `<FILE>` to append statistics to the file `<FILE>`. For the purpose of distinguishing between several profile settings, use `-u` (`--tag`) `<TAG>` to add a tag string to the statistics. 
+
+**Example**
+
+```
+$ java -jar build/string-db-gen.jar -i output/profile.csv -u "Sample1"             \
+                                    -s ${SCENARIO_NAME} -t ${TARGET_DATASIZE_BYTE} \
+                                    -o output/${SCENARIO_NAME}.csv 
+$ cat output/profile.csv
+60828;Sample1
+```
+
 #### Example Output
 
 The following first 20 lines might be generated for a `${SCENARIO_NAME}` scenario (`head -20 output/${SCENARIO_NAME}.csv`)

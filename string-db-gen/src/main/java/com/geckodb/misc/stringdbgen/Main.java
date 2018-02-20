@@ -2,6 +2,7 @@ package com.geckodb.misc.stringdbgen;
 
 import com.geckodb.misc.stringdbgen.Core.BenchmarkGenerator;
 import com.geckodb.misc.stringdbgen.Core.TextPreProcessor;
+import com.geckodb.misc.utils.FileUtils;
 import com.geckodb.misc.utils.StringUtils;
 import org.apache.commons.cli.*;
 
@@ -20,6 +21,9 @@ public class Main {
     public static final String SCENARIO_NAME_BASE_ZIPF = "base-zipf";
     public static final String SCENARIO_NAME_BASE_ZIPF2 = "base-zipf-2";
     public static final String SCENARIO_NAME_BASE_ZIPF3 = "base-zipf-3";
+    private static BufferedWriter statisticsWriter;
+    private static String statisticsTag;
+    private static boolean writeStatistics;
 
     public static String formatTimeSpan(long seconds) {
         long s = seconds % 60;
@@ -54,30 +58,37 @@ public class Main {
 
         Option scenario = new Option("s", "scenario", true, "scenario name ('"+SCENARIO_NAME_SOCIAL+"', '"+SCENARIO_NAME_INSTNAT+"', '"+SCENARIO_NAME_SYNTH+"', '"+ SCENARIO_NAME_BASE +"', '" + SCENARIO_NAME_BASE_ZIPF+"', '" + SCENARIO_NAME_BASE_ZIPF2+"', '" + SCENARIO_NAME_BASE_ZIPF3 + "')");
         scenario.setRequired(true);
+        scenario.setArgName("FILE");
         options.addOption(scenario);
 
         Option output = new Option("o", "output", true, "output file name");
         output.setRequired(true);
+        output.setArgName("FILE");
         options.addOption(output);
 
         Option size = new Option("t", "target", true, "target size in byte");
         size.setRequired(true);
+        size.setArgName("SIZE");
         options.addOption(size);
 
         Option wordfreq = new Option("a", "word-freq-file", true, "path to word frequency file");
         wordfreq.setRequired(false);
+        wordfreq.setArgName("FILE");
         options.addOption(wordfreq);
 
         Option nextwords = new Option("b", "next-words-file", true, "path to next words file");
         nextwords.setRequired(false);
+        nextwords.setArgName("FILE");
         options.addOption(nextwords);
 
         Option starterwords = new Option("c", "starter-words-file", true, "path to starter words file");
         starterwords.setRequired(false);
+        starterwords.setArgName("FILE");
         options.addOption(starterwords);
 
         Option lengthhist = new Option("d", "length-histogram-file", true, "path to sentence length histogram file");
         lengthhist.setRequired(false);
+        lengthhist.setArgName("FILE");
         options.addOption(lengthhist);
 
         Option cleanCache = new Option("x", "clean-cache", false, "cleans the cache and considers -a, -b, -c, -d, -w again");
@@ -86,12 +97,23 @@ public class Main {
 
         Option cachePathOption = new Option("p", "cache-path", false, "sets directory in which the cache is stored (default is working directory)");
         cachePathOption.setRequired(false);
+        cachePathOption.setArgName("PATH");
         options.addOption(cachePathOption);
 
         Option binwidth = new Option("w", "hist-bin-width", true, "bin width for histograms on sentence lengths (default is 1)");
         binwidth.setRequired(false);
+        binwidth.setArgName("NUM");
         options.addOption(binwidth);
 
+        Option statisticsOption = new Option("i", "profile", true, "appends statistics to <FILE> using tag <TAG> of -t");
+        statisticsOption.setArgName("FILE");
+        statisticsOption.setRequired(false);
+        options.addOption(statisticsOption);
+
+        Option tagOption = new Option("u", "tag", true, "tag used for statistics with -s (default is 'default')");
+        tagOption.setArgName("TAG");
+        tagOption.setRequired(false);
+        options.addOption(tagOption);
 
 
         CommandLineParser parser = new DefaultParser();
@@ -110,6 +132,9 @@ public class Main {
             String cachePath = cmd.getOptionValue('p');
             boolean cleanCacheFlag = cmd.hasOption('x');
             int binSize = Integer.valueOf(cmd.getOptionValue('w') != null ? cmd.getOptionValue('w') : "1");
+            writeStatistics = cmd.hasOption('i');
+            String statisticsFile = writeStatistics ? cmd.getOptionValue('i') : null;
+            statisticsTag = cmd.hasOption('u') ? cmd.getOptionValue('u') : "default";
 
             wordFrequencyFile = (wordFrequencyFile == null) ? "dewiki-dataset/files/dewiki-articles-word-freq.csv" : wordFrequencyFile;
             subsequentWordsFile = (subsequentWordsFile == null) ? "dewiki-dataset/files/dewiki-articles-next-words.txt" : subsequentWordsFile;
@@ -119,6 +144,7 @@ public class Main {
             cachePath = StringUtils.ensurePath((cachePath == null) ? System.getProperty("user.dir") + "/cache" : cachePath);
 
             TextPreProcessor preProcessor = new TextPreProcessor(wordFrequencyFile, subsequentWordsFile, starterWordsFile, lengthHistogramFile, binSize, cachePath);
+            statisticsWriter = writeStatistics ? FileUtils.openWrite(statisticsFile) : null;
 
             if (cleanCacheFlag || !preProcessor.cacheExists()) {
                 if (!Files.exists(Paths.get(wordFrequencyFile)) || !Files.exists(Paths.get(subsequentWordsFile)) || !Files.exists(Paths.get(starterWordsFile))) {
@@ -213,10 +239,11 @@ public class Main {
                 final int[] total = {0};
                 final long[] totalSize = {0};
                 long start = System.currentTimeMillis();
+                final long[] diff = new long[1];
 
                 System.out.println("id;total_size_byte;length;string");
 
-                benchmarkGenerator.generateString(new BenchmarkGenerator.Callback() {
+                benchmarkGenerator.generateString(new BenchmarkGenerator.Callback<AtomicReferenceArray<String>>() {
 
                     DecimalFormat formatter = new DecimalFormat("#.#######");
 
@@ -231,19 +258,26 @@ public class Main {
                         }
                         System.out.flush();
 
-                        long diff = System.currentTimeMillis() - start;
-                        float percent = 100 * totalSize[0]/(float)(maxSize[0]);
-                        long exp = (long) (diff * 100 / percent);
-                        String eta = formatTimeSpan((long)(Math.max(0,(exp-diff)) / 1000));
-                        String elpased = formatTimeSpan((long)(diff / 1000));
+                        diff[0] = System.currentTimeMillis() - start;
+                        float percent = 100 * totalSize[0] / (float) (maxSize[0]);
+                        long exp = (long) (diff[0] * 100 / percent);
+                        String eta = formatTimeSpan((long) (Math.max(0, (exp - diff[0])) / 1000));
+                        String elpased = formatTimeSpan((long) (diff[0] / 1000));
                         System.err.println("Elapsed: " + elpased + "\t\tETA: " + eta + "\t\t" + formatByte(totalSize[0]) + " of " + formatByte(maxSize[0]) + "\t\t" + formatter.format(percent) + "%");
 
-                        if (totalSize[0] >= maxSize[0]) {
-                            System.exit(0);
-                        }
-
-                        return BenchmarkGenerator.ContinueState.CONTINUE;
+                        return (totalSize[0] < maxSize[0]) ? BenchmarkGenerator.ContinueState.CONTINUE : BenchmarkGenerator.ContinueState.STOP;
                     }
+                }, none -> {
+                    if (writeStatistics) {
+                        try {
+                            statisticsWriter.write(diff[0] + ";" + statisticsTag + "\n");
+                            statisticsWriter.flush();
+                            statisticsWriter.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    return null;
                 });
 
 

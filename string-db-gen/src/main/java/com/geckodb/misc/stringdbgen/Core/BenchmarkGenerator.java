@@ -58,8 +58,8 @@ public final class BenchmarkGenerator {
 
     public enum ContinueState { CONTINUE, STOP }
 
-    public interface Callback {
-        ContinueState consume(AtomicReferenceArray<String> strings);
+    public interface Callback<T> {
+        ContinueState consume(T args);
     }
 
     String wordFrequencyFile;
@@ -69,7 +69,7 @@ public final class BenchmarkGenerator {
     Thread[] threads = new Thread[numThreads];
     StringProvider provider;
 
-    public void generateString(Callback callback) {
+    public void generateString(Callback<AtomicReferenceArray<String>> callback, Callback<Void> onFinish) {
 
 
 
@@ -102,6 +102,7 @@ public final class BenchmarkGenerator {
 
         } while (callback.consume(atomicReferenceArray) != ContinueState.STOP);
 
+        onFinish.consume(null);
 
     }
 }
