@@ -91,7 +91,7 @@ StringLength;Tag
 3392;Default
 ```	
 
-This file will be processed during cache building with `hd.jar` internally. Which bin width is used can be controlled via the `-w` parameter in `build/string-db-gen.jar`.
+This file will be processed during cache building with `hd.jar` internally. Which bin width is used can be controlled via the `-w` parameter in `build/string-db-gen.jar`. Two sentence length files must be provided, one for the `base` scenario and one for the `social` scenario (see below).
 
 ## Quick Start
 
@@ -103,12 +103,12 @@ The following scenarios are supported out-of-the-box:
 
 | Scenario | Min Len | Max Len | Number Generator | Alias |
 |----------|---------|---------|------------------|-------|
-| Social Networking Service | 1 | 280 | normal distribution | `social` |
+| Social Networking Service | 1 | 149 | histogram-based distribution | `social` |
 | Instant Messaging Service | 10 | 65536 | zipf distribution | `instant` |
 | Synthetic Transaction Benchmark | 10 | 50 | uniform distribution | `synth` |
 | Public Knowledge Base Articles | 16 | 2776418 | histogram-based distribution | `base` |
 
-Each scenario generates a different set of strings according the min/max string length and the number generator used. The generated strings themself are constructed internally using a probabilistic generatative grammar that result from a analysis of approx. 2 billion articles of the German Wikipedia.
+Each scenario generates a different set of strings according the min/max string length and the number generator used. The generated strings themself are constructed internally using a probabilistic generatative grammar that result from a analysis of approx. 2 billion articles of the German Wikipedia. The number generator for `social` and `base` is a histogram-based non-uniform number generator which results from analysis of article lengths of approx. 2 billion articles of the German Wikipedia (`base`), and 3.8 million tweets from a snapshot provided by [archive.org](https://archive.org/details/archiveteam-twitter-stream-2017-11).
 
 To select a particular scenario either use `-s <alias>` directly, or create a (temporary) variable in bash. Optionally, you can use `base-zipf` as replacement for the alias `base` to switch from a histogram-based number generator to a zipf-based number generator (with exponent `1`). If you want zipf-based number generation for base with exponent `2` or `3`, use `base-zipf-2` or `base-zipf-3` instead.
 
@@ -182,7 +182,7 @@ rm dewiki-dataset-cache.tar.gz?dl=1
 When you defined the variables to setup the scenario and data scale (i.e., `SCENARIO_NAME` and `TARGET_DATASIZE_BYTE`) the data generation can start. Type the following into your bash:
 
 ``` 
-java -jar build/string-db-gen.jar -a dewiki-dataset/files/dewiki-articles-word-freq.csv -b dewiki-dataset/files/dewiki-articles-next-words.txt -c dewiki-dataset/files/dewiki-articles-starter-words.csv -d dewiki-dataset/files/dewiki-articles-lengths.txt -s ${SCENARIO_NAME} -t ${TARGET_DATASIZE_BYTE} -o output/${SCENARIO_NAME}.csv
+java -jar build/string-db-gen.jar -a dewiki-dataset/files/dewiki-articles-word-freq.csv -b dewiki-dataset/files/dewiki-articles-next-words.txt -c dewiki-dataset/files/dewiki-articles-starter-words.csv -d dewiki-dataset/files/dewiki-articles-lengths.csv -e dewiki-dataset/files/twitter-msg-lengths.csv -s ${SCENARIO_NAME} -t ${TARGET_DATASIZE_BYTE} -o output/${SCENARIO_NAME}.csv
 ```
 
 `String DB Gen` will provide you with status information similar to these:
@@ -200,6 +200,8 @@ Elapsed: 0h 00min 57sec	 ETA: 0h 18min 24sec	53,4 KiB of 1,0 MiB		5,2142143%
 ```
 
 This will generate a dataset `output/${SCENARIO_NAME}.csv` which is ready to use after the process terminates.
+
+**Important**: You may need to increase your Java heap space with `java -XmNg` where `N` is the number of GiB used for the heap when an out of heap memory occurs with that argument.
 
 ##### Note 
 

@@ -1,6 +1,5 @@
 package com.geckodb.misc.stringdbgen.Core;
 
-import com.geckodb.misc.tools.HistogramDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.distribution.ZipfDistribution;
 
@@ -104,7 +103,7 @@ public class StringProvider {
         }
     }
 
-    public static class HistogramNumberGenerator extends NumberGenerator {
+    public static class HistogramNumberGeneratorBase extends NumberGenerator {
 
         NonUniformNumberGenerator gen = null;
 
@@ -112,7 +111,24 @@ public class StringProvider {
         public int next() {
             if (gen == null) {
                 try {
-                    gen = new NonUniformNumberGenerator(TextPreProcessor.getCacheFileArticleLengths());
+                    gen = new NonUniformNumberGenerator(TextPreProcessor.getCacheFileBaseLengths());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return gen.next();
+        }
+    }
+
+    public static class HistogramNumberGeneratorSocial extends NumberGenerator {
+
+        NonUniformNumberGenerator gen = null;
+
+        @Override
+        public int next() {
+            if (gen == null) {
+                try {
+                    gen = new NonUniformNumberGenerator(TextPreProcessor.getCacheFileSocialLengths());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

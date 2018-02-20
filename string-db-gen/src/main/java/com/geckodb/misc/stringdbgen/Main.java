@@ -86,10 +86,15 @@ public class Main {
         starterwords.setArgName("FILE");
         options.addOption(starterwords);
 
-        Option lengthhist = new Option("d", "length-histogram-file", true, "path to sentence length histogram file");
-        lengthhist.setRequired(false);
-        lengthhist.setArgName("FILE");
-        options.addOption(lengthhist);
+        Option baseLengthhist = new Option("d", "base-length-histogram-file", true, "path to sentence length histogram file for 'base' scenario");
+        baseLengthhist.setRequired(false);
+        baseLengthhist.setArgName("FILE");
+        options.addOption(baseLengthhist);
+
+        Option socialLengthhist = new Option("e", "social-length-histogram-file", true, "path to sentence length histogram file for 'social' scenario");
+        socialLengthhist.setRequired(false);
+        socialLengthhist.setArgName("FILE");
+        options.addOption(socialLengthhist);
 
         Option cleanCache = new Option("x", "clean-cache", false, "cleans the cache and considers -a, -b, -c, -d, -w again");
         cleanCache.setRequired(false);
@@ -128,7 +133,8 @@ public class Main {
             String wordFrequencyFile = cmd.getOptionValue('a');
             String subsequentWordsFile = cmd.getOptionValue('b');
             String starterWordsFile = cmd.getOptionValue('c');
-            String lengthHistogramFile = cmd.getOptionValue('d');
+            String deWikiLengthHistogramFile = cmd.getOptionValue('d');
+            String twitterLengthHistogramFile = cmd.getOptionValue('e');
             String cachePath = cmd.getOptionValue('p');
             boolean cleanCacheFlag = cmd.hasOption('x');
             int binSize = Integer.valueOf(cmd.getOptionValue('w') != null ? cmd.getOptionValue('w') : "1");
@@ -139,11 +145,13 @@ public class Main {
             wordFrequencyFile = (wordFrequencyFile == null) ? "dewiki-dataset/files/dewiki-articles-word-freq.csv" : wordFrequencyFile;
             subsequentWordsFile = (subsequentWordsFile == null) ? "dewiki-dataset/files/dewiki-articles-next-words.txt" : subsequentWordsFile;
             starterWordsFile = (starterWordsFile == null) ? "dewiki-dataset/files/dewiki-articles-starter-words.csv" : starterWordsFile;
-            lengthHistogramFile = (lengthHistogramFile == null) ? "dewiki-dataset/files/dewiki-articles-lengths.txt" : lengthHistogramFile;
+            deWikiLengthHistogramFile = (deWikiLengthHistogramFile == null) ? "dewiki-dataset/files/dewiki-articles-lengths.csv" : deWikiLengthHistogramFile;
+            twitterLengthHistogramFile = (twitterLengthHistogramFile == null) ? "dewiki-dataset/files/twitter-msg-lengths.csv" : twitterLengthHistogramFile;
+
 
             cachePath = StringUtils.ensurePath((cachePath == null) ? System.getProperty("user.dir") + "/cache" : cachePath);
 
-            TextPreProcessor preProcessor = new TextPreProcessor(wordFrequencyFile, subsequentWordsFile, starterWordsFile, lengthHistogramFile, binSize, cachePath);
+            TextPreProcessor preProcessor = new TextPreProcessor(wordFrequencyFile, subsequentWordsFile, starterWordsFile, deWikiLengthHistogramFile, twitterLengthHistogramFile, binSize, cachePath);
             if (writeStatistics) {
                 if (!Files.exists(Paths.get(statisticsFile))) {
                     statisticsWriter = FileUtils.openWriteEx(statisticsFile, true);
@@ -156,8 +164,8 @@ public class Main {
 
 
             if (cleanCacheFlag || !preProcessor.cacheExists()) {
-                if (!Files.exists(Paths.get(wordFrequencyFile)) || !Files.exists(Paths.get(subsequentWordsFile)) || !Files.exists(Paths.get(starterWordsFile))) {
-                    System.out.println("Unable open analysis files (word frequency, next words, and/or starter words), and no cache file exists. " +
+                if (!Files.exists(Paths.get(wordFrequencyFile)) || !Files.exists(Paths.get(subsequentWordsFile)) || !Files.exists(Paths.get(starterWordsFile)) || !Files.exists(Paths.get(deWikiLengthHistogramFile)) || !Files.exists(Paths.get(twitterLengthHistogramFile))) {
+                    System.out.println("Unable open analysis files (word frequency, next words, length files, and/or starter words), and no cache file exists. " +
                             "Did you forgot to download these files ('https://www.dropbox.com/s/vhbq52vrti8isxx/dewiki-dataset.tar.gz?dl=1') or to put them into 'dewiki-dataset/files/' directory?");
                     formatter.printHelp("stringdbgen", options);
                     System.exit(1);
@@ -172,7 +180,7 @@ public class Main {
             if (preProcessor.cacheExists()) {
                 if (cmd.getOptionValue('a') != null || cmd.getOptionValue('b') != null  ||
                         cmd.getOptionValue('c') != null ) {
-                    System.err.println("NOTE: the cache is used for processing (-a, -b, -c, -d, -w options are ignored). Use --cache-clean to build a cache on new files.");
+                    System.err.println("NOTE: the cache is used for processing (-a, -b, -c, -d, -e, -w options are ignored). Use --cache-clean to build a cache on new files.");
                 }
 
                 writeOutputFile(cmd, options, formatter, preProcessor.getCacheFileWordFrequency(), preProcessor.getCacheFileNextWords(), preProcessor.getCacheFileStarterWords());

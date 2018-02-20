@@ -39,10 +39,10 @@ public final class BenchmarkGenerator {
     }
 
     public static abstract class Scenarios {
-        public static final Scenario SOCIAL_NETWORKING_SERVICE = new Scenario(1, 280, StringProvider.NormalNumberGenerator.class);
+        public static final Scenario SOCIAL_NETWORKING_SERVICE = new Scenario(1, 280, StringProvider.HistogramNumberGeneratorSocial.class);
         public static final Scenario INSTANT_MESSAGING_SERVICE = new Scenario(1, 65536, StringProvider.ZipfNumberGenerator.class);
         public static final Scenario SYNTHETIC_BENCHMARK = new Scenario(10, 50, StringProvider.UniformNumberGenerator.class);
-        public static final Scenario PUBLIC_KNOWLEDGE_BASE = new Scenario(0, 2776418, StringProvider.HistogramNumberGenerator.class);
+        public static final Scenario PUBLIC_KNOWLEDGE_BASE = new Scenario(0, 2776418, StringProvider.HistogramNumberGeneratorBase.class);
         public static final Scenario PUBLIC_KNOWLEDGE_BASE_ZIPF1 = new Scenario(0, 2776418, StringProvider.ZipfNumberGeneratorE1.class);
         public static final Scenario PUBLIC_KNOWLEDGE_BASE_ZIPF2 = new Scenario(0, 2776418, StringProvider.ZipfNumberGeneratorE2.class);
         public static final Scenario PUBLIC_KNOWLEDGE_BASE_ZIPF3 = new Scenario(0, 2776418, StringProvider.ZipfNumberGeneratorE3.class);

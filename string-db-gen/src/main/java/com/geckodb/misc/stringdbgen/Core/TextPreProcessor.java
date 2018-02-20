@@ -28,11 +28,11 @@ public class TextPreProcessor {
     }
 
     public boolean cacheExists() {
-        System.err.println("\n[INFO]\t'"+getCacheFileArticleLengths()+"' was not removed. You may remove it by hand");
         return (Files.exists(Paths.get(getCacheFileWordFrequency())) &&
                 Files.exists(Paths.get(getCacheFileNextWords())) &&
-                Files.exists(Paths.get(getCacheFileStarterWords()))// &&
-                //Files.exists(Paths.get(getCacheFileArticleLengths()))
+                Files.exists(Paths.get(getCacheFileStarterWords())) &&
+                Files.exists(Paths.get(getCacheFileBaseLengths()))  &&
+                Files.exists(Paths.get(getCacheFileSocialLengths()))
         );
     }
 
@@ -50,7 +50,8 @@ public class TextPreProcessor {
         deleteFile(getCacheFileWordFrequency());
         deleteFile(getCacheFileNextWords());
         deleteFile(getCacheFileStarterWords());
-        deleteFile(getCacheFileArticleLengths());
+        deleteFile(getCacheFileBaseLengths());
+        deleteFile(getCacheFileSocialLengths());
     }
 
     public static String getCacheFileWordFrequency() {
@@ -65,52 +66,63 @@ public class TextPreProcessor {
         return path + "/starter-words.cache";
     }
 
-    public static String getCacheFileArticleLengths() {
-        return path + "/sentence-lengths.cache";
+    public static String getCacheFileBaseLengths() {
+        return path + "/base-articles-lengths.cache";
+    }
+
+    public static String getCacheFileSocialLengths() {
+        return path + "/social-msg--lengths.cache";
     }
 
     String wordFrequencyFile;
     String subsequentWordsFile;
     String starterWordsFile;
     String sentenceLengthHistogram;
+    String twitterLengthHistogramFile;
     int histBinSize;
 
     public TextPreProcessor(String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile,
-                            String sentenceLengthHistogram, int histBinSize, String path) {
+                            String sentenceLengthHistogram, String twitterLengthHistogramFile, int histBinSize, String path) {
         this.path = StringUtils.ensurePath(path);
         this.wordFrequencyFile = wordFrequencyFile;
         this.subsequentWordsFile = subsequentWordsFile;
         this.starterWordsFile = starterWordsFile;
         this.sentenceLengthHistogram = sentenceLengthHistogram;
+        this.twitterLengthHistogramFile = twitterLengthHistogramFile;
         this.histBinSize = histBinSize;
     }
 
     public void start() throws IOException {
         System.err.print("Pre-processing is running. This might take some minutes.\n");
-        buildCache(wordFrequencyFile, subsequentWordsFile, starterWordsFile, sentenceLengthHistogram, histBinSize);
+        buildCache(wordFrequencyFile, subsequentWordsFile, starterWordsFile);
         System.err.println("Writing cache");
-        storeCache();
+        storeCache(sentenceLengthHistogram, twitterLengthHistogramFile, histBinSize);
     }
 
-    private void buildCache(String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile, String sentenceLengthHistogramFile, int binSize) {
+    private void buildCache(String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile) {
         System.err.println("  - processing word frequencies ('" +  wordFrequencyFile + "')");
         parseWordFrequency(wordFrequencyFile);
         System.err.println("  - processing next words ('" +  subsequentWordsFile + "')");
         parseNextWordsFile(subsequentWordsFile);
         System.err.println("  - processing starter words ('" +  starterWordsFile + "')");
         parseStarterWordsFile(starterWordsFile);
-        System.err.println("  - creating histogram for sentence lengths ('" +  starterWordsFile + "')");
-        createHistogramForSentenceLengthFile(getCacheFileArticleLengths(), sentenceLengthHistogramFile, binSize);
     }
 
-    public void storeCache() throws IOException {
+    public void storeCache(String sentenceLengthHistogramFile, String twitterLengthHistogramFile, int binSize) throws IOException {
         if (!Files.exists(getCachePath())) {
             Files.createDirectory(getCachePath());
         }
 
+        System.err.println("  - writing word frequencies cache to '"+getCacheFileWordFrequency()+"'");
         dumpWordFrequency(getCacheFileWordFrequency());
+        System.err.println("  - writing next words cache to '"+getCacheFileNextWords()+"'");
         dumpNextWords(getCacheFileNextWords());
+        System.err.println("  - writing starter words cache to '"+getCacheFileStarterWords()+"'");
         dumpStarterWords(getCacheFileStarterWords());
+        System.err.println("  - writing histogram for sentence lengths to '"+getCacheFileBaseLengths()+"' (from '" +  sentenceLengthHistogramFile + "')");
+        createHistogramForSentenceLengthFile(getCacheFileBaseLengths(), sentenceLengthHistogramFile, binSize);
+        System.err.println("  - writing histogram for sentence lengths to '"+getCacheFileSocialLengths()+"' (from '" +  twitterLengthHistogramFile + "')");
+        createHistogramForSentenceLengthFile(getCacheFileSocialLengths(), twitterLengthHistogramFile, binSize);
     }
 
     private void createHistogramForSentenceLengthFile(String dstFile, String srcFile, int binSize) {
@@ -163,7 +175,6 @@ public class TextPreProcessor {
 
     private void dumpWordFrequency(String file) {
         try {
-            System.err.print("  - " + file);
             BufferedWriter writer = FileUtils.openWrite(file);
             writer.write("Frequency;Length;Word\n");
             for (Map.Entry<String, Integer> entries : wordFrequencies.entrySet()) {
