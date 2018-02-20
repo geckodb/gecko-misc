@@ -110,7 +110,7 @@ public class Main {
         binwidth.setArgName("NUM");
         options.addOption(binwidth);
 
-        Option statisticsOption = new Option("i", "profile", true, "appends statistics to <FILE> using tag <TAG> of -t");
+        Option statisticsOption = new Option("i", "profile", true, "appends statistics to <FILE> using tag <TAG> of -u");
         statisticsOption.setArgName("FILE");
         statisticsOption.setRequired(false);
         options.addOption(statisticsOption);
