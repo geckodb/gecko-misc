@@ -1,9 +1,9 @@
-package com.geckodb.misc;
+package com.geckodb.misc.stringdbgen;
 
-import com.geckodb.misc.stringdbgen.Core.DataSetGenerator;
-import com.geckodb.misc.stringdbgen.Core.Cache;
-import com.geckodb.misc.utils.FileUtils;
-import com.geckodb.misc.utils.StringUtils;
+import com.geckodb.misc.stringdbgen.core.DataSetGenerator;
+import com.geckodb.misc.stringdbgen.core.Cache;
+import com.geckodb.misc.stringdbgen.utils.FileUtils;
+import com.geckodb.misc.stringdbgen.utils.StringUtils;
 import org.apache.commons.cli.*;
 
 import java.io.*;

@@ -1,6 +1,6 @@
-package com.geckodb.misc.tools;
+package com.geckodb.misc.stringdbgen.tools;
 
-import com.geckodb.misc.utils.TextProcessing;
+import com.geckodb.misc.stringdbgen.utils.TextProcessing;
 import org.apache.commons.cli.*;
 
 import java.io.BufferedReader;

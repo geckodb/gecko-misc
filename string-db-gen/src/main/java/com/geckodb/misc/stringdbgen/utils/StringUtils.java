@@ -1,4 +1,4 @@
-package com.geckodb.misc.utils;
+package com.geckodb.misc.stringdbgen.utils;
 
 /**
  * Created by marcus on 07.02.18.

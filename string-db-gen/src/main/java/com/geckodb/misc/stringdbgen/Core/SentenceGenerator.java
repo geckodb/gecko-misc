@@ -1,11 +1,11 @@
-package com.geckodb.misc.stringdbgen.Core;
+package com.geckodb.misc.stringdbgen.core;
 
 import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-import static com.geckodb.misc.utils.FileUtils.openRead;
+import static com.geckodb.misc.stringdbgen.utils.FileUtils.openRead;
 
 /**
  * Created by marcus on 07.02.18.

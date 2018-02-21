@@ -1,6 +1,6 @@
-package com.geckodb.misc.tools;
+package com.geckodb.misc.stringdbgen.tools;
 
-import com.geckodb.misc.utils.FileUtils;
+import com.geckodb.misc.stringdbgen.utils.FileUtils;
 import org.apache.commons.cli.*;
 import org.json.JSONObject;
 

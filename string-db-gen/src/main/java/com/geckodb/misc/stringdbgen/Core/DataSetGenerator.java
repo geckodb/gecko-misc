@@ -1,4 +1,4 @@
-package com.geckodb.misc.stringdbgen.Core;
+package com.geckodb.misc.stringdbgen.core;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReferenceArray;

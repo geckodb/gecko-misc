@@ -1,4 +1,4 @@
-package com.geckodb.misc.stringdbgen.Core;
+package com.geckodb.misc.stringdbgen.core;
 
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.distribution.ZipfDistribution;

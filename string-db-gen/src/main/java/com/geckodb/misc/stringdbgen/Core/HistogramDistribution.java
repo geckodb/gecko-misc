@@ -1,6 +1,6 @@
-package com.geckodb.misc.stringdbgen.Core;
+package com.geckodb.misc.stringdbgen.core;
 
-import com.geckodb.misc.utils.FileUtils;
+import com.geckodb.misc.stringdbgen.utils.FileUtils;
 
 import java.io.*;
 import java.util.*;

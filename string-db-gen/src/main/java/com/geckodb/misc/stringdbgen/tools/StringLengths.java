@@ -1,13 +1,8 @@
-package com.geckodb.misc.tools;
+package com.geckodb.misc.stringdbgen.tools;
 
-import com.geckodb.misc.utils.FileUtils;
-import com.geckodb.misc.utils.StringUtils;
-import com.geckodb.misc.utils.TextProcessing;
 import org.apache.commons.cli.*;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class StringLengths {

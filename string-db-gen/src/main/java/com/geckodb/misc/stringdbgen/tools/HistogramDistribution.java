@@ -1,4 +1,4 @@
-package com.geckodb.misc.tools;
+package com.geckodb.misc.stringdbgen.tools;
 
 import org.apache.commons.cli.*;
 

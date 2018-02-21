@@ -1,8 +1,8 @@
-package com.geckodb.misc.stringdbgen.Core;
+package com.geckodb.misc.stringdbgen.core;
 
-import com.geckodb.misc.tools.HistogramDistribution;
-import com.geckodb.misc.utils.FileUtils;
-import com.geckodb.misc.utils.StringUtils;
+import com.geckodb.misc.stringdbgen.tools.HistogramDistribution;
+import com.geckodb.misc.stringdbgen.utils.FileUtils;
+import com.geckodb.misc.stringdbgen.utils.StringUtils;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -10,8 +10,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-import static com.geckodb.misc.utils.FileUtils.openRead;
-import static com.geckodb.misc.utils.StringUtils.isWordString;
+import static com.geckodb.misc.stringdbgen.utils.FileUtils.openRead;
+import static com.geckodb.misc.stringdbgen.utils.StringUtils.isWordString;
 
 /**
  * Created by marcus on 09.02.18.

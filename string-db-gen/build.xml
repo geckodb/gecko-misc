@@ -229,7 +229,7 @@
       <zipfileset src="${user.home}/.m2/repository/commons-cli/commons-cli/1.4/commons-cli-1.4.jar"/>
       <zipfileset src="${user.home}/.m2/repository/org/json/json/20160810/json-20160810.jar"/>
       <manifest>
-        <attribute name="Main-Class" value="com.geckodb.misc.Main"/>
+        <attribute name="Main-Class" value="com.geckodb.misc.stringdbgen.Main"/>
       </manifest>
     </jar>
     <copy file="${temp.jar.path.string-db-gen.jar}" tofile="${artifact.temp.output.string-db-gen:jar}/string-db-gen.jar"/>
@@ -244,7 +244,7 @@
       <zipfileset src="${user.home}/.m2/repository/commons-cli/commons-cli/1.4/commons-cli-1.4.jar"/>
       <zipfileset src="${user.home}/.m2/repository/org/json/json/20160810/json-20160810.jar"/>
       <manifest>
-        <attribute name="Main-Class" value="com.geckodb.misc.tools.CharacterFrequency"/>
+        <attribute name="Main-Class" value="com.geckodb.misc.stringdbgen.tools.CharacterFrequency"/>
       </manifest>
     </jar>
     <copy file="${temp.jar.path.cf.jar}" tofile="${artifact.temp.output.cf:jar}/cf.jar"/>
@@ -259,7 +259,7 @@
       <zipfileset src="${user.home}/.m2/repository/commons-cli/commons-cli/1.4/commons-cli-1.4.jar"/>
       <zipfileset src="${user.home}/.m2/repository/org/json/json/20160810/json-20160810.jar"/>
       <manifest>
-        <attribute name="Main-Class" value="com.geckodb.misc.tools.StringLengths"/>
+        <attribute name="Main-Class" value="com.geckodb.misc.stringdbgen.tools.StringLengths"/>
       </manifest>
     </jar>
     <copy file="${temp.jar.path.sl.jar}" tofile="${artifact.temp.output.sl:jar}/sl.jar"/>
@@ -274,7 +274,7 @@
       <zipfileset src="${user.home}/.m2/repository/commons-cli/commons-cli/1.4/commons-cli-1.4.jar"/>
       <zipfileset src="${user.home}/.m2/repository/org/json/json/20160810/json-20160810.jar"/>
       <manifest>
-        <attribute name="Main-Class" value="com.geckodb.misc.tools.HistogramDistribution"/>
+        <attribute name="Main-Class" value="com.geckodb.misc.stringdbgen.tools.HistogramDistribution"/>
       </manifest>
     </jar>
     <copy file="${temp.jar.path.hd.jar}" tofile="${artifact.temp.output.hd:jar}/hd.jar"/>
@@ -289,7 +289,7 @@
       <zipfileset src="${user.home}/.m2/repository/commons-cli/commons-cli/1.4/commons-cli-1.4.jar"/>
       <zipfileset src="${user.home}/.m2/repository/org/json/json/20160810/json-20160810.jar"/>
       <manifest>
-        <attribute name="Main-Class" value="com.geckodb.misc.tools.JSONExtract"/>
+        <attribute name="Main-Class" value="com.geckodb.misc.stringdbgen.tools.JSONExtract"/>
       </manifest>
     </jar>
     <copy file="${temp.jar.path.je.jar}" tofile="${artifact.temp.output.je:jar}/je.jar"/>

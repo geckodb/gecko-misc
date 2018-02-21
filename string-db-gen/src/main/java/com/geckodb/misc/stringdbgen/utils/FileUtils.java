@@ -1,4 +1,4 @@
-package com.geckodb.misc.utils;
+package com.geckodb.misc.stringdbgen.utils;
 
 import java.io.*;
 import java.nio.charset.Charset;
