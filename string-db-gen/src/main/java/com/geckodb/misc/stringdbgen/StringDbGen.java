@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
-public class Main {
+public class StringDbGen {
 
     public static final String SCENARIO_NAME_SOCIAL = "social";
     public static final String SCENARIO_NAME_INSTNAT = "instant";
