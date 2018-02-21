@@ -1,11 +1,6 @@
 package com.geckodb.misc.stringdbgen.Core;
 
-import com.geckodb.misc.utils.StringUtils;
-
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -15,7 +10,7 @@ import static com.geckodb.misc.utils.FileUtils.openRead;
 /**
  * Created by marcus on 07.02.18.
  */
-public class TextGenerator {
+public class SentenceGenerator {
 
     public static class SubWord {
         String word;
@@ -32,7 +27,7 @@ public class TextGenerator {
     ArrayList<String> starterWords = new ArrayList<>();
     Random random = new Random();
 
-    public TextGenerator(String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile) {
+    public SentenceGenerator(String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile) {
         System.err.println("Loading word frequencies: " + wordFrequencyFile);
         parseWordFrequency(wordFrequencyFile);
         System.err.println("Loading next words: " + subsequentWordsFile);
@@ -106,11 +101,11 @@ public class TextGenerator {
             while ((line = reader.readLine()) != null) {
                 String words[] = line.split(" ");
                 String first = words[0];
-                ArrayList<TextGenerator.SubWord> subWords = new ArrayList<>();
+                ArrayList<SentenceGenerator.SubWord> subWords = new ArrayList<>();
                 for (int i = 1; i < words.length; i++) {
                     String sub = words[i];
                     String[] parts = sub.split("@");
-                    subWords.add(new TextGenerator.SubWord(parts[0], Integer.valueOf(parts[1])));
+                    subWords.add(new SentenceGenerator.SubWord(parts[0], Integer.valueOf(parts[1])));
                 }
                 nextWords.put(first, subWords);
             }

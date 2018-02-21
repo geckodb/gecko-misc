@@ -16,7 +16,7 @@ public class StringProvider {
     private StringProvider(NumberGenerator generator, String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile) {
         this.numberGenerator = generator;
         this.uniformRandom = new Random();
-        textGenerator = new TextGenerator(wordFrequencyFile, subsequentWordsFile, starterWordsFile);
+        sentenceGenerator = new SentenceGenerator(wordFrequencyFile, subsequentWordsFile, starterWordsFile);
     }
 
     public static synchronized StringProvider getInstance (NumberGenerator generator, String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile) {
@@ -105,13 +105,13 @@ public class StringProvider {
 
     public static class HistogramNumberGeneratorBase extends NumberGenerator {
 
-        NonUniformNumberGenerator gen = null;
+        HistogramDistribution gen = null;
 
         @Override
         public int next() {
             if (gen == null) {
                 try {
-                    gen = new NonUniformNumberGenerator(TextPreProcessor.getCacheFileBaseLengths());
+                    gen = new HistogramDistribution(Cache.getCacheFileBaseLengths());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -122,13 +122,13 @@ public class StringProvider {
 
     public static class HistogramNumberGeneratorSocial extends NumberGenerator {
 
-        NonUniformNumberGenerator gen = null;
+        HistogramDistribution gen = null;
 
         @Override
         public int next() {
             if (gen == null) {
                 try {
-                    gen = new NonUniformNumberGenerator(TextPreProcessor.getCacheFileSocialLengths());
+                    gen = new HistogramDistribution(Cache.getCacheFileSocialLengths());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -160,12 +160,12 @@ public class StringProvider {
 
     NumberGenerator numberGenerator;
     Random uniformRandom;
-    TextGenerator textGenerator;
+    SentenceGenerator sentenceGenerator;
 
 
 
     public String next() {
         int stringLength = numberGenerator.next();
-        return textGenerator.generate(stringLength);
+        return sentenceGenerator.generate(stringLength);
     }
 }

@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicReferenceArray;
 /**
  * Created by marcus on 06.02.18.
  */
-public final class BenchmarkGenerator {
+public final class DataSetGenerator {
 
     public static class Scenario {
         public int minLength, maxLength;
@@ -30,7 +30,7 @@ public final class BenchmarkGenerator {
         }
     }
 
-    public BenchmarkGenerator(Scenario scenario, String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile) {
+    public DataSetGenerator(Scenario scenario, String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile) {
         this.scenario = scenario;
         this.wordFrequencyFile = wordFrequencyFile;
         this.subsequentWordsFile = subsequentWordsFile;

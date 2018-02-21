@@ -16,10 +16,10 @@ import static com.geckodb.misc.utils.StringUtils.isWordString;
 /**
  * Created by marcus on 09.02.18.
  */
-public class TextPreProcessor {
+public class Cache {
 
     HashMap<String, Integer> wordFrequencies = new HashMap<>();
-    HashMap<String, ArrayList<TextGenerator.SubWord>> nextWords = new HashMap<>();
+    HashMap<String, ArrayList<SentenceGenerator.SubWord>> nextWords = new HashMap<>();
     ArrayList<String> starterWords = new ArrayList<>();
     static String path;
 
@@ -81,8 +81,8 @@ public class TextPreProcessor {
     String twitterLengthHistogramFile;
     int histBinSize;
 
-    public TextPreProcessor(String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile,
-                            String sentenceLengthHistogram, String twitterLengthHistogramFile, int histBinSize, String path) {
+    public Cache(String wordFrequencyFile, String subsequentWordsFile, String starterWordsFile,
+                 String sentenceLengthHistogram, String twitterLengthHistogramFile, int histBinSize, String path) {
         this.path = StringUtils.ensurePath(path);
         this.wordFrequencyFile = wordFrequencyFile;
         this.subsequentWordsFile = subsequentWordsFile;
@@ -158,9 +158,9 @@ public class TextPreProcessor {
         try {
             System.err.print("  - " + file);
             BufferedWriter writer = FileUtils.openWrite(file);
-            for (Map.Entry<String, ArrayList<TextGenerator.SubWord>> entries : nextWords.entrySet()) {
+            for (Map.Entry<String, ArrayList<SentenceGenerator.SubWord>> entries : nextWords.entrySet()) {
                 writer.write(entries.getKey());
-                for (TextGenerator.SubWord subWord : entries.getValue()) {
+                for (SentenceGenerator.SubWord subWord : entries.getValue()) {
                     writer.write(" " + subWord.word + "@" + subWord.freq);
                 }
                 writer.write("\n");
@@ -210,7 +210,7 @@ public class TextPreProcessor {
             String line, first, sub;
             String words[];
             int freq;
-            ArrayList<TextGenerator.SubWord> subWords = new ArrayList<>();
+            ArrayList<SentenceGenerator.SubWord> subWords = new ArrayList<>();
             while ((line = reader.readLine()) != null) {
                 words = line.split(" ");
                 first = StringUtils.cleanup(words[0]);
@@ -221,7 +221,7 @@ public class TextPreProcessor {
                         if (sub.length() > 0) {
                             freq = wordFrequencies.getOrDefault(sub, 0);
                             if (freq > 0) {
-                                subWords.add(new TextGenerator.SubWord(sub, freq));
+                                subWords.add(new SentenceGenerator.SubWord(sub, freq));
                             }
                         }
                     }

@@ -1,7 +1,7 @@
-package com.geckodb.misc.stringdbgen;
+package com.geckodb.misc;
 
-import com.geckodb.misc.stringdbgen.Core.BenchmarkGenerator;
-import com.geckodb.misc.stringdbgen.Core.TextPreProcessor;
+import com.geckodb.misc.stringdbgen.Core.DataSetGenerator;
+import com.geckodb.misc.stringdbgen.Core.Cache;
 import com.geckodb.misc.utils.FileUtils;
 import com.geckodb.misc.utils.StringUtils;
 import org.apache.commons.cli.*;
@@ -151,7 +151,7 @@ public class Main {
 
             cachePath = StringUtils.ensurePath((cachePath == null) ? System.getProperty("user.dir") + "/cache" : cachePath);
 
-            TextPreProcessor preProcessor = new TextPreProcessor(wordFrequencyFile, subsequentWordsFile, starterWordsFile, deWikiLengthHistogramFile, twitterLengthHistogramFile, binSize, cachePath);
+            Cache preProcessor = new Cache(wordFrequencyFile, subsequentWordsFile, starterWordsFile, deWikiLengthHistogramFile, twitterLengthHistogramFile, binSize, cachePath);
             if (writeStatistics) {
                 if (!Files.exists(Paths.get(statisticsFile))) {
                     statisticsWriter = FileUtils.openWriteEx(statisticsFile, true);
@@ -230,27 +230,27 @@ public class Main {
                 System.out.println("This is String-DB-Gen. Copyright (c) Marcus Pinnecke 2018\nhttps://github.com/geckodb/gecko-misc/string-db-gen");
                 System.setOut(new PrintStream(new BufferedOutputStream(fileStream)));
 
-                BenchmarkGenerator.Scenario scenarios = null;
+                DataSetGenerator.Scenario scenarios = null;
                 if (scenarioName.equalsIgnoreCase(SCENARIO_NAME_SOCIAL)) {
-                    scenarios = BenchmarkGenerator.Scenarios.SOCIAL_NETWORKING_SERVICE;
+                    scenarios = DataSetGenerator.Scenarios.SOCIAL_NETWORKING_SERVICE;
                 } else if (scenarioName.equalsIgnoreCase(SCENARIO_NAME_INSTNAT)) {
-                    scenarios = BenchmarkGenerator.Scenarios.INSTANT_MESSAGING_SERVICE;
+                    scenarios = DataSetGenerator.Scenarios.INSTANT_MESSAGING_SERVICE;
                 } else if (scenarioName.equalsIgnoreCase(SCENARIO_NAME_SYNTH)) {
-                    scenarios = BenchmarkGenerator.Scenarios.SYNTHETIC_BENCHMARK;
+                    scenarios = DataSetGenerator.Scenarios.SYNTHETIC_BENCHMARK;
                 } else if (scenarioName.equalsIgnoreCase(SCENARIO_NAME_BASE)) {
-                    scenarios = BenchmarkGenerator.Scenarios.PUBLIC_KNOWLEDGE_BASE;
+                    scenarios = DataSetGenerator.Scenarios.PUBLIC_KNOWLEDGE_BASE;
                 } else if (scenarioName.equalsIgnoreCase(SCENARIO_NAME_BASE_ZIPF)) {
-                    scenarios = BenchmarkGenerator.Scenarios.PUBLIC_KNOWLEDGE_BASE_ZIPF1;
+                    scenarios = DataSetGenerator.Scenarios.PUBLIC_KNOWLEDGE_BASE_ZIPF1;
                 } else if (scenarioName.equalsIgnoreCase(SCENARIO_NAME_BASE_ZIPF2)) {
-                    scenarios = BenchmarkGenerator.Scenarios.PUBLIC_KNOWLEDGE_BASE_ZIPF2;
+                    scenarios = DataSetGenerator.Scenarios.PUBLIC_KNOWLEDGE_BASE_ZIPF2;
                 } else if (scenarioName.equalsIgnoreCase(SCENARIO_NAME_BASE_ZIPF3)) {
-                    scenarios = BenchmarkGenerator.Scenarios.PUBLIC_KNOWLEDGE_BASE_ZIPF3;
+                    scenarios = DataSetGenerator.Scenarios.PUBLIC_KNOWLEDGE_BASE_ZIPF3;
                 } else {
                     System.err.println("Unknown scenario");
                     System.exit(1);
                 }
 
-                BenchmarkGenerator benchmarkGenerator = new BenchmarkGenerator(scenarios,
+                DataSetGenerator dataSetGenerator = new DataSetGenerator(scenarios,
                         wordFrequencyFile, subsequentWordsFile, starterWordsFile);
 
                 final int[] total = {0};
@@ -261,12 +261,12 @@ public class Main {
 
                 System.out.println("id;total_size_byte;length;string");
 
-                benchmarkGenerator.generateString(new BenchmarkGenerator.Callback<AtomicReferenceArray<String>>() {
+                dataSetGenerator.generateString(new DataSetGenerator.Callback<AtomicReferenceArray<String>>() {
 
                     DecimalFormat formatter = new DecimalFormat("#.#######");
 
                     @Override
-                    public BenchmarkGenerator.ContinueState consume(AtomicReferenceArray<String> strings) {
+                    public DataSetGenerator.ContinueState consume(AtomicReferenceArray<String> strings) {
                         for (int i = 0; i < strings.length(); i++) {
                             String s = strings.get(i);
                             if (s != null) {
@@ -283,7 +283,7 @@ public class Main {
                         String elpased = formatTimeSpan((long) (diff[0] / 1000));
                         System.err.println("Elapsed: " + elpased + "\t\tETA: " + eta + "\t\t" + formatByte(totalSize[0]) + " of " + formatByte(maxSize[0]) + "\t\t" + formatter.format(percent[0]) + "%");
 
-                        return (totalSize[0] < maxSize[0]) ? BenchmarkGenerator.ContinueState.CONTINUE : BenchmarkGenerator.ContinueState.STOP;
+                        return (totalSize[0] < maxSize[0]) ? DataSetGenerator.ContinueState.CONTINUE : DataSetGenerator.ContinueState.STOP;
                     }
                 }, none -> {
                     if (writeStatistics) {

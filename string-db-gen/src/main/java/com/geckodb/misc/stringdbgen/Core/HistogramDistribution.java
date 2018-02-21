@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Created by marcus on 13.02.18.
  */
-public class NonUniformNumberGenerator {
+public class HistogramDistribution {
 
     class Entry implements Comparable<Entry> {
         int length;
@@ -28,7 +28,7 @@ public class NonUniformNumberGenerator {
     int thresholdMax = 0;
     Random random = new Random();
 
-    public NonUniformNumberGenerator(String histogramFile) throws IOException {
+    public HistogramDistribution(String histogramFile) throws IOException {
 
         String line;
         int last = Integer.MAX_VALUE;
@@ -73,7 +73,7 @@ public class NonUniformNumberGenerator {
 
     public static void main(String... args) throws IOException {
 
-        NonUniformNumberGenerator numberGenerator = new NonUniformNumberGenerator("/Users/marcus/git/gecko/gecko-misc/string-db-gen/cache/sentence-lengths.cache");
+        HistogramDistribution numberGenerator = new HistogramDistribution("/Users/marcus/git/gecko/gecko-misc/string-db-gen/cache/sentence-lengths.cache");
         System.setOut(new PrintStream(new FileOutputStream("/Users/marcus/temp/numbers15")));
         System.out.println("number");
         while(true) {

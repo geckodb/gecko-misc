@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: com.geckodb.misc.stringdbgen.Main
+Main-Class: com.geckodb.misc.Main
 

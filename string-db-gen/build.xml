@@ -229,7 +229,7 @@
       <zipfileset src="${user.home}/.m2/repository/commons-cli/commons-cli/1.4/commons-cli-1.4.jar"/>
       <zipfileset src="${user.home}/.m2/repository/org/json/json/20160810/json-20160810.jar"/>
       <manifest>
-        <attribute name="Main-Class" value="com.geckodb.misc.stringdbgen.Main"/>
+        <attribute name="Main-Class" value="com.geckodb.misc.Main"/>
       </manifest>
     </jar>
     <copy file="${temp.jar.path.string-db-gen.jar}" tofile="${artifact.temp.output.string-db-gen:jar}/string-db-gen.jar"/>
