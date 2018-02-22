@@ -19,8 +19,46 @@
 
 </head>
 
-<body>
-    <div id="header"></div>
+<body onload="hideloader()">
+
+<div id="overlay">
+    <div class="loader" id="babe"></div>
+</div>
+    <div id="header">
+
+        <nav class="navbar navbar-default navbar-fixed-top" id="navbarId">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#myNavbar">
+                        <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#myPage">HERMES</a>
+                </div>
+                <div class="collapse navbar-collapse justify-content-end" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#about">Get Started</a></li>
+                        <li><a href="#">Settings</a></li>
+                        <li><a href="#services">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#search"  id="searchButton" >
+                            <span class='glyphicon glyphicon-search'></span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="search" style="opacity: 30">
+            <button type="button" class="close">X</button>
+            <form>
+
+                <input id="searchinput" type="search" value="" placeholder="type keyword(s) here" />
+                <button type="button" id ="searchRes" onclick=searchClicked() class="btn btn-primary" title="Search" name="Search"> Search</button>
+            </form>
+        </div>
+    </div>
+
+
 
     <div id="content" class="tab-content">
         <table>
@@ -87,13 +125,41 @@
     </div>
     <script src="../JS/Search.js"></script>
     <script src="../JS/HermesGraphLoader.js"></script>
-    <div id="footer" class="footerClass"></div>
-    <script>
-        $(function () {
-            $("#header").load("Header.html");
-            $("#footer").load("Footer.html");
-        });
-    </script>
+    <div id="footer" class="footerClass">
+        <footer class="container-fluid footerClass">
+            <div class="row">
+                <div class="col-sm-4">
+
+                </div>
+
+                <div class="col-sm-4">
+
+                </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-md-8"></div>
+                        <div class="col-md-4" align="right">
+                            <a href="https://twitter.com/html" target="_blank" id="flogos"
+                               style="padding-right: 25px">
+                                <img src="../Images/Tlogo.png"
+                                     alt="twitter-logo" style="width: 30px; height: 30px; top: 10px;">
+                            </a> <a href="https://github.com" target="_blank">
+                            <img src="../Images/Github-logo.png" id="flogos" alt="twitter-logo"
+                                 style="width: 30px; height: 30px; top: 10px;">
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!--<script>-->
+        <!--$(function () {-->
+            <!--$("#header").load("Header.html");-->
+            <!--$("#footer").load("Footer.html");-->
+        <!--});-->
+    <!--</script>-->
 
 </body>
 </html>

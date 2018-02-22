@@ -5,16 +5,15 @@ var dataArray = new Array();
 var linksArray = new Array();
 var authorDetails=new Map();
 var paperExpanded= new Set();
+var nodeAdded= new Set();
+
 var svg = d3.select("#paperGraphArea")
     .append("svg")
     .attr("width",width)
     .attr("height",height);
 
-
-var menuItems = ["Authorship", "Co-word", "Bibliographic"];
+var menuItems = ["Authorship", "Citedby", "Bibliographic"];
 var authorMenuItems=["Co-word", "Bibliographic"];
-var fullscreen=true;
-
 
 var force = d3.layout.force()
     .distance(100)
@@ -26,12 +25,13 @@ var force = d3.layout.force()
 
 
 
-d3.json("../JSON/QueryData.json", function (error, json) {
+d3.json("../JSON/Completedata.json", function (error, json) {
     if (error) throw error;
 
-    dataArray = json.nodes;
+    dataArray = json.hits;
+    console.log(dataArray)
     d3.json("../JSON/temp.json",tempArray);
-    linksArray = json.links;
+    //linksArray = json.links;
 
 //Replacing paperId values in source and target to indexes of dataArray as required by d3, to form graph
     /*  for (var k = 0; k < linksArray.length; k++) {
@@ -46,86 +46,13 @@ d3.json("../JSON/QueryData.json", function (error, json) {
       }*/
 
     //createGraph(json.nodes, linksArray, true);
-
-
-    //Pagination code
-
-    $(document).ready(function(){
-
-        var $pagination = $('#pagination'),
-            totalRecords = 0,
-            records = [],
-            displayRecords = [],
-            recPerPage = 6,
-            page = 1,
-            totalPages = 0;
-
-        records=dataArray
-        console.log(records);
-        totalRecords = records.length;
-        totalPages = Math.ceil(totalRecords / recPerPage);
-        apply_pagination();
-
-        function generate_table() {
-            $('#searchResults').html('');
-            var doc=document.getElementById("searchResults");
-            for (var i = 0; i < displayRecords.length; i++) {
-                var tr = document.createElement("tr");
-                var td=document.createElement("td");
-
-                a = document.createElement("a");
-                a.setAttribute("id",displayRecords[i].PaperId)
-                a.onclick=function (d) {
-                    poplateClickedNode(d.path[1].getAttribute("id"));
-                }
-                linebreak= document.createElement("br");
-                h5= document.createElement("b");
-                handler_a= td.appendChild(a);
-                h5.innerText=displayRecords[i].title;
-                handler_a.appendChild(h5);
-                p=document.createElement("p");
-
-                handler_p=td.appendChild(p); //change to doc to keep it out of a tag
-                b= document.createElement("b");
-                b.innerText="Citation Count :  ";
-
-                span=document.createElement("span");
-                span.innerText=displayRecords[i].citedby;
-                handler_p.appendChild(b);
-                handler_p.appendChild(span);
-
-                b1= document.createElement("b");
-                b1.innerText=" Reference Count : ";
-                span1=document.createElement("span");
-                span1.innerText=displayRecords[i].reference_count;
-                handler_p.append(' ');
-                handler_p.appendChild(b1);
-                handler_p.appendChild(span1);
-                td.appendChild(linebreak);
-                tr.appendChild(td);
-                doc.appendChild(tr);
-            }
-        }
-        //calculates start and end indices and sends set of records to display
-        function apply_pagination() {
-            $pagination.twbsPagination({
-                totalPages: totalPages,
-                visiblePages: 6,
-                onPageClick: function (event, page) {
-                    displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
-                    endRec = (displayRecordsIndex) + recPerPage;
-                    displayRecords = records.slice(displayRecordsIndex, endRec);
-                    generate_table();
-                }
-            });
-        }
-    });
 });
 
 function poplateClickedNode(nodeId) {
     for(let i=0;i<dataArray.length;i++){
-        if(nodeId==dataArray[i].PaperId){
+        if(nodeId===dataArray[i].PaperId && (!nodeAdded.has(nodeId))){
             tempArray.push(dataArray[i]);
+            nodeAdded.add(nodeId);
             d3.selectAll("svg > *").remove();
             createGraph(tempArray,linksArray,false);
             break;
@@ -220,9 +147,9 @@ function createGraph(nodes, links, drawnodesOnly) {
             .attr('xlink:href',function(d,i) {return '#edgepath'+i})
             .style("pointer-events", "none")
             .text(function(d,i){
-                if(d.source.type==="paper"){
+                if(d.target.type==="paper"){
                     return "cites"
-                }else{
+                }else if(d.target.type==="author"){
                     return "author"
                 }
 
@@ -292,6 +219,8 @@ function createGraph(nodes, links, drawnodesOnly) {
                     if((d==="Authorship")){
                         parseData(paperId);
                         paperExpanded.add(paperId);
+                    }else if(d==="Citedby"){
+                        addCitedbyNodes(paperId);
                     }
 
                 })
@@ -343,7 +272,7 @@ function createGraph(nodes, links, drawnodesOnly) {
         .attr("dy", ".35em")
         .text(function (d) {
             if(d.type==="paper"){
-                return d.title;
+                return d.properties.title;
             }
             else if(d.type==="author"){
                 return d.authors;
@@ -422,6 +351,12 @@ function createAuthorNode(paperId, authorName) {
     this.type="author";
 }
 
+function createPaperNode(paperId, properties) {
+    this.PaperId = paperId;
+    this.properties = properties;
+    this.type="paper";
+}
+
 function createLinks(source, target) {
     this.source = source;
     this.target = target;
@@ -431,25 +366,24 @@ function parseData(idToEXpand) {
 
     var intial_length = tempArray.length;
     for (var i = 0; i < intial_length; i++) {
-        if(tempArray[i].PaperId===idToEXpand){
-            for (var j = 0; j < tempArray[i].authors.length; j++) {
-                if(!authorDetails.has(tempArray[i].authors[j].name)) {
-                    var newNode = new createAuthorNode(tempArray[i].PaperId, tempArray[i].authors[j].name)
-                    var index= tempArray.push(newNode);
-                    authorDetails.set(tempArray[i].authors[j].name,index-1);
-                    var newLink = new createLinks(tempArray.length - 1, i);
-                    linksArray.push(newLink);
+        if((tempArray[i].PaperId===idToEXpand)&&(tempArray[i].properties.authors!==undefined)){
+                for (var j = 0; j < tempArray[i].properties.authors.length; j++) {
+                    if(!authorDetails.has(tempArray[i].properties.authors[j].name)) {
+                        var newNode = new createAuthorNode(tempArray[i].properties.PaperId, tempArray[i].properties.authors[j].name)
+                        var index= tempArray.push(newNode);
+                        authorDetails.set(tempArray[i].properties.authors[j].name,index-1);
+                        var newLink = new createLinks(i,tempArray.length - 1);
+                        linksArray.push(newLink);
+                    }
                 }
-
             }
-        }
     }
 
     for (var i = 0; i < intial_length; i++) {
-        if(tempArray[i].PaperId!==idToEXpand) {
-            for (var j = 0; j < tempArray[i].authors.length; j++) {
-                if(authorDetails.has(tempArray[i].authors[j].name)){
-                    var newLink = new createLinks(authorDetails.get(tempArray[i].authors[j].name), i);
+        if((tempArray[i].properties.PaperId!==idToEXpand) &&(tempArray[i].properties.authors!==undefined)){
+            for (var j = 0; j < tempArray[i].properties.authors.length; j++) {
+                if(authorDetails.has(tempArray[i].properties.authors[j].name)){
+                    var newLink = new createLinks(i,authorDetails.get(tempArray[i].properties.authors[j].name));
                     linksArray.push(newLink);
                 }
             }
@@ -465,6 +399,27 @@ function parseData(idToEXpand) {
     d3.select('.context-menu').style('display', 'none');
 }
 
+function addCitedbyNodes(idToEXpand) {
+    var intial_length = tempArray.length;
+    for (var i = 0; i < intial_length; i++) {
+        if(tempArray[i].PaperId===idToEXpand){
+            for(j=0;j<tempArray[i].properties.inE[i].vertexProperties.length;j++){
+                var newNode = new createPaperNode(tempArray[i].properties.inE[i].vertexProperties[j].PaperId, tempArray[i].properties.inE[i].vertexProperties[j].properties);
+                var index= tempArray.push(newNode);
+                var newLink = new createLinks(i,tempArray.length - 1);
+                linksArray.push(newLink);
+            }
+
+        }
+    }
+    JSON.stringify(linksArray);
+    JSON.stringify(tempArray);
+    d3.selectAll("svg > *").remove();
+    var mydata=new Set(tempArray);
+    for(let item of mydata) console.log(item);
+    createGraph(tempArray, linksArray,false);
+    d3.select('.context-menu').style('display', 'none');
+}
 
 function downloadGraphAsSVG() {
     try {

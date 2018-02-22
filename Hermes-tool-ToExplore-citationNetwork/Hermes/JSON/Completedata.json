@@ -1,0 +1,51 @@
+{"_totalResults":1,
+  "hits":[{
+    "PaperId":"00001",
+    "type":"paper",
+    "properties":{"title": "On power-law relationships of the Internet topology","lang": "en","year": 1999,
+    "authors": [{"name": "Michalis Faloutsos", "org": "Carnegie Mellon University", "instId":"", "id":""},
+      {"name": "Petros Faloutsos", "org": " York University", "instId":" ", "id":" "},
+      {"name": "Christos Faloutsos ", "org": "Carnegie Mellon University", "instId":"", "id":""}],
+    "issue": "4",
+    "url": ["https://academic.microsoft.com/#/detail/1976969221"],
+    "doi": "10.1145/316188.316229",
+    "magId": "00000061-0bab-468b-9481-00001",
+    "venue": {"name":"", "id":""},
+    "publication":{"publisher": "ACM Special Interest Group on Data Communication","volume": "29","doc_type": "Journal"},
+    "references": ["28"],
+    "fos": ["graph property Internet topology network topology the Internet randomness topology distributed computing computer science"],
+    "citedby":6297,
+    "reference_count":"28",
+    "inE":[{"PaperId":"00001", "type":"cites",
+      "edgeProperties":
+      [{"source": "00001", "target":"00012"},
+      {"source": "00001", "target":"00013"},
+      {"source": "00001", "target":"00014"},
+      {"source": "00001", "target":"00015"},
+      {"source": "00001", "target":"00016"},
+      {"source": "00001", "target":"00017"}],
+      "vertexProperties":
+      [{"PaperId":"00012", "type":"paper","properties": {"title": "\u7570\u7890\u8652","lang": "en","year": 1999,"citedby":6297,"reference_count":"28"}},
+        {"PaperId":"00013", "type":"paper","properties": {"title": "Cited paper2","lang": "en","year": 1999,"citedby":6297,"reference_count":"28"}},
+        {"PaperId":"00014", "type":"paper","properties": {"title": "Cited paper3","lang": "en","year": 1999,"citedby":6297,"reference_count":"28"}},
+        {"PaperId":"00015", "type":"paper","properties": {"title": "Cited paper4","lang": "en","year": 1999,"citedby":6297,"reference_count":"28"}},
+        {"PaperId":"00016", "type":"paper","properties": {"title": "Cited paper5","lang": "en","year": 1999,"citedby":6297,"reference_count":"28"}},
+        {"PaperId":"00017", "type":"paper","properties": {"title": "Cited paper6","lang": "en","year": 1999,"citedby":6297,"reference_count":"28"}}]
+    }],
+    "outE":[{"PaperId":"00001", "type":"reference",
+      "edgeProperties":
+      [{"source":"00012", "target":"00001"},
+      {"source": "00013", "target":"00001"},
+      {"source": "00014", "target":"00001"},
+      {"source": "00015", "target":"00001"},
+      {"source": "00016", "target":"00001"}],
+      "vertexProperties":
+        [{"PaperId":"00012", "type":"paper","properties": {"title": "Cited paper1","lang": "en","year": 1999,"citedby":6297,"reference_count":"28"}},
+        {"PaperId":"00013", "type":"paper","properties": {"title": "Cited paper2","lang": "en","year": 1999,"citedby":6297,"reference_count":"28"}},
+        {"PaperId":"00014", "type":"paper","properties": {"title": "Cited paper3","lang": "en","year": 1999,"citedby":6297,"reference_count":"28"}},
+        {"PaperId":"00015", "type":"paper","properties": {"title": "Cited paper4","lang": "en","year": 1999,"citedby":6297,"reference_count":"28"}},
+        {"PaperId":"00016", "type":"paper","properties": {"title": "Cited paper5","lang": "en","year": 1999,"citedby":6297,"reference_count":"28"}}]
+    }]}
+  }]
+}
+
