@@ -18,26 +18,36 @@
 
 .navbar-nav li a:hover, .navbar-nav li.active a {
     color: #ffffff !important;
-    background-color: #3d3d3d !important;
+    background-color: #f4511e !important;
 }
 
-.navbar-default .navbar-toggle {
+.navbar-default .navbar-header .navbar-brand .navbar-toggle {
     border-color: #848484;
     color: #ffffff !important;
 }
 
+.navbar-brand{
+    font-weight: bolder;
+    font-family: bolder;
+}
+
 /* Add a gray background color and some padding to the footer */
 .footerClass {
-    background-color: #c0c0c0;
-    color: black;
-   width: auto;
+    background-color:lightgray;
+    color: lightgray;
+    width: auto;
+    bottom: 0px;
+}
+
+#row{
+    bottom: 0px;
 }
 
 #navbarId {
-    background-color: #c0c0c0;
+    background-color: #ffffff;
     font-family: serif;
     font-size: large;
-    color: black;
+    color: #f4511e;
 }
 
 .link {
@@ -183,7 +193,6 @@ body {
     border-color: black;
 }
 #search .close {
-
     position: fixed;
     top: 50px;
     right: 15px;
@@ -196,7 +205,7 @@ body {
 }
 
 #searchButton{
-    background-color: #c0c0c0;
+    background-color: #ffffff;
     color: black;
     }
 
@@ -204,23 +213,29 @@ body {
     height: 15px;
     color: white;
 }
-#content {
-    min-height: calc(88vh - 25px);
-}
+
 #footer {
-    height: 30px;
-    background: #222;
+    bottom: 0px;
+    background: lightgray;
     color: white;
 }
 
 #exportSVG_glyphicons{
     font-size: 22px;
     color: black;
+    top: 15px;
 }
 
 #exportData_glyphicons{
     font-size: 22px;
     color: black;
+    top: 15px;
+}
+
+#enlarge_glyphicons{
+    font-size: 22px;
+    color: black;
+    top: 15px;
 }
 
 #graphArea{
@@ -229,8 +244,6 @@ body {
 
 #searchArea{
     border:1px solid black;
-
-
 }
 
 .startSize{
@@ -367,5 +380,51 @@ width: 430px;
     position:fixed;
     left:0;
     top:0;
+}
 
+#logo{
+    height: 650px;
+    width: 750px;
+    margin-left: 120px;
+}
+
+.panel-heading {
+    color: #fff !important;
+    background-color: #ffa366 !important;
+    padding: 0px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.panel {
+    border: 1px solid #f4511e;
+    border-radius:0 !important;
+    transition: box-shadow 0.9s;
+}
+
+.panel:hover {
+    box-shadow: 10px 5px 40px rgba(0, 0, 0, 0.3);
+}
+
+.panel-heading {
+    color: #fff !important;
+    background-color: #f4511e !important;
+    padding: 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.infoBox{
+    margin-bottom: 130px;
+    width: 450px;
+}
+
+.panel-body p{
+    font-size: medium;
 }

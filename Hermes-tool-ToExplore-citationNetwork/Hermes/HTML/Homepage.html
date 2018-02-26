@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../CSS/hermesStyle.css">
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js"></script>
+    <script src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="../Library/jquery.twbsPagination.min.js"></script>
+</head>
+
+<body onload="searchClicked()">
+
+<div id="header1"></div>
+
+<div id="overlay">
+    <div class="loader"></div>
+</div>
+
+<div id="content" class="tab-content">
+    <table>
+        <tr>
+            <td >
+                <div id="graphArea" class="startSize">
+                    <div>
+                        <table>
+                            <tr>
+                                <td width="50px" ><a href="#" title="Export data" onclick="downloadGraphAsData(); return false;"><span class="glyphicon glyphicon-save-file" id="exportData_glyphicons"></span></a></td>
+                                <td width="50px"><a href="#" title="Save as svg" onclick="downloadGraphAsSVG(); return false;"><span class="glyphicon glyphicon-download-alt" id="exportSVG_glyphicons"></span></a></td>
+                                <td width="200px"></td>
+                                <td width="500px"></td>
+                                <td width="250px"></td>
+                                <td width="50px"><a href="#" title="" onclick=resize()><span class="glyphicon glyphicon-resize-full" id="enlarge_glyphicons"></span></a></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div id="paperGraphArea">
+                    </div>
+                    <div class="graphpagination">
+                        <p style="margin-left: 220px"><b>Show next 10 citations:</b><a href="#">&laquo;</a>
+                            <a class="active" href="#">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">6</a>
+                            <a href="#">&raquo;</a>
+                        </p>
+                    </div>
+                </div>
+            </td>
+            <td id="searchArea">
+                <div class="searchsize">
+                    <table style="margin-left: 15px">
+                        <tr>
+                            <td>
+                                <p><b>Search Results for :</b> <p style="color:green">On power-law relationships of the Internet</p></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="list-group" id="list" style="width: 430px">
+                                    <div id="tabContainer">
+                                        <table  class="table-hover" id="resultTab" style="word-break: break-all;">
+                                            <tbody id="searchResults">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="pager">
+                                        <ul id="pagination" class="pagination-sm"></ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<script src="../JS/Search.js"></script>
+<script src="../JS/HermesGraphLoader.js"></script>
+<div id="footer1" class="footerClass"></div>
+<script>
+    $(function () {
+        $("#header1").load("Header.html");
+        $("#footer1").load("Footer.html");
+    });
+</script>
+</body>
+</html>

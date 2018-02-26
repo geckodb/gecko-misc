@@ -3,16 +3,19 @@
 var tempArray=new Array();
 var dataArray = new Array();
 var linksArray = new Array();
-var authorDetails=new Map();
+var authorAlreadyAdded=new Map();
+var paperAlreadyAdded=new Map();
 var paperExpanded= new Set();
+var nodeExpandedforRefernce = new Set();
 var nodeAdded= new Set();
+var fullscreen=true;
 
 var svg = d3.select("#paperGraphArea")
     .append("svg")
     .attr("width",width)
     .attr("height",height);
 
-var menuItems = ["Authorship", "Citedby", "Bibliographic"];
+var menuItems = ["Authorship", "Citedby", "References"];
 var authorMenuItems=["Co-word", "Bibliographic"];
 
 var force = d3.layout.force()
@@ -23,29 +26,12 @@ var force = d3.layout.force()
     .gravity(0.1)
     .alpha(0);
 
-
-
 d3.json("../JSON/Completedata.json", function (error, json) {
     if (error) throw error;
 
     dataArray = json.hits;
     console.log(dataArray)
     d3.json("../JSON/temp.json",tempArray);
-    //linksArray = json.links;
-
-//Replacing paperId values in source and target to indexes of dataArray as required by d3, to form graph
-    /*  for (var k = 0; k < linksArray.length; k++) {
-          for (l = 0; l < dataArray.length; l++) {
-              if (linksArray[k].source === dataArray[l].PaperId) {
-                  linksArray[k].source = l;
-              }
-              else if (linksArray[k].target === dataArray[l].PaperId) {
-                  linksArray[k].target = l;
-              }
-          }
-      }*/
-
-    //createGraph(json.nodes, linksArray, true);
 });
 
 function poplateClickedNode(nodeId) {
@@ -59,8 +45,6 @@ function poplateClickedNode(nodeId) {
         }
     }
 }
-
-
 
 function createGraph(nodes, links, drawnodesOnly) {
     var label=new Array();
@@ -148,9 +132,11 @@ function createGraph(nodes, links, drawnodesOnly) {
             .style("pointer-events", "none")
             .text(function(d,i){
                 if(d.target.type==="paper"){
-                    return "cites"
+                    return "cited by"
                 }else if(d.target.type==="author"){
                     return "author"
+                }else if(d.target.type==="reference"){
+                    return "refers to"
                 }
 
             });
@@ -164,13 +150,11 @@ function createGraph(nodes, links, drawnodesOnly) {
 
     node.append("image")
         .attr("xlink:href", function (d) {
-            if(d.type==="paper"){
+            if((d.type==="paper") || (d.type==="reference")) {
                 return "http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/512/Document-icon.png"
-                //return "../Images/Document.ico";
             }
             else if (d.type==="author"){
                 return "http://www.clker.com/cliparts/3/V/U/m/W/U/admin-button-icon-md.png"
-                //return "../Images/author.png";
             }
         })
         .attr("x", -8)
@@ -190,7 +174,7 @@ function createGraph(nodes, links, drawnodesOnly) {
             }
         })
         .attr("alt","abc")
-        /*  .style("stroke-width", "10")*/
+
         //to populate context menu
         .on('contextmenu', function (d, i) {
             // create the div element that will hold the context menu
@@ -217,12 +201,14 @@ function createGraph(nodes, links, drawnodesOnly) {
                 .on('click', function (d) {
                     console.log("context menu-" +d);
                     if((d==="Authorship")){
-                        parseData(paperId);
+                        showAuthors(paperId);
                         paperExpanded.add(paperId);
                     }else if(d==="Citedby"){
-                        addCitedbyNodes(paperId);
+                        showCitations(paperId);
+                    }else if(d==="References"){
+                        showReferences(paperId);
+                        nodeExpandedforRefernce.add(paperId);
                     }
-
                 })
                 .text(function (d) { console.log(d); return d;});
 
@@ -277,7 +263,9 @@ function createGraph(nodes, links, drawnodesOnly) {
             else if(d.type==="author"){
                 return d.authors;
             }
-
+            else if(d.type==="reference"){
+                return d.properties.title;
+            }
         });
 
     //	Define the div for the tooltip
@@ -362,16 +350,22 @@ function createLinks(source, target) {
     this.target = target;
 }
 
-function parseData(idToEXpand) {
+function createRefernceNode(paperId, properties) {
+    this.PaperId = paperId;
+    this.properties = properties;
+    this.type="reference";
+}
+
+function showAuthors(idToEXpand) {
 
     var intial_length = tempArray.length;
     for (var i = 0; i < intial_length; i++) {
         if((tempArray[i].PaperId===idToEXpand)&&(tempArray[i].properties.authors!==undefined)){
                 for (var j = 0; j < tempArray[i].properties.authors.length; j++) {
-                    if(!authorDetails.has(tempArray[i].properties.authors[j].name)) {
+                    if(!authorAlreadyAdded.has(tempArray[i].properties.authors[j].name)) {
                         var newNode = new createAuthorNode(tempArray[i].properties.PaperId, tempArray[i].properties.authors[j].name)
                         var index= tempArray.push(newNode);
-                        authorDetails.set(tempArray[i].properties.authors[j].name,index-1);
+                        authorAlreadyAdded.set(tempArray[i].properties.authors[j].name,index-1);
                         var newLink = new createLinks(i,tempArray.length - 1);
                         linksArray.push(newLink);
                     }
@@ -380,10 +374,10 @@ function parseData(idToEXpand) {
     }
 
     for (var i = 0; i < intial_length; i++) {
-        if((tempArray[i].properties.PaperId!==idToEXpand) &&(tempArray[i].properties.authors!==undefined)){
+        if((tempArray[i].PaperId!==idToEXpand) &&(tempArray[i].properties.authors!==undefined)){
             for (var j = 0; j < tempArray[i].properties.authors.length; j++) {
-                if(authorDetails.has(tempArray[i].properties.authors[j].name)){
-                    var newLink = new createLinks(i,authorDetails.get(tempArray[i].properties.authors[j].name));
+                if(authorAlreadyAdded.has(tempArray[i].properties.authors[j].name)){
+                    var newLink = new createLinks(i,authorAlreadyAdded.get(tempArray[i].properties.authors[j].name));
                     linksArray.push(newLink);
                 }
             }
@@ -399,12 +393,48 @@ function parseData(idToEXpand) {
     d3.select('.context-menu').style('display', 'none');
 }
 
-function addCitedbyNodes(idToEXpand) {
+function showCitations(idToEXpand) {
     var intial_length = tempArray.length;
     for (var i = 0; i < intial_length; i++) {
-        if(tempArray[i].PaperId===idToEXpand){
-            for(j=0;j<tempArray[i].properties.inE[i].vertexProperties.length;j++){
-                var newNode = new createPaperNode(tempArray[i].properties.inE[i].vertexProperties[j].PaperId, tempArray[i].properties.inE[i].vertexProperties[j].properties);
+        if((tempArray[i].PaperId===idToEXpand)&&(tempArray[i].properties!==undefined)){
+            for(j=0;j<tempArray[i].properties.inE[0].vertexProperties.length;j++){
+                var newNode = new createPaperNode(tempArray[i].properties.inE[0].vertexProperties[j].PaperId, tempArray[i].properties.inE[0].vertexProperties[j].properties);
+                var index= tempArray.push(newNode);
+                var newLink = new createLinks(i,tempArray.length - 1);
+                paperAlreadyAdded.set(tempArray[i].properties.inE[0].vertexProperties[j].PaperId,index-1);
+                linksArray.push(newLink);
+            }
+
+        }
+    }
+
+    //creates links to existing nodes if new nodes have any relation with it
+    for (var i = 0; i < intial_length; i++) {
+        if((tempArray[i].PaperId!==idToEXpand) &&(tempArray[i].properties!==undefined)){
+            for (var j = 0; j < tempArray[i].properties.inE[0].vertexProperties.length; j++) {
+                if(paperAlreadyAdded.has(tempArray[i].properties.inE[0].vertexProperties[j].PaperId)){
+                    var newLink = new createLinks(i,paperAlreadyAdded.get(tempArray[i].properties.inE[0].vertexProperties[j].PaperId));
+                    linksArray.push(newLink);
+                }
+            }
+        }
+    }
+
+    JSON.stringify(linksArray);
+    JSON.stringify(tempArray);
+    d3.selectAll("svg > *").remove();
+    var mydata=new Set(tempArray);
+    for(let item of mydata) console.log(item);
+    createGraph(tempArray, linksArray,false);
+    d3.select('.context-menu').style('display', 'none');
+}
+
+function showReferences(idToEXpand){
+    var intial_length = tempArray.length;
+    for (var i = 0; i < intial_length; i++) {
+        if((tempArray[i].PaperId===idToEXpand) && (!nodeExpandedforRefernce.has(idToEXpand))){
+            for(j=0;j<tempArray[i].properties.outE[0].vertexProperties.length;j++){
+                var newNode = new createRefernceNode(tempArray[i].properties.outE[0].vertexProperties[j].PaperId, tempArray[i].properties.outE[0].vertexProperties[j].properties);
                 var index= tempArray.push(newNode);
                 var newLink = new createLinks(i,tempArray.length - 1);
                 linksArray.push(newLink);

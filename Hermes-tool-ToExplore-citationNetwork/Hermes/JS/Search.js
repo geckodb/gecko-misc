@@ -14,26 +14,19 @@ $(function () {
 
 });
 
-function hideloader() {
-    document.getElementById("overlay").style.display="none";
-}
 
 function searchClicked() {
     var searchData=new Array();
     document.getElementById("overlay").style.display="block";
     $('#search').removeClass('open');
-
-
     //Pagination code
     d3.json("../JSON/SearchResult.json", function (error, json) {
         if (error) throw error;
-
         searchData = json.hits;
 
         //Pagination code
 
         $(document).ready(function(){
-
             var $pagination = $('#pagination'),
                 totalRecords = 0,
                 records = [],
@@ -43,7 +36,6 @@ function searchClicked() {
                 totalPages = 0;
 
             records=searchData;
-            console.log(records);
             totalRecords = records.length;
             totalPages = Math.ceil(totalRecords / recPerPage);
             apply_pagination();
@@ -94,7 +86,7 @@ function searchClicked() {
             function apply_pagination() {
                 $pagination.twbsPagination({
                     totalPages: totalPages,
-                    visiblePages: 6,
+                    visiblePages: 5,
                     onPageClick: function (event, page) {
                         displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
                         endRec = (displayRecordsIndex) + recPerPage;
