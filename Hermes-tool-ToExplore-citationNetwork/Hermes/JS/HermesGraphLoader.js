@@ -50,96 +50,96 @@ function createGraph(nodes, links, drawnodesOnly) {
     var label=new Array();
 
 //To form arrowhead
-        svg.append("defs").selectAll("marker")
-            .data(["arrowhead", "licensing", "resolved"])
-            .enter().append("marker")
-            .attr("id", function (d) {
-                return d;
-            })
-            .attr("viewBox", "0 -5 10 10")
-            .attr("refX", 24)
-            .attr("refY", 0)
-            .attr("markerWidth", 25)
-            .attr("markerHeight", 15)
-            .attr("orient", "auto")
-            .append("path")
-            .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-            .attr('fill', '#ccc')
-            .attr('stroke', '#ccc');
+    svg.append("defs").selectAll("marker")
+        .data(["arrowhead", "licensing", "resolved"])
+        .enter().append("marker")
+        .attr("id", function (d) {
+            return d;
+        })
+        .attr("viewBox", "0 -5 10 10")
+        .attr("refX", 24)
+        .attr("refY", 0)
+        .attr("markerWidth", 25)
+        .attr("markerHeight", 15)
+        .attr("orient", "auto")
+        .append("path")
+        .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+        .attr('fill', '#ccc')
+        .attr('stroke', '#ccc');
 
 
-        force.nodes(nodes)
-            .links(links)
-            .start();
+    force.nodes(nodes)
+        .links(links)
+        .start();
 
-        var link = svg.selectAll("link")
-            .data(links)
-            .enter().append("line")
-            .attr("class", "link")
-            .attr("marker-end", "url(#arrowhead)")
-            .attr('fill', '#ccc')
-            .attr('stroke', '#ccc');
+    var link = svg.selectAll("link")
+        .data(links)
+        .enter().append("line")
+        .attr("class", "link")
+        .attr("marker-end", "url(#arrowhead)")
+        .attr('fill', '#ccc')
+        .attr('stroke', '#ccc');
 
-        var node_drag = d3.behavior.drag()
-            .on("dragstart", drag_start)
-            .on("drag", drag_move)
-            .on("dragend", drag_end);
+    var node_drag = d3.behavior.drag()
+        .on("dragstart", drag_start)
+        .on("drag", drag_move)
+        .on("dragend", drag_end);
 
 
-        function drag_start(d, i) {
-            force.stop() // stops the force auto positioning before you start dragging
-        }
+    function drag_start(d, i) {
+        force.stop() // stops the force auto positioning before you start dragging
+    }
 
-        function drag_move(d, i) {
-            d.px += d3.event.dx;
-            d.py += d3.event.dy;
-            d.x += d3.event.dx;
-            d.y += d3.event.dy;
-            tick(); // this is the key to make it work together with updating both px,py,x,y on d !
-        }
+    function drag_move(d, i) {
+        d.px += d3.event.dx;
+        d.py += d3.event.dy;
+        d.x += d3.event.dx;
+        d.y += d3.event.dy;
+        tick(); // this is the key to make it work together with updating both px,py,x,y on d !
+    }
 
-        function drag_end(d, i) {
-            d.fixed = true; // set the node to fixed, so the force doesn't include the node in its auto positioning
-            tick();
-            force.resume();
-        }
+    function drag_end(d, i) {
+        d.fixed = true; // set the node to fixed, so the force doesn't include the node in its auto positioning
+        tick();
+        force.resume();
+    }
 
-        var edgepaths = svg.selectAll(".edgepath")
-            .data(links)
-            .enter()
-            .append('path')
-            .attr({'d': function(d) { return 'M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y},
-                'class':'edgepath',
-                'fill-opacity':0,
-                'stroke-opacity':0,
-                'id':function(d,i) { return 'edgepath'+i;}})
-            .style("pointer-events", "none");
+    var edgepaths = svg.selectAll(".edgepath")
+        .data(links)
+        .enter()
+        .append('path')
+        .attr({'d': function(d) { return 'M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y},
+            'class':'edgepath',
+            'fill-opacity':0,
+            'stroke-opacity':0,
+            'id':function(d,i) { return 'edgepath'+i;}})
+        .style("pointer-events", "none");
 
-        var edgelabels = svg.selectAll(".edgelabel")
-            .data(links)
-            .enter()
-            .append('text')
-            .style("pointer-events", "none")
-            .attr({'class':'edgelabel',
-                'id':function(d,i){return 'edgelabel'+i;},
-                'dx':80,
-                'dy':0,
-                'font-size':10,
-                'fill':'#aaa'});
+    var edgelabels = svg.selectAll(".edgelabel")
+        .data(links)
+        .enter()
+        .append('text')
+        .style("pointer-events", "none")
+        .attr({'class':'edgelabel',
+            'id':function(d,i){return 'edgelabel'+i;},
+            'dx':80,
+            'dy':0,
+            'font-size':10,
+            'fill':'#aaa'});
 
-        edgelabels.append("textPath")
-            .attr('xlink:href',function(d,i) {return '#edgepath'+i})
-            .style("pointer-events", "none")
-            .text(function(d,i){
-                if(d.target.type==="paper"){
-                    return "cited by"
-                }else if(d.target.type==="author"){
-                    return "author"
-                }else if(d.target.type==="reference"){
-                    return "refers to"
-                }
+    edgelabels.append("textPath")
+        .attr('xlink:href',function(d,i) {return '#edgepath'+i})
+        .style("pointer-events", "none")
+        .text(function(d,i){
+            if((d.target.type==="paper")||(d.target.type==="paper_new")){
+                return "cited by"
+            }else if(d.target.type==="author"){
+                return "author"
+            }else if(d.target.type==="reference"){
+                return "refers to"
+            }
 
-            });
+        });
 
 
     var node = svg.selectAll("node")
@@ -150,7 +150,7 @@ function createGraph(nodes, links, drawnodesOnly) {
 
     node.append("image")
         .attr("xlink:href", function (d) {
-            if((d.type==="paper") || (d.type==="reference")) {
+            if((d.type==="paper") || (d.type==="reference")||(d.type==="paper_new")) {
                 return "http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/512/Document-icon.png"
             }
             else if (d.type==="author"){
@@ -192,7 +192,7 @@ function createGraph(nodes, links, drawnodesOnly) {
                 .append('ul')
                 .selectAll('li')
                 .data(function () {
-                    if(d.type==="paper")
+                    if((d.type==="paper")||(d.type==="paper_new"))
                         return menuItems;
                     else
                         return authorMenuItems;
@@ -224,7 +224,7 @@ function createGraph(nodes, links, drawnodesOnly) {
         })
         //To display tooltip
         .on("mouseover", function (d) {
-            if(d.type==="paper"){
+            if((d.type==="paper")||(d.type==="paper_new")){
                 div.transition()
                     .duration(200)
                     .style("opacity", .9);
@@ -257,7 +257,7 @@ function createGraph(nodes, links, drawnodesOnly) {
         .attr("dx", 20)
         .attr("dy", ".35em")
         .text(function (d) {
-            if(d.type==="paper"){
+            if((d.type==="paper")||(d.type==="paper_new")){
                 return d.properties.title;
             }
             else if(d.type==="author"){
@@ -342,7 +342,7 @@ function createAuthorNode(paperId, authorName) {
 function createPaperNode(paperId, properties) {
     this.PaperId = paperId;
     this.properties = properties;
-    this.type="paper";
+    this.type="paper_new";
 }
 
 function createLinks(source, target) {
@@ -360,25 +360,32 @@ function showAuthors(idToEXpand) {
 
     var intial_length = tempArray.length;
     for (var i = 0; i < intial_length; i++) {
-        if((tempArray[i].PaperId===idToEXpand)&&(tempArray[i].properties.authors!==undefined)){
+        if (tempArray[i].type === "paper") {
+            if ((tempArray[i].PaperId === idToEXpand) && (tempArray[i].properties.authors !== undefined)) {
                 for (var j = 0; j < tempArray[i].properties.authors.length; j++) {
-                    if(!authorAlreadyAdded.has(tempArray[i].properties.authors[j].name)) {
+                    if (!authorAlreadyAdded.has(tempArray[i].properties.authors[j].name)) {
                         var newNode = new createAuthorNode(tempArray[i].properties.PaperId, tempArray[i].properties.authors[j].name)
-                        var index= tempArray.push(newNode);
-                        authorAlreadyAdded.set(tempArray[i].properties.authors[j].name,index-1);
-                        var newLink = new createLinks(i,tempArray.length - 1);
+                        var index = tempArray.push(newNode);
+                        authorAlreadyAdded.set(tempArray[i].properties.authors[j].name, index - 1);
+                        var newLink = new createLinks(i, tempArray.length - 1);
+                        linksArray.push(newLink);
+                    }else{
+                        var newLink = new createLinks(i, authorAlreadyAdded.get(tempArray[i].properties.authors[j].name));
                         linksArray.push(newLink);
                     }
                 }
             }
+        }
     }
 
     for (var i = 0; i < intial_length; i++) {
-        if((tempArray[i].PaperId!==idToEXpand) &&(tempArray[i].properties.authors!==undefined)){
-            for (var j = 0; j < tempArray[i].properties.authors.length; j++) {
-                if(authorAlreadyAdded.has(tempArray[i].properties.authors[j].name)){
-                    var newLink = new createLinks(i,authorAlreadyAdded.get(tempArray[i].properties.authors[j].name));
-                    linksArray.push(newLink);
+        if (tempArray[i].type === "paper") {
+            if ((tempArray[i].PaperId !== idToEXpand) && (!paperExpanded.has(tempArray[i].PaperId)) && (tempArray[i].properties !== undefined)) {
+                for (var j = 0; j < tempArray[i].properties.authors.length; j++) {
+                    if (authorAlreadyAdded.has(tempArray[i].properties.authors[j].name)) {
+                        var newLink = new createLinks(i, authorAlreadyAdded.get(tempArray[i].properties.authors[j].name));
+                        linksArray.push(newLink);
+                    }
                 }
             }
         }
@@ -396,25 +403,32 @@ function showAuthors(idToEXpand) {
 function showCitations(idToEXpand) {
     var intial_length = tempArray.length;
     for (var i = 0; i < intial_length; i++) {
-        if((tempArray[i].PaperId===idToEXpand)&&(tempArray[i].properties!==undefined)){
-            for(j=0;j<tempArray[i].properties.inE[0].vertexProperties.length;j++){
-                var newNode = new createPaperNode(tempArray[i].properties.inE[0].vertexProperties[j].PaperId, tempArray[i].properties.inE[0].vertexProperties[j].properties);
-                var index= tempArray.push(newNode);
-                var newLink = new createLinks(i,tempArray.length - 1);
-                paperAlreadyAdded.set(tempArray[i].properties.inE[0].vertexProperties[j].PaperId,index-1);
-                linksArray.push(newLink);
+        if(tempArray[i].type==="paper"){
+            if((tempArray[i].PaperId===idToEXpand)&&(tempArray[i].properties.inE!==undefined)) {
+                for (j = 0; j < tempArray[i].properties.inE[0].vertexProperties.length; j++) {
+                    if (!paperAlreadyAdded.has(tempArray[i].properties.inE[0].vertexProperties[j].PaperId)) {
+                        var newNode = new createPaperNode(tempArray[i].properties.inE[0].vertexProperties[j].PaperId, tempArray[i].properties.inE[0].vertexProperties[j].properties);
+                        var index = tempArray.push(newNode);
+                        var newLink = new createLinks(i, tempArray.length - 1);
+                        paperAlreadyAdded.set(tempArray[i].properties.inE[0].vertexProperties[j].PaperId, index - 1);
+                        linksArray.push(newLink);
+                    }
+                }
             }
 
         }
+
     }
 
     //creates links to existing nodes if new nodes have any relation with it
     for (var i = 0; i < intial_length; i++) {
-        if((tempArray[i].PaperId!==idToEXpand) &&(tempArray[i].properties!==undefined)){
-            for (var j = 0; j < tempArray[i].properties.inE[0].vertexProperties.length; j++) {
-                if(paperAlreadyAdded.has(tempArray[i].properties.inE[0].vertexProperties[j].PaperId)){
-                    var newLink = new createLinks(i,paperAlreadyAdded.get(tempArray[i].properties.inE[0].vertexProperties[j].PaperId));
-                    linksArray.push(newLink);
+        if (tempArray[i].type === "paper") {
+            if ((tempArray[i].PaperId !== idToEXpand) && (tempArray[i].properties.inE !== undefined)) {
+                for (var j = 0; j < tempArray[i].properties.inE[0].vertexProperties.length; j++) {
+                    if (paperAlreadyAdded.has(tempArray[i].properties.inE[0].vertexProperties[j].PaperId)) {
+                        var newLink = new createLinks(i, paperAlreadyAdded.get(tempArray[i].properties.inE[0].vertexProperties[j].PaperId));
+                        linksArray.push(newLink);
+                    }
                 }
             }
         }

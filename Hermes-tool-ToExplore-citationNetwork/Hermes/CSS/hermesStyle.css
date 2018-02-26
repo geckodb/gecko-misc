@@ -390,7 +390,7 @@ width: 430px;
 
 .panel-heading {
     color: #fff !important;
-    background-color: #ffa366 !important;
+    background-color: #ff5f36;
     padding: 0px;
     border-bottom: 1px solid transparent;
     border-top-left-radius: 0px;
@@ -400,7 +400,7 @@ width: 430px;
 }
 
 .panel {
-    border: 1px solid #f4511e;
+    border: 1px solid #ff5f36;
     border-radius:0 !important;
     transition: box-shadow 0.9s;
 }
