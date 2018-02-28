@@ -422,9 +422,21 @@ width: 430px;
 
 .infoBox{
     margin-bottom: 130px;
-    width: 450px;
+    width: 550px;
+    padding: 15px;
 }
 
 .panel-body p{
-    font-size: medium;
+    font-size: large;
+    text-align: left;
+}
+
+
+.node:hover{
+    background-color: #eed;
+    border-radius: 50px;
+    margin: 20px;
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 1);
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 1);
 }

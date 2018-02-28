@@ -10,8 +10,8 @@ var svg = d3.select("#paperGraphArea")
     .attr("width",width)
     .attr("height",height);
 
-var menuItems = ["Authorship", "Citedby", "References"];
-var authorMenuItems=["Co-word", "Bibliographic"];
+var menuItems = ["Authorship", "Citedby", "References","Institutions"];
+var authorMenuItems=["Co-author", "Institution"];
 
 var force = d3.layout.force()
     .distance(100)
@@ -23,7 +23,6 @@ var force = d3.layout.force()
 
 d3.json("../JSON/Completedata.json", function (error, json) {
     if (error) throw error;
-
     dataArray = json.hits;
     console.log(dataArray)
     d3.json("../JSON/temp.json",tempArray);
@@ -151,6 +150,9 @@ function createGraph(nodes, links, drawnodesOnly) {
             else if (d.type==="author"){
                 return "http://www.clker.com/cliparts/3/V/U/m/W/U/admin-button-icon-md.png"
             }
+            else if(d.type==="institution"){
+                return "http://www.freeiconspng.com/uploads/institution-icon-15.png"
+            }
         })
         .attr("x", -8)
         .attr("y", -8)
@@ -203,6 +205,8 @@ function createGraph(nodes, links, drawnodesOnly) {
                     }else if(d==="References"){
                         showReferences(paperId);
                         nodeExpandedforRefernce.add(paperId);
+                    }else if(d==="Institutions"){
+                        showInstitution(paperId);
                     }
                 })
                 .text(function (d) { console.log(d); return d;});
@@ -260,6 +264,9 @@ function createGraph(nodes, links, drawnodesOnly) {
             }
             else if(d.type==="reference"){
                 return d.properties.title;
+            }
+            else if(d.type==="institution"){
+                return d.name;
             }
         });
 

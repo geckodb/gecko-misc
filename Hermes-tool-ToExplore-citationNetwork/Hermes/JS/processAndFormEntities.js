@@ -5,6 +5,7 @@ var authorAlreadyAdded=new Map();
 var paperAlreadyAdded=new Map();
 var paperExpanded= new Set();
 var nodeExpandedforRefernce = new Set();
+var institute=new Map();
 
 
 function createAuthorNode(paperId, authorName) {
@@ -28,6 +29,11 @@ function createRefernceNode(paperId, properties) {
     this.PaperId = paperId;
     this.properties = properties;
     this.type="reference";
+}
+
+function createInstitutionNode(name) {
+    this.name = name;
+    this.type="institution";
 }
 
 function showAuthors(idToEXpand) {
@@ -133,6 +139,41 @@ function showReferences(idToEXpand){
 
         }
     }
+    JSON.stringify(linksArray);
+    JSON.stringify(tempArray);
+    d3.selectAll("svg > *").remove();
+    var mydata=new Set(tempArray);
+    for(let item of mydata) console.log(item);
+    createGraph(tempArray, linksArray,false);
+    d3.select('.context-menu').style('display', 'none');
+}
+
+
+function showInstitution(idToEXpand) {
+    institute_paper=new Map();
+    var intial_length = tempArray.length;
+    for (var i = 0; i < intial_length; i++) {
+        if (tempArray[i].type === "paper") {
+            if ((tempArray[i].PaperId === idToEXpand) && (tempArray[i].properties.authors !== undefined)) {
+                for (var j = 0; j < tempArray[i].properties.authors.length; j++) {
+                    if((!institute_paper.has(tempArray[i].properties.authors[j].org))&&institute.has(tempArray[i].properties.authors[j].org)){
+                        var newLink=new createLinks(i,institute.get(tempArray[i].properties.authors[j].org));
+                        linksArray.push(newLink);
+                        institute_paper.set(tempArray[i].properties.authors[j].org);
+                    }
+                    if(!institute_paper.has(tempArray[i].properties.authors[j].org)){
+                       var newNode=new createInstitutionNode(tempArray[i].properties.authors[j].org);
+                        var index=tempArray.push(newNode);
+                       var newLink=new createLinks(i,tempArray.length-1);
+                       linksArray.push(newLink);
+                       institute.set(tempArray[i].properties.authors[j].org,index-1);
+                       institute_paper.set(tempArray[i].properties.authors[j].org);
+                    }
+                }
+            }
+        }
+    }
+
     JSON.stringify(linksArray);
     JSON.stringify(tempArray);
     d3.selectAll("svg > *").remove();
