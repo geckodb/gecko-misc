@@ -12,6 +12,7 @@ var svg = d3.select("#paperGraphArea")
 
 var menuItems = ["Authorship", "Citedby", "References","Institutions"];
 var authorMenuItems=["Co-author", "Institution"];
+var institutionMenuItems=["Authorship","Papers"]
 
 var force = d3.layout.force()
     .distance(100)
@@ -189,10 +190,14 @@ function createGraph(nodes, links, drawnodesOnly) {
                 .append('ul')
                 .selectAll('li')
                 .data(function () {
-                    if((d.type==="paper")||(d.type==="paper_new"))
+                    if((d.type==="paper")||(d.type==="paper_new")||(d.type==="reference"))
                         return menuItems;
-                    else
+                    else if((d.type==="author")){
                         return authorMenuItems;
+                    }else{
+                        return institutionMenuItems;
+                    }
+
                 }).enter()
                 .append('li')
                 .on('click', function (d) {
