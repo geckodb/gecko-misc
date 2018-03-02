@@ -1,4 +1,4 @@
-var flag=false;
+
 $(function () {
     $('a[href="#search"]').on('click', function(event) {
         event.preventDefault();
@@ -14,16 +14,32 @@ $(function () {
 
 });
 
+//verifies if searc field is not empty and redirects to scholarlyResult.html
+$("#searchRes").click(function(){
+    var userEnteredtext=document.getElementById("searchinput").value;
+    if(!(userEnteredtext.length>0)){
+        alert("please enter value");
+        event.preventDefault();
+        $('#search').addClass('open');
+        $('#search > form > input[type="search"]').focus();
+    }else{
+        alert("value of input"+userEnteredtext)
+        window.location.href="scholarlyResult.html?searchText="+userEnteredtext;
+    }
+});
 
-function searchClicked() {
+
+
+function searchClicked(userEnteredtext) {
     var searchData=new Array();
     document.getElementById("overlay").style.display="block";
     $('#search').removeClass('open');
     //Pagination code
-    d3.json("../JSON/SearchResult.json", function (error, json) {
+    var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper&q="+userEnteredtext+"&size=20"
+    d3.json(url, function (error, json) {
         if (error) throw error;
-        searchData = json.hits;
-
+        searchData = json.hits.hits;
+        console.log(searchData)
         //Pagination code
 
         $(document).ready(function(){
@@ -49,14 +65,14 @@ function searchClicked() {
                     var td=document.createElement("td");
 
                     a = document.createElement("a");
-                    a.setAttribute("id",displayRecords[i].id)
+                    a.setAttribute("id",displayRecords[i]._id)
                     a.onclick=function (d) {
-                        poplateClickedNode(d.path[1].getAttribute("id"));
+                        poplateClickedNode(d.path[1].getAttribute("id"),searchData);
                     }
                     linebreak= document.createElement("br");
                     h5= document.createElement("b");
                     handler_a= td.appendChild(a);
-                    h5.innerText=displayRecords[i].properties.title;
+                    h5.innerText=displayRecords[i]._source.title;
                     handler_a.appendChild(h5);
                     p=document.createElement("p");
 
@@ -65,14 +81,14 @@ function searchClicked() {
                     b.innerText="Citation Count :  ";
 
                     span=document.createElement("span");
-                    span.innerText=displayRecords[i].properties.citedby;
+                    span.innerText=displayRecords[i]._source.citationCount;
                     handler_p.appendChild(b);
                     handler_p.appendChild(span);
 
                     b1= document.createElement("b");
-                    b1.innerText=" Reference Count : ";
+                    b1.innerText=" Year of publish : ";
                     span1=document.createElement("span");
-                    span1.innerText=displayRecords[i].properties.reference_count;
+                    span1.innerText=displayRecords[i]._source.year;
                     handler_p.append(' ');
                     handler_p.appendChild(b1);
                     handler_p.appendChild(span1);

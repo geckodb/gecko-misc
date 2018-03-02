@@ -1,4 +1,5 @@
-﻿
+﻿var processedArray=new Array();
+d3.json("../JSON/temp.json",processedArray);
 var width = 1050,
     height = 580;
 var nodeAdded= new Set();
@@ -22,27 +23,30 @@ var force = d3.layout.force()
     .gravity(0.1)
     .alpha(0);
 
-d3.json("../JSON/Completedata.json", function (error, json) {
-    if (error) throw error;
-    dataArray = json.hits;
-    console.log(dataArray)
-    d3.json("../JSON/temp.json",tempArray);
-});
+//var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper&q=database&size=20";
 
-function poplateClickedNode(nodeId) {
+  /*  d3.json("http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper&q=database&size=20",function (error, jsonResult) {
+    if (error) console.log(error.valueOf()) ;
+    dataArray = jsonResult.hits.hits;
+    processedArray=dataArray;
+    console.log(dataArray)
+    console.log(dataArray[0]._source)
+});*/
+
+function poplateClickedNode(nodeId,dataArray) {
     for(let i=0;i<dataArray.length;i++){
-        if(nodeId===dataArray[i].PaperId && (!nodeAdded.has(nodeId))){
-            tempArray.push(dataArray[i]);
+        if(nodeId===dataArray[i]._id && (!nodeAdded.has(nodeId))){
+            processedArray.push(dataArray[i]);
             nodeAdded.add(nodeId);
             d3.selectAll("svg > *").remove();
-            createGraph(tempArray,linksArray,false);
+            createGraph(processedArray,linksArray,false);
             break;
         }
     }
 }
 
+
 function createGraph(nodes, links, drawnodesOnly) {
-    var label=new Array();
 
 //To form arrowhead
     svg.append("defs").selectAll("marker")
@@ -126,7 +130,7 @@ function createGraph(nodes, links, drawnodesOnly) {
         .attr('xlink:href',function(d,i) {return '#edgepath'+i})
         .style("pointer-events", "none")
         .text(function(d,i){
-            if((d.target.type==="paper")||(d.target.type==="paper_new")){
+            if((d.target.type==="paper")||(d.target.type==="cite")){
                 return "cited by"
             }else if(d.target.type==="author"){
                 return "author"
@@ -145,7 +149,7 @@ function createGraph(nodes, links, drawnodesOnly) {
 
     node.append("image")
         .attr("xlink:href", function (d) {
-            if((d.type==="paper") || (d.type==="reference")||(d.type==="paper_new")) {
+            if((d._source.vType==="paper") || (d._source.vType==="reference")||(d._source.vType==="cite")) {
                 return "http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/512/Document-icon.png"
             }
             else if (d.type==="author"){
@@ -158,20 +162,11 @@ function createGraph(nodes, links, drawnodesOnly) {
         .attr("x", -8)
         .attr("y", -8)
         .attr("width",function (d) {
-            if(d.PaperId==="456"){
                 return 30;
-            }else{
-                return 30;
-            }
         })
         .attr("height", function (d) {
-            if(d.PaperId==="456"){
                 return 30;
-            }else{
-                return 30;
-            }
         })
-        .attr("alt","abc")
 
         //to populate context menu
         .on('contextmenu', function (d, i) {
@@ -190,7 +185,7 @@ function createGraph(nodes, links, drawnodesOnly) {
                 .append('ul')
                 .selectAll('li')
                 .data(function () {
-                    if((d.type==="paper")||(d.type==="paper_new")||(d.type==="reference"))
+                    if((d._source.vType==="paper")||(d._source.vType==="cite")||(d._source.vType==="reference"))
                         return menuItems;
                     else if((d.type==="author")){
                         return authorMenuItems;
@@ -203,15 +198,15 @@ function createGraph(nodes, links, drawnodesOnly) {
                 .on('click', function (d) {
                     console.log("context menu-" +d);
                     if((d==="Authorship")){
-                        showAuthors(paperId);
+                        showAuthors(paperId,processedArray);
                         paperExpanded.add(paperId);
                     }else if(d==="Citedby"){
-                        showCitations(paperId);
+                        showCitations(paperId,processedArray);
                     }else if(d==="References"){
                         showReferences(paperId);
                         nodeExpandedforRefernce.add(paperId);
                     }else if(d==="Institutions"){
-                        showInstitution(paperId);
+                        showInstitution(paperId,processedArray);
                     }
                 })
                 .text(function (d) { console.log(d); return d;});
@@ -224,11 +219,11 @@ function createGraph(nodes, links, drawnodesOnly) {
                 .style('top', d3.event.pageY - 2 + 'px')
                 .style('display', 'block');
             d3.event.preventDefault();
-            var paperId = d.PaperId;
+            var paperId = d._id;
         })
         //To display tooltip
         .on("mouseover", function (d) {
-            if((d.type==="paper")||(d.type==="paper_new")){
+            if((d.type==="paper")||(d.type==="cite")){
                 div.transition()
                     .duration(200)
                     .style("opacity", .9);
@@ -261,8 +256,8 @@ function createGraph(nodes, links, drawnodesOnly) {
         .attr("dx", 20)
         .attr("dy", ".35em")
         .text(function (d) {
-            if((d.type==="paper")||(d.type==="paper_new")){
-                return d.properties.title;
+            if((d._source.vType==="paper")||(d.type==="cite")){
+                return d._source.title;
             }
             else if(d.type==="author"){
                 return d.authors;

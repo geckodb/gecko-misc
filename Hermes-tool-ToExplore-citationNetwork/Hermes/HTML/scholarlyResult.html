@@ -19,7 +19,7 @@
     <script src="../Library/jquery.twbsPagination.min.js"></script>
 </head>
 
-<body onload="searchClicked()">
+<body onload="searchClicked(searchValue)">
 
 <div id="header1"></div>
 
@@ -99,7 +99,10 @@
         $("#header1").load("Header.html");
         $("#footer1").load("Footer.html");
     });
-  //  alert("I loaded first")
+    //to obtain the value that was entered in search field which was passed through url
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var searchValue = url.searchParams.get("searchText");
 </script>
 </body>
 </html>
