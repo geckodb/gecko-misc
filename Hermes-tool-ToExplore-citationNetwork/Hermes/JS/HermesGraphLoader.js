@@ -11,7 +11,7 @@ var svg = d3.select("#paperGraphArea")
     .attr("width",width)
     .attr("height",height);
 
-var menuItems = ["Authorship", "Citedby", "References","Institutions"];
+var menuItems = ["Authorship","Field of Study", "Citedby", "References"];
 var authorMenuItems=["Co-author", "Institution"];
 var institutionMenuItems=["Authorship","Papers"]
 
@@ -130,11 +130,13 @@ function createGraph(nodes, links, drawnodesOnly) {
         .attr('xlink:href',function(d,i) {return '#edgepath'+i})
         .style("pointer-events", "none")
         .text(function(d,i){
-            if((d.target.type==="paper")||(d.target.type==="cite")){
+            if((d.target._source.vType===vertexType.PAPER)||(d.target._source.vType==="cite")){
                 return "cited by"
-            }else if(d.target.type==="author"){
+            }else if(d.target._source.vType===vertexType.AUTHOR){
                 return "author"
-            }else if(d.target.type==="reference"){
+            }else if(d.target._source.vType===vertexType.ORG){
+                return "affiliation"
+            } else if(d.target._source.vType==="reference"){
                 return "refers to"
             }
 
@@ -152,11 +154,14 @@ function createGraph(nodes, links, drawnodesOnly) {
             if((d._source.vType==="paper") || (d._source.vType==="reference")||(d._source.vType==="cite")) {
                 return "http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/512/Document-icon.png"
             }
-            else if (d.type==="author"){
+            else if (d._source.vType==="author"){
                 return "http://www.clker.com/cliparts/3/V/U/m/W/U/admin-button-icon-md.png"
             }
-            else if(d.type==="institution"){
+            else if(d._source.vType==="org"){
                 return "http://www.freeiconspng.com/uploads/institution-icon-15.png"
+            }
+            else if(d._source.vType==="fos"){
+                return "https://www.sas.com/content/dam/SAS/en_us/image/sas-com/icons/navmenu/universities-icon.png/_jcr_content/renditions/cq5dam.thumbnail.140.100.png"
             }
         })
         .attr("x", -8)
@@ -185,9 +190,9 @@ function createGraph(nodes, links, drawnodesOnly) {
                 .append('ul')
                 .selectAll('li')
                 .data(function () {
-                    if((d._source.vType==="paper")||(d._source.vType==="cite")||(d._source.vType==="reference"))
+                    if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cite")||(d._source.vType==="reference"))
                         return menuItems;
-                    else if((d.type==="author")){
+                    else if((d._source.vType===vertexType.AUTHOR)){
                         return authorMenuItems;
                     }else{
                         return institutionMenuItems;
@@ -205,8 +210,10 @@ function createGraph(nodes, links, drawnodesOnly) {
                     }else if(d==="References"){
                         showReferences(paperId);
                         nodeExpandedforRefernce.add(paperId);
-                    }else if(d==="Institutions"){
+                    }else if(d==="Institution"){
                         showInstitution(paperId,processedArray);
+                    }else if(d==="Field of Study"){
+                        showFOS(paperId,processedArray);
                     }
                 })
                 .text(function (d) { console.log(d); return d;});
@@ -223,19 +230,19 @@ function createGraph(nodes, links, drawnodesOnly) {
         })
         //To display tooltip
         .on("mouseover", function (d) {
-            if((d.type==="paper")||(d.type==="cite")){
+            if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cite")){
                 div.transition()
                     .duration(200)
                     .style("opacity", .9);
-                div.html(d.title + "<br/>")
+                div.html(d._source.title + "<br/>")
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 30) + "px");
             }
-            else if(d.type==="author"){
+            else if(d._source.vType===vertexType.AUTHOR){
                 div.transition()
                     .duration(200)
                     .style("opacity", .9);
-                div.html(d.authors + "<br/>")
+                div.html(d._source.author + "<br/>")
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 30) + "px");
             }
@@ -256,17 +263,20 @@ function createGraph(nodes, links, drawnodesOnly) {
         .attr("dx", 20)
         .attr("dy", ".35em")
         .text(function (d) {
-            if((d._source.vType==="paper")||(d.type==="cite")){
+            if((d._source.vType==="paper")||(d._source.vType==="cite")){
+                var temp=d._source.title
+                return temp.substring(0,20)+"...";
+            }
+            else if(d._source.vType==="author"){
+                return d._source.author;
+            }
+            else if(d._source.vType==="reference"){
                 return d._source.title;
             }
-            else if(d.type==="author"){
-                return d.authors;
-            }
-            else if(d.type==="reference"){
-                return d.properties.title;
-            }
-            else if(d.type==="institution"){
-                return d.name;
+            else if(d._source.vType==="org"){
+                return d._source.org;
+            }else if(d._source.vType==="fos"){
+                return d._source.fosPaper;
             }
         });
 
@@ -360,3 +370,11 @@ function downloadGraphAsData() {
     saveAs(blob_json,"data.json");
 }
 
+
+
+var vertexType={
+    PAPER:"paper",
+    AUTHOR:"author",
+    ORG:"org",
+    FOS:"fosPaper"
+}

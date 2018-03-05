@@ -39,9 +39,10 @@ function searchClicked(userEnteredtext) {
     d3.json(url, function (error, json) {
         if (error) throw error;
         searchData = json.hits.hits;
+        searchtextfield=document.getElementById("searchText");
+        searchtextfield.innerText=userEnteredtext;
         console.log(searchData)
         //Pagination code
-
         $(document).ready(function(){
             var $pagination = $('#pagination'),
                 totalRecords = 0,
@@ -63,36 +64,79 @@ function searchClicked(userEnteredtext) {
                 for (var i = 0; i < displayRecords.length; i++) {
                     var tr = document.createElement("tr");
                     var td=document.createElement("td");
+                    if(displayRecords[i]._source.vType===vertexType.PAPER) {
+                        a = document.createElement("a");
+                        a.setAttribute("id", displayRecords[i]._id)
+                        a.onclick = function (d) {
+                            poplateClickedNode(d.path[1].getAttribute("id"), searchData);
+                        }
+                        linebreak = document.createElement("br");
+                        boldHeader = document.createElement("b");
+                        handler_a = td.appendChild(a);
+                        boldHeader.innerText = displayRecords[i]._source.title;
+                        handler_a.appendChild(boldHeader);
 
-                    a = document.createElement("a");
-                    a.setAttribute("id",displayRecords[i]._id)
-                    a.onclick=function (d) {
-                        poplateClickedNode(d.path[1].getAttribute("id"),searchData);
+                        p = document.createElement("p");
+                        handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
+                        b = document.createElement("b");
+                        b.innerText = "Citation Count :  ";
+                        span = document.createElement("span");
+                        span.innerText = displayRecords[i]._source.citationCount;
+                        handler_p.appendChild(b);
+                        handler_p.appendChild(span);
+
+                        b1 = document.createElement("b");
+                        b1.innerText = " Year of publish : ";
+                        span1 = document.createElement("span");
+                        span1.innerText = displayRecords[i]._source.year;
+                        handler_p.appendChild(b1);
+                        handler_p.appendChild(span1);
+                        td.appendChild(linebreak);
+                    }else if(displayRecords[i]._source.vType===vertexType.AUTHOR){
+                        a = document.createElement("a");
+                        a.setAttribute("id", displayRecords[i]._id)
+                        a.onclick = function (d) {
+                            poplateClickedNode(d.path[1].getAttribute("id"), searchData);
+                        }
+                        linebreak = document.createElement("br");
+                        boldHeader = document.createElement("b");
+                        handler_a = td.appendChild(a);
+                        boldHeader.innerText = displayRecords[i]._source.author;
+                        handler_a.appendChild(boldHeader);
+
+                        p = document.createElement("p");
+                        handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
+                        b = document.createElement("b");
+                        b.innerText = "Affiliation :  ";
+                        span = document.createElement("span");
+                        span.innerText = displayRecords[i]._source.orgList;
+                        handler_p.appendChild(b);
+                        handler_p.appendChild(span);
+
+                        td.appendChild(linebreak);
+                    }else if(displayRecords[i]._source.vType===vertexType.ORG){
+                        a = document.createElement("a");
+                        a.setAttribute("id", displayRecords[i]._id)
+                        a.onclick = function (d) {
+                            poplateClickedNode(d.path[1].getAttribute("id"), searchData);
+                        }
+                        linebreak = document.createElement("br");
+                        boldHeader = document.createElement("b");
+                        handler_a = td.appendChild(a);
+                        boldHeader.innerText = displayRecords[i]._source.org;
+                        handler_a.appendChild(boldHeader);
+
+                        p = document.createElement("p");
+                        handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
+                        b = document.createElement("b");
+                        b.innerText = " ";
+                        span = document.createElement("span");
+                        span.innerText = " ";
+                        handler_p.appendChild(b);
+                        handler_p.appendChild(span);
+
+                        td.appendChild(linebreak);
                     }
-                    linebreak= document.createElement("br");
-                    h5= document.createElement("b");
-                    handler_a= td.appendChild(a);
-                    h5.innerText=displayRecords[i]._source.title;
-                    handler_a.appendChild(h5);
-                    p=document.createElement("p");
-
-                    handler_p=td.appendChild(p); //change to doc to keep it out of a tag
-                    b= document.createElement("b");
-                    b.innerText="Citation Count :  ";
-
-                    span=document.createElement("span");
-                    span.innerText=displayRecords[i]._source.citationCount;
-                    handler_p.appendChild(b);
-                    handler_p.appendChild(span);
-
-                    b1= document.createElement("b");
-                    b1.innerText=" Year of publish : ";
-                    span1=document.createElement("span");
-                    span1.innerText=displayRecords[i]._source.year;
-                    handler_p.append(' ');
-                    handler_p.appendChild(b1);
-                    handler_p.appendChild(span1);
-                    td.appendChild(linebreak);
                     tr.appendChild(td);
                     doc.appendChild(tr);
                 }
