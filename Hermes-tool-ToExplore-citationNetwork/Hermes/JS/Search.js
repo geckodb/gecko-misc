@@ -14,93 +14,143 @@ $(function () {
 
 });
 
+function fillSearchInput(index,tempArray){
+    var assignVal=document.getElementById("searchinput");
+    var hiddenVal=document.getElementById("hiddenInput");
+    if(tempArray[index]._source.vType===vertexType.PAPER){
+        assignVal.value=tempArray[index]._source.title;
+        hiddenVal.value=vertexType.PAPER;
+    }else if(tempArray[index]._source.vType===vertexType.AUTHOR){
+        assignVal.value=tempArray[index]._source.author;
+        hiddenVal.value=vertexType.AUTHOR;
+    }else if(tempArray[index]._source.vType===vertexType.ORG){
+        assignVal.value=tempArray[index]._source.org;
+        hiddenVal.value=vertexType.ORG;
+    }else if(tempArray[index]._source.vType===vertexType.FOS){
+        assignVal.value=tempArray[index]._source.fos;
+        hiddenVal.value=vertexType.FOS;
+    }else if(tempArray[index]._source.vType===vertexType.PUBLICATION){
+        assignVal.value=tempArray[index]._source.publisher;
+        hiddenVal.value=vertexType.PUBLICATION;
+    }
+
+}
+
 function fillSuggestion() {
+
     var suggestionData=new Array();
     var val=document.getElementById("searchinput").value;
     var urlSuggestion="http://localhost:9200/janusgraph_vertexes/_search?q="+val+"&size=10";
     d3.json(urlSuggestion, function (error, json) {
         if (error) throw error;
+
         suggestionData=json.hits.hits;
-        console.log(suggestionData)
+       // console.log(suggestionData)
         $('#suggestionBox').html('');
-        for(let i=0;i<suggestionData.length;i++){
+
+        for(var i=0;i<suggestionData.length;i++){
+
             var sBox=document.getElementById("suggestionBox");
             var li=document.createElement("li");
-           // var a=document.createElement("a");
+            var a=document.createElement("a");
+
             if(suggestionData[i]._source.vType===vertexType.PAPER){
-                li.setAttribute("id","suggestedItem");
+                aTag=sBox.appendChild(a);
+                li.setAttribute("class","suggestedItem");
+                li.setAttribute("id",i);
                 li.innerText=suggestionData[i]._source.title ;
-                li.onclick=function (d) {
-                    fillSearchInput(d)
+                a.onclick=function (d) {
+                    fillSearchInput(d.path[1].getAttribute("id"),suggestionData);
+                    $('#suggestionBox').html('');
                 }
-                liTag=sBox.appendChild(li)
+                liTag=aTag.appendChild(li)
                 pTag=document.createElement("p");
                 pTag.innerText="in paper"
                 liTag.appendChild(pTag);
 
             }else if(suggestionData[i]._source.vType===vertexType.AUTHOR){
-                li=document.createElement("li");
-                li.setAttribute("id","suggestedItem");
+                aTag=sBox.appendChild(a);
+                li.setAttribute("class","suggestedItem");
+                li.setAttribute("id",i);
                 li.innerText=suggestionData[i]._source.author;
-                li.onclick=function (d) {
-                    fillSearchInput(d)
+                a.onclick=function (d) {
+                    fillSearchInput(d.path[1].getAttribute("id"),suggestionData);
+                    $('#suggestionBox').html('');
                 }
-                liTag=sBox.appendChild(li)
+                liTag=aTag.appendChild(li)
                 pTag=document.createElement("p");
                 pTag.innerText="in author"
                 liTag.appendChild(pTag);
+
             }else if(suggestionData[i]._source.vType===vertexType.ORG){
-                li=document.createElement("li");
-                li.setAttribute("id","suggestedItem");
+                aTag=sBox.appendChild(a);
+                li.setAttribute("class","suggestedItem");
+                li.setAttribute("id",i);
                 li.innerText=suggestionData[i]._source.org ;
-                li.onclick=function (d) {
-                    fillSearchInput(d)
+                a.onclick=function (d) {
+                    fillSearchInput(d.path[1].getAttribute("id"),suggestionData);
+                    $('#suggestionBox').html('');
                 }
-                liTag=sBox.appendChild(li)
+                liTag=aTag.appendChild(li)
                 pTag=document.createElement("p");
                 pTag.innerText="in Organisation"
                 liTag.appendChild(pTag);
+
             }else if(suggestionData[i]._source.vType===vertexType.FOS){
-                li=document.createElement("li");
-                li.setAttribute("id","suggestedItem");
+                aTag=sBox.appendChild(a);
+                li.setAttribute("class","suggestedItem");
+                li.setAttribute("id",i);
                 li.innerText=suggestionData[i]._source.fos;
-                li.onclick=function (d) {
-                    fillSearchInput(d)
+                a.onclick=function (d) {
+                    fillSearchInput(d.path[1].getAttribute("id"),suggestionData);
+                    $('#suggestionBox').html('');
                 }
-                liTag=sBox.appendChild(li)
+                liTag=aTag.appendChild(li)
                 pTag=document.createElement("p");
                 pTag.innerText="in Field of study"
+                liTag.appendChild(pTag);
+
+            }else if(suggestionData[i]._source.vType===vertexType.PUBLICATION){
+                aTag=sBox.appendChild(a);
+                li.setAttribute("class","suggestedItem");
+                li.setAttribute("id",i);
+                li.innerText=suggestionData[i]._source.publisher;
+                a.onclick=function (d) {
+                    fillSearchInput(d.path[1].getAttribute("id"),suggestionData);
+                    $('#suggestionBox').html('');
+                }
+                liTag=aTag.appendChild(li)
+                pTag=document.createElement("p");
+                pTag.innerText="in publication"
                 liTag.appendChild(pTag);
             }
         }
     });
 }
 
- function fillSearchInput(data){
-     alert(data);
- }
 
-//verifies if searc field is not empty and redirects to scholarlyResult.html
+//verifies if search field is not empty, and redirects to scholarlyResult.html
 $("#searchRes").click(function(){
     var userEnteredtext=document.getElementById("searchinput").value;
+    var typeOfVertex=document.getElementById("hiddenInput").value;
     if(!(userEnteredtext.length>0)){
         alert("please enter value");
         event.preventDefault();
         $('#search').addClass('open');
         $('#search > form > input[type="search"]').focus();
     }else{
-        window.location.href="scholarlyResult.html?searchText="+userEnteredtext;
+        window.location.href="scholarlyResult.html?value="+userEnteredtext+"&type="+typeOfVertex;
     }
 });
 
 
 
-function searchClicked(userEnteredtext) {
+function searchClicked(userEnteredtext,chosenType) {
     var searchData=new Array();
     document.getElementById("overlay").style.display="block";
     $('#search').removeClass('open');
     //Pagination code
-    var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper&q="+userEnteredtext+"&size=20"
+    var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:"+chosenType+"&q="+userEnteredtext+"&size=20";
     d3.json(url, function (error, json) {
         if (error) throw error;
         if(json.hits.hits.length==0){
@@ -115,7 +165,8 @@ function searchClicked(userEnteredtext) {
             tr.appendChild(td);
             doc.appendChild(tr);
             document.getElementById("overlay").style.display = "none";
-        }else {
+        }
+        else {
             searchData = json.hits.hits;
             searchtextfield = document.getElementById("searchText");
             searchtextfield.innerText = userEnteredtext;
@@ -202,6 +253,28 @@ function searchClicked(userEnteredtext) {
                             boldHeader = document.createElement("b");
                             handler_a = td.appendChild(a);
                             boldHeader.innerText = displayRecords[i]._source.org;
+                            handler_a.appendChild(boldHeader);
+
+                            p = document.createElement("p");
+                            handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
+                            b = document.createElement("b");
+                            b.innerText = " ";
+                            span = document.createElement("span");
+                            span.innerText = " ";
+                            handler_p.appendChild(b);
+                            handler_p.appendChild(span);
+
+                            td.appendChild(linebreak);
+                        }else if (displayRecords[i]._source.vType === vertexType.PUBLICATION) {
+                            a = document.createElement("a");
+                            a.setAttribute("id", displayRecords[i]._id)
+                            a.onclick = function (d) {
+                                poplateClickedNode(d.path[1].getAttribute("id"), searchData);
+                            }
+                            linebreak = document.createElement("br");
+                            boldHeader = document.createElement("b");
+                            handler_a = td.appendChild(a);
+                            boldHeader.innerText = displayRecords[i]._source.publisher;
                             handler_a.appendChild(boldHeader);
 
                             p = document.createElement("p");

@@ -1,5 +1,6 @@
 var linksArray = new Array();
 var authorAlreadyAdded=new Map();
+var publicationAlreadyAdded=new Map();
 var fosAlreadyAdded=new Map();
 var paperAlreadyAdded=new Map();
 var paperExpanded= new Set();
@@ -21,6 +22,10 @@ class _source {
             case "fos":
                 this.vType = state;
                 this.fosPaper = value;
+                break;
+            case "publication":
+                this.vType = state;
+                this.publisher = value;
                 break;
         }
     }
@@ -57,6 +62,12 @@ function createInstitutionNode(name) {
     this.name = name;
     this._source=new _source("org",name);
 }
+
+function createPublicationNode(name) {
+    this.name = name;
+    this._source=new _source("publication",name);
+}
+
 
 function showAuthors(idToEXpand,processedArray) {
 
@@ -101,6 +112,48 @@ function showAuthors(idToEXpand,processedArray) {
     createGraph(processedArray, linksArray,false);
     d3.select('.context-menu').style('display', 'none');
 }
+
+
+function showPublication(idToEXpand,processedArray) {
+
+    var intial_length = processedArray.length;
+    for (var i = 0; i < intial_length; i++) {
+        if ((processedArray[i]._source.vType === vertexType.PAPER)&&(processedArray[i]._source.publisherPaper!==undefined)){
+            if (processedArray[i]._id === idToEXpand) {
+                    if (!publicationAlreadyAdded.has(processedArray[i]._source.publisherPaper)) {
+                        var newNode = new createPublicationNode(processedArray[i]._source.publisherPaper)
+                        var index = processedArray.push(newNode);
+                        publicationAlreadyAdded.set(processedArray[i]._source.publisherPaper, index - 1);
+                        var newLink = new createLinks(i, processedArray.length - 1);
+                        linksArray.push(newLink);
+                    }else{
+                        var newLink = new createLinks(i, publicationAlreadyAdded.get(processedArray[i]._source.publisherPaper));
+                        linksArray.push(newLink);
+                    }
+                }
+            }
+    }
+
+    for (var i = 0; i < intial_length; i++) {
+        if ((processedArray[i]._source.vType === vertexType.PAPER)&&(processedArray[i]._source.publisherPaper!==undefined)) {
+            if (processedArray[i]._id !== idToEXpand) {
+                    if (publicationAlreadyAdded.has(processedArray[i]._source.publisherPaper)) {
+                        var newLink = new createLinks(i, publicationAlreadyAdded.get(processedArray[i]._source.publisherPaper));
+                        linksArray.push(newLink);
+                    }
+            }
+        }
+    }
+
+    JSON.stringify(linksArray);
+    JSON.stringify(processedArray);
+    d3.selectAll("svg > *").remove();
+    var mydata=new Set(processedArray);
+    for(let item of mydata) console.log(item);
+    createGraph(processedArray, linksArray,false);
+    d3.select('.context-menu').style('display', 'none');
+}
+
 
 function showCitations(idToEXpand) {
     var intial_length = processedArray.length;

@@ -19,7 +19,7 @@
     <script src="../Library/jquery.twbsPagination.min.js"></script>
 </head>
 
-<body onload="searchClicked(searchValue)">
+<body onload="searchClicked(searchValue,typeValue)">
 
 <div id="header1"></div>
 
@@ -102,7 +102,9 @@
     //to obtain the value that was entered in search field which was passed through url
     var url_string = window.location.href;
     var url = new URL(url_string);
-    var searchValue = url.searchParams.get("searchText");
+    var searchValue = url.searchParams.get("value");
+    var typeValue=url.searchParams.get("type");
+    //alert("in schol type= "+typeValue)
 </script>
 </body>
 </html>

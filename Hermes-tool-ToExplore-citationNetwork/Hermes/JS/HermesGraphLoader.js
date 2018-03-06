@@ -11,7 +11,7 @@ var svg = d3.select("#paperGraphArea")
     .attr("width",width)
     .attr("height",height);
 
-var menuItems = ["Authorship","Field of Study", "Citedby", "References"];
+var menuItems = ["Authorship","Field of Study", "Citedby", "References","Publication"];
 var authorMenuItems=["Co-author", "Institution"];
 var institutionMenuItems=["Authorship","Papers"]
 
@@ -138,6 +138,10 @@ function createGraph(nodes, links, drawnodesOnly) {
                 return "affiliation"
             } else if(d.target._source.vType==="reference"){
                 return "refers to"
+            }else if(d.target._source.vType===vertexType.FOS){
+                return "fos"
+            }else if(d.target._source.vType===vertexType.PUBLICATION){
+                return "publisher"
             }
 
         });
@@ -162,6 +166,9 @@ function createGraph(nodes, links, drawnodesOnly) {
             }
             else if(d._source.vType==="fos"){
                 return "https://www.sas.com/content/dam/SAS/en_us/image/sas-com/icons/navmenu/universities-icon.png/_jcr_content/renditions/cq5dam.thumbnail.140.100.png"
+            }
+            else if(d._source.vType===vertexType.PUBLICATION){
+                return "http://www.projecttejaswini.com/WCD/magazine.png"
             }
         })
         .attr("x", -8)
@@ -214,6 +221,8 @@ function createGraph(nodes, links, drawnodesOnly) {
                         showInstitution(paperId,processedArray);
                     }else if(d==="Field of Study"){
                         showFOS(paperId,processedArray);
+                    }else if(d==="Publication"){
+                        showPublication(paperId,processedArray);
                     }
                 })
                 .text(function (d) { console.log(d); return d;});
@@ -277,6 +286,8 @@ function createGraph(nodes, links, drawnodesOnly) {
                 return d._source.org;
             }else if(d._source.vType==="fos"){
                 return d._source.fosPaper;
+            }else if(d._source.vType===vertexType.PUBLICATION){
+                return d._source.publisher;
             }
         });
 
@@ -376,5 +387,7 @@ var vertexType={
     PAPER:"paper",
     AUTHOR:"author",
     ORG:"org",
-    FOS:"fosPaper"
+    FOS:"fosPaper",
+    PUBLICATION:"publication",
+    VENUE:"venue"
 }
