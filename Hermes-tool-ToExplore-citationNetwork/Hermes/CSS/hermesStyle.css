@@ -154,7 +154,6 @@ body {
     -o-transform: translate(0px, -100%) scale(0, 0);
     -ms-transform: translate(0px, -100%) scale(0, 0);
     transform: translate(0px, -100%) scale(0, 0);
-
     z-index: 9999;
 }
 
@@ -172,13 +171,14 @@ body {
     top: 50%;
     width: 100%;
     color: rgb(255, 255, 255);
-    background: rgba(0, 0, 0, 0);
-    font-size: 60px;
+    background: rgba(0, 0, 0,0);
+    font-size: 40px;
     font-weight: 300;
     text-align: center;
     border: 0px;
     margin: 0px auto;
-    margin-top: -51px;
+    margin-top: -330px;
+    margin-left: -50px;
     padding-left: 30px;
     padding-right: 30px;
     outline: none;
@@ -187,21 +187,23 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: 61px;
-    margin-left: -45px;
+    margin-top: -320px;
+    margin-left: 400px;
     background-color: black;
     border-color: black;
 }
+
+
 #search .close {
     position: fixed;
-    top: 50px;
+    top: 15px;
     right: 15px;
     color: #fff;
     background-color: black;
     border-color: black;
     opacity: 1;
     padding: 10px 17px;
-    font-size: 27px;
+    font-size: 15px;
 }
 
 #searchButton{
@@ -438,4 +440,41 @@ width: 430px;
     -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 1);
     -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 1);
     box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 1);
+}
+
+#searchinput{
+
+}
+
+#suggestionBox{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1200px;
+    height: 500px;
+    list-style-type: none;
+    margin-top: -240px;
+    margin-left: -720px;
+    z-index: 99999;
+}
+
+
+#suggestedItem{
+    border: 1px solid #ddd;
+    margin-top: -1px;
+    background-color: #f6f6f6;
+    text-decoration: none;
+    font-size: 16px;
+    color: black;
+    display: block;
+
+}
+
+#suggestedItem:hover:not(.header) {
+    background-color: #848484;
+}
+
+#suggestedItem p{
+    margin-left: 50px;
+    color: green;
 }

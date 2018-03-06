@@ -23,12 +23,21 @@
     </div>
 </nav>
 
-<div id="search" style="opacity: 30">
+<div id="search">
     <button type="button" class="close">X</button>
-    <form action="">
-        <input id="searchinput" type="search" value="" placeholder="type keyword(s) here" />
-        <a href=""><button type="reset" id ="searchRes" class="btn btn-primary" title="Search" name="Search"> Search </button></a>
+    <form>
+        <input id="searchinput" type="search" onkeyup="fillSuggestion()" placeholder="type keyword(s) here" />
+        <div id="mysuggestion">
+            <ul id="suggestionBox">
+
+            </ul>
+        </div>
+        <!--<ul >-->
+            <!--<li id="suggestedItem"><a onclick="fillSearchInput()"></a></li>-->
+        <!--</ul>-->
+        <a href=""><button type="reset" id ="searchRes" class="btn btn-primary" title="Search" name="Search"> GO </button></a>
     </form>
 </div>
+
 
 
