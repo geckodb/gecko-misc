@@ -25,17 +25,14 @@
 
 <div id="search">
     <button type="button" class="close">X</button>
-    <form>
-        <input id="searchinput" type="search" onkeyup="fillSuggestion()" placeholder="type keyword(s) here" />
-        <input id="hiddenInput" type="hidden">
+    <form autocomplete="off">
+        <input id="searchinput" autocomplete="off" type="search" onkeyup="fillSuggestion()" placeholder="type keyword(s) here" />
+        <input id="hiddenInput" autocomplete="off" type="hidden">
         <div id="mysuggestion">
             <ul id="suggestionBox">
 
             </ul>
         </div>
-        <!--<ul >-->
-            <!--<li id="suggestedItem"><a onclick="fillSearchInput()"></a></li>-->
-        <!--</ul>-->
         <a href=""><button type="reset" id ="searchRes" class="btn btn-primary" title="Search" name="Search"> GO </button></a>
     </form>
 </div>

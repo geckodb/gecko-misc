@@ -151,7 +151,10 @@ function createGraph(nodes, links, drawnodesOnly) {
         .data(nodes)
         .enter().append("g")
         .attr("class", "node")
-        .call(node_drag);
+        .call(node_drag)
+        .on("click",function (d) {
+            alert("I was called")
+        });
 
     node.append("image")
         .attr("xlink:href", function (d) {
@@ -272,20 +275,20 @@ function createGraph(nodes, links, drawnodesOnly) {
         .attr("dx", 20)
         .attr("dy", ".35em")
         .text(function (d) {
-            if((d._source.vType==="paper")||(d._source.vType==="cite")){
+            if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cite")){
                 var temp=d._source.title
                 return temp.substring(0,20)+"...";
             }
-            else if(d._source.vType==="author"){
+            else if(d._source.vType===vertexType.AUTHOR){
                 return d._source.author;
             }
             else if(d._source.vType==="reference"){
                 return d._source.title;
             }
-            else if(d._source.vType==="org"){
+            else if(d._source.vType===vertexType.ORG){
                 return d._source.org;
-            }else if(d._source.vType==="fos"){
-                return d._source.fosPaper;
+            }else if(d._source.vType===vertexType.FOS){
+                return d._source.fos;
             }else if(d._source.vType===vertexType.PUBLICATION){
                 return d._source.publisher;
             }
@@ -295,10 +298,13 @@ function createGraph(nodes, links, drawnodesOnly) {
     var div = d3.select("body").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0);
+    
+
     if(!drawnodesOnly)
         force.on("tick",tick );
     else
         force.on("tick",node_tick );
+
 
     function node_tick() {
         node.attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; });
@@ -387,7 +393,7 @@ var vertexType={
     PAPER:"paper",
     AUTHOR:"author",
     ORG:"org",
-    FOS:"fosPaper",
+    FOS:"fos",
     PUBLICATION:"publication",
     VENUE:"venue"
 }

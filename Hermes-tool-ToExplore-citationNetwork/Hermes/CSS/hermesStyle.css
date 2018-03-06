@@ -166,19 +166,23 @@ body {
     opacity: 100;
 }
 
+#searchForm{
+
+}
+
 #search input[type="search"] {
     position: absolute;
     top: 50%;
     width: 1200px;
     height: 60px;
     color: rgb(255, 255, 255);
-    background: rgba(0, 0, 0,0.4);
+    background: rgba(0, 0, 0,0.5);
     font-size: 18px;
     font-weight: 300;
     text-align: center;
     border: 0px;
     margin: 0px auto;
-    margin-top: -300px;
+    margin-top: -340px;
     margin-left: 100px;
     padding-left: 30px;
     padding-right: 30px;
@@ -189,7 +193,7 @@ body {
     top: 50%;
     left: 50%;
     height: 60px;
-    margin-top: -300px;
+    margin-top: -340px;
     margin-left: 580px;
     background-color: black;
     border-color: black;
@@ -198,14 +202,16 @@ body {
 
 #search .close {
     position: fixed;
-    top: 15px;
-    right: 15px;
+    top: 50%;
+    right: 40px;
     color: #fff;
+    height: 60px;
     background-color: black;
     border-color: black;
+    margin-top: -340px;
     opacity: 1;
     padding: 10px 17px;
-    font-size: 15px;
+    font-size: 17px;
 }
 
 #searchButton{
@@ -455,7 +461,7 @@ width: 430px;
     width: 1200px;
     height: 500px;
     list-style-type: none;
-    margin-top: -240px;
+    margin-top: -280px;
     margin-left: -680px;
     z-index: 99999;
 }

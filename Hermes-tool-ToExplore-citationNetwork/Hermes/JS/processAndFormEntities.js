@@ -21,7 +21,7 @@ class _source {
                 break;
             case "fos":
                 this.vType = state;
-                this.fosPaper = value;
+                this.fos = value;
                 break;
             case "publication":
                 this.vType = state;
@@ -228,7 +228,7 @@ function showInstitution(idToEXpand,processedArray) {
     institute_paper=new Map();
     var intial_length = processedArray.length;
     for (var i = 0; i < intial_length; i++) {
-        if (processedArray[i]._source.vType === vertexType.PAPER || processedArray[i]._source.vType === vertexType.AUTHOR) {
+        if ((processedArray[i]._source.vType === vertexType.AUTHOR)&&(processedArray[i]._source.orgList!==undefined)) {
             if ((processedArray[i]._id === idToEXpand)) {
                        var newNode=new createInstitutionNode(processedArray[i]._source.orgList);
                         var index=processedArray.push(newNode);

@@ -11,7 +11,6 @@ $(function () {
             $(this).removeClass('open');
         }
     });
-
 });
 
 function fillSearchInput(index,tempArray){
@@ -33,7 +32,6 @@ function fillSearchInput(index,tempArray){
         assignVal.value=tempArray[index]._source.publisher;
         hiddenVal.value=vertexType.PUBLICATION;
     }
-
 }
 
 function fillSuggestion() {
@@ -134,6 +132,7 @@ $("#searchRes").click(function(){
     var userEnteredtext=document.getElementById("searchinput").value;
     var typeOfVertex=document.getElementById("hiddenInput").value;
     if(!(userEnteredtext.length>0)){
+
         alert("please enter value");
         event.preventDefault();
         $('#search').addClass('open');
@@ -275,6 +274,28 @@ function searchClicked(userEnteredtext,chosenType) {
                             boldHeader = document.createElement("b");
                             handler_a = td.appendChild(a);
                             boldHeader.innerText = displayRecords[i]._source.publisher;
+                            handler_a.appendChild(boldHeader);
+
+                            p = document.createElement("p");
+                            handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
+                            b = document.createElement("b");
+                            b.innerText = " ";
+                            span = document.createElement("span");
+                            span.innerText = " ";
+                            handler_p.appendChild(b);
+                            handler_p.appendChild(span);
+
+                            td.appendChild(linebreak);
+                        }else if (displayRecords[i]._source.vType === vertexType.FOS) {
+                            a = document.createElement("a");
+                            a.setAttribute("id", displayRecords[i]._id)
+                            a.onclick = function (d) {
+                                poplateClickedNode(d.path[1].getAttribute("id"), searchData);
+                            }
+                            linebreak = document.createElement("br");
+                            boldHeader = document.createElement("b");
+                            handler_a = td.appendChild(a);
+                            boldHeader.innerText = displayRecords[i]._source.fos;
                             handler_a.appendChild(boldHeader);
 
                             p = document.createElement("p");
