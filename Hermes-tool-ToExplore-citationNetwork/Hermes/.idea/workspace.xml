@@ -17,21 +17,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="HermesGraphLoader.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/JS/HermesGraphLoader.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1635">
-              <caret line="300" column="4" lean-forward="false" selection-start-line="300" selection-start-column="4" selection-end-line="300" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="processAndFormEntities.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/JS/processAndFormEntities.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="23" column="33" lean-forward="true" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
+            <state relative-caret-position="641">
+              <caret line="297" column="41" lean-forward="false" selection-start-line="297" selection-start-column="40" selection-end-line="297" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -43,10 +33,10 @@
             <state relative-caret-position="416">
               <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
               <folding>
-                <element signature="e#1340#1346#0" expanded="true" />
-                <element signature="e#1435#1441#0" expanded="true" />
-                <element signature="e#1636#1642#0" expanded="true" />
-                <element signature="e#1740#1746#0" expanded="true" />
+                <element signature="e#1419#1425#0" expanded="true" />
+                <element signature="e#1569#1575#0" expanded="true" />
+                <element signature="e#1770#1776#0" expanded="true" />
+                <element signature="e#1874#1880#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -55,8 +45,8 @@
       <file leaf-file-name="hermesStyle.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CSS/hermesStyle.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1638">
-              <caret line="462" column="26" lean-forward="true" selection-start-line="462" selection-start-column="26" selection-end-line="462" selection-end-column="26" />
+            <state relative-caret-position="303">
+              <caret line="79" column="23" lean-forward="true" selection-start-line="79" selection-start-column="23" selection-end-line="79" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -65,8 +55,8 @@
       <file leaf-file-name="Search.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/JS/Search.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="470">
-              <caret line="299" column="0" lean-forward="true" selection-start-line="299" selection-start-column="0" selection-end-line="299" selection-end-column="0" />
+            <state relative-caret-position="3562">
+              <caret line="137" column="20" lean-forward="false" selection-start-line="137" selection-start-column="14" selection-end-line="137" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -75,12 +65,9 @@
       <file leaf-file-name="scholarlyResult.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HTML/scholarlyResult.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="92" column="39" lean-forward="true" selection-start-line="92" selection-start-column="39" selection-end-line="92" selection-end-column="39" />
+            <state relative-caret-position="234">
+              <caret line="24" column="24" lean-forward="false" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
               <folding>
-                <element signature="n#style#0;n#p#0;n#div#2;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="e#2465#2472#1" expanded="true" />
-                <element signature="e#2808#2815#1" expanded="true" />
                 <element signature="n#style#0;n#table#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#1;n#td#0;n#tr#0;n#table#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#td#0;n#tr#1;n#table#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -93,8 +80,18 @@
       <file leaf-file-name="Header.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HTML/Header.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="31" column="34" lean-forward="false" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
+            <state relative-caret-position="208">
+              <caret line="14" column="57" lean-forward="true" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="57" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HermesGraphLoader.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/JS/HermesGraphLoader.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2677">
+              <caret line="334" column="0" lean-forward="true" selection-start-line="334" selection-start-column="0" selection-end-line="334" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -113,43 +110,48 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>export</find>
-      <find>tempA</find>
-      <find>process</find>
-      <find>Search</find>
-      <find>populate</find>
-      <find>Sea</find>
-      <find>row</find>
-      <find>sho</find>
-      <find>nodeExpandedforRefernce</find>
-      <find>paperAlreadyAdded</find>
-      <find>dataArray</find>
-      <find>authorMenuItems</find>
-      <find>linksArray</find>
-      <find>paper_new</find>
-      <find>tempArray</find>
-      <find>.type</find>
-      <find>linebreak</find>
-      <find>edgelabel</find>
+      <find>new</find>
+      <find>resi</find>
+      <find>font-</find>
+      <find>Publication</find>
+      <find>Venue</find>
+      <find>Institution</find>
+      <find>font-famil</find>
+      <find>context</find>
+      <find>div</find>
+      <find>setA</find>
+      <find>mou</find>
+      <find>.text</find>
+      <find>.node</find>
+      <find>var node</find>
+      <find>node</find>
+      <find>svg.selectAll(&quot;body&quot;)</find>
+      <find>svg.select(&quot;body&quot;)</find>
+      <find>setAttribute(&quot;cl</find>
+      <find>tooltip</find>
+      <find>toolti</find>
+      <find>searchbi</find>
+      <find>searchButton</find>
+      <find>pop</find>
+      <find>mouse</find>
+      <find>.on(&quot;cl</find>
+      <find>call</find>
       <find>too</find>
-      <find>searchClicked</find>
-      <find>z-i</find>
-      <find>#sea</find>
-      <find>btn</find>
-      <find>searchRes</find>
-      <find>userSearchText</find>
-      <find>searchText</find>
-      <find>PUBLICATION</find>
-      <find>PUBLISHER</find>
-      <find>a</find>
-      <find>show</find>
+      <find>callme</find>
+      <find>z-index</find>
+      <find>.too</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;instId&quot;</replace>
       <replace>searchResults</replace>
       <replace>processedArray</replace>
       <replace>PUBLISHER</replace>
+      <replace>paperMenuItems</replace>
+      <replace>Publishing</replace>
+      <replace>Hosting</replace>
+      <replace>Domain</replace>
       <replace>PUBLICATION</replace>
+      <replace>Membership</replace>
     </replaceStrings>
     <dirStrings>
       <dir>F:\GeckoDB_MiscBranch\Datasets_CoddsGraph\gecko-misc\Hermes-tool-ToExplore-citationNetwork\Hermes\JSON</dir>
@@ -171,12 +173,12 @@
         <option value="$PROJECT_DIR$/JSON/Completedata.json" />
         <option value="$PROJECT_DIR$/HTML/Homepage.html" />
         <option value="$PROJECT_DIR$/JSON/QueryData.json" />
+        <option value="$PROJECT_DIR$/JS/Search.js" />
+        <option value="$PROJECT_DIR$/HTML/Header.html" />
+        <option value="$PROJECT_DIR$/JS/processAndFormEntities.js" />
         <option value="$PROJECT_DIR$/HTML/index.html" />
         <option value="$PROJECT_DIR$/HTML/scholarlyResult.html" />
-        <option value="$PROJECT_DIR$/HTML/Header.html" />
         <option value="$PROJECT_DIR$/CSS/hermesStyle.css" />
-        <option value="$PROJECT_DIR$/JS/Search.js" />
-        <option value="$PROJECT_DIR$/JS/processAndFormEntities.js" />
         <option value="$PROJECT_DIR$/JS/HermesGraphLoader.js" />
       </list>
     </option>
@@ -323,12 +325,12 @@
       <workItem from="1519234316251" duration="105127000" />
       <workItem from="1519849946126" duration="1740000" />
       <workItem from="1519851923351" duration="91901000" />
-      <workItem from="1520270072038" duration="36392000" />
+      <workItem from="1520270072038" duration="102246000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="548566000" />
+    <option name="totallyTimeSpent" value="614420000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -338,7 +340,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32930845" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24588364" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0636663" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -403,10 +405,10 @@
         <state relative-caret-position="1690">
           <caret line="65" column="32" lean-forward="true" selection-start-line="65" selection-start-column="32" selection-end-line="65" selection-end-column="32" />
           <folding>
-            <element signature="e#1340#1346#0" expanded="true" />
-            <element signature="e#1435#1441#0" expanded="true" />
-            <element signature="e#1636#1642#0" expanded="true" />
-            <element signature="e#1740#1746#0" expanded="true" />
+            <element signature="e#1419#1425#0" expanded="true" />
+            <element signature="e#1569#1575#0" expanded="true" />
+            <element signature="e#1770#1776#0" expanded="true" />
+            <element signature="e#1874#1880#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -456,10 +458,10 @@
         <state relative-caret-position="494">
           <caret line="19" column="43" lean-forward="false" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
           <folding>
-            <element signature="e#1340#1346#0" expanded="true" />
-            <element signature="e#1435#1441#0" expanded="true" />
-            <element signature="e#1636#1642#0" expanded="true" />
-            <element signature="e#1740#1746#0" expanded="true" />
+            <element signature="e#1419#1425#0" expanded="true" />
+            <element signature="e#1569#1575#0" expanded="true" />
+            <element signature="e#1770#1776#0" expanded="true" />
+            <element signature="e#1874#1880#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -524,10 +526,10 @@
         <state relative-caret-position="910">
           <caret line="35" column="61" lean-forward="true" selection-start-line="35" selection-start-column="61" selection-end-line="35" selection-end-column="61" />
           <folding>
-            <element signature="e#1340#1346#0" expanded="true" />
-            <element signature="e#1435#1441#0" expanded="true" />
-            <element signature="e#1636#1642#0" expanded="true" />
-            <element signature="e#1740#1746#0" expanded="true" />
+            <element signature="e#1419#1425#0" expanded="true" />
+            <element signature="e#1569#1575#0" expanded="true" />
+            <element signature="e#1770#1776#0" expanded="true" />
+            <element signature="e#1874#1880#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -611,14 +613,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/search.html" />
-    <entry file="file://$PROJECT_DIR$/JS/Properties.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="6" column="25" lean-forward="false" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/HTML/temp.html" />
     <entry file="file://$PROJECT_DIR$/HTML/marvel.js" />
     <entry file="file://$PROJECT_DIR$/HTML/marvel.json" />
@@ -684,30 +678,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HTML/Header.html">
+    <entry file="file://$PROJECT_DIR$/JS/Properties.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="31" column="34" lean-forward="false" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="8" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CSS/hermesStyle.css">
+    <entry file="file://$PROJECT_DIR$/JS/Search.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1638">
-          <caret line="462" column="26" lean-forward="true" selection-start-line="462" selection-start-column="26" selection-end-line="462" selection-end-column="26" />
+        <state relative-caret-position="3562">
+          <caret line="137" column="20" lean-forward="false" selection-start-line="137" selection-start-column="14" selection-end-line="137" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HTML/Header.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="14" column="57" lean-forward="true" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/JS/processAndFormEntities.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="641">
+          <caret line="297" column="41" lean-forward="false" selection-start-line="297" selection-start-column="40" selection-end-line="297" selection-end-column="41" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/HTML/scholarlyResult.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="92" column="39" lean-forward="true" selection-start-line="92" selection-start-column="39" selection-end-line="92" selection-end-column="39" />
+        <state relative-caret-position="234">
+          <caret line="24" column="24" lean-forward="false" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
           <folding>
-            <element signature="n#style#0;n#p#0;n#div#2;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#2465#2472#1" expanded="true" />
-            <element signature="e#2808#2815#1" expanded="true" />
             <element signature="n#style#0;n#table#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#1;n#td#0;n#tr#0;n#table#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#td#0;n#tr#1;n#table#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -716,39 +723,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JS/Search.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="470">
-          <caret line="299" column="0" lean-forward="true" selection-start-line="299" selection-start-column="0" selection-end-line="299" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/HTML/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
           <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding>
-            <element signature="e#1340#1346#0" expanded="true" />
-            <element signature="e#1435#1441#0" expanded="true" />
-            <element signature="e#1636#1642#0" expanded="true" />
-            <element signature="e#1740#1746#0" expanded="true" />
+            <element signature="e#1419#1425#0" expanded="true" />
+            <element signature="e#1569#1575#0" expanded="true" />
+            <element signature="e#1770#1776#0" expanded="true" />
+            <element signature="e#1874#1880#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JS/processAndFormEntities.js">
+    <entry file="file://$PROJECT_DIR$/CSS/hermesStyle.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="23" column="33" lean-forward="true" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
+        <state relative-caret-position="303">
+          <caret line="79" column="23" lean-forward="true" selection-start-line="79" selection-start-column="23" selection-end-line="79" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/JS/HermesGraphLoader.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1635">
-          <caret line="300" column="4" lean-forward="false" selection-start-line="300" selection-start-column="4" selection-end-line="300" selection-end-column="4" />
+        <state relative-caret-position="2677">
+          <caret line="334" column="0" lean-forward="true" selection-start-line="334" selection-start-column="0" selection-end-line="334" selection-end-column="0" />
           <folding />
         </state>
       </provider>

@@ -1,11 +1,12 @@
 var linksArray = new Array();
 var authorAlreadyAdded=new Map();
 var publicationAlreadyAdded=new Map();
+var venueAlreadyAdded=new Map();
 var fosAlreadyAdded=new Map();
 var paperAlreadyAdded=new Map();
 var paperExpanded= new Set();
 var nodeExpandedforRefernce = new Set();
-var institute=new Map();
+var instituteAlreadyAdded=new Map();
 
 
 class _source {
@@ -27,11 +28,16 @@ class _source {
                 this.vType = state;
                 this.publisher = value;
                 break;
+            case "venue":
+                this.vType = state;
+                this.venue = value;
+                break;
         }
     }
 }
 
 function createAuthorNode(paperId, author) {
+    this.createdNode=true;
     this.authorId = paperId;
     this._source=new _source("author",author);
  }
@@ -63,13 +69,18 @@ function createInstitutionNode(name) {
     this._source=new _source("org",name);
 }
 
+function createVenueNode(name) {
+    this.name = name;
+    this._source=new _source("venue",name);
+}
+
 function createPublicationNode(name) {
     this.name = name;
     this._source=new _source("publication",name);
 }
 
 
-function showAuthors(idToEXpand,processedArray) {
+function showAuthors(idToEXpand, paperjgId,processedArray) {
 
     var intial_length = processedArray.length;
     for (var i = 0; i < intial_length; i++) {
@@ -77,7 +88,7 @@ function showAuthors(idToEXpand,processedArray) {
             if ((processedArray[i]._id === idToEXpand) && (processedArray[i]._source.authors!== undefined)) {
                 for (var j = 0; j < processedArray[i]._source.authors.length; j++) {
                     if (!authorAlreadyAdded.has(processedArray[i]._source.authors[j])) {
-                        var newNode = new createAuthorNode(processedArray[i]._id, processedArray[i]._source.authors[j])
+                        var newNode = new createAuthorNode(paperjgId, processedArray[i]._source.authors[j])
                         var index = processedArray.push(newNode);
                         authorAlreadyAdded.set(processedArray[i]._source.authors[j], index - 1);
                         var newLink = new createLinks(i, processedArray.length - 1);
@@ -141,6 +152,47 @@ function showPublication(idToEXpand,processedArray) {
                         var newLink = new createLinks(i, publicationAlreadyAdded.get(processedArray[i]._source.publisherPaper));
                         linksArray.push(newLink);
                     }
+            }
+        }
+    }
+
+    JSON.stringify(linksArray);
+    JSON.stringify(processedArray);
+    d3.selectAll("svg > *").remove();
+    var mydata=new Set(processedArray);
+    for(let item of mydata) console.log(item);
+    createGraph(processedArray, linksArray,false);
+    d3.select('.context-menu').style('display', 'none');
+}
+
+
+function showVenue(idToEXpand,processedArray) {
+
+    var intial_length = processedArray.length;
+    for (var i = 0; i < intial_length; i++) {
+        if ((processedArray[i]._source.vType === vertexType.PAPER)&&(processedArray[i]._source.venuePaper!==undefined)){
+            if (processedArray[i]._id === idToEXpand) {
+                if (!venueAlreadyAdded.has(processedArray[i]._source.venue)) {
+                    var newNode = new createVenueNode(processedArray[i]._source.venuePaper)
+                    var index = processedArray.push(newNode);
+                    venueAlreadyAdded.set(processedArray[i]._source.venue, index - 1);
+                    var newLink = new createLinks(i, processedArray.length - 1);
+                    linksArray.push(newLink);
+                }else{
+                    var newLink = new createLinks(i, venueAlreadyAdded.get(processedArray[i]._source.venuePaper));
+                    linksArray.push(newLink);
+                }
+            }
+        }
+    }
+
+    for (var i = 0; i < intial_length; i++) {
+        if ((processedArray[i]._source.vType === vertexType.PAPER)&&(processedArray[i]._source.venue!==undefined)) {
+            if (processedArray[i]._id !== idToEXpand) {
+                if (venueAlreadyAdded.has(processedArray[i]._source.venuePaper)) {
+                    var newLink = new createLinks(i, venueAlreadyAdded.get(processedArray[i]._source.venuePaper));
+                    linksArray.push(newLink);
+                }
             }
         }
     }
@@ -224,18 +276,60 @@ function showReferences(idToEXpand){
 }
 
 
-function showInstitution(idToEXpand,processedArray) {
-    institute_paper=new Map();
+function showInstitution(idToEXpand,authorName,indexofCreatedAuthorNode) {
+    var targetId="";
+    var orgNames=new Array();
+    var url= "http://localhost:9200/janusgraph_edgees/_search?q=eType=authorship AND srcId="+idToEXpand+" AND authorEdge="+authorName;
+
+    d3.json(url, function (error, json) {
+         if (error) throw error;
+         console.log(json)
+         targetId = json.hits.hits[0]._source.tgtId;
+
+        var getAuthorData="http://localhost:9200/janusgraph_vertexes/_search?q=vType:author AND jgId:"+targetId;
+
+
+        d3.json(getAuthorData,function (error, jsonResult) {
+            if (error) throw error;
+            orgNames = jsonResult.hits.hits[0]._source.orgList;
+
+
+            if((orgNames!=undefined)){
+                var newNode=new createInstitutionNode(orgNames);
+                var index=processedArray.push(newNode);
+                var newLink=new createLinks(indexofCreatedAuthorNode,processedArray.length-1);
+                linksArray.push(newLink);
+                instituteAlreadyAdded.set(orgNames);
+            }else{
+                alert("Membership data not available ")
+            }
+
+            JSON.stringify(linksArray);
+            JSON.stringify(processedArray);
+            d3.selectAll("svg > *").remove();
+            var mydata=new Set(processedArray);
+            for(let item of mydata) console.log(item);
+            createGraph(processedArray, linksArray,false);
+
+        });
+
+    });
+}
+
+
+function showInstitutionFromAuthor(idToEXpand,processedArray) {
+    //institute_paper=new Map();
     var intial_length = processedArray.length;
+
     for (var i = 0; i < intial_length; i++) {
         if ((processedArray[i]._source.vType === vertexType.AUTHOR)&&(processedArray[i]._source.orgList!==undefined)) {
             if ((processedArray[i]._id === idToEXpand)) {
-                       var newNode=new createInstitutionNode(processedArray[i]._source.orgList);
-                        var index=processedArray.push(newNode);
-                       var newLink=new createLinks(i,processedArray.length-1);
-                       linksArray.push(newLink);
-                       institute.set(processedArray[i]._source.orgList,index-1);
-                       institute_paper.set(processedArray[i]._source.orgList);
+                var newNode=new createInstitutionNode(processedArray[i]._source.orgList);
+                var index=processedArray.push(newNode);
+                var newLink=new createLinks(i,processedArray.length-1);
+                linksArray.push(newLink);
+                instituteAlreadyAdded.set(processedArray[i]._source.orgList,index-1);
+                //institute_paper.set(processedArray[i]._source.orgList);
             }
         }
     }
@@ -248,6 +342,8 @@ function showInstitution(idToEXpand,processedArray) {
     createGraph(processedArray, linksArray,false);
     d3.select('.context-menu').style('display', 'none');
 }
+
+
 
 function showFOS(idToEXpand,processedArray) {
 

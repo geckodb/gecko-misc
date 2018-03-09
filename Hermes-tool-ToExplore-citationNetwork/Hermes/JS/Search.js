@@ -51,9 +51,10 @@ function fillSuggestion() {
             var sBox=document.getElementById("suggestionBox");
             var li=document.createElement("li");
             var a=document.createElement("a");
-
+                a.setAttribute("id","aTag");
             if(suggestionData[i]._source.vType===vertexType.PAPER){
                 aTag=sBox.appendChild(a);
+
                 li.setAttribute("class","suggestedItem");
                 li.setAttribute("id",i);
                 li.innerText=suggestionData[i]._source.title ;
@@ -61,10 +62,17 @@ function fillSuggestion() {
                     fillSearchInput(d.path[1].getAttribute("id"),suggestionData);
                     $('#suggestionBox').html('');
                 }
-                liTag=aTag.appendChild(li)
+                liTag=aTag.appendChild(li);
                 pTag=document.createElement("p");
-                pTag.innerText="in paper"
-                liTag.appendChild(pTag);
+                pTag.innerText="in paper ";
+                pTag_handler=liTag.appendChild(pTag);
+                citationTag=document.createElement("bold");
+                citationTag.innerText="Citation : ";
+                spanCitationTag=document.createElement("span");
+                spanCitationTag.innerText=suggestionData[i]._source.citationCount;
+
+                pTag_handler.appendChild(citationTag);
+                pTag_handler.appendChild(spanCitationTag);
 
             }else if(suggestionData[i]._source.vType===vertexType.AUTHOR){
                 aTag=sBox.appendChild(a);
@@ -149,7 +157,13 @@ function searchClicked(userEnteredtext,chosenType) {
     document.getElementById("overlay").style.display="block";
     $('#search').removeClass('open');
     //Pagination code
-    var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:"+chosenType+"&q="+userEnteredtext+"&size=20";
+    if(chosenType!=""){
+        var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:"+chosenType+" AND "+userEnteredtext+"&size=20";
+    }else{
+        var url="http://localhost:9200/janusgraph_vertexes/_search?q="+userEnteredtext+"&size=20";
+
+    }
+
     d3.json(url, function (error, json) {
         if (error) throw error;
         if(json.hits.hits.length==0){
@@ -181,7 +195,7 @@ function searchClicked(userEnteredtext,chosenType) {
                     totalPages = 0;
 
                 records = searchData;
-                totalRecords = records.length;
+                totalRecords = json.hits.total;
                 totalPages = Math.ceil(totalRecords / recPerPage);
                 apply_pagination();
 
@@ -308,10 +322,33 @@ function searchClicked(userEnteredtext,chosenType) {
                             handler_p.appendChild(span);
 
                             td.appendChild(linebreak);
+                        }else if (displayRecords[i]._source.vType === vertexType.VENUE) {
+                            a = document.createElement("a");
+                            a.setAttribute("id", displayRecords[i]._id)
+                            a.onclick = function (d) {
+                                poplateClickedNode(d.path[1].getAttribute("id"), searchData);
+                            }
+                            linebreak = document.createElement("br");
+                            boldHeader = document.createElement("b");
+                            handler_a = td.appendChild(a);
+                            boldHeader.innerText = displayRecords[i]._source.venue;
+                            handler_a.appendChild(boldHeader);
+
+                            p = document.createElement("p");
+                            handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
+                            b = document.createElement("b");
+                            b.innerText = " ";
+                            span = document.createElement("span");
+                            span.innerText = " ";
+                            handler_p.appendChild(b);
+                            handler_p.appendChild(span);
+
+                            td.appendChild(linebreak);
                         }
                         tr.appendChild(td);
                         doc.appendChild(tr);
                     }
+
                     document.getElementById("overlay").style.display = "none";
                 }
 

@@ -1,9 +1,8 @@
 ﻿var processedArray=new Array();
-d3.json("../JSON/temp.json",processedArray);
+d3.json("../JSON/temp.json",processedArray); //temp.json holds the format required to map d3 objects **DO NOT DELETE TEMP.JSON**
 var width = 1050,
     height = 580;
 var nodeAdded= new Set();
-
 var fullscreen=true;
 
 var svg = d3.select("#paperGraphArea")
@@ -11,9 +10,16 @@ var svg = d3.select("#paperGraphArea")
     .attr("width",width)
     .attr("height",height);
 
-var menuItems = ["Authorship","Field of Study", "Citedby", "References","Publication"];
-var authorMenuItems=["Co-author", "Institution"];
-var institutionMenuItems=["Authorship","Papers"]
+var divShowAllInfo = d3.select("body")
+                    .append("div");
+
+var paperMenuItems = ["Authorship","Domain","Hosting","Publishing","Co-citation","Bibliographic Coupling", "Cited By","References"];
+var authorMenuItems=["Papers","Co-authorship", "Membership"];
+var institutionMenuItems=["Papers"];
+var venueMenuItems=["Papers"];
+var publicationMenuItems=["Papers"];
+var FOSMenuItems=["Papers"];
+
 
 var force = d3.layout.force()
     .distance(100)
@@ -23,15 +29,16 @@ var force = d3.layout.force()
     .gravity(0.1)
     .alpha(0);
 
-//var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper&q=database&size=20";
+//	Define the div for the tooltip
+var div = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
 
-  /*  d3.json("http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper&q=database&size=20",function (error, jsonResult) {
-    if (error) console.log(error.valueOf()) ;
-    dataArray = jsonResult.hits.hits;
-    processedArray=dataArray;
-    console.log(dataArray)
-    console.log(dataArray[0]._source)
-});*/
+function callme() {
+    div.transition()
+        .duration(500)
+        .style("opacity", 0);
+}
 
 function poplateClickedNode(nodeId,dataArray) {
     for(let i=0;i<dataArray.length;i++){
@@ -47,7 +54,8 @@ function poplateClickedNode(nodeId,dataArray) {
 
 
 function createGraph(nodes, links, drawnodesOnly) {
-
+    var paperId="";
+    var fromAuthor=false;
 //To form arrowhead
     svg.append("defs").selectAll("marker")
         .data(["arrowhead", "licensing", "resolved"])
@@ -142,6 +150,8 @@ function createGraph(nodes, links, drawnodesOnly) {
                 return "fos"
             }else if(d.target._source.vType===vertexType.PUBLICATION){
                 return "publisher"
+            }else if(d.target._source.vType===vertexType.VENUE){
+                return "venue"
             }
 
         });
@@ -152,8 +162,28 @@ function createGraph(nodes, links, drawnodesOnly) {
         .enter().append("g")
         .attr("class", "node")
         .call(node_drag)
-        .on("click",function (d) {
-            alert("I was called")
+        .on("dblclick",function (d) {
+
+            if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cite")){
+                div.transition()
+                    .duration(200)
+                    .style("opacity", 10);
+                div.html("<b>Title : </b>"+d._source.title + "<br/>"+
+                    "<b>Authors : </b>"+d._source.authors + "<br/>"+
+                    "<a> show more...</a>"+ "<br/>"+
+                    "<button id='popupbtn' type='submit' onclick='callme()'>close</button>")
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 60) + "px");
+
+            }
+            else if(d._source.vType===vertexType.AUTHOR){
+                div.transition()
+                    .duration(200)
+                    .style("opacity", 10);
+                div.html(d._source.author + "<br/>")
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 60) + "px");
+            }
         });
 
     node.append("image")
@@ -172,6 +202,9 @@ function createGraph(nodes, links, drawnodesOnly) {
             }
             else if(d._source.vType===vertexType.PUBLICATION){
                 return "http://www.projecttejaswini.com/WCD/magazine.png"
+            }
+            else if(d._source.vType===vertexType.VENUE){
+                return "http://www.claudiacasillasmusic.com/assets/img/mappin.ico"
             }
         })
         .attr("x", -8)
@@ -194,38 +227,52 @@ function createGraph(nodes, links, drawnodesOnly) {
             d3.select('body').on('click.context-menu', function () {
                 d3.select('.context-menu').style('display', 'none');
             });
+
             // this gets executed when a context menu event occurs
             d3.selectAll('.context-menu')
                 .html('')
                 .append('ul')
                 .selectAll('li')
                 .data(function () {
-                    if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cite")||(d._source.vType==="reference"))
-                        return menuItems;
+                    if(d._source.vType===vertexType.PAPER)
+                        return paperMenuItems;
                     else if((d._source.vType===vertexType.AUTHOR)){
                         return authorMenuItems;
-                    }else{
+                    }else if(d._source.vType===vertexType.ORG){
                         return institutionMenuItems;
+                    }else if(d._source.vType===vertexType.VENUE){
+                        return venueMenuItems;
+                    }else if(d._source.vType===vertexType.FOS){
+                        return FOSMenuItems;
                     }
 
                 }).enter()
                 .append('li')
                 .on('click', function (d) {
-                    console.log("context menu-" +d);
                     if((d==="Authorship")){
-                        showAuthors(paperId,processedArray);
+                        showAuthors(paperId,srcjgId,processedArray);
                         paperExpanded.add(paperId);
                     }else if(d==="Citedby"){
                         showCitations(paperId,processedArray);
                     }else if(d==="References"){
                         showReferences(paperId);
                         nodeExpandedforRefernce.add(paperId);
-                    }else if(d==="Institution"){
-                        showInstitution(paperId,processedArray);
-                    }else if(d==="Field of Study"){
+                    }else if(d==="Membership"){
+                        if(fromAuthor){
+                            showInstitutionFromAuthor(paperId,processedArray);
+                            fromAuthor=false;
+
+                        }else{
+
+                            showInstitution(authorSrcId,authorName,index);
+                            d3.select('.context-menu').style('display', 'none');
+                        }
+                    }else if(d==="Domain"){
                         showFOS(paperId,processedArray);
-                    }else if(d==="Publication"){
+                    }else if(d==="Publishing"){
                         showPublication(paperId,processedArray);
+                    }else if(d==="Hosting"){
+                        showVenue(paperId,processedArray);
                     }
                 })
                 .text(function (d) { console.log(d); return d;});
@@ -238,33 +285,56 @@ function createGraph(nodes, links, drawnodesOnly) {
                 .style('top', d3.event.pageY - 2 + 'px')
                 .style('display', 'block');
             d3.event.preventDefault();
-            var paperId = d._id;
-        })
+            console.log(d);
+            if(d._source.vType===vertexType.PAPER){
+                var srcjgId=d._source.jgId
+            }else if(d._source.vType===vertexType.AUTHOR){
+                if(d.createdNode!==undefined){
+                    var authorSrcId=d.authorId;
+                    var authorName=d._source.author;
+                    var index=d.index;
+                }else{
+                    fromAuthor=true;
+                }
+            }
+
+             paperId = d._id;
+        });
         //To display tooltip
-        .on("mouseover", function (d) {
-            if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cite")){
+       /* .on("mouseover", function (d) {
+            //	Define the div for the tooltip
+
+
+           /!* if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cite")){
                 div.transition()
                     .duration(200)
-                    .style("opacity", .9);
-                div.html(d._source.title + "<br/>")
+                    .style("opacity", 10);
+                div.html("<b>Title : </b>"+d._source.title + "<br/>"+
+                    "<b>Authors : </b>"+d._source.authors + "<br/>"+
+                    "<a> show more...</a>"+ "<br/>"+
+                    "<button id='popupbtn' type='submit' onclick='callme()'>close</button>")
                     .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 30) + "px");
+                    .style("top", (d3.event.pageY - 60) + "px");
+
             }
             else if(d._source.vType===vertexType.AUTHOR){
                 div.transition()
                     .duration(200)
-                    .style("opacity", .9);
+                    .style("opacity", 0.9);
                 div.html(d._source.author + "<br/>")
-                    .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 30) + "px");
-            }
+                    .style("right", (d3.event.pageX+ 400) + "px")
+                    .style("top", (d3.event.pageY + 400) + "px");
+            }*!/
         })
         //to disbale tooltip
         .on("mouseout", function (d) {
-            div.transition()
+            /!*div.transition()
                 .duration(500)
-                .style("opacity", 0);
-        });
+                .style("opacity", 0);*!/
+        }*/
+
+
+
 
     node.append("title")
         .attr("dx", 20)
@@ -291,14 +361,13 @@ function createGraph(nodes, links, drawnodesOnly) {
                 return d._source.fos;
             }else if(d._source.vType===vertexType.PUBLICATION){
                 return d._source.publisher;
+            }else if(d._source.vType===vertexType.VENUE){
+                return d._source.venue;
             }
         });
 
-    //	Define the div for the tooltip
-    var div = d3.select("body").append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0);
-    
+
+
 
     if(!drawnodesOnly)
         force.on("tick",tick );
@@ -395,5 +464,7 @@ var vertexType={
     ORG:"org",
     FOS:"fos",
     PUBLICATION:"publication",
-    VENUE:"venue"
+    VENUE:"venue",
+    CITES:"",
+    REFERENCES:""
 }
