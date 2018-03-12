@@ -388,3 +388,185 @@ function showFOS(idToEXpand,processedArray) {
     createGraph(processedArray, linksArray,false);
     d3.select('.context-menu').style('display', 'none');
 }
+
+function showCompleteDetails(idsOfDetailToShow,processedArray){
+    $('#modalcontents').html('');
+    var modalbody=document.getElementById("modalcontents");
+
+    //To bind Title
+    var tr_title = document.createElement("tr");
+    var td_titleKey = document.createElement("td");
+    td_titleKey.setAttribute("id","tdHeader");
+    var td_titleVal=document.createElement("td");
+    td_titleVal.setAttribute("id","tdValue");
+    titleHeader_b = document.createElement("b");
+    titleHeader_b.innerText="Title : ";
+    td_titleKey.appendChild(titleHeader_b);
+    tr_title.appendChild(td_titleKey);
+    titleVal_p=document.createElement("h5");
+    titleVal_p.innerText=processedArray[idsOfDetailToShow]._source.title;
+    td_titleVal.appendChild(titleVal_p);
+    tr_title.appendChild(td_titleVal);
+    modalbody.appendChild(tr_title);
+
+    //To bind year of publish
+    if(processedArray[idsOfDetailToShow]._source.year!==undefined) {
+        var tr_year = document.createElement("tr");
+        var td_yearKey = document.createElement("td");
+        td_yearKey.setAttribute("id", "tdHeader");
+        var td_yearVal = document.createElement("td");
+        td_yearVal.setAttribute("id","tdValue");
+        yearHeader_b = document.createElement("b");
+        yearHeader_b.innerText = "Year : ";
+        td_yearKey.appendChild(yearHeader_b);
+        tr_year.appendChild(td_yearKey);
+        yearVal_p = document.createElement("h5");
+        yearVal_p.innerText = processedArray[idsOfDetailToShow]._source.year;
+        td_yearVal.appendChild(yearVal_p);
+        tr_year.appendChild(td_yearVal);
+
+
+    /*    //var tr_citedBy = document.createElement("tr");
+        var td_citedByKey = document.createElement("td");
+        td_citedByKey.setAttribute("id", "tdHeader");
+        var td_citedByVal = document.createElement("td");
+        td_citedByVal.setAttribute("id","tdValue");
+        citedByHeader_b = document.createElement("b");
+        citedByHeader_b.innerText = "Cited By : ";
+        td_citedByKey.appendChild(citedByHeader_b);
+        tr_year.appendChild(td_citedByKey);
+        citedByVal_p = document.createElement("h5");
+        citedByVal_p.innerText = processedArray[idsOfDetailToShow]._source.citationCount;
+        td_citedByVal.appendChild(citedByVal_p);
+        tr_year.appendChild(td_citedByVal);*/
+
+
+        modalbody.appendChild(tr_year);
+    }
+
+    //To bind abstract
+    if(processedArray[idsOfDetailToShow]._source.abstract!==undefined){
+        var tr_abstract = document.createElement("tr");
+        var td_abstractKey = document.createElement("td");
+        td_abstractKey.setAttribute("id","tdHeader");
+        var td_abstractVal=document.createElement("td");
+        td_abstractVal.setAttribute("id","tdValue");
+        abstractHeader_b = document.createElement("b");
+        abstractHeader_b.innerText="Abstract : ";
+        td_abstractKey.appendChild(abstractHeader_b);
+        tr_abstract.appendChild(td_abstractKey);
+        abstractVal_p=document.createElement("h5");
+        abstractVal_p.innerText=processedArray[idsOfDetailToShow]._source.abstract;
+        td_abstractVal.appendChild(abstractVal_p);
+        tr_abstract.appendChild(td_abstractVal);
+        modalbody.appendChild(tr_abstract);
+    }
+
+    //To bind Authors
+    if(processedArray[idsOfDetailToShow]._source.authors!==undefined) {
+        var tr_authors = document.createElement("tr");
+        var td_authorKey = document.createElement("td");
+        td_authorKey.setAttribute("id", "tdHeader");
+        var td_authorVal = document.createElement("td");
+        td_authorVal.setAttribute("id","tdValue");
+        authorHeader = document.createElement("b");
+        authorHeader.innerText = "Authors : ";
+        td_authorKey.appendChild(authorHeader);
+        tr_authors.appendChild(td_authorKey);
+        authorVal = document.createElement("h5");
+        authorVal.innerText = processedArray[idsOfDetailToShow]._source.authors;
+        td_authorVal.appendChild(authorVal);
+
+        /* for(var i=0;i<processedArray[idsOfDetailToShow]._source.authors.length;i++){
+             p=document.createElement("p");
+             p.innerText=processedArray[idsOfDetailToShow]._source.authors[i];
+             td_authorVal.appendChild(p);
+             if(processedArray[idsOfDetailToShow]._source.authors.length>1){
+                 linebr=document.createElement("br");
+                 td_authorVal.appendChild(linebr);
+             }
+         }*/
+
+        tr_authors.appendChild(td_authorVal);
+        modalbody.appendChild(tr_authors);
+    }
+    //To bind links
+    if(processedArray[idsOfDetailToShow]._source.url!==undefined) {
+        var tr_url = document.createElement("tr");
+        urlHeader = document.createElement("b");
+        urlHeader.innerText = "Links : ";
+        var td_urlKey = document.createElement("td");
+        td_urlKey.setAttribute("id", "tdHeader");
+        td_urlKey.appendChild(urlHeader);
+        tr_url.appendChild(td_urlKey);
+        var td_urlVal = document.createElement("td");
+        td_urlVal.setAttribute("id","tdValue");
+        for (var i = 0; i < processedArray[idsOfDetailToShow]._source.url.length; i++) {
+            a = document.createElement("a");
+            a.innerText = processedArray[idsOfDetailToShow]._source.url[i];
+            a.setAttribute("href", processedArray[idsOfDetailToShow]._source.url[i]);
+            a.setAttribute("target", "_blank");
+            td_urlVal.appendChild(a);
+            if (i < processedArray[idsOfDetailToShow]._source.url.length) {
+                linebr = document.createElement("br");
+                td_urlVal.appendChild(linebr);
+            }
+        }
+        tr_url.appendChild(td_urlVal);
+        modalbody.appendChild(tr_url);
+
+    }
+
+    //To bind FOS
+    if(processedArray[idsOfDetailToShow]._source.fosPaper!==undefined) {
+        var tr_FOS = document.createElement("tr");
+        var td_FOSKey = document.createElement("td");
+        td_FOSKey.setAttribute("id", "tdHeader");
+        var td_FOSVal = document.createElement("td");
+        td_FOSVal.setAttribute("id","tdValue");
+        FOSHeader_b = document.createElement("b");
+        FOSHeader_b.innerText = "Field of study : ";
+        td_FOSKey.appendChild(FOSHeader_b);
+        tr_FOS.appendChild(td_FOSKey);
+        FOSVal_p = document.createElement("h5");
+        FOSVal_p.innerText = processedArray[idsOfDetailToShow]._source.fosPaper;
+        td_FOSVal.appendChild(FOSVal_p);
+        tr_FOS.appendChild(td_FOSVal);
+        modalbody.appendChild(tr_FOS);
+    }
+    //To bind Venue
+    if(processedArray[idsOfDetailToShow]._source.venue!==undefined) {
+        var tr_venue = document.createElement("tr");
+        var td_venueKey = document.createElement("td");
+        td_venueKey.setAttribute("id", "tdHeader");
+        var td_venueVal = document.createElement("td");
+        td_venueVal.setAttribute("id","tdValue");
+        venueHeader_b = document.createElement("b");
+        venueHeader_b.innerText = "Venue : ";
+        td_venueKey.appendChild(venueHeader_b);
+        tr_venue.appendChild(td_venueKey);
+        venueVal_p = document.createElement("h5");
+        venueVal_p.innerText = processedArray[idsOfDetailToShow]._source.venuePaper;
+        td_venueVal.appendChild(venueVal_p);
+        tr_venue.appendChild(td_venueVal);
+        modalbody.appendChild(tr_venue);
+    }
+    //To bind publisher
+    if(processedArray[idsOfDetailToShow]._source.publisherPaper!==undefined) {
+        var tr_publisher = document.createElement("tr");
+        var td_publisherKey = document.createElement("td");
+        td_publisherKey.setAttribute("id", "tdHeader");
+        var td_publisherVal = document.createElement("td");
+        td_publisherVal.setAttribute("id","tdValue");
+        publisherHeader_b = document.createElement("b");
+        publisherHeader_b.innerText = "Publisher : ";
+        td_publisherKey.appendChild(publisherHeader_b);
+        tr_publisher.appendChild(td_publisherKey);
+        publisherVal_p = document.createElement("h5");
+        publisherVal_p.innerText = processedArray[idsOfDetailToShow]._source.publisherPaper;
+        td_publisherVal.appendChild(publisherVal_p);
+        tr_publisher.appendChild(td_publisherVal);
+        modalbody.appendChild(tr_publisher);
+    }
+    $("#myModal").modal();
+}

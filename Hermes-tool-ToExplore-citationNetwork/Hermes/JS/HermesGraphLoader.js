@@ -13,7 +13,7 @@ var svg = d3.select("#paperGraphArea")
 var divShowAllInfo = d3.select("body")
                     .append("div");
 
-var paperMenuItems = ["Authorship","Domain","Hosting","Publishing","Co-citation","Bibliographic Coupling", "Cited By","References"];
+var paperMenuItems = ["Show more info","Authorship","Domain","Hosting","Publishing","Co-citation","Bibliographic Coupling", "Cited By","References"];
 var authorMenuItems=["Papers","Co-authorship", "Membership"];
 var institutionMenuItems=["Papers"];
 var venueMenuItems=["Papers"];
@@ -30,15 +30,10 @@ var force = d3.layout.force()
     .alpha(0);
 
 //	Define the div for the tooltip
-var div = d3.select("body").append("div")
+var tooltip = d3.select("body")
+    .append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
-
-function callme() {
-    div.transition()
-        .duration(500)
-        .style("opacity", 0);
-}
 
 function poplateClickedNode(nodeId,dataArray) {
     for(let i=0;i<dataArray.length;i++){
@@ -51,7 +46,6 @@ function poplateClickedNode(nodeId,dataArray) {
         }
     }
 }
-
 
 function createGraph(nodes, links, drawnodesOnly) {
     var paperId="";
@@ -161,14 +155,14 @@ function createGraph(nodes, links, drawnodesOnly) {
         .data(nodes)
         .enter().append("g")
         .attr("class", "node")
-        .call(node_drag)
-        .on("dblclick",function (d) {
+        .call(node_drag);
+        /*.on("dblclick",function (d) {
 
             if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cite")){
-                div.transition()
+                divpopup.transition()
                     .duration(200)
                     .style("opacity", 10);
-                div.html("<b>Title : </b>"+d._source.title + "<br/>"+
+                divpopup.html("<b>Title : </b>"+d._source.title + "<br/>"+
                     "<b>Authors : </b>"+d._source.authors + "<br/>"+
                     "<a> show more...</a>"+ "<br/>"+
                     "<button id='popupbtn' type='submit' onclick='callme()'>close</button>")
@@ -177,14 +171,14 @@ function createGraph(nodes, links, drawnodesOnly) {
 
             }
             else if(d._source.vType===vertexType.AUTHOR){
-                div.transition()
+                divpopup.transition()
                     .duration(200)
                     .style("opacity", 10);
-                div.html(d._source.author + "<br/>")
+                divpopup.html(d._source.author + "<br/>")
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 60) + "px");
             }
-        });
+        })*/
 
     node.append("image")
         .attr("xlink:href", function (d) {
@@ -252,14 +246,18 @@ function createGraph(nodes, links, drawnodesOnly) {
                     if((d==="Authorship")){
                         showAuthors(paperId,srcjgId,processedArray);
                         paperExpanded.add(paperId);
+                        d3.select('.context-menu').style('display', 'none');
                     }else if(d==="Citedby"){
                         showCitations(paperId,processedArray);
+                        d3.select('.context-menu').style('display', 'none');
                     }else if(d==="References"){
                         showReferences(paperId);
+                        d3.select('.context-menu').style('display', 'none');
                         nodeExpandedforRefernce.add(paperId);
                     }else if(d==="Membership"){
                         if(fromAuthor){
                             showInstitutionFromAuthor(paperId,processedArray);
+                            d3.select('.context-menu').style('display', 'none');
                             fromAuthor=false;
 
                         }else{
@@ -269,10 +267,16 @@ function createGraph(nodes, links, drawnodesOnly) {
                         }
                     }else if(d==="Domain"){
                         showFOS(paperId,processedArray);
+                        d3.select('.context-menu').style('display', 'none');
                     }else if(d==="Publishing"){
                         showPublication(paperId,processedArray);
+                        d3.select('.context-menu').style('display', 'none');
                     }else if(d==="Hosting"){
                         showVenue(paperId,processedArray);
+                        d3.select('.context-menu').style('display', 'none');
+                    }else if(d=="Show more info"){
+                        showCompleteDetails(selectedIndex,processedArray);
+                        d3.select('.context-menu').style('display', 'none');
                     }
                 })
                 .text(function (d) { console.log(d); return d;});
@@ -297,43 +301,38 @@ function createGraph(nodes, links, drawnodesOnly) {
                     fromAuthor=true;
                 }
             }
-
              paperId = d._id;
-        });
+            var selectedIndex=d.index;
+        })
         //To display tooltip
-       /* .on("mouseover", function (d) {
+       .on("mouseover", function (d) {
             //	Define the div for the tooltip
-
-
-           /!* if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cite")){
-                div.transition()
+            if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cite")){
+                tooltip.transition()
                     .duration(200)
-                    .style("opacity", 10);
-                div.html("<b>Title : </b>"+d._source.title + "<br/>"+
+                    .style("opacity", 0.9);
+                tooltip.html("<b>Title : </b>"+d._source.title + "<br/>"+
                     "<b>Authors : </b>"+d._source.authors + "<br/>"+
-                    "<a> show more...</a>"+ "<br/>"+
-                    "<button id='popupbtn' type='submit' onclick='callme()'>close</button>")
+                    "<a> To view more details use show more info option ...</a>"+ "<br/>")
                     .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 60) + "px");
+                    .style("top", (d3.event.pageY - 30) + "px");
 
             }
             else if(d._source.vType===vertexType.AUTHOR){
-                div.transition()
+                tooltip.transition()
                     .duration(200)
                     .style("opacity", 0.9);
-                div.html(d._source.author + "<br/>")
-                    .style("right", (d3.event.pageX+ 400) + "px")
-                    .style("top", (d3.event.pageY + 400) + "px");
-            }*!/
+                tooltip.html(d._source.author + "<br/>")
+                    .style("right", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 30) + "px");
+            }
         })
         //to disbale tooltip
         .on("mouseout", function (d) {
-            /!*div.transition()
-                .duration(500)
-                .style("opacity", 0);*!/
-        }*/
-
-
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", 0);
+        });
 
 
     node.append("title")
@@ -365,8 +364,6 @@ function createGraph(nodes, links, drawnodesOnly) {
                 return d._source.venue;
             }
         });
-
-
 
 
     if(!drawnodesOnly)

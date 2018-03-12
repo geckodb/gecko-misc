@@ -19,18 +19,22 @@ function fillSearchInput(index,tempArray){
     if(tempArray[index]._source.vType===vertexType.PAPER){
         assignVal.value=tempArray[index]._source.title;
         hiddenVal.value=vertexType.PAPER;
+        document.getElementById("searchRes").focus();
     }else if(tempArray[index]._source.vType===vertexType.AUTHOR){
         assignVal.value=tempArray[index]._source.author;
         hiddenVal.value=vertexType.AUTHOR;
+        document.getElementById("searchRes").focus();
     }else if(tempArray[index]._source.vType===vertexType.ORG){
         assignVal.value=tempArray[index]._source.org;
         hiddenVal.value=vertexType.ORG;
     }else if(tempArray[index]._source.vType===vertexType.FOS){
         assignVal.value=tempArray[index]._source.fos;
         hiddenVal.value=vertexType.FOS;
+        document.getElementById("searchRes").focus();
     }else if(tempArray[index]._source.vType===vertexType.PUBLICATION){
         assignVal.value=tempArray[index]._source.publisher;
         hiddenVal.value=vertexType.PUBLICATION;
+        document.getElementById("searchRes").focus();
     }
 }
 
@@ -43,7 +47,7 @@ function fillSuggestion() {
         if (error) throw error;
 
         suggestionData=json.hits.hits;
-       // console.log(suggestionData)
+        // console.log(suggestionData)
         $('#suggestionBox').html('');
 
         for(var i=0;i<suggestionData.length;i++){
@@ -51,7 +55,7 @@ function fillSuggestion() {
             var sBox=document.getElementById("suggestionBox");
             var li=document.createElement("li");
             var a=document.createElement("a");
-                a.setAttribute("id","aTag");
+            a.setAttribute("id","aTag");
             if(suggestionData[i]._source.vType===vertexType.PAPER){
                 aTag=sBox.appendChild(a);
 
@@ -132,6 +136,7 @@ function fillSuggestion() {
             }
         }
     });
+
 }
 
 
@@ -158,9 +163,10 @@ function searchClicked(userEnteredtext,chosenType) {
     $('#search').removeClass('open');
     //Pagination code
     if(chosenType!=""){
-        var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:"+chosenType+" AND "+userEnteredtext+"&size=20";
+        var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:"+chosenType+" AND "+userEnteredtext+"&from=0&size=5";
+        //http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper AND relational data&from=50&size=500
     }else{
-        var url="http://localhost:9200/janusgraph_vertexes/_search?q="+userEnteredtext+"&size=20";
+        var url="http://localhost:9200/janusgraph_vertexes/_search?q="+userEnteredtext+"&from=0&size=5";
 
     }
 
@@ -202,6 +208,7 @@ function searchClicked(userEnteredtext,chosenType) {
 
                 function generate_table() {
                     $('#searchResults').html('');
+
                     var doc = document.getElementById("searchResults");
                     for (var i = 0; i < displayRecords.length; i++) {
                         var tr = document.createElement("tr");
@@ -209,6 +216,7 @@ function searchClicked(userEnteredtext,chosenType) {
                         if (displayRecords[i]._source.vType === vertexType.PAPER) {
                             a = document.createElement("a");
                             a.setAttribute("id", displayRecords[i]._id)
+                            a.style.cursor="pointer";
                             a.onclick = function (d) {
                                 poplateClickedNode(d.path[1].getAttribute("id"), searchData);
                             }
@@ -360,8 +368,27 @@ function searchClicked(userEnteredtext,chosenType) {
                         onPageClick: function (event, page) {
                             displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
                             endRec = (displayRecordsIndex) + recPerPage;
-                            displayRecords = records.slice(displayRecordsIndex, endRec);
-                            generate_table();
+
+                            if(displayRecordsIndex==0){
+                                displayRecords = records.slice(displayRecordsIndex, endRec);
+                                generate_table();
+                            }else if(displayRecordsIndex>0){
+                                var rangeValues=new Array();
+                                if(chosenType!=""){
+                                    var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:"+chosenType+" AND "+userEnteredtext+"&from="+displayRecordsIndex+"&size=5";
+                                }else{
+                                    var url="http://localhost:9200/janusgraph_vertexes/_search?q="+userEnteredtext+"&from="+displayRecordsIndex+"&size=5";
+
+                                }
+                                d3.json(url, function (error, jsonrangeResult) {
+                                    if (error) throw error;
+                                    rangeValues=jsonrangeResult.hits.hits;
+                                   Array.prototype.push.apply(records,rangeValues);
+                                    displayRecords = records.slice(displayRecordsIndex, endRec);
+                                    generate_table();
+                                });
+
+                            }
                         }
                     });
                 }

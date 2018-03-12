@@ -80,6 +80,7 @@ div.tooltip {
     border-radius: 2px;
     border: 3px solid #d4d4d4;
     z-index: 1200;
+    pointer-events: none;
 }
 
 .context-menu {
@@ -93,6 +94,7 @@ div.tooltip {
     height: auto;
     border: 1px solid #d4d4d4;
     z-index: 1200;
+
 }
 
 .context-menu ul {
@@ -507,7 +509,18 @@ width: 430px;
     cursor: pointer;
 }
 
-#popupbtn{
+#modalStyle{
+    width: 1200px; /*1300px;*/
+    height: auto;/*700px;*/
+    margin-left: -300px;
+}
 
+#tdHeader{
+    width: 120px;
+    padding: 2px;
+}
 
+#tdValue{
+    width: 1060px;
+    padding: 12px;
 }
