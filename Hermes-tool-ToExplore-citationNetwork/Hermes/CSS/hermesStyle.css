@@ -82,7 +82,7 @@ div.tooltip {
     border: 3px;
     border-radius: 2px;
     border: 3px solid #d4d4d4;
-    z-index: 1200;
+    z-index: 10000;
     pointer-events: none;
 }
 
@@ -116,7 +116,7 @@ div.tooltip.n:after {
     width: auto;
     height: auto;
     border: 1px solid #d4d4d4;
-    z-index: 1200;
+    z-index: 10000;
 
 }
 
@@ -252,6 +252,12 @@ body {
     top: 15px;
 }
 
+#clearSVG{
+    width:25px;
+    height:25px;
+    margin-top:25px;
+}
+
 #enlarge_glyphicons{
     font-size: 22px;
     color: black;
@@ -286,8 +292,8 @@ body {
     border: 0 none;
     padding: 0;
     margin: 0;
-    z-index: 10000;
-    cursor: pointer;
+    z-index: 9999;
+    cursor: default;
 }
 
 .searchsize{

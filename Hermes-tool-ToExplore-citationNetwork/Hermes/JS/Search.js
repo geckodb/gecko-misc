@@ -186,7 +186,7 @@ function searchClicked(userEnteredtext,chosenType) {
             document.getElementById("overlay").style.display = "none";
         }
         else {
-            searchData = json.hits.hits;
+            //searchData = json.hits.hits;
             searchtextfield = document.getElementById("searchText");
             searchtextfield.innerText = userEnteredtext;
             console.log(searchData)
@@ -200,7 +200,7 @@ function searchClicked(userEnteredtext,chosenType) {
                     page = 1,
                     totalPages = 0;
 
-                records = searchData;
+                //records = searchData;
                 totalRecords = json.hits.total;
                 totalPages = Math.ceil(totalRecords / recPerPage);
                 apply_pagination();
@@ -367,13 +367,9 @@ function searchClicked(userEnteredtext,chosenType) {
                         visiblePages: 5,
                         onPageClick: function (event, page) {
                             displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
-                            endRec = (displayRecordsIndex) + recPerPage;
+                           // endRec = (displayRecordsIndex) + recPerPage;
 
-                            if(displayRecordsIndex==0){
-                                displayRecords = records.slice(displayRecordsIndex, endRec);
-                                generate_table();
-                            }else if(displayRecordsIndex>0){
-                                var rangeValues=new Array();
+                               // var rangeValues=new Array();
                                 if(chosenType!=""){
                                     var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:"+chosenType+" AND "+userEnteredtext+"&from="+displayRecordsIndex+"&size=5";
                                 }else{
@@ -382,13 +378,12 @@ function searchClicked(userEnteredtext,chosenType) {
                                 }
                                 d3.json(url, function (error, jsonrangeResult) {
                                     if (error) throw error;
-                                    rangeValues=jsonrangeResult.hits.hits;
-                                   Array.prototype.push.apply(records,rangeValues);
-                                    displayRecords = records.slice(displayRecordsIndex, endRec);
+                                    records=jsonrangeResult.hits.hits;
+                                    searchData=records;
+                                   //Array.prototype.push.apply(records,rangeValues);
+                                    displayRecords = records;
                                     generate_table();
                                 });
-
-                            }
                         }
                     });
                 }

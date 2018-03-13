@@ -419,12 +419,14 @@ function resize() {
 
     if(fullscreen){
         $("#graphArea").removeClass("startSize").addClass("newSize");
-
+            svg.attr("width",1500)
+            .attr("height",1000);
         fullscreen=false;
     }
     else{
         $("#graphArea").removeClass("newSize").addClass("startSize");
-
+            svg.attr("width",1050)
+            .attr("height",580);
         fullscreen=true;
     }
 }
@@ -453,7 +455,12 @@ function downloadGraphAsData() {
     saveAs(blob_json,"data.json");
 }
 
-
+function clearSVG() {
+    d3.selectAll("svg > *").remove();
+    processedArray=new Array();
+    linksArray=new Array();
+    nodeAdded= new Set();
+}
 
 var vertexType={
     PAPER:"paper",

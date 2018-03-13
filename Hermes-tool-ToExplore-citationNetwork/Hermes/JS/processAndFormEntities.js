@@ -429,22 +429,6 @@ function showCompleteDetails(idsOfDetailToShow,processedArray){
         td_yearVal.appendChild(yearVal_p);
         tr_year.appendChild(td_yearVal);
 
-
-    /*    //var tr_citedBy = document.createElement("tr");
-        var td_citedByKey = document.createElement("td");
-        td_citedByKey.setAttribute("id", "tdHeader");
-        var td_citedByVal = document.createElement("td");
-        td_citedByVal.setAttribute("id","tdValue");
-        citedByHeader_b = document.createElement("b");
-        citedByHeader_b.innerText = "Cited By : ";
-        td_citedByKey.appendChild(citedByHeader_b);
-        tr_year.appendChild(td_citedByKey);
-        citedByVal_p = document.createElement("h5");
-        citedByVal_p.innerText = processedArray[idsOfDetailToShow]._source.citationCount;
-        td_citedByVal.appendChild(citedByVal_p);
-        tr_year.appendChild(td_citedByVal);*/
-
-
         modalbody.appendChild(tr_year);
     }
 
