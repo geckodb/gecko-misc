@@ -81,7 +81,7 @@ function createPublicationNode(name) {
 
 
 function showAuthors(idToEXpand, paperjgId,processedArray) {
-
+    $("#graphArea").css("cursor","wait");
     var intial_length = processedArray.length;
     for (var i = 0; i < intial_length; i++) {
         if (processedArray[i]._source.vType === "paper") {
@@ -121,12 +121,13 @@ function showAuthors(idToEXpand, paperjgId,processedArray) {
     var mydata=new Set(processedArray);
     for(let item of mydata) console.log(item);
     createGraph(processedArray, linksArray,false);
+    $("#graphArea").css("cursor","default");
     d3.select('.context-menu').style('display', 'none');
 }
 
 
 function showPublication(idToEXpand,processedArray) {
-
+    $("#graphArea").css("cursor","wait");
     var intial_length = processedArray.length;
     for (var i = 0; i < intial_length; i++) {
         if ((processedArray[i]._source.vType === vertexType.PAPER)&&(processedArray[i]._source.publisherPaper!==undefined)){
@@ -162,12 +163,13 @@ function showPublication(idToEXpand,processedArray) {
     var mydata=new Set(processedArray);
     for(let item of mydata) console.log(item);
     createGraph(processedArray, linksArray,false);
+    $("#graphArea").css("cursor","default");
     d3.select('.context-menu').style('display', 'none');
 }
 
 
 function showVenue(idToEXpand,processedArray) {
-
+    $("#graphArea").css("cursor","wait");
     var intial_length = processedArray.length;
     for (var i = 0; i < intial_length; i++) {
         if ((processedArray[i]._source.vType === vertexType.PAPER)&&(processedArray[i]._source.venuePaper!==undefined)){
@@ -203,6 +205,7 @@ function showVenue(idToEXpand,processedArray) {
     var mydata=new Set(processedArray);
     for(let item of mydata) console.log(item);
     createGraph(processedArray, linksArray,false);
+    $("#graphArea").css("cursor","default");
     d3.select('.context-menu').style('display', 'none');
 }
 
@@ -280,14 +283,12 @@ function showInstitution(idToEXpand,authorName,indexofCreatedAuthorNode) {
     var targetId="";
     var orgNames=new Array();
     var url= "http://localhost:9200/janusgraph_edgees/_search?q=eType=authorship AND srcId="+idToEXpand+" AND authorEdge="+authorName;
-
+    $("#graphArea").css("cursor","wait");
     d3.json(url, function (error, json) {
          if (error) throw error;
          console.log(json)
          targetId = json.hits.hits[0]._source.tgtId;
-
         var getAuthorData="http://localhost:9200/janusgraph_vertexes/_search?q=vType:author AND jgId:"+targetId;
-
 
         d3.json(getAuthorData,function (error, jsonResult) {
             if (error) throw error;
@@ -310,17 +311,18 @@ function showInstitution(idToEXpand,authorName,indexofCreatedAuthorNode) {
             var mydata=new Set(processedArray);
             for(let item of mydata) console.log(item);
             createGraph(processedArray, linksArray,false);
-
+            $("#graphArea").css("cursor","default");
         });
 
     });
+
 }
 
 
 function showInstitutionFromAuthor(idToEXpand,processedArray) {
     //institute_paper=new Map();
     var intial_length = processedArray.length;
-
+    $("#graphArea").css("cursor","wait");
     for (var i = 0; i < intial_length; i++) {
         if ((processedArray[i]._source.vType === vertexType.AUTHOR)&&(processedArray[i]._source.orgList!==undefined)) {
             if ((processedArray[i]._id === idToEXpand)) {
@@ -340,13 +342,14 @@ function showInstitutionFromAuthor(idToEXpand,processedArray) {
     var mydata=new Set(processedArray);
     for(let item of mydata) console.log(item);
     createGraph(processedArray, linksArray,false);
+    $("#graphArea").css("cursor","default");
     d3.select('.context-menu').style('display', 'none');
 }
 
 
 
 function showFOS(idToEXpand,processedArray) {
-
+    $("#graphArea").css("cursor","wait");
     var intial_length = processedArray.length;
     for (var i = 0; i < intial_length; i++) {
         if (processedArray[i]._source.vType === vertexType.PAPER) {
@@ -386,6 +389,7 @@ function showFOS(idToEXpand,processedArray) {
     var mydata=new Set(processedArray);
     for(let item of mydata) console.log(item);
     createGraph(processedArray, linksArray,false);
+    $("#graphArea").css("cursor","default");
     d3.select('.context-menu').style('display', 'none');
 }
 

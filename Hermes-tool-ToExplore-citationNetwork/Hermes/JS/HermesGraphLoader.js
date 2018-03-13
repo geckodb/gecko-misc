@@ -314,8 +314,8 @@ function createGraph(nodes, links, drawnodesOnly) {
                 tooltip.html("<b>Title : </b>"+d._source.title + "<br/>"+
                     "<b>Authors : </b>"+d._source.authors + "<br/>"+
                     "<a> To view more details use show more info option ...</a>"+ "<br/>")
-                    .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 30) + "px");
+                    .style("left", (d.x+20) + "px")
+                    .style("top", (d.y) + "px");
 
             }
             else if(d._source.vType===vertexType.AUTHOR){
@@ -323,7 +323,7 @@ function createGraph(nodes, links, drawnodesOnly) {
                     .duration(200)
                     .style("opacity", 0.9);
                 tooltip.html(d._source.author + "<br/>")
-                    .style("right", (d3.event.pageX) + "px")
+                    .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 30) + "px");
             }
         })

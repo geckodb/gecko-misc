@@ -215,7 +215,7 @@ function searchClicked(userEnteredtext,chosenType) {
                         var td = document.createElement("td");
                         if (displayRecords[i]._source.vType === vertexType.PAPER) {
                             a = document.createElement("a");
-                            a.setAttribute("id", displayRecords[i]._id)
+                            a.setAttribute("id", displayRecords[i]._id);
                             a.style.cursor="pointer";
                             a.onclick = function (d) {
                                 poplateClickedNode(d.path[1].getAttribute("id"), searchData);
@@ -244,7 +244,7 @@ function searchClicked(userEnteredtext,chosenType) {
                             td.appendChild(linebreak);
                         } else if (displayRecords[i]._source.vType === vertexType.AUTHOR) {
                             a = document.createElement("a");
-                            a.setAttribute("id", displayRecords[i]._id)
+                            a.setAttribute("id", displayRecords[i]._id);
                             a.onclick = function (d) {
                                 poplateClickedNode(d.path[1].getAttribute("id"), searchData);
                             }
@@ -266,7 +266,7 @@ function searchClicked(userEnteredtext,chosenType) {
                             td.appendChild(linebreak);
                         } else if (displayRecords[i]._source.vType === vertexType.ORG) {
                             a = document.createElement("a");
-                            a.setAttribute("id", displayRecords[i]._id)
+                            a.setAttribute("id", displayRecords[i]._id);
                             a.onclick = function (d) {
                                 poplateClickedNode(d.path[1].getAttribute("id"), searchData);
                             }
@@ -288,7 +288,7 @@ function searchClicked(userEnteredtext,chosenType) {
                             td.appendChild(linebreak);
                         }else if (displayRecords[i]._source.vType === vertexType.PUBLICATION) {
                             a = document.createElement("a");
-                            a.setAttribute("id", displayRecords[i]._id)
+                            a.setAttribute("id", displayRecords[i]._id);
                             a.onclick = function (d) {
                                 poplateClickedNode(d.path[1].getAttribute("id"), searchData);
                             }
@@ -310,7 +310,7 @@ function searchClicked(userEnteredtext,chosenType) {
                             td.appendChild(linebreak);
                         }else if (displayRecords[i]._source.vType === vertexType.FOS) {
                             a = document.createElement("a");
-                            a.setAttribute("id", displayRecords[i]._id)
+                            a.setAttribute("id", displayRecords[i]._id);
                             a.onclick = function (d) {
                                 poplateClickedNode(d.path[1].getAttribute("id"), searchData);
                             }
@@ -332,7 +332,7 @@ function searchClicked(userEnteredtext,chosenType) {
                             td.appendChild(linebreak);
                         }else if (displayRecords[i]._source.vType === vertexType.VENUE) {
                             a = document.createElement("a");
-                            a.setAttribute("id", displayRecords[i]._id)
+                            a.setAttribute("id", displayRecords[i]._id);
                             a.onclick = function (d) {
                                 poplateClickedNode(d.path[1].getAttribute("id"), searchData);
                             }
