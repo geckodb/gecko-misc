@@ -4,7 +4,7 @@ var width = 1050,
     height = 580;
 var nodeAdded= new Set();
 var fullscreen=true;
-
+var dataLoaded=false;
 var svg = d3.select("#paperGraphArea")
     .append("svg")
     .attr("width",width)
@@ -46,6 +46,8 @@ function poplateClickedNode(nodeId,dataArray) {
 
 function createGraph(nodes, links, drawnodesOnly) {
     var paperId="";
+    var srcjgId="";
+    var scrIdPaperIndex="";
     var fromAuthor=false;
 //To form arrowhead
     svg.append("defs").selectAll("marker")
@@ -240,17 +242,70 @@ function createGraph(nodes, links, drawnodesOnly) {
                             showInstitution(authorSrcId,authorName,index,processedArray);
                             d3.select('.context-menu').style('display', 'none');
                         }
-                    }else if(d==="Domain"){
-                        showFOS(paperId,processedArray);
+                    }
+                    else if(d==="Domain"){
+                        if((processedArray[scrIdPaperIndex]._source.vType===vertexType.CITES)&&(processedArray[scrIdPaperIndex]._source.fosPaper===undefined)){
+                            var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper AND jgId="+processedArray[scrIdPaperIndex]._id;
+                            d3.json(url,function (error,json){
+                                if (error) throw error;
+                                if(json.hits.hits.length==1){
+                                    processedArray[scrIdPaperIndex]._source=json.hits.hits[0]._source;
+                                    showFOS(paperId,scrIdPaperIndex,processedArray);
+                                    dataLoaded=true;
+                                }
+                            });
+                        }else{
+                            showFOS(paperId,scrIdPaperIndex,processedArray);
+                        }
                         d3.select('.context-menu').style('display', 'none');
-                    }else if(d==="Publishing"){
-                        showPublication(paperId,processedArray);
+                    }
+                    else if(d==="Publishing"){
+                        if((processedArray[scrIdPaperIndex]._source.vType===vertexType.CITES)&&(processedArray[scrIdPaperIndex]._source.publisherPaper===undefined)){
+                            var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper AND jgId="+processedArray[scrIdPaperIndex]._id;
+                            d3.json(url,function (error,json){
+                                if (error) throw error;
+                                if(json.hits.hits.length==1){
+                                    processedArray[scrIdPaperIndex]._source=json.hits.hits[0]._source;
+                                    showPublication(paperId,scrIdPaperIndex,processedArray);
+                                    dataLoaded=true;
+                                }
+                            });
+                        }else{
+                            showPublication(paperId,scrIdPaperIndex,processedArray);
+                        }
                         d3.select('.context-menu').style('display', 'none');
-                    }else if(d==="Hosting"){
-                        showVenue(paperId,processedArray);
+                    }
+                    else if(d==="Hosting"){
+                        if((processedArray[scrIdPaperIndex]._source.vType===vertexType.CITES)&&(processedArray[selectedIndex]._source.venuePaper===undefined)){
+                            var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper AND jgId="+processedArray[scrIdPaperIndex]._id;
+                            d3.json(url,function (error,json){
+                                if (error) throw error;
+                                if(json.hits.hits.length==1){
+                                    processedArray[scrIdPaperIndex]._source=json.hits.hits[0]._source;
+                                    showVenue(paperId,scrIdPaperIndex,processedArray);
+
+                                }
+                            });
+                        }else{
+                            showVenue(paperId,scrIdPaperIndex,processedArray);
+                        }
                         d3.select('.context-menu').style('display', 'none');
-                    }else if(d=="Show more info"){
-                        showCompleteDetails(selectedIndex,processedArray);
+
+                    }
+                    else if(d=="Show more info"){
+                        if(processedArray[scrIdPaperIndex]._source.vType===vertexType.CITES){
+                            var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper AND jgId="+processedArray[scrIdPaperIndex]._id;
+                            d3.json(url,function (error,json){
+                                if (error) throw error;
+                                if(json.hits.hits.length==1){
+                                    processedArray[scrIdPaperIndex]._source=json.hits.hits[0]._source;
+                                    showCompleteDetails(selectedIndex,processedArray);
+
+                                }
+                            });
+                        }else{
+                            showCompleteDetails(selectedIndex,processedArray);
+                        }
                         d3.select('.context-menu').style('display', 'none');
                     }
                 })
@@ -266,8 +321,9 @@ function createGraph(nodes, links, drawnodesOnly) {
             d3.event.preventDefault();
             console.log(d);
             if(d._source.vType===vertexType.PAPER){
-                var srcjgId=d._source.jgId;
-                var scrIdPaperIndex=d.index;
+                paperId = d._id;
+                srcjgId=d._source.jgId;
+                scrIdPaperIndex=d.index;
             }else if(d._source.vType===vertexType.AUTHOR){
                 if(d.createdNode!==undefined){
                     var authorSrcId=d.authorId;
@@ -278,10 +334,12 @@ function createGraph(nodes, links, drawnodesOnly) {
                 }
             }else if(d._source.vType===vertexType.CITES){
                 var targetId=d._source.tgtId;
+                srcjgId=d._source.jgId;
+                scrIdPaperIndex=d.index;
             }
-             paperId = d._id;
+                paperId = d._id;
+                var selectedIndex=d.index;
 
-            var selectedIndex=d.index;
         })
         //To display tooltip
        .on("mouseover", function (d) {

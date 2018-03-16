@@ -143,36 +143,36 @@ function showAuthors(idToEXpand, paperjgId,processedArray) {
 }
 
 
-function showPublication(idToEXpand,processedArray) {
+function showPublication(idToEXpand,selectedIndex,processedArray) {
     $("#graphArea").css("cursor","wait");
-    var intial_length = processedArray.length;
-    for (var i = 0; i < intial_length; i++) {
-        if ((processedArray[i]._source.vType === vertexType.PAPER)&&(processedArray[i]._source.publisherPaper!==undefined)){
-            if (processedArray[i]._id === idToEXpand) {
-                    if (!publicationAlreadyAdded.has(processedArray[i]._source.publisherPaper)) {
-                        var newNode = new createPublicationNode(processedArray[i]._source.publisherPaper)
+   // var intial_length = processedArray.length;
+   // for (var i = 0; i < intial_length; i++) {
+        if ((processedArray[selectedIndex]._source.vType === vertexType.PAPER)&&(processedArray[selectedIndex]._source.publisherPaper!==undefined)){
+            if (processedArray[selectedIndex]._id === idToEXpand) {
+                    if (!publicationAlreadyAdded.has(processedArray[selectedIndex]._source.publisherPaper)) {
+                        var newNode = new createPublicationNode(processedArray[selectedIndex]._source.publisherPaper)
                         var index = processedArray.push(newNode);
-                        publicationAlreadyAdded.set(processedArray[i]._source.publisherPaper, index - 1);
-                        var newLink = new createLinks(i, processedArray.length - 1);
+                        publicationAlreadyAdded.set(processedArray[selectedIndex]._source.publisherPaper, index - 1);
+                        var newLink = new createLinks(selectedIndex, processedArray.length - 1);
                         linksArray.push(newLink);
                     }else{
-                        var newLink = new createLinks(i, publicationAlreadyAdded.get(processedArray[i]._source.publisherPaper));
+                        var newLink = new createLinks(selectedIndex, publicationAlreadyAdded.get(processedArray[selectedIndex]._source.publisherPaper));
                         linksArray.push(newLink);
                     }
                 }
             }
-    }
+   // }
 
-    for (var i = 0; i < intial_length; i++) {
-        if ((processedArray[i]._source.vType === vertexType.PAPER)&&(processedArray[i]._source.publisherPaper!==undefined)) {
-            if (processedArray[i]._id !== idToEXpand) {
-                    if (publicationAlreadyAdded.has(processedArray[i]._source.publisherPaper)) {
-                        var newLink = new createLinks(i, publicationAlreadyAdded.get(processedArray[i]._source.publisherPaper));
+   // for (var i = 0; i < intial_length; i++) {
+        if ((processedArray[selectedIndex]._source.vType === vertexType.PAPER)&&(processedArray[selectedIndex]._source.publisherPaper!==undefined)) {
+            if (processedArray[selectedIndex]._id !== idToEXpand) {
+                    if (publicationAlreadyAdded.has(processedArray[selectedIndex]._source.publisherPaper)) {
+                        var newLink = new createLinks(selectedIndex, publicationAlreadyAdded.get(processedArray[selectedIndex]._source.publisherPaper));
                         linksArray.push(newLink);
                     }
             }
         }
-    }
+    //}
 
     JSON.stringify(linksArray);
     JSON.stringify(processedArray);
@@ -185,36 +185,36 @@ function showPublication(idToEXpand,processedArray) {
 }
 
 
-function showVenue(idToEXpand,processedArray) {
+function showVenue(idToEXpand,selectedIndex,processedArray) {
     $("#graphArea").css("cursor","wait");
-    var intial_length = processedArray.length;
-    for (var i = 0; i < intial_length; i++) {
-        if ((processedArray[i]._source.vType === vertexType.PAPER)&&(processedArray[i]._source.venuePaper!==undefined)){
-            if (processedArray[i]._id === idToEXpand) {
-                if (!venueAlreadyAdded.has(processedArray[i]._source.venue)) {
-                    var newNode = new createVenueNode(processedArray[i]._source.venuePaper)
+    //var intial_length = processedArray.length;
+   // for (var i = 0; i < intial_length; i++) {
+        if ((processedArray[selectedIndex]._source.vType === vertexType.PAPER)&&(processedArray[selectedIndex]._source.venuePaper!==undefined)){
+            if (processedArray[selectedIndex]._id === idToEXpand) {
+                if (!venueAlreadyAdded.has(processedArray[selectedIndex]._source.venuePaper)) {
+                    var newNode = new createVenueNode(processedArray[selectedIndex]._source.venuePaper)
                     var index = processedArray.push(newNode);
-                    venueAlreadyAdded.set(processedArray[i]._source.venue, index - 1);
-                    var newLink = new createLinks(i, processedArray.length - 1);
+                    venueAlreadyAdded.set(processedArray[selectedIndex]._source.venuePaper, index - 1);
+                    var newLink = new createLinks(selectedIndex, processedArray.length - 1);
                     linksArray.push(newLink);
                 }else{
-                    var newLink = new createLinks(i, venueAlreadyAdded.get(processedArray[i]._source.venuePaper));
+                    var newLink = new createLinks(selectedIndex, venueAlreadyAdded.get(processedArray[selectedIndex]._source.venuePaper));
                     linksArray.push(newLink);
                 }
             }
         }
-    }
+    //}
 
-    for (var i = 0; i < intial_length; i++) {
-        if ((processedArray[i]._source.vType === vertexType.PAPER)&&(processedArray[i]._source.venue!==undefined)) {
-            if (processedArray[i]._id !== idToEXpand) {
-                if (venueAlreadyAdded.has(processedArray[i]._source.venuePaper)) {
-                    var newLink = new createLinks(i, venueAlreadyAdded.get(processedArray[i]._source.venuePaper));
+    //for (var i = 0; i < intial_length; i++) {
+        if ((processedArray[selectedIndex]._source.vType === vertexType.PAPER)&&(processedArray[selectedIndex]._source.venuePaper!==undefined)) {
+            if (processedArray[selectedIndex]._id !== idToEXpand) {
+                if (venueAlreadyAdded.has(processedArray[selectedIndex]._source.venuePaper)) {
+                    var newLink = new createLinks(selectedIndex, venueAlreadyAdded.get(processedArray[selectedIndex]._source.venuePaper));
                     linksArray.push(newLink);
                 }
             }
         }
-    }
+    //}
 
     JSON.stringify(linksArray);
     JSON.stringify(processedArray);
@@ -354,22 +354,22 @@ function showInstitution(idToEXpand,authorName,indexofCreatedAuthorNode,processe
 }
 
 
-function showInstitutionFromAuthor(idToEXpand,processedArray) {
+function showInstitutionFromAuthor(idToEXpand,selectedIndex,processedArray) {
     //institute_paper=new Map();
-    var intial_length = processedArray.length;
+    //var intial_length = processedArray.length;
     $("#graphArea").css("cursor","wait");
-    for (var i = 0; i < intial_length; i++) {
-        if ((processedArray[i]._source.vType === vertexType.AUTHOR)&&(processedArray[i]._source.orgList!==undefined)) {
-            if ((processedArray[i]._id === idToEXpand)) {
-                var newNode=new createInstitutionNode(processedArray[i]._source.orgList);
+   // for (var i = 0; i < intial_length; i++) {
+        if ((processedArray[selectedIndex]._source.vType === vertexType.AUTHOR)&&(processedArray[selectedIndex]._source.orgList!==undefined)) {
+            if ((processedArray[selectedIndex]._id === idToEXpand)) {
+                var newNode=new createInstitutionNode(processedArray[selectedIndex]._source.orgList);
                 var index=processedArray.push(newNode);
-                var newLink=new createLinks(i,processedArray.length-1);
+                var newLink=new createLinks(selectedIndex,processedArray.length-1);
                 linksArray.push(newLink);
-                instituteAlreadyAdded.set(processedArray[i]._source.orgList,index-1);
+                instituteAlreadyAdded.set(processedArray[selectedIndex]._source.orgList,index-1);
                 //institute_paper.set(processedArray[i]._source.orgList);
             }
         }
-    }
+   // }
 
     JSON.stringify(linksArray);
     JSON.stringify(processedArray);
@@ -381,40 +381,40 @@ function showInstitutionFromAuthor(idToEXpand,processedArray) {
 
 
 
-function showFOS(idToEXpand,processedArray) {
+function showFOS(idToEXpand,selectedIndex,processedArray) {
     $("#graphArea").css("cursor","wait");
-    var intial_length = processedArray.length;
-    for (var i = 0; i < intial_length; i++) {
-        if (processedArray[i]._source.vType === vertexType.PAPER) {
-            if ((processedArray[i]._id === idToEXpand) && (processedArray[i]._source.fosPaper!== undefined)) {
-                for (var j = 0; j < processedArray[i]._source.fosPaper.length; j++) {
-                    if (!fosAlreadyAdded.has(processedArray[i]._source.fosPaper[j])) {
-                        var newNode = new createFOSNode(processedArray[i]._id, processedArray[i]._source.fosPaper[j])
+   // var intial_length = processedArray.length;
+    //for (var i = 0; i < intial_length; i++) {
+        if (processedArray[selectedIndex]._source.vType === vertexType.PAPER) {
+            if ((processedArray[selectedIndex]._id === idToEXpand) && (processedArray[selectedIndex]._source.fosPaper!== undefined)) {
+                for (var j = 0; j < processedArray[selectedIndex]._source.fosPaper.length; j++) {
+                    if (!fosAlreadyAdded.has(processedArray[selectedIndex]._source.fosPaper[j])) {
+                        var newNode = new createFOSNode(processedArray[selectedIndex]._id, processedArray[selectedIndex]._source.fosPaper[j])
                         var index = processedArray.push(newNode);
-                        fosAlreadyAdded.set(processedArray[i]._source.fosPaper[j], index - 1);
-                        var newLink = new createLinks(i, processedArray.length - 1);
+                        fosAlreadyAdded.set(processedArray[selectedIndex]._source.fosPaper[j], index - 1);
+                        var newLink = new createLinks(selectedIndex, processedArray.length - 1);
                         linksArray.push(newLink);
                     }else{
-                        var newLink = new createLinks(i, fosAlreadyAdded.get(processedArray[i]._source.fosPaper[j]));
+                        var newLink = new createLinks(selectedIndex, fosAlreadyAdded.get(processedArray[selectedIndex]._source.fosPaper[j]));
                         linksArray.push(newLink);
                     }
                 }
             }
         }
-    }
+   // }
 
-    for (var i = 0; i < intial_length; i++) {
-        if (processedArray[i]._source.vType === vertexType.PAPER) {
-            if ((processedArray[i]._id !== idToEXpand) && (!paperExpanded.has(processedArray[i]._id)) && (processedArray[i]._source.fosPaper !== undefined)) {
-                for (var j = 0; j < processedArray[i]._source.fosPaper.length; j++) {
-                    if (fosAlreadyAdded.has(processedArray[i]._source.fosPaper[j].name)) {
-                        var newLink = new createLinks(i, fosAlreadyAdded.get(processedArray[i]._source.fosPaper[j].name));
+    //for (var i = 0; i < intial_length; i++) {
+        if (processedArray[selectedIndex]._source.vType === vertexType.PAPER) {
+            if ((processedArray[selectedIndex]._id !== idToEXpand) && (!paperExpanded.has(processedArray[selectedIndex]._id)) && (processedArray[selectedIndex]._source.fosPaper !== undefined)) {
+                for (var j = 0; j < processedArray[selectedIndex]._source.fosPaper.length; j++) {
+                    if (fosAlreadyAdded.has(processedArray[selectedIndex]._source.fosPaper[j].name)) {
+                        var newLink = new createLinks(selectedIndex, fosAlreadyAdded.get(processedArray[selectedIndex]._source.fosPaper[j].name));
                         linksArray.push(newLink);
                     }
                 }
             }
         }
-    }
+    //}
 
     JSON.stringify(linksArray);
     JSON.stringify(processedArray);
