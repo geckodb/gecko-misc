@@ -1,7 +1,7 @@
 ﻿var processedArray=new Array();
 d3.json("../JSON/temp.json",processedArray); //temp.json holds the format required to map d3 objects **DO NOT DELETE TEMP.JSON**
 var width = 1050,
-    height = 580;
+    height = 620;
 var nodeAdded= new Set();
 var fullscreen=true;
 var dataLoaded=false;
@@ -86,6 +86,7 @@ function createGraph(nodes, links, drawnodesOnly) {
         .on("dragend", drag_end);
 
 
+
     function drag_start(d, i) {
         force.stop() // stops the force auto positioning before you start dragging
     }
@@ -103,6 +104,50 @@ function createGraph(nodes, links, drawnodesOnly) {
         tick();
         force.resume();
     }
+
+//Toggle stores whether the highlighting is on
+    var toggle = 0;
+
+//Create an array logging what is connected to what
+    var linkedByIndex = {};
+    for (i = 0; i < nodes.length; i++) {
+        linkedByIndex[i + "," + i] = 1;
+    };
+    links.forEach(function (d) {
+        linkedByIndex[d.source.index + "," + d.target.index] = 1;
+    });
+
+//This function looks up whether a pair are neighbours
+    function neighboring(a, b) {
+        return linkedByIndex[a.index + "," + b.index];
+    }
+
+    function connectedNodes() {
+        if (toggle == 0) {
+            //Reduce the opacity of all but the neighbouring nodes
+            d = d3.select(this).node().__data__;
+            node.style("opacity", function (o) {
+                return neighboring(d, o) | neighboring(o, d) ? 1 : 0.1;
+            });
+
+            link.style("opacity", function (o) {
+                return d.index==o.source.index | d.index==o.target.index ? 1 : 0.1;
+            });
+
+            edgelabels.style("opacity",function (o) {
+                return d.index==o.source.index | d.index==o.target.index ? 1 : 0.1;
+            });
+            toggle = 1;
+        } else {
+            //Reset opacity to 1
+            node.style("opacity", 1);
+            link.style("opacity", 1);
+            edgelabels.style("opacity",1);
+            toggle = 0;
+        }
+
+    }
+
 
     var edgepaths = svg.selectAll(".edgepath")
         .data(links)
@@ -154,7 +199,8 @@ function createGraph(nodes, links, drawnodesOnly) {
         .data(nodes)
         .enter().append("g")
         .attr("class", "node")
-        .call(node_drag);
+        .call(node_drag)
+        .on("dblclick",connectedNodes);
 
 
     node.append("image")
@@ -363,6 +409,38 @@ function createGraph(nodes, links, drawnodesOnly) {
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 30) + "px");
             }
+            else if(d._source.vType===vertexType.FOS){
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", 0.9);
+                tooltip.html(d._source.fos + "<br/>")
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 30) + "px");
+            }
+            else if(d._source.vType===vertexType.VENUE){
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", 0.9);
+                tooltip.html(d._source.venue + "<br/>")
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 30) + "px");
+            }
+            else if(d._source.vType===vertexType.ORG){
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", 0.9);
+                tooltip.html(d._source.org + "<br/>")
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 30) + "px");
+            }
+            else if(d._source.vType===vertexType.PUBLICATION){
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", 0.9);
+                tooltip.html(d._source.publisher + "<br/>")
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 30) + "px");
+            }
         })
         //to disbale tooltip
         .on("mouseout", function (d) {
@@ -382,7 +460,7 @@ function createGraph(nodes, links, drawnodesOnly) {
         .attr("dy", ".35em")
         .text(function (d) {
             if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cites")){
-                var temp=d._source.title
+                var temp=d._source.title;
                 return temp.substring(0,20)+"...";
             }
             else if(d._source.vType===vertexType.AUTHOR){
@@ -453,7 +531,6 @@ function createGraph(nodes, links, drawnodesOnly) {
 }
 
 function resize() {
-
     if(fullscreen){
         $("#graphArea").removeClass("startSize").addClass("newSize");
             svg.attr("width",1500)
@@ -463,8 +540,8 @@ function resize() {
     else{
         $("#graphArea").removeClass("newSize").addClass("startSize");
             svg.attr("width",1050)
-            .attr("height",580);
-        fullscreen=true;
+            .attr("height",600);
+            fullscreen=true;
     }
 }
 
@@ -507,6 +584,7 @@ function clearSVG() {
      instituteAlreadyAdded=new Map();
 
 }
+
 
 var vertexType={
     PAPER:"paper",

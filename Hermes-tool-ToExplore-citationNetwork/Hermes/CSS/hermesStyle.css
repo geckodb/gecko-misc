@@ -111,7 +111,7 @@ div.tooltip.n:after {
     display: none;
     background-color: #ffffff;
     border-radius: 4px;
-    font-family: Arial, Open Sans;
+    font-family: Open Sans;
     font-size: 14px;
     width: auto;
     height: auto;
@@ -371,7 +371,7 @@ width: 430px;
 }
 
 #pagination{
-    margin-bottom: -80px;
+    margin-bottom: -60px;
     margin-left: 70px;
 }
 
@@ -467,10 +467,6 @@ width: 430px;
     -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 1);
     -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 1);
     box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 1);
-}
-
-#searchResults{
-overflow: scroll;
 }
 
 #suggestionBox{

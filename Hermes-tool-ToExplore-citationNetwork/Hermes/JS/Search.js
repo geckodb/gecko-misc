@@ -199,6 +199,8 @@ function searchClicked(userEnteredtext,chosenType) {
             console.log(searchData)
             //Pagination code
             $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+
                 var $pagination = $('#pagination'),
                     totalRecords = 0,
                     records = [],
@@ -236,12 +238,20 @@ function searchClicked(userEnteredtext,chosenType) {
                             a.style.cursor="pointer";
                             a.onclick = function (d) {
                                 poplateClickedNode(d.path[1].getAttribute("id"), searchData);
-                            }
+                            };
+                            a.setAttribute("data-toggle","tooltip");
+                            a.setAttribute("title",displayRecords[i]._source.title);
                             linebreak = document.createElement("br");
                             boldHeader = document.createElement("b");
                             handler_a = td.appendChild(a);
-                            boldHeader.innerText = displayRecords[i]._source.title;
+                            if(displayRecords[i]._source.title.length>100){
+                                boldHeader.innerText = displayRecords[i]._source.title.slice(0,110)+"...";
+                            }else{
+                                boldHeader.innerText = displayRecords[i]._source.title
+                            }
                             handler_a.appendChild(boldHeader);
+
+
 
                             p = document.createElement("p");
                             handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
