@@ -175,7 +175,9 @@ function searchClicked(userEnteredtext,chosenType) {
         if(json.hits.hits.length==0){
             searchtextfield = document.getElementById("searchText");
             searchtextfield.innerText = userEnteredtext;
+            document.getElementById("resultCount").innerText=0;
             var doc = document.getElementById("searchResults");
+
             var tr = document.createElement("tr");
             var td = document.createElement("td");
             boldHeader = document.createElement("b");
@@ -186,9 +188,14 @@ function searchClicked(userEnteredtext,chosenType) {
             document.getElementById("overlay").style.display = "none";
         }
         else {
+            var totalHits;
+            var timeTaken;
             //searchData = json.hits.hits;
             searchtextfield = document.getElementById("searchText");
+            searchtextfield.setAttribute("id","hits")
             searchtextfield.innerText = userEnteredtext;
+            /*document.getElementById("resultCount").innerText=json.hits.total;
+            document.getElementById("resultTime").innerText=json.took+" ms";*/
             console.log(searchData)
             //Pagination code
             $(document).ready(function () {
@@ -210,6 +217,16 @@ function searchClicked(userEnteredtext,chosenType) {
                     $('#searchResults').html('');
 
                     var doc = document.getElementById("searchResults");
+                    var tr_hits=document.createElement("tr");
+                    var td_hits=document.createElement("td");
+                    td_hits.setAttribute("id","hits");
+                    p_hits=document.createElement("p");
+                    p_hits.innerText="Results found " +totalHits+" in "+timeTaken+ " ms";
+                    tdHandler=td_hits.appendChild(p_hits);
+
+                    tr_hits.appendChild(td_hits);
+                    doc.appendChild(tr_hits);
+
                     for (var i = 0; i < displayRecords.length; i++) {
                         var tr = document.createElement("tr");
                         var td = document.createElement("td");
@@ -367,9 +384,7 @@ function searchClicked(userEnteredtext,chosenType) {
                         visiblePages: 5,
                         onPageClick: function (event, page) {
                             displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
-                           // endRec = (displayRecordsIndex) + recPerPage;
 
-                               // var rangeValues=new Array();
                                 if(chosenType!=""){
                                     var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:"+chosenType+" AND "+userEnteredtext+"&from="+displayRecordsIndex+"&size=5";
                                 }else{
@@ -380,6 +395,8 @@ function searchClicked(userEnteredtext,chosenType) {
                                     if (error) throw error;
                                     records=jsonrangeResult.hits.hits;
                                     searchData=records;
+                                    totalHits=jsonrangeResult.hits.total;
+                                    timeTaken=jsonrangeResult.took;
                                    //Array.prototype.push.apply(records,rangeValues);
                                     displayRecords = records;
                                     generate_table();

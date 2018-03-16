@@ -32,6 +32,11 @@ class _source {
                 this.vType = state;
                 this.venue = value;
                 break;
+            case "cites":
+                this.vType=state;
+                this.title=value._source.titleCited;
+                this.authors=value._source.authorsCited;
+
         }
     }
 }
@@ -48,9 +53,8 @@ function createFOSNode(paperId, fos) {
 }
 
 function createPaperNode(paperId, properties) {
-    this.PaperId = paperId;
-    this.properties = properties;
-    this._source=new type("cite");
+    this._id = paperId;
+    this._source=new _source("cites",properties);
 }
 
 function createLinks(source, target) {
@@ -110,6 +114,19 @@ function showAuthors(idToEXpand, paperjgId,processedArray) {
                         var newLink = new createLinks(i, authorAlreadyAdded.get(processedArray[i]._source.authors[j].name));
                         linksArray.push(newLink);
                     }
+                }
+            }
+        }
+    }
+    for (var i = 0; i < intial_length; i++) {
+        if (processedArray[i]._source.vType === "cites") {
+            if ((processedArray[i]._id === idToEXpand)) {
+                for (var j = 0; j < processedArray[i]._source.authors.length; j++) {
+                    var newNode = new createAuthorNode(paperjgId, processedArray[i]._source.authors[j])
+                    var index = processedArray.push(newNode);
+                    authorAlreadyAdded.set(processedArray[i]._source.authors[j], index - 1);
+                    var newLink = new createLinks(i, processedArray.length - 1);
+                    linksArray.push(newLink);
                 }
             }
         }
@@ -210,8 +227,32 @@ function showVenue(idToEXpand,processedArray) {
 }
 
 
-function showCitations(idToEXpand) {
-    var intial_length = processedArray.length;
+function showCitations(idToEXpand,janusGraphId,scrIdPaperIndex,processedArray) {
+    var urlCitation="http://localhost:9200/janusgraph_edgees/_search?q=srcId:"+janusGraphId;
+    d3.json(urlCitation, function (error, json) {
+        if (error) throw error;
+        var tempArray= new Array();
+        tempArray=json.hits.hits;
+        for (var i=0;i<tempArray.length;i++) {
+            //if (idToEXpand === tempArray[i]._source.tgtId) {
+                var newNode = new createPaperNode(tempArray[i]._source.tgtId, tempArray[i]);
+                var index = processedArray.push(newNode);
+                var newLink = new createLinks(scrIdPaperIndex, processedArray.length - 1);
+                //paperAlreadyAdded.set(processedArray[i].properties.inE[0].vertexProperties[j].PaperId, index - 1);
+                linksArray.push(newLink);
+
+                JSON.stringify(linksArray);
+                JSON.stringify(processedArray);
+                d3.selectAll("svg > *").remove();
+                var mydata = new Set(processedArray);
+                for (let item of mydata) console.log(item);
+                createGraph(processedArray, linksArray, false);
+                d3.select('.context-menu').style('display', 'none');
+            }
+       // }
+    });
+   // http://localhost:9200/janusgraph_edgees/_search?q=srcId:90232
+    /*var intial_length = processedArray.length;
     for (var i = 0; i < intial_length; i++) {
         if(processedArray[i].type===vertexType.PAPER){
             if((processedArray[i].PaperId===idToEXpand)&&(processedArray[i].properties.inE!==undefined)) {
@@ -245,15 +286,9 @@ function showCitations(idToEXpand) {
                 }
             }
         }
-    }
+    }*/
 
-    JSON.stringify(linksArray);
-    JSON.stringify(processedArray);
-    d3.selectAll("svg > *").remove();
-    var mydata=new Set(processedArray);
-    for(let item of mydata) console.log(item);
-    createGraph(processedArray, linksArray,false);
-    d3.select('.context-menu').style('display', 'none');
+
 }
 
 function showReferences(idToEXpand){
@@ -279,7 +314,7 @@ function showReferences(idToEXpand){
 }
 
 
-function showInstitution(idToEXpand,authorName,indexofCreatedAuthorNode) {
+function showInstitution(idToEXpand,authorName,indexofCreatedAuthorNode,processedArray) {
     var targetId="";
     var orgNames=new Array();
     var url= "http://localhost:9200/janusgraph_edgees/_search?q=eType=authorship AND srcId="+idToEXpand+" AND authorEdge="+authorName;
@@ -308,8 +343,8 @@ function showInstitution(idToEXpand,authorName,indexofCreatedAuthorNode) {
             JSON.stringify(linksArray);
             JSON.stringify(processedArray);
             d3.selectAll("svg > *").remove();
-            var mydata=new Set(processedArray);
-            for(let item of mydata) console.log(item);
+            //var mydata=new Set(processedArray);
+            //for(let item of mydata) console.log(item);
             createGraph(processedArray, linksArray,false);
             $("#graphArea").css("cursor","default");
         });
@@ -339,8 +374,6 @@ function showInstitutionFromAuthor(idToEXpand,processedArray) {
     JSON.stringify(linksArray);
     JSON.stringify(processedArray);
     d3.selectAll("svg > *").remove();
-    var mydata=new Set(processedArray);
-    for(let item of mydata) console.log(item);
     createGraph(processedArray, linksArray,false);
     $("#graphArea").css("cursor","default");
     d3.select('.context-menu').style('display', 'none');

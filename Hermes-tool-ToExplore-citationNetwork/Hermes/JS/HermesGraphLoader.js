@@ -10,9 +10,6 @@ var svg = d3.select("#paperGraphArea")
     .attr("width",width)
     .attr("height",height);
 
-var divShowAllInfo = d3.select("body")
-                    .append("div");
-
 var paperMenuItems = ["Show more info","Authorship","Domain","Hosting","Publishing","Co-citation","Bibliographic Coupling", "Cited By","References"];
 var authorMenuItems=["Papers","Co-authorship", "Membership"];
 var institutionMenuItems=["Papers"];
@@ -132,7 +129,7 @@ function createGraph(nodes, links, drawnodesOnly) {
         .attr('xlink:href',function(d,i) {return '#edgepath'+i})
         .style("pointer-events", "none")
         .text(function(d,i){
-            if((d.target._source.vType===vertexType.PAPER)||(d.target._source.vType==="cite")){
+            if((d.target._source.vType===vertexType.PAPER)||(d.target._source.vType==="cites")){
                 return "cited by"
             }else if(d.target._source.vType===vertexType.AUTHOR){
                 return "author"
@@ -156,33 +153,11 @@ function createGraph(nodes, links, drawnodesOnly) {
         .enter().append("g")
         .attr("class", "node")
         .call(node_drag);
-        /*.on("dblclick",function (d) {
 
-            if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cite")){
-                divpopup.transition()
-                    .duration(200)
-                    .style("opacity", 10);
-                divpopup.html("<b>Title : </b>"+d._source.title + "<br/>"+
-                    "<b>Authors : </b>"+d._source.authors + "<br/>"+
-                    "<a> show more...</a>"+ "<br/>"+
-                    "<button id='popupbtn' type='submit' onclick='callme()'>close</button>")
-                    .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 60) + "px");
-
-            }
-            else if(d._source.vType===vertexType.AUTHOR){
-                divpopup.transition()
-                    .duration(200)
-                    .style("opacity", 10);
-                divpopup.html(d._source.author + "<br/>")
-                    .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 60) + "px");
-            }
-        })*/
 
     node.append("image")
         .attr("xlink:href", function (d) {
-            if((d._source.vType==="paper") || (d._source.vType==="reference")||(d._source.vType==="cite")) {
+            if((d._source.vType==="paper") || (d._source.vType==="reference")||(d._source.vType==="cites")) {
                 return "http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/512/Document-icon.png"
             }
             else if (d._source.vType==="author"){
@@ -228,7 +203,7 @@ function createGraph(nodes, links, drawnodesOnly) {
                 .append('ul')
                 .selectAll('li')
                 .data(function () {
-                    if(d._source.vType===vertexType.PAPER)
+                    if((d._source.vType===vertexType.PAPER)||(d._source.vType===vertexType.CITES))
                         return paperMenuItems;
                     else if((d._source.vType===vertexType.AUTHOR)){
                         return authorMenuItems;
@@ -247,8 +222,8 @@ function createGraph(nodes, links, drawnodesOnly) {
                         showAuthors(paperId,srcjgId,processedArray);
                         paperExpanded.add(paperId);
                         d3.select('.context-menu').style('display', 'none');
-                    }else if(d==="Citedby"){
-                        showCitations(paperId,processedArray);
+                    }else if(d==="Cited By"){
+                        showCitations(targetId,srcjgId,scrIdPaperIndex,processedArray);
                         d3.select('.context-menu').style('display', 'none');
                     }else if(d==="References"){
                         showReferences(paperId);
@@ -262,7 +237,7 @@ function createGraph(nodes, links, drawnodesOnly) {
 
                         }else{
 
-                            showInstitution(authorSrcId,authorName,index);
+                            showInstitution(authorSrcId,authorName,index,processedArray);
                             d3.select('.context-menu').style('display', 'none');
                         }
                     }else if(d==="Domain"){
@@ -291,7 +266,8 @@ function createGraph(nodes, links, drawnodesOnly) {
             d3.event.preventDefault();
             console.log(d);
             if(d._source.vType===vertexType.PAPER){
-                var srcjgId=d._source.jgId
+                var srcjgId=d._source.jgId;
+                var scrIdPaperIndex=d.index;
             }else if(d._source.vType===vertexType.AUTHOR){
                 if(d.createdNode!==undefined){
                     var authorSrcId=d.authorId;
@@ -300,14 +276,17 @@ function createGraph(nodes, links, drawnodesOnly) {
                 }else{
                     fromAuthor=true;
                 }
+            }else if(d._source.vType===vertexType.CITES){
+                var targetId=d._source.tgtId;
             }
              paperId = d._id;
+
             var selectedIndex=d.index;
         })
         //To display tooltip
        .on("mouseover", function (d) {
             //	Define the div for the tooltip
-            if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cite")){
+            if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cites")){
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 0.9);
@@ -344,7 +323,7 @@ function createGraph(nodes, links, drawnodesOnly) {
         .attr("dx", 20)
         .attr("dy", ".35em")
         .text(function (d) {
-            if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cite")){
+            if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cites")){
                 var temp=d._source.title
                 return temp.substring(0,20)+"...";
             }
@@ -460,6 +439,15 @@ function clearSVG() {
     processedArray=new Array();
     linksArray=new Array();
     nodeAdded= new Set();
+     authorAlreadyAdded=new Map();
+     publicationAlreadyAdded=new Map();
+     venueAlreadyAdded=new Map();
+     fosAlreadyAdded=new Map();
+     paperAlreadyAded=new Map();
+     paperExpanded= new Set();
+     nodeExpandedforRefernce = new Set();
+     instituteAlreadyAdded=new Map();
+
 }
 
 var vertexType={
@@ -469,6 +457,6 @@ var vertexType={
     FOS:"fos",
     PUBLICATION:"publication",
     VENUE:"venue",
-    CITES:"",
+    CITES:"cites",
     REFERENCES:""
 }

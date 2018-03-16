@@ -37,7 +37,7 @@
                             <tr>
                                 <td width="50px" ><a href="#" title="Export data" onclick="downloadGraphAsData(); return false;"><span class="glyphicon glyphicon-save-file" id="exportData_glyphicons"></span></a></td>
                                 <td width="50px"><a href="#" title="Save as svg" onclick="downloadGraphAsSVG(); return false;"><span class="glyphicon glyphicon-download-alt" id="exportSVG_glyphicons"></span></a></td>
-                                <td width="50px"><a href="#" title="Clean svg" onclick="clearSVG();return false;"><img src="http://www.pvhc.net/img5/ijovqnapcruuatplqiba.png" id="clearSVG"></a></td>
+                                <td width="50px"><a href="#" title="Clear" onclick="clearSVG();return false;"><img src="http://www.pvhc.net/img5/ijovqnapcruuatplqiba.png" id="clearSVG"></a></td>
                                 <td width="650px"></td>
                                 <td width="250px"></td>
                                 <td width="50px"><a href="#" title="" onclick=resize()><span class="glyphicon glyphicon-resize-full" id="enlarge_glyphicons"></span></a></td>
@@ -47,17 +47,6 @@
 
                     <div id="paperGraphArea">
                     </div>
-                   <!-- <div class="graphpagination">
-                        <p style="margin-left: 220px"><b>Show next 10 citations:</b><a href="#">&laquo;</a>
-                            <a class="active" href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">5</a>
-                            <a href="#">6</a>
-                            <a href="#">&raquo;</a>
-                        </p>
-                    </div>-->
                 </div>
             </td>
             <td id="searchArea">
@@ -68,6 +57,14 @@
                                 <p><b>Search Results for :</b> <p style="color:green"><b id="searchText"></b></b></p></p>
                             </td>
                         </tr>
+                       <!-- <tr>
+                            <td>
+                                <p>Results found: </p>
+                            </td>
+                            <td>
+                                <p id="resultCount"></p>
+                            </td>
+                        </tr>-->
                         <tr>
                             <td>
                                 <div class="list-group" id="list" style="width: 430px">
