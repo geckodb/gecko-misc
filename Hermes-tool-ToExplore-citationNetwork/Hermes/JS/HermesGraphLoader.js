@@ -85,8 +85,6 @@ function createGraph(nodes, links, drawnodesOnly) {
         .on("drag", drag_move)
         .on("dragend", drag_end);
 
-
-
     function drag_start(d, i) {
         force.stop() // stops the force auto positioning before you start dragging
     }
@@ -147,7 +145,6 @@ function createGraph(nodes, links, drawnodesOnly) {
         }
 
     }
-
 
     var edgepaths = svg.selectAll(".edgepath")
         .data(links)
