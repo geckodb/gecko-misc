@@ -139,6 +139,23 @@ function fillSuggestion() {
 
 }
 
+function submitIfEnter(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            var userEnteredtext=document.getElementById("searchinput").value;
+            var typeOfVertex=document.getElementById("hiddenInput").value;
+            if(!(userEnteredtext.length>0)){
+
+                alert("please enter value");
+                event.preventDefault();
+                $('#search').addClass('open');
+                $('#search > form > input[type="search"]').focus();
+            }else{
+                window.location.href="scholarlyResult.html?value="+userEnteredtext+"&type="+typeOfVertex;
+            }
+        }
+}
+
 
 //verifies if search field is not empty, and redirects to scholarlyResult.html
 $("#searchRes").click(function(){
@@ -155,7 +172,13 @@ $("#searchRes").click(function(){
     }
 });
 
-
+function curlRequest() {
+    var body=bodybuilder()
+        .query('query_string','query','*')
+        .size(0)
+        .aggregation('terms','year')
+        .size(2000)
+        .build()}
 
 function searchClicked(userEnteredtext,chosenType) {
     var searchData=new Array();
@@ -294,9 +317,9 @@ function searchClicked(userEnteredtext,chosenType) {
                         } else if (displayRecords[i]._source.vType === vertexType.ORG) {
                             a = document.createElement("a");
                             a.setAttribute("id", displayRecords[i]._id);
-                            a.onclick = function (d) {
+                            a.click = function (d) {
                                 poplateClickedNode(d.path[1].getAttribute("id"), searchData);
-                            }
+                            };
                             linebreak = document.createElement("br");
                             boldHeader = document.createElement("b");
                             handler_a = td.appendChild(a);
@@ -318,7 +341,7 @@ function searchClicked(userEnteredtext,chosenType) {
                             a.setAttribute("id", displayRecords[i]._id);
                             a.onclick = function (d) {
                                 poplateClickedNode(d.path[1].getAttribute("id"), searchData);
-                            }
+                            };
                             linebreak = document.createElement("br");
                             boldHeader = document.createElement("b");
                             handler_a = td.appendChild(a);

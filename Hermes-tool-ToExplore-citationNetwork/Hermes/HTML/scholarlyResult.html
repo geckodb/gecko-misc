@@ -109,6 +109,27 @@
     </div>
 </div>
 
+
+<div id="addTagModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+<!-- Modal content-->
+<div class="modal-content" id="addTagstyle">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Tag</h4>
+    </div>
+    <div class="modal-body">
+        <input type="text" id="modalInput" autofocus>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" id="btnAddTag" onclick="postTag">Add</button>
+        <button type="submit" id="btnCancel" onclick="CloseAddTagWindow()">Cancel</button>
+    </div>
+</div>
+    </div>
+</div>
+
 <script src="../JS/Search.js"></script>
 <script src="../JS/processAndFormEntities.js"></script>
 <script src="../JS/HermesGraphLoader.js"></script>

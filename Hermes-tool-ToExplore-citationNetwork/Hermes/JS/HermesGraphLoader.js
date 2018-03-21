@@ -10,7 +10,7 @@ var svg = d3.select("#paperGraphArea")
     .attr("width",width)
     .attr("height",height);
 
-var paperMenuItems = ["Show more info","Authorship","Domain","Hosting","Publishing","Co-citation","Bibliographic Coupling", "Cited By","References"];
+var paperMenuItems = ["Show more info","Authorship","Domain", "Hosting", "Publishing", "Cited By", "Add tag", "Co-citation", "Bibliographic Coupling", "References"];
 var authorMenuItems=["Papers","Co-authorship", "Membership"];
 var institutionMenuItems=["Papers"];
 var venueMenuItems=["Papers"];
@@ -349,6 +349,10 @@ function createGraph(nodes, links, drawnodesOnly) {
                         }else{
                             showCompleteDetails(selectedIndex,processedArray);
                         }
+                        d3.select('.context-menu').style('display', 'none');
+                    }
+                    else if(d=="Add tag"){
+                        addTag();
                         d3.select('.context-menu').style('display', 'none');
                     }
                 })

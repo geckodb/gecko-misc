@@ -543,3 +543,13 @@ function showCompleteDetails(idsOfDetailToShow,processedArray){
     }
     $("#myModal").modal();
 }
+
+function addTag() {
+    $('#modalInput').html('');
+    $("#addTagModal").modal();
+
+}
+
+function CloseAddTagWindow() {
+    $("#addTagModal").modal('hide');
+}
