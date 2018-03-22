@@ -162,9 +162,9 @@ public class Benchmark {
         formatter.createTable();
 
         System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream("/Users/marcus/temp/results-insert.csv"))));
-        System.out.println("TimeMs;TotalSize;NumTuples;DbSize");
+        System.out.println("TimeMs;TotalSize;TotalTuples;DbSize");
         try {
-            String datasetPath = "/Users/marcus/git/gecko/gecko-misc/string-db-gen/output/synth.csv";
+            String datasetPath = "/Users/marcus/git/gecko/gecko-misc/string-db-gen/output/social.csv";
             ArrayList<Integer> insertTuplesId = new ArrayList<>();
             ArrayList<String> insertTuplesX = new ArrayList<>();
             ArrayList<String> insertTuplesY = new ArrayList<>();
