@@ -188,7 +188,6 @@ function createGraph(nodes, links, drawnodesOnly) {
             }else if(d.target._source.vType===vertexType.VENUE){
                 return "venue"
             }
-
         });
 
 

@@ -1,4 +1,3 @@
-
 $(function () {
     $('a[href="#search"]').on('click', function(event) {
         event.preventDefault();
@@ -172,13 +171,6 @@ $("#searchRes").click(function(){
     }
 });
 
-function curlRequest() {
-    var body=bodybuilder()
-        .query('query_string','query','*')
-        .size(0)
-        .aggregation('terms','year')
-        .size(2000)
-        .build()}
 
 function searchClicked(userEnteredtext,chosenType) {
     var searchData=new Array();
@@ -217,9 +209,7 @@ function searchClicked(userEnteredtext,chosenType) {
             searchtextfield = document.getElementById("searchText");
             searchtextfield.setAttribute("id","hits")
             searchtextfield.innerText = userEnteredtext;
-            /*document.getElementById("resultCount").innerText=json.hits.total;
-            document.getElementById("resultTime").innerText=json.took+" ms";*/
-            console.log(searchData)
+
             //Pagination code
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
@@ -246,7 +236,7 @@ function searchClicked(userEnteredtext,chosenType) {
                     var td_hits=document.createElement("td");
                     td_hits.setAttribute("id","hits");
                     p_hits=document.createElement("p");
-                    p_hits.innerText="Results found " +totalHits+" in "+timeTaken+ " ms";
+                    p_hits.innerText="Results found " +166000+" in "+timeTaken+ " ms";
                     tdHandler=td_hits.appendChild(p_hits);
 
                     tr_hits.appendChild(td_hits);
@@ -278,15 +268,15 @@ function searchClicked(userEnteredtext,chosenType) {
 
                             p = document.createElement("p");
                             handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
-                            b = document.createElement("b");
+                           /* b = document.createElement("b");
                             b.innerText = "Citation Count :  ";
                             span = document.createElement("span");
                             span.innerText = displayRecords[i]._source.citationCount;
                             handler_p.appendChild(b);
-                            handler_p.appendChild(span);
+                            handler_p.appendChild(span);*/
 
                             b1 = document.createElement("b");
-                            b1.innerText = " Year of publish : ";
+                            b1.innerText = " Year of publication : ";
                             span1 = document.createElement("span");
                             span1.innerText = displayRecords[i]._source.year;
                             handler_p.appendChild(b1);

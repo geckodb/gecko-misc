@@ -263,13 +263,10 @@ body {
     top: 15px;
 }
 
-#graphArea{
-     border:1px solid black;
- }
-
 #searchArea{
     border:1px solid black;
     font-family: Open Sans;
+    height: 500px;
 }
 
 .startSize{
@@ -297,9 +294,19 @@ body {
 
 .searchsize{
     width: 460px;
+    height: 530px;
     border-radius: 4px;
     margin-bottom: 40px;
 
+}
+
+#FacetsArea{
+
+    height: 600px;
+    border-radius: 4px;
+    margin-bottom: -30px;
+    margin-left: -14px;
+    overflow:auto;
 }
 
 .fullscreen-svg{
@@ -369,8 +376,17 @@ body {
 width: 430px;
 }
 
+#facetTab{
+    width: 430px;
+    padding: 5px;
+}
+
+#facetResults{
+    overflow: scroll;
+}
+
 #pagination{
-    margin-bottom: -60px;
+    margin-bottom: 0px;
     margin-left: 70px;
 }
 
@@ -546,4 +562,19 @@ width: 430px;
 
 #addTagstyle{
     margin-top: 260px;
+}
+
+#resultList {
+    margin-top: -33px;
+}
+
+#graphArea{
+    border:1px solid black;
+}
+
+#setFont{
+    font-size: medium;
+    color: cornflowerblue;
+    padding: 6px;
+
 }

@@ -8,7 +8,6 @@ var paperExpanded= new Set();
 var nodeExpandedforRefernce = new Set();
 var instituteAlreadyAdded=new Map();
 
-
 class _source {
     constructor(state, value) {
         switch (state) {
@@ -316,7 +315,6 @@ function showInstitution(idToEXpand,authorName,indexofCreatedAuthorNode,processe
 
 
 function showInstitutionFromAuthor(idToEXpand,selectedIndex,processedArray) {
-
     $("#graphArea").css("cursor","wait");
     if(processedArray[selectedIndex]._source.orgList===undefined){
         alert("Institution information not available")
@@ -547,9 +545,100 @@ function showCompleteDetails(idsOfDetailToShow,processedArray){
 function addTag() {
     $('#modalInput').html('');
     $("#addTagModal").modal();
-
-}
+    }
 
 function CloseAddTagWindow() {
     $("#addTagModal").modal('hide');
+}
+
+
+
+function loadFacets(searchValue){
+    var buckets=new Array();
+  document.getElementById("ResultsArea").style.visibility="hidden";
+
+    var query='{\n' +
+        '            "size":0,\n' +
+        '            "query":{\n' +
+        '                "query_string":{\n' +
+        '                    "query":"*"\n' +
+        '                }\n' +
+        '            },\n' +
+        '            "aggs":{\n' +
+        '                "paperByYear":{\n' +
+        '                    "terms":{\n' +
+        '                        "field":"year",\n' +
+        '                        "size":2000\n' +
+        '                    }\n' +
+        '                }\n' +
+        '            }\n' +
+        '        }';
+
+var query1='{"size":0,\n' +
+    '            "query":{\n' +
+    '                "query_string":{\n' +
+    '                    "query":searchValue\n' +
+    '                }\n' +
+    '            },\n' +
+    '            "aggs":{\n' +
+    '                "paperByYear":{\n' +
+    '                    "terms":{\n' +
+    '                        "field":"year",\n' +
+    '                        "size":2000\n' +
+    '                    }\n' +
+    '                }\n' +
+    '            }\n' +
+    '        }}';
+
+
+    $.ajax({
+        type: 'POST',
+        url: 'http://localhost:9200/_search',
+        contentType: 'application/json',
+        data: query,
+        success: function (response) {
+            buckets=response.aggregations.paperByYear.buckets;
+            console.log(response.aggregations.paperByYear.buckets);
+
+            var facetTab=document.getElementById("facetResults");
+            var tr_header=document.createElement("tr");
+            var td_year=document.createElement("th");
+            td_year.setAttribute("id","setFont");
+
+            td_year.innerText="Year";
+            var td_docCount=document.createElement("th");
+            td_docCount.setAttribute("id","setFont");
+            td_docCount.innerText="Document Count";
+            tr_header.appendChild(td_year);
+            tr_header.appendChild(td_docCount);
+            facetTab.appendChild(tr_header);
+
+            for (var i=0;i<buckets.length;i++){
+                var tr = document.createElement("tr");
+                var tdVal1 = document.createElement("td");
+                var tdVal2 = document.createElement("td");
+
+                var yearKey=document.createElement("b");
+                var doc_count=document.createElement("b");
+
+                yearKey.innerText=buckets[i].key;
+                tdVal1.appendChild(yearKey);
+                tdVal1.style.padding="5px";
+                doc_count.innerText=buckets[i].doc_count;
+                tdVal2.appendChild(doc_count);
+                tdVal2.style.padding="5px";
+                tr.appendChild(tdVal1);
+                tr.appendChild(tdVal2);
+
+                facetTab.appendChild(tr);
+            }
+        },
+        dataType: 'json'
+    });
+
+
+}
+
+function loadResults(){
+    document.getElementById("ResultsArea").style.visibility="visible";
 }

@@ -1,0 +1,8 @@
+{
+  "name": "Hermes",
+  "version": "0.0.1",
+  "dependencies": {
+    "elasticsearch": "latest",
+    "bluebird": "latest"
+  }
+}
