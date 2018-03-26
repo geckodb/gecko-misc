@@ -561,7 +561,7 @@ function loadFacets(searchValue){
         '            "size":0,\n' +
         '            "query":{\n' +
         '                "query_string":{\n' +
-        '                    "query":"*"\n' +
+        '                    "query":'+JSON.stringify(searchValue) +'\n'+
         '                }\n' +
         '            },\n' +
         '            "aggs":{\n' +
@@ -574,10 +574,10 @@ function loadFacets(searchValue){
         '            }\n' +
         '        }';
 
-var query1='{"size":0,\n' +
+var query_format='{"size":0,\n' +
     '            "query":{\n' +
     '                "query_string":{\n' +
-    '                    "query":searchValue\n' +
+    '                    "query":'+JSON.stringify(searchValue) +'\n'+
     '                }\n' +
     '            },\n' +
     '            "aggs":{\n' +
@@ -589,7 +589,6 @@ var query1='{"size":0,\n' +
     '                }\n' +
     '            }\n' +
     '        }}';
-
 
     $.ajax({
         type: 'POST',

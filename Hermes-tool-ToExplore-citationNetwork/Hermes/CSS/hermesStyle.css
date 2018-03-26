@@ -79,7 +79,7 @@ div.tooltip {
     height: auto;
     padding: 4px;
     font: 12px Open Sans;
-    background: #ffffff;
+    background: #f4e7db;
     border: 3px;
     border-radius: 2px;
     border: 3px solid #d4d4d4;
@@ -110,15 +110,14 @@ div.tooltip.n:after {
 .context-menu {
     position: absolute;
     display: none;
-    background-color: #ffffff;
+    background-color: #e3e3e3;
     border-radius: 4px;
     font-family: Open Sans;
     font-size: 14px;
     width: auto;
     height: auto;
-    border: 1px solid #d4d4d4;
+    border: 2px solid #000000;
     z-index: 10000;
-
 }
 
 .context-menu ul {
