@@ -44,6 +44,7 @@
     background-color:lightgray;
     color: lightgray;
     width: auto;
+    height: 45px;
     padding-bottom: 20px;
     margin-bottom: -3000px;
 }
@@ -116,7 +117,7 @@ div.tooltip.n:after {
     font-size: 14px;
     width: auto;
     height: auto;
-    border: 2px solid #000000;
+    border: 0px solid #000000;
     z-index: 10000;
 }
 
@@ -292,7 +293,7 @@ body {
 }
 
 .searchsize{
-    width: 460px;
+    width: 465px;
     height: 530px;
     border-radius: 4px;
     margin-bottom: 40px;
@@ -376,7 +377,7 @@ width: 430px;
 }
 
 #facetTab{
-    width: 430px;
+    width: 450px;
     padding: 5px;
 }
 

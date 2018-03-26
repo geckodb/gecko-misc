@@ -72,7 +72,11 @@ function fillSuggestion() {
                 citationTag=document.createElement("bold");
                 citationTag.innerText="Citation : ";
                 spanCitationTag=document.createElement("span");
-                spanCitationTag.innerText=suggestionData[i]._source.citationCount;
+                if(suggestionData[i]._source.magNCitation===undefined){
+                    spanCitationTag.innerText=0;
+                }else{
+                    spanCitationTag.innerText=suggestionData[i]._source.magNCitation;
+                }
 
                 pTag_handler.appendChild(citationTag);
                 pTag_handler.appendChild(spanCitationTag);
@@ -190,7 +194,7 @@ function searchClicked(userEnteredtext,chosenType) {
         if(json.hits.hits.length==0){
             searchtextfield = document.getElementById("searchText");
             searchtextfield.innerText = userEnteredtext;
-            document.getElementById("resultCount").innerText=0;
+           // document.getElementById("resultCount").innerText=0;
             var doc = document.getElementById("searchResults");
 
             var tr = document.createElement("tr");
@@ -236,7 +240,7 @@ function searchClicked(userEnteredtext,chosenType) {
                     var td_hits=document.createElement("td");
                     td_hits.setAttribute("id","hits");
                     p_hits=document.createElement("p");
-                    p_hits.innerText="Results found " +166000+" in "+timeTaken+ " ms";
+                    p_hits.innerText="Results found " +totalRecords+" in "+timeTaken+ " ms";
                     tdHandler=td_hits.appendChild(p_hits);
 
                     tr_hits.appendChild(td_hits);
@@ -268,12 +272,17 @@ function searchClicked(userEnteredtext,chosenType) {
 
                             p = document.createElement("p");
                             handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
-                           /* b = document.createElement("b");
+                            b = document.createElement("b");
                             b.innerText = "Citation Count :  ";
                             span = document.createElement("span");
-                            span.innerText = displayRecords[i]._source.citationCount;
+                            if(displayRecords[i]._source.magNCitation===undefined){
+                                span.innerText=0;
+                            }else{
+                                span.innerText = displayRecords[i]._source.magNCitation;
+                            }
+
                             handler_p.appendChild(b);
-                            handler_p.appendChild(span);*/
+                            handler_p.appendChild(span);
 
                             b1 = document.createElement("b");
                             b1.innerText = " Year of publication : ";
@@ -285,6 +294,7 @@ function searchClicked(userEnteredtext,chosenType) {
                         } else if (displayRecords[i]._source.vType === vertexType.AUTHOR) {
                             a = document.createElement("a");
                             a.setAttribute("id", displayRecords[i]._id);
+                            a.style.cursor="pointer";
                             a.onclick = function (d) {
                                 poplateClickedNode(d.path[1].getAttribute("id"), searchData);
                             }
@@ -306,8 +316,9 @@ function searchClicked(userEnteredtext,chosenType) {
                             td.appendChild(linebreak);
                         } else if (displayRecords[i]._source.vType === vertexType.ORG) {
                             a = document.createElement("a");
+                            a.style.cursor="pointer";
                             a.setAttribute("id", displayRecords[i]._id);
-                            a.click = function (d) {
+                            a.onclick = function (d) {
                                 poplateClickedNode(d.path[1].getAttribute("id"), searchData);
                             };
                             linebreak = document.createElement("br");
@@ -329,6 +340,7 @@ function searchClicked(userEnteredtext,chosenType) {
                         }else if (displayRecords[i]._source.vType === vertexType.PUBLICATION) {
                             a = document.createElement("a");
                             a.setAttribute("id", displayRecords[i]._id);
+                            a.style.cursor="pointer";
                             a.onclick = function (d) {
                                 poplateClickedNode(d.path[1].getAttribute("id"), searchData);
                             };
@@ -351,6 +363,7 @@ function searchClicked(userEnteredtext,chosenType) {
                         }else if (displayRecords[i]._source.vType === vertexType.FOS) {
                             a = document.createElement("a");
                             a.setAttribute("id", displayRecords[i]._id);
+                            a.style.cursor="pointer";
                             a.onclick = function (d) {
                                 poplateClickedNode(d.path[1].getAttribute("id"), searchData);
                             }
@@ -373,6 +386,7 @@ function searchClicked(userEnteredtext,chosenType) {
                         }else if (displayRecords[i]._source.vType === vertexType.VENUE) {
                             a = document.createElement("a");
                             a.setAttribute("id", displayRecords[i]._id);
+                            a.style.cursor="pointer";
                             a.onclick = function (d) {
                                 poplateClickedNode(d.path[1].getAttribute("id"), searchData);
                             }

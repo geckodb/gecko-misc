@@ -2,6 +2,7 @@ var linksArray = new Array();
 var authorAlreadyAdded=new Map();
 var publicationAlreadyAdded=new Map();
 var venueAlreadyAdded=new Map();
+var coAuthorsAlreadyAdded=new Map();
 var fosAlreadyAdded=new Map();
 var paperAlreadyAdded=new Map();
 var paperExpanded= new Set();
@@ -313,6 +314,27 @@ function showInstitution(idToEXpand,authorName,indexofCreatedAuthorNode,processe
 
 }
 
+function showCoAuthorship(selectedIndex,author,processedArray) {
+    var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:author AND jgId:"+author;
+    var collaborators;
+    d3.json(url,function (error,jsonResult) {
+        if (error) throw error;
+        collaborators = jsonResult.hits.hits[0]._source.authors;//add the particular attribute
+
+        for(var i=0;i<collaborators.length;i++){
+            if (!coAuthorsAlreadyAdded.has(processedArray[selectedIndex]._source.author)) {
+                var newNode = new createAuthorNode(processedArray[selectedIndex]._source.author);
+                var index = processedArray.push(newNode);
+                coAuthorsAlreadyAdded.set(processedArray[selectedIndex]._source.author, index - 1);
+                var newLink = new createLinks(selectedIndex, processedArray.length - 1);
+                linksArray.push(newLink);
+            }else{
+                var newLink = new createLinks(selectedIndex, coAuthorsAlreadyAdded.get(processedArray[selectedIndex]._source.venuePaper));
+                linksArray.push(newLink);
+            }
+        }
+    })
+}
 
 function showInstitutionFromAuthor(idToEXpand,selectedIndex,processedArray) {
     $("#graphArea").css("cursor","wait");
@@ -552,16 +574,19 @@ function CloseAddTagWindow() {
 }
 
 
-
-function loadFacets(searchValue){
+function loadFacets(searchValue,byYear){
+    var query;
     var buckets=new Array();
   document.getElementById("ResultsArea").style.visibility="hidden";
+    $('#facetResults').html('');
+    $("#searchArea").css("cursor","wait");
+if(byYear) {
 
-    var query='{\n' +
+     query = '{\n' +
         '            "size":0,\n' +
         '            "query":{\n' +
         '                "query_string":{\n' +
-        '                    "query":'+JSON.stringify(searchValue) +'\n'+
+        '                    "query":' + JSON.stringify(searchValue) + '\n' +
         '                }\n' +
         '            },\n' +
         '            "aggs":{\n' +
@@ -573,23 +598,23 @@ function loadFacets(searchValue){
         '                }\n' +
         '            }\n' +
         '        }';
-
-var query_format='{"size":0,\n' +
-    '            "query":{\n' +
-    '                "query_string":{\n' +
-    '                    "query":'+JSON.stringify(searchValue) +'\n'+
-    '                }\n' +
-    '            },\n' +
-    '            "aggs":{\n' +
-    '                "paperByYear":{\n' +
-    '                    "terms":{\n' +
-    '                        "field":"year",\n' +
-    '                        "size":2000\n' +
-    '                    }\n' +
-    '                }\n' +
-    '            }\n' +
-    '        }}';
-
+}else {
+     query = '{"size":0,\n' +
+        '            "query":{\n' +
+        '                "query_string":{\n' +
+        '                    "query":' + JSON.stringify(searchValue) + '\n' +
+        '                }\n' +
+        '            },\n' +
+        '            "aggs":{\n' +
+        '                "paperByYear":{\n' +
+        '                    "terms":{\n' +
+        '                        "field":"magNCitation",\n' +
+        '                        "size":2000\n' +
+        '                    }\n' +
+        '                }\n' +
+        '            }\n' +
+        '        }}';
+}
     $.ajax({
         type: 'POST',
         url: 'http://localhost:9200/_search',
@@ -603,8 +628,12 @@ var query_format='{"size":0,\n' +
             var tr_header=document.createElement("tr");
             var td_year=document.createElement("th");
             td_year.setAttribute("id","setFont");
+            if(byYear){
+                td_year.innerText="Year";
+            }else{
+                td_year.innerText="Citation Number";
+            }
 
-            td_year.innerText="Year";
             var td_docCount=document.createElement("th");
             td_docCount.setAttribute("id","setFont");
             td_docCount.innerText="Document Count";
@@ -630,14 +659,15 @@ var query_format='{"size":0,\n' +
                 tr.appendChild(tdVal2);
 
                 facetTab.appendChild(tr);
+                $("#searchArea").css("cursor","default");
             }
         },
         dataType: 'json'
     });
-
 
 }
 
 function loadResults(){
     document.getElementById("ResultsArea").style.visibility="visible";
 }
+

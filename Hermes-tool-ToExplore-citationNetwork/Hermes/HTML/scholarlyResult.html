@@ -58,9 +58,8 @@
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#" >Facets <span class="caret"></span> </a>
                     <ul class="dropdown-menu">
-                        <li><a  data-toggle="tab" href="#FacetsArea" onclick="loadFacets(searchValue)"> by year</a></li>
-                        <li><a href="#"> by domain</a></li>
-                        <li><a href="#"> by Author</a></li>
+                        <li><a  data-toggle="tab" href="#FacetsArea" onclick="loadFacets(searchValue,true)"> by year</a></li>
+                        <li><a data-toggle="tab" href="#FacetsArea" onclick="loadFacets(searchValue,false)"> by citation count</a></li>
                     </ul>
                 </li>
             </ul>
@@ -94,6 +93,7 @@
 
 
                     <div id="FacetsArea" class="tab-pane fade">
+
 
                    <table  style="margin-left: 15px" class="table-hover table-bordered" id="facetTab" style="word-break: break-all;">
                             <tbody id="facetResults" >
