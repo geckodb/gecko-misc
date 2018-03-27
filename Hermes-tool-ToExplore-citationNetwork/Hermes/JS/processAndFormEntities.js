@@ -34,8 +34,8 @@ class _source {
                 break;
             case "cites":
                 this.vType=state;
-                this.title=value._source.titleCited;
-                this.authors=value._source.authorsCited;
+                this.title=value._source.titleCiter;
+                //this.authors=value._source.authorsCited;
 
         }
     }
@@ -228,8 +228,10 @@ function showVenue(idToEXpand,selectedIndex,processedArray) {
 
 
 function showCitations(idToEXpand,janusGraphId,scrIdPaperIndex,processedArray) {
-    var urlCitation="http://localhost:9200/janusgraph_edgees/_search?q=srcId:"+janusGraphId;
+    var urlCitation="http://localhost:9200/janusgraph_edgees/_search?q=srcId:"+janusGraphId+" AND eType:cites AND _exists_:tgtId&size=100";
+
     d3.json(urlCitation, function (error, json) {
+        $("#graphArea").css("cursor","wait");
         if (error) throw error;
         var tempArray= new Array();
         tempArray=json.hits.hits;
@@ -242,16 +244,17 @@ function showCitations(idToEXpand,janusGraphId,scrIdPaperIndex,processedArray) {
                 var newLink = new createLinks(scrIdPaperIndex, processedArray.length - 1);
                 //paperAlreadyAdded.set(processedArray[i].properties.inE[0].vertexProperties[j].PaperId, index - 1);
                 linksArray.push(newLink);
-
-                JSON.stringify(linksArray);
-                JSON.stringify(processedArray);
-                d3.selectAll("svg > *").remove();
-                var mydata = new Set(processedArray);
-                for (let item of mydata) console.log(item);
-                createGraph(processedArray, linksArray, false);
-                d3.select('.context-menu').style('display', 'none');
             }
+
+        JSON.stringify(linksArray);
+        JSON.stringify(processedArray);
+        d3.selectAll("svg > *").remove();
+        var mydata = new Set(processedArray);
+        createGraph(processedArray, linksArray, false);
+        d3.select('.context-menu').style('display', 'none');
+        $("#graphArea").css("cursor","default");
     });
+
   }
 
 function showReferences(idToEXpand){

@@ -49,6 +49,7 @@ function createGraph(nodes, links, drawnodesOnly) {
     var srcjgId="";
     var scrIdPaperIndex="";
     var fromAuthor=false;
+    $("#graphArea").css("cursor","wait");
 //To form arrowhead
     svg.append("defs").selectAll("marker")
         .data(["arrowhead", "licensing", "resolved"])
@@ -263,8 +264,22 @@ function createGraph(nodes, links, drawnodesOnly) {
                 .append('li')
                 .on('click', function (d) {
                     if((d==="Authorship")){
-                        showAuthors(paperId,srcjgId,processedArray);
-                        paperExpanded.add(paperId);
+
+                        if((processedArray[scrIdPaperIndex]._source.vType===vertexType.CITES)&&(processedArray[selectedIndex]._source.venuePaper===undefined)){
+                            var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper AND jgId="+processedArray[scrIdPaperIndex]._id;
+                            d3.json(url,function (error,json){
+                                if (error) throw error;
+                                if(json.hits.hits.length==1){
+                                    processedArray[scrIdPaperIndex]._source=json.hits.hits[0]._source;
+                                    showAuthors(paperId,srcjgId,processedArray);
+                                    paperExpanded.add(paperId);
+
+                                }
+                            });
+                        }else{
+                            showAuthors(paperId,srcjgId,processedArray);
+                            paperExpanded.add(paperId);
+                        }
                         d3.select('.context-menu').style('display', 'none');
                     }else if(d==="Cited By"){
                         showCitations(targetId,srcjgId,scrIdPaperIndex,processedArray);
@@ -390,7 +405,7 @@ function createGraph(nodes, links, drawnodesOnly) {
         //To display tooltip
        .on("mouseover", function (d) {
             //	Define the div for the tooltip
-            if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cites")){
+            if((d._source.vType===vertexType.PAPER)){
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 0.9);
@@ -400,6 +415,15 @@ function createGraph(nodes, links, drawnodesOnly) {
                     .style("left", (d.x+20) + "px")
                     .style("top", (d.y) + "px");
 
+            }
+            else if(d._source.vType==="cites"){
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", 0.9);
+                tooltip.html("<b>Title : </b>"+d._source.title + "<br/>"+
+                    "<a> To view more details use show more info option ...</a>"+ "<br/>")
+                    .style("left", (d.x+20) + "px")
+                    .style("top", (d.y) + "px");
             }
             else if(d._source.vType===vertexType.AUTHOR){
                 tooltip.transition()
@@ -461,7 +485,7 @@ function createGraph(nodes, links, drawnodesOnly) {
         .text(function (d) {
             if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cites")){
                 var temp=d._source.title;
-                return temp.substring(0,20)+"...";
+                return temp.substring(0,15)+"...";
             }
             else if(d._source.vType===vertexType.AUTHOR){
                 return d._source.author;
@@ -528,6 +552,8 @@ function createGraph(nodes, links, drawnodesOnly) {
             });
         }
     }
+
+    $("#graphArea").css("cursor","default");
 }
 
 function resize() {
