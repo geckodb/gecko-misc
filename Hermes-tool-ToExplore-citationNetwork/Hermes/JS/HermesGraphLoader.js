@@ -10,12 +10,13 @@ var svg = d3.select("#paperGraphArea")
     .attr("width",width)
     .attr("height",height);
 
-var paperMenuItems = ["Show more info","Authorship","Domain", "Hosting", "Publishing", "Cited By", "Add tag", "Co-citation", "Bibliographic Coupling", "References"];
-var authorMenuItems=["Papers","Co-authorship", "Membership"];
-var institutionMenuItems=["Papers"];
-var venueMenuItems=["Papers"];
+var paperMenuItems = ["Show more info","Remove","Authorship","Domain", "Hosting", "Publishing", "Cited By", "Add tag", "Co-citation", "Bibliographic Coupling", "References"];
+var authorMenuItems=["Co-authorship", "Membership","Remove"];
+var institutionMenuItems=["Papers","Remove"];
+var venueMenuItems=["Papers","Remove"];
 var publicationMenuItems=["Papers"];
-var FOSMenuItems=["Papers"];
+var FOSMenuItems=["Papers","Remove"];
+
 
 
 var force = d3.layout.force()
@@ -44,29 +45,35 @@ function poplateClickedNode(nodeId,dataArray) {
     }
 }
 
-function createGraph(nodes, links, drawnodesOnly) {
+function createGraph(nodes, links, drawnodesOnly,noArrowhead) {
     var paperId="";
     var srcjgId="";
     var scrIdPaperIndex="";
     var fromAuthor=false;
+    var authorSrcId="";
     $("#graphArea").css("cursor","wait");
 //To form arrowhead
-    svg.append("defs").selectAll("marker")
-        .data(["arrowhead", "licensing", "resolved"])
-        .enter().append("marker")
-        .attr("id", function (d) {
-            return d;
-        })
-        .attr("viewBox", "0 -5 10 10")
-        .attr("refX", 24)
-        .attr("refY", 0)
-        .attr("markerWidth", 25)
-        .attr("markerHeight", 15)
-        .attr("orient", "auto")
-        .append("path")
-        .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-        .attr('fill', '#ccc')
-        .attr('stroke', '#ccc');
+    if(noArrowhead){
+        //do nothing
+    }else{
+        svg.append("defs").selectAll("marker")
+            .data(["arrowhead", "licensing", "resolved"])
+            .enter().append("marker")
+            .attr("id", function (d) {
+                return d;
+            })
+            .attr("viewBox", "0 -5 10 10")
+            .attr("refX", 24)
+            .attr("refY", 0)
+            .attr("markerWidth", 25)
+            .attr("markerHeight", 15)
+            .attr("orient", "auto")
+            .append("path")
+            .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+            .attr('fill', '#ccc')
+            .attr('stroke', '#ccc');
+    }
+
 
 
     force.nodes(nodes)
@@ -224,10 +231,10 @@ function createGraph(nodes, links, drawnodesOnly) {
         .attr("x", -8)
         .attr("y", -8)
         .attr("width",function (d) {
-                return 30;
+            return 30;
         })
         .attr("height", function (d) {
-                return 30;
+            return 30;
         })
 
         //to populate context menu
@@ -364,9 +371,28 @@ function createGraph(nodes, links, drawnodesOnly) {
                             showCompleteDetails(selectedIndex,processedArray);
                         }
                         d3.select('.context-menu').style('display', 'none');
+                    }else if(d=="Co-authorship"){
+                        // if(processedArray[scrIdPaperIndex]._source.vType===vertexType.PAPER){
+                        showCoAuthorship(authorSrcId,selectedIndex,processedArray);
+                        /*}else{
+                            showCoAuthorship(selectedIndex,processedArray);
+                        }*/
+
                     }
                     else if(d=="Add tag"){
                         addTag();
+                        d3.select('.context-menu').style('display', 'none');
+                    }else if(d=="Remove"){
+                        if(processedArray[selectedIndex]._source.vType===vertexType.PAPER){
+                            if((nodeAdded.has(processedArray[selectedIndex]._id))){
+                                nodeAdded.delete(processedArray[selectedIndex]._id);
+                            }
+                        }else if(processedArray[selectedIndex]._source.vType===vertexType.AUTHOR){
+                            if((authorAlreadyAdded.has(processedArray[selectedIndex]._source.author))){
+                                authorAlreadyAdded.delete(processedArray[selectedIndex]._source.author)
+                            }
+                        }
+                        removeNodeAndLinks(selectedIndex,processedArray,linksArray);
                         d3.select('.context-menu').style('display', 'none');
                     }
                 })
@@ -398,12 +424,13 @@ function createGraph(nodes, links, drawnodesOnly) {
                 srcjgId=d._source.jgId;
                 scrIdPaperIndex=d.index;
             }
-                paperId = d._id;
-                var selectedIndex=d.index;
+            paperId = d._id;
+            var selectedIndex=d.index;
 
         })
+
         //To display tooltip
-       .on("mouseover", function (d) {
+        .on("mouseover", function (d) {
             //	Define the div for the tooltip
             if((d._source.vType===vertexType.PAPER)){
                 tooltip.transition()
@@ -465,6 +492,34 @@ function createGraph(nodes, links, drawnodesOnly) {
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 30) + "px");
             }
+        })
+        .on( 'mouseenter', function(d) {
+            // select element in current context
+
+            /* node.append("circle")
+            .attr("r","20")
+                 .attr("cx",function (d){return 0;})
+                 .attr("cy",function (d){return 0;})
+                 .text(function (d) {
+                     return "remove";
+                 });*/
+
+
+            d3.select( this )
+                .transition()
+                .attr("x", function(d) { return -30;})
+                .attr("y", function(d) { return -30;})
+                .attr("height", 60)
+                .attr("width", 60)
+        })
+        // set back
+        .on( 'mouseleave', function() {
+            d3.select( this )
+                .transition()
+                .attr("x", function(d) { return -5;})
+                .attr("y", function(d) { return -5;})
+                .attr("height", 30)
+                .attr("width", 30);
         })
         //to disbale tooltip
         .on("mouseout", function (d) {
@@ -559,15 +614,15 @@ function createGraph(nodes, links, drawnodesOnly) {
 function resize() {
     if(fullscreen){
         $("#graphArea").removeClass("startSize").addClass("newSize");
-            svg.attr("width",1500)
+        svg.attr("width",1500)
             .attr("height",1000);
         fullscreen=false;
     }
     else{
         $("#graphArea").removeClass("newSize").addClass("startSize");
-            svg.attr("width",1050)
+        svg.attr("width",1050)
             .attr("height",600);
-            fullscreen=true;
+        fullscreen=true;
     }
 }
 
@@ -585,9 +640,10 @@ function downloadGraphAsSVG() {
 
 
     var blob = new Blob([graphDwn], {type: "image/svg+xml"});
-    saveAs(blob, "scholarlyNetwork.svg");
+    saveAs(blob, "scholarlyNetwork.html");
 
 }
+
 
 function downloadGraphAsData() {
     var data=JSON.stringify(dataArray);
@@ -600,14 +656,14 @@ function clearSVG() {
     processedArray=new Array();
     linksArray=new Array();
     nodeAdded= new Set();
-     authorAlreadyAdded=new Map();
-     publicationAlreadyAdded=new Map();
-     venueAlreadyAdded=new Map();
-     fosAlreadyAdded=new Map();
-     paperAlreadyAded=new Map();
-     paperExpanded= new Set();
-     nodeExpandedforRefernce = new Set();
-     instituteAlreadyAdded=new Map();
+    authorAlreadyAdded=new Map();
+    publicationAlreadyAdded=new Map();
+    venueAlreadyAdded=new Map();
+    fosAlreadyAdded=new Map();
+    paperAlreadyAded=new Map();
+    paperExpanded= new Set();
+    nodeExpandedforRefernce = new Set();
+    instituteAlreadyAdded=new Map();
 
 }
 

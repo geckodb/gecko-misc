@@ -66,13 +66,25 @@
 }
 
 .node text {
+    color: black;
     pointer-events: none;
     font: 10px Open Sans;
 }
 
-.node:hover {
-    stroke-width: 20px;
+.node {
+
+    stroke-width: 1.5px;
 }
+
+.node .selected {
+    stroke: white;
+}
+
+.unselected{
+    stroke: white;
+    stroke-width: 3px;
+}
+
 
 div.tooltip {
     position: absolute;
@@ -505,6 +517,9 @@ width: 430px;
     font-size: 16px;
     color: black;
     display: block;
+    cursor: pointer;
+
+    outline: none;
 
 }
 
@@ -577,4 +592,15 @@ width: 430px;
     color: cornflowerblue;
     padding: 6px;
 
+}
+
+
+.mysuggestion {
+    height:100px;
+    border-color:black;
+    overflow:auto;
+}
+
+.active1{
+    background-color: rgba(10, 10, 20, 0.28);
 }

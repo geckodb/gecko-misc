@@ -137,7 +137,7 @@ function showAuthors(idToEXpand, paperjgId,processedArray) {
     d3.selectAll("svg > *").remove();
     var mydata=new Set(processedArray);
     for(let item of mydata) console.log(item);
-    createGraph(processedArray, linksArray,false);
+    createGraph(processedArray, linksArray,false,false);
     $("#graphArea").css("cursor","default");
     d3.select('.context-menu').style('display', 'none');
 }
@@ -179,7 +179,7 @@ function showPublication(idToEXpand,selectedIndex,processedArray) {
     d3.selectAll("svg > *").remove();
     var mydata=new Set(processedArray);
     for(let item of mydata) console.log(item);
-    createGraph(processedArray, linksArray,false);
+    createGraph(processedArray, linksArray,false,false);
     $("#graphArea").css("cursor","default");
     d3.select('.context-menu').style('display', 'none');
 }
@@ -221,7 +221,7 @@ function showVenue(idToEXpand,selectedIndex,processedArray) {
     d3.selectAll("svg > *").remove();
     var mydata=new Set(processedArray);
     for(let item of mydata) console.log(item);
-    createGraph(processedArray, linksArray,false);
+    createGraph(processedArray, linksArray,false,false);
     $("#graphArea").css("cursor","default");
     d3.select('.context-menu').style('display', 'none');
 }
@@ -250,7 +250,7 @@ function showCitations(idToEXpand,janusGraphId,scrIdPaperIndex,processedArray) {
         JSON.stringify(processedArray);
         d3.selectAll("svg > *").remove();
         var mydata = new Set(processedArray);
-        createGraph(processedArray, linksArray, false);
+        createGraph(processedArray, linksArray, false,false);
         d3.select('.context-menu').style('display', 'none');
         $("#graphArea").css("cursor","default");
     });
@@ -275,7 +275,7 @@ function showReferences(idToEXpand){
     d3.selectAll("svg > *").remove();
     var mydata=new Set(processedArray);
     for(let item of mydata) console.log(item);
-    createGraph(processedArray, linksArray,false);
+    createGraph(processedArray, linksArray,false,false);
     d3.select('.context-menu').style('display', 'none');
 }
 
@@ -288,55 +288,76 @@ function showInstitution(idToEXpand,authorName,indexofCreatedAuthorNode,processe
     d3.json(url, function (error, json) {
          if (error) throw error;
          console.log(json)
-         targetId = json.hits.hits[0]._source.tgtId;
-        var getAuthorData="http://localhost:9200/janusgraph_vertexes/_search?q=vType:author AND jgId:"+targetId;
 
-        d3.json(getAuthorData,function (error, jsonResult) {
-            if (error) throw error;
-            orgNames = jsonResult.hits.hits[0]._source.orgList;
+if(json.hits.hits.length>0) {
+    targetId = json.hits.hits[0]._source.tgtId;
+    var getAuthorData = "http://localhost:9200/janusgraph_vertexes/_search?q=vType:author AND jgId:" + targetId;
+
+    d3.json(getAuthorData, function (error, jsonResult) {
+        if (error) throw error;
+        orgNames = jsonResult.hits.hits[0]._source.orgList;
 
 
-            if((orgNames!=undefined)){
-                var newNode=new createInstitutionNode(orgNames);
-                var index=processedArray.push(newNode);
-                var newLink=new createLinks(indexofCreatedAuthorNode,processedArray.length-1);
-                linksArray.push(newLink);
-                instituteAlreadyAdded.set(orgNames);
-            }else{
-                alert("Membership data not available ")
-            }
+        if ((orgNames != undefined)) {
+            var newNode = new createInstitutionNode(orgNames);
+            var index = processedArray.push(newNode);
+            var newLink = new createLinks(indexofCreatedAuthorNode, processedArray.length - 1);
+            linksArray.push(newLink);
+            instituteAlreadyAdded.set(orgNames);
+        } else {
+            alert("Membership data not available ")
+        }
 
-            JSON.stringify(linksArray);
-            JSON.stringify(processedArray);
-            d3.selectAll("svg > *").remove();
-            createGraph(processedArray, linksArray,false);
-            $("#graphArea").css("cursor","default");
+        JSON.stringify(linksArray);
+        JSON.stringify(processedArray);
+        d3.selectAll("svg > *").remove();
+        createGraph(processedArray, linksArray, false,false);
+        $("#graphArea").css("cursor", "default");
         });
-
+      }else{
+             alert("Membership data not available for selected Author");
+    $("#graphArea").css("cursor", "default");
+}
     });
 
 }
 
-function showCoAuthorship(selectedIndex,author,processedArray) {
-    var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:author AND jgId:"+author;
-    var collaborators;
+function showCoAuthorship(paperId,selectedIndex,processedArray) {
+   // var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:author AND jgId:"+author;
+
+    var url="http://localhost:9200/janusgraph_edgees/_search?q=srcId:"+ paperId +" AND eType:authorship";
+    //http://localhost:9200/janusgraph_edgees/_search?q=srcId:11317488 AND eType:authorship
+    //http://localhost:9200/janusgraph_edgees/_search?q=eType:coauthorship AND (srcId:4240 OR tgtId:4240)
+    //http://localhost:9200/janusgraph_vertexes/_search?q=vType:author AND jgId:49152295008
+    var collaboratorsID;
     d3.json(url,function (error,jsonResult) {
         if (error) throw error;
-        collaborators = jsonResult.hits.hits[0]._source.authors;//add the particular attribute
+        var tgtId = jsonResult.hits.hits[0]._source.tgtId;//add the particular attribute
 
-        for(var i=0;i<collaborators.length;i++){
-            if (!coAuthorsAlreadyAdded.has(processedArray[selectedIndex]._source.author)) {
-                var newNode = new createAuthorNode(processedArray[selectedIndex]._source.author);
-                var index = processedArray.push(newNode);
-                coAuthorsAlreadyAdded.set(processedArray[selectedIndex]._source.author, index - 1);
-                var newLink = new createLinks(selectedIndex, processedArray.length - 1);
-                linksArray.push(newLink);
-            }else{
-                var newLink = new createLinks(selectedIndex, coAuthorsAlreadyAdded.get(processedArray[selectedIndex]._source.venuePaper));
-                linksArray.push(newLink);
-            }
-        }
-    })
+        var urlAuthorshipEdges="http://localhost:9200/janusgraph_edgees/_search?q=eType:coauthorship AND tgtId:"+tgtId;
+        d3.json(urlAuthorshipEdges,function (error,jsonResult) {
+            if (error) throw error;
+            collaboratorsID=new Array();
+            collaboratorsID=jsonResult.hits.hits;
+            //for(var i=0;i<collaboratorsID.length;i++){
+                var authordataQuery="http://localhost:9200/janusgraph_vertexes/_search?q=vType:author AND jgId:49152295008"; //+collaboratorsID[i]._source.tgtId;
+                d3.json(authordataQuery,function (error,jsonResult) {
+                    var newNode = new createAuthorNode(jsonResult.hits.hits[0]._source.author);
+                    var index = processedArray.push(newNode);
+                    coAuthorsAlreadyAdded.set(jsonResult.hits.hits[0]._source.author, index - 1);
+                    var newLink = new createLinks(selectedIndex, processedArray.length - 1);
+                    linksArray.push(newLink);
+
+                    JSON.stringify(linksArray);
+                    JSON.stringify(processedArray);
+                    d3.selectAll("svg > *").remove();
+                    createGraph(processedArray, linksArray, false,true);
+                })
+            //}
+        });
+
+    });
+
 }
 
 function showInstitutionFromAuthor(idToEXpand,selectedIndex,processedArray) {
@@ -359,12 +380,44 @@ function showInstitutionFromAuthor(idToEXpand,selectedIndex,processedArray) {
     JSON.stringify(linksArray);
     JSON.stringify(processedArray);
     d3.selectAll("svg > *").remove();
-    createGraph(processedArray, linksArray,false);
+    createGraph(processedArray, linksArray,false,false);
     $("#graphArea").css("cursor","default");
     d3.select('.context-menu').style('display', 'none');
 }
 
+function removeNodeAndLinks(selectedIndex,processedArray,linksArray) {
+    processedArray.splice(selectedIndex,1);
 
+    var initialLength=linksArray.length;
+    var i=0;
+    while (i<linksArray.length){
+
+        if(linksArray.length>1){
+            if((linksArray[i].source.index===selectedIndex)||(linksArray[i].target.index===selectedIndex)){
+                linksArray.splice(i,1);
+                i=0;
+            }else{
+                i++;
+            }
+        }
+      else if(linksArray.length===1){
+           if((linksArray[i].source.index===selectedIndex)||(linksArray[i].target.index===selectedIndex)){
+               linksArray.splice(i,1);
+               i=0;
+           }else{
+               i++;
+           }
+       }
+    }
+
+    JSON.stringify(linksArray);
+    JSON.stringify(processedArray);
+
+    d3.selectAll("svg > *").remove();
+    createGraph(processedArray, linksArray,false,false);
+    $("#graphArea").css("cursor","default");
+    d3.select('.context-menu').style('display', 'none');
+}
 
 function showFOS(idToEXpand,selectedIndex,processedArray) {
     $("#graphArea").css("cursor","wait");
@@ -407,7 +460,7 @@ function showFOS(idToEXpand,selectedIndex,processedArray) {
     d3.selectAll("svg > *").remove();
     var mydata=new Set(processedArray);
     for(let item of mydata) console.log(item);
-    createGraph(processedArray, linksArray,false);
+    createGraph(processedArray, linksArray,false,false);
     $("#graphArea").css("cursor","default");
     d3.select('.context-menu').style('display', 'none');
 }
