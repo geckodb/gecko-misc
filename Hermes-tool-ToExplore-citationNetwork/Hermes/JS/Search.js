@@ -64,10 +64,8 @@ function fillSuggestion() {
                   li.setAttribute("id", i);
                   li.innerText = suggestionData[i]._source.title;
                   li.onclick = function (d) {
-                     // alert( d.currentTarget.innerHTML[30]);
-
                       if(d.path===undefined){
-                          fillSearchInput( d.currentTarget.innerHTML[30], suggestionData);
+                          fillSearchInput( d.currentTarget.id, suggestionData);
                       }else{
                           fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
                       }
@@ -75,15 +73,6 @@ function fillSuggestion() {
                       $('#suggestionBox').html('');
                   }
 
-                  li.onkeydown = function (d) {
-                      alert("Okay.....")
-                      /* if(d.path===undefined){
-                           fillSearchInput(d.currentTarget.id, suggestionData);
-                       }else{
-                           fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
-                       }*/
-                      //$('#suggestionBox').html('');
-                  }
                   liTag = sBox.appendChild(li);
                   pTag = document.createElement("p");
                   pTag.innerText = "in paper ";
@@ -100,23 +89,7 @@ function fillSuggestion() {
                   pTag_handler.appendChild(citationTag);
                   pTag_handler.appendChild(spanCitationTag);
 
-                  li.onkeydown=function () {
-                      alert("in")
-                      $('div.mysuggestion').on('focus', 'li', function() {
-                          $this = $(this);
-                          $this.addClass('active1').siblings().removeClass();
-                          $this.closest('div.mysuggestion').scrollTop($this.index() * $this.outerHeight());
-                      }).on('keydown', 'li', function(e) {
-                          $this = $(this);
-                          if (e.keyCode == 40) {
-                              $this.next().focus();
-                              return false;
-                          } else if (e.keyCode == 38) {
-                              $this.prev().focus();
-                              return false;
-                          }
-                      }).find('li').first().focus();
-                  }
+
 
               } else if (suggestionData[i]._source.vType === vertexType.AUTHOR) {
                  // aTag = sBox.appendChild(a);
@@ -131,22 +104,7 @@ function fillSuggestion() {
                       }
                       $('#suggestionBox').html('');
                   }
-                  li.onkeydown=function () {
-                      $('div.mysuggestion').on('focus', 'li', function() {
-                          $this = $(this);
-                          $this.addClass('active1').siblings().removeClass();
-                          $this.closest('div.mysuggestion').scrollTop($this.index() * $this.outerHeight());
-                      }).on('keydown', 'li', function(e) {
-                          $this = $(this);
-                          if (e.keyCode == 40) {
-                              $this.next().focus();
-                              return false;
-                          } else if (e.keyCode == 38) {
-                              $this.prev().focus();
-                              return false;
-                          }
-                      }).find('li').first().focus();
-                  }
+
                   liTag = sBox.appendChild(li)
                   pTag = document.createElement("p");
                   pTag.innerText = "in author"
@@ -208,7 +166,6 @@ function fillSuggestion() {
 }
 
 
-
 function submitIfEnter(event) {
         if (event.keyCode === 13) {
             event.preventDefault();
@@ -225,24 +182,6 @@ function submitIfEnter(event) {
             }
         }
 }
-
-/*
-$('div.mysuggestion').on('focus', 'li', function() {
-    $this = $(this);
-    $this.addClass('active').siblings().removeClass();
-    $this.closest('div.mysuggestion').scrollTop($this.index() * $this.outerHeight());
-}).on('keydown', 'li', function(e) {
-    $this = $(this);
-    if (e.keyCode == 40) {
-        $this.next().focus();
-        return false;
-    } else if (e.keyCode == 38) {
-        $this.prev().focus();
-        return false;
-    }
-}).find('li').first().focus();
-*/
-
 
 //verifies if search field is not empty, and redirects to scholarlyResult.html
 $("#searchRes").click(function(){

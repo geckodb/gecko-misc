@@ -1,14 +1,20 @@
-﻿var processedArray=new Array();
+﻿var processedArray=[[]];
 d3.json("../JSON/temp.json",processedArray); //temp.json holds the format required to map d3 objects **DO NOT DELETE TEMP.JSON**
 var width = 1050,
     height = 620;
 var nodeAdded= new Set();
 var fullscreen=true;
 var dataLoaded=false;
-var svg = d3.select("#paperGraphArea")
+var activeTabIndex;
+
+var svg=new Array();
+ svg[0]=d3.select("#paperGraphArea")
     .append("svg")
+     .attr("id","paperGraphArea0")
     .attr("width",width)
     .attr("height",height);
+
+
 
 var paperMenuItems = ["Show more info","Remove","Authorship","Domain", "Hosting", "Publishing", "Cited By", "Add tag", "Co-citation", "Bibliographic Coupling", "References"];
 var authorMenuItems=["Co-authorship", "Membership","Remove"];
@@ -16,7 +22,7 @@ var institutionMenuItems=["Papers","Remove"];
 var venueMenuItems=["Papers","Remove"];
 var publicationMenuItems=["Papers"];
 var FOSMenuItems=["Papers","Remove"];
-
+var selectedSVG;
 
 
 var force = d3.layout.force()
@@ -34,15 +40,43 @@ var tooltip = d3.select("body")
     .style("opacity", 0);
 
 function poplateClickedNode(nodeId,dataArray) {
+    var ulItems=document.getElementsByClassName("workspaceTab");
+    var liItems=ulItems[0].getElementsByTagName("li");
+    var svgList=d3.selectAll("svg");
+
+    for(var i=0;i<liItems.length;i++){
+        if(liItems[i].className==="active"){
+            activeTabIndex=i;
+            var htmlObj=$(liItems[i].innerHTML);
+            selectedSVG=svg[i];
+        }
+    }
+
     for(let i=0;i<dataArray.length;i++){
-        if(nodeId===dataArray[i]._id && (!nodeAdded.has(nodeId))){
-            processedArray.push(dataArray[i]);
-            nodeAdded.add(nodeId);
-            d3.selectAll("svg > *").remove();
-            createGraph(processedArray,linksArray,false);
+        if(nodeId===dataArray[i]._id){
+            processedArray[activeTabIndex].push(dataArray[i]);
+            //nodeAdded.add(nodeId);
+            //d3.selectAll("svg > *").remove();
+            var idName="#"+svgList[0][activeTabIndex].getAttribute("id");
+           $(idName).empty();
+            createGraph(processedArray[activeTabIndex],linksArray[activeTabIndex],false);
             break;
         }
     }
+}
+
+function getActiveTabIndex() {
+    var tabIndex;
+    var ulItems=document.getElementsByClassName("workspaceTab");
+    var liItems=ulItems[0].getElementsByTagName("li");
+
+    for(var i=0;i<liItems.length;i++){
+        if(liItems[i].className==="active"){
+            tabIndex=i;
+            break;
+        }
+    }
+    return tabIndex;
 }
 
 function createGraph(nodes, links, drawnodesOnly,noArrowhead) {
@@ -56,7 +90,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead) {
     if(noArrowhead){
         //do nothing
     }else{
-        svg.append("defs").selectAll("marker")
+        selectedSVG.append("defs").selectAll("marker")
             .data(["arrowhead", "licensing", "resolved"])
             .enter().append("marker")
             .attr("id", function (d) {
@@ -74,13 +108,11 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead) {
             .attr('stroke', '#ccc');
     }
 
-
-
     force.nodes(nodes)
         .links(links)
         .start();
 
-    var link = svg.selectAll("link")
+    var link = selectedSVG.selectAll("link")
         .data(links)
         .enter().append("line")
         .attr("class", "link")
@@ -151,10 +183,9 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead) {
             edgelabels.style("opacity",1);
             toggle = 0;
         }
-
     }
 
-    var edgepaths = svg.selectAll(".edgepath")
+    var edgepaths = selectedSVG.selectAll(".edgepath")
         .data(links)
         .enter()
         .append('path')
@@ -165,7 +196,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead) {
             'id':function(d,i) { return 'edgepath'+i;}})
         .style("pointer-events", "none");
 
-    var edgelabels = svg.selectAll(".edgelabel")
+    var edgelabels = selectedSVG.selectAll(".edgelabel")
         .data(links)
         .enter()
         .append('text')
@@ -199,7 +230,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead) {
         });
 
 
-    var node = svg.selectAll("node")
+    var node = selectedSVG.selectAll("node")
         .data(nodes)
         .enter().append("g")
         .attr("class", "node")
@@ -270,21 +301,23 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead) {
                 }).enter()
                 .append('li')
                 .on('click', function (d) {
+                    activeTabIndex=getActiveTabIndex();
                     if((d==="Authorship")){
 
-                        if((processedArray[scrIdPaperIndex]._source.vType===vertexType.CITES)&&(processedArray[selectedIndex]._source.venuePaper===undefined)){
-                            var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper AND jgId="+processedArray[scrIdPaperIndex]._id;
+                        if((processedArray[activeTabIndex][scrIdPaperIndex]._source.vType===vertexType.CITES)&&(processedArray[activeTabIndex][selectedIndex]._source.venuePaper===undefined)){
+                            var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper AND jgId="+processedArray[activeTabIndex][scrIdPaperIndex]._id;
                             d3.json(url,function (error,json){
                                 if (error) throw error;
                                 if(json.hits.hits.length==1){
-                                    processedArray[scrIdPaperIndex]._source=json.hits.hits[0]._source;
-                                    showAuthors(paperId,srcjgId,processedArray);
+                                    processedArray[activeTabIndex][scrIdPaperIndex]._source=json.hits.hits[0]._source;
+
+                                    showAuthors(paperId,srcjgId,processedArray[activeTabIndex],activeTabIndex);
                                     paperExpanded.add(paperId);
 
                                 }
                             });
                         }else{
-                            showAuthors(paperId,srcjgId,processedArray);
+                            showAuthors(paperId,srcjgId,processedArray[activeTabIndex],activeTabIndex);
                             paperExpanded.add(paperId);
                         }
                         d3.select('.context-menu').style('display', 'none');

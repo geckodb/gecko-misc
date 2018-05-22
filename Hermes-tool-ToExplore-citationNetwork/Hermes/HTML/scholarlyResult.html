@@ -13,6 +13,8 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
     <script src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js"></script>
     <script src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
 
@@ -47,15 +49,26 @@
                         </table>
                     </div>
 
-                    <div id="paperGraphArea">
+                    <div >
+                        <ul class="workspaceTab nav nav-tabs" role="tablist">
+                            <li class="active" ><a href="#paperGraphArea" data-toggle="tab">New tab <span>x</span></a>
+                            </li>
+
+                            <li><a href="#" class="add-tab">+</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="paperGraphArea"></div>
+
+                        </div>
+
                     </div>
                 </div>
             </td>
             <td id="searchArea">
             <ul class="nav nav-tabs" id="resultList">
                 <li class="active"><a data-toggle="tab" href="#ResultsArea" onclick="loadResults()">Results</a></li>
-
-                <!--<li ><a data-toggle="tab" href="#FacetsArea" onclick="loadFacets()">Facets</a></li>-->
 
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#" >Facets <span class="caret"></span> </a>
@@ -168,6 +181,41 @@
     var searchValue = url.searchParams.get("value");
     var typeValue=url.searchParams.get("type");
     //alert("in schol type= "+typeValue)
+
+    $(".workspaceTab").on("click", "a", function (e) {
+        e.preventDefault();
+        if (!$(this).hasClass('add-tab')) {
+            $(this).tab('show');
+        }
+    })
+        .on("click", "span", function () {
+            var anchor = $(this).siblings('a');
+            $(anchor.attr('href')).remove();
+            $(this).parent().remove();
+            $(".workspaceTab li").children('a').first().click();
+        });
+
+    $('.add-tab').click(function (e) {
+        e.preventDefault();
+        var id = $(".workspaceTab").children().length-1;
+
+        var tabId = 'paperGraphArea' + id;
+        $(this).closest('li').before('<li><a data-toggle="tab" href="#tabArea' + id + '">New Tab</a> <span> x </span></li>');
+        $('.tab-content').append('<div class="tab-pane fade" id=tabArea' + id + '></div>');
+
+        var selector="#tabArea"+ id;
+         svg[id] = d3.select(selector)
+            .append("svg")
+            .attr("id",tabId)
+            .attr("width",width)
+            .attr("height",height);
+
+        $('.workspaceTab li:nth-child(' + id + ') a').click();
+
+        processedArray[id]=[];
+        linksArray[id]=[];
+    });
+
 </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-var linksArray = new Array();
+var linksArray = [[]];
 var authorAlreadyAdded=new Map();
 var publicationAlreadyAdded=new Map();
 var venueAlreadyAdded=new Map();
@@ -8,6 +8,8 @@ var paperAlreadyAdded=new Map();
 var paperExpanded= new Set();
 var nodeExpandedforRefernce = new Set();
 var instituteAlreadyAdded=new Map();
+var addedSVGs;
+var idName;
 
 class _source {
     constructor(state, value) {
@@ -83,8 +85,7 @@ function createPublicationNode(name) {
     this._source=new _source("publication",name);
 }
 
-
-function showAuthors(idToEXpand, paperjgId,processedArray) {
+function showAuthors(idToEXpand, paperjgId,processedArray,activeTab) {
     $("#graphArea").css("cursor","wait");
     var intial_length = processedArray.length;
     for (var i = 0; i < intial_length; i++) {
@@ -96,10 +97,10 @@ function showAuthors(idToEXpand, paperjgId,processedArray) {
                         var index = processedArray.push(newNode);
                         authorAlreadyAdded.set(processedArray[i]._source.authors[j], index - 1);
                         var newLink = new createLinks(i, processedArray.length - 1);
-                        linksArray.push(newLink);
+                        linksArray[activeTab].push(newLink);
                     }else{
                         var newLink = new createLinks(i, authorAlreadyAdded.get(processedArray[i]._source.authors[j]));
-                        linksArray.push(newLink);
+                        linksArray[activeTab].push(newLink);
                     }
                 }
             }
@@ -112,7 +113,7 @@ function showAuthors(idToEXpand, paperjgId,processedArray) {
                 for (var j = 0; j < processedArray[i]._source.authors.length; j++) {
                     if (authorAlreadyAdded.has(processedArray[i]._source.authors[j].name)) {
                         var newLink = new createLinks(i, authorAlreadyAdded.get(processedArray[i]._source.authors[j].name));
-                        linksArray.push(newLink);
+                        linksArray[activeTab].push(newLink);
                     }
                 }
             }
@@ -126,7 +127,7 @@ function showAuthors(idToEXpand, paperjgId,processedArray) {
                     var index = processedArray.push(newNode);
                     authorAlreadyAdded.set(processedArray[i]._source.authors[j], index - 1);
                     var newLink = new createLinks(i, processedArray.length - 1);
-                    linksArray.push(newLink);
+                    linksArray[activeTab].push(newLink);
                 }
             }
         }
@@ -134,10 +135,13 @@ function showAuthors(idToEXpand, paperjgId,processedArray) {
 
     JSON.stringify(linksArray);
     JSON.stringify(processedArray);
-    d3.selectAll("svg > *").remove();
-    var mydata=new Set(processedArray);
-    for(let item of mydata) console.log(item);
-    createGraph(processedArray, linksArray,false,false);
+    addedSVGs=d3.selectAll("svg");
+    idName= "#"+addedSVGs[0][activeTab].getAttribute("id")
+    $(idName).empty();
+    //d3.selectAll("svg > *").remove();
+   // var mydata=new Set(processedArray);
+   // for(let item of mydata) console.log(item);
+    createGraph(processedArray, linksArray[activeTab],false,false);
     $("#graphArea").css("cursor","default");
     d3.select('.context-menu').style('display', 'none');
 }
