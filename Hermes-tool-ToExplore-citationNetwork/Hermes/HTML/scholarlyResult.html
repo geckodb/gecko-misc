@@ -51,7 +51,7 @@
 
                     <div >
                         <ul class="workspaceTab nav nav-tabs" role="tablist">
-                            <li class="active" ><a href="#paperGraphArea" data-toggle="tab">New tab <span>x</span></a>
+                            <li class="active" ><a href="#tabArea0" data-toggle="tab">New tab <span>x</span></a>
                             </li>
 
                             <li><a href="#" class="add-tab">+</a>
@@ -59,7 +59,7 @@
                         </ul>
 
                         <div class="tab-content">
-                            <div class="tab-pane fade in active" id="paperGraphArea"></div>
+                            <div class="tab-pane fade in active" id="tabArea0"></div>
 
                         </div>
 
@@ -171,6 +171,8 @@
 
 <div id="footer1" class="footerClass"></div>
 <script>
+
+    var tabsClosedRecently=false;
     $(function () {
         $("#header1").load("Header.html");
         $("#footer1").load("Footer.html");
@@ -190,27 +192,91 @@
     })
         .on("click", "span", function () {
             var anchor = $(this).siblings('a');
+
+            var indexofClosingTab=$(this).siblings("a")[0].getAttribute("href").substring(8,9);
+            svg.splice(indexofClosingTab,1);
+            force.splice(indexofClosingTab,1);
+            authorAlreadyAdded.splice(indexofClosingTab,1);
+            publicationAlreadyAdded.splice(indexofClosingTab,1);
+            venueAlreadyAdded.splice(indexofClosingTab,1);
+            coAuthorsAlreadyAdded.splice(indexofClosingTab,1);
+            fosAlreadyAdded.splice(indexofClosingTab,1)
+            instituteAlreadyAdded.splice(indexofClosingTab,1);
+            processedArray.splice(indexofClosingTab,1);
+            linksArray.splice(indexofClosingTab,1);
+
+            tabsClosedRecently=true;
             $(anchor.attr('href')).remove();
             $(this).parent().remove();
             $(".workspaceTab li").children('a').first().click();
+
+
         });
 
     $('.add-tab').click(function (e) {
         e.preventDefault();
         var id = $(".workspaceTab").children().length-1;
-
         var tabId = 'paperGraphArea' + id;
         $(this).closest('li').before('<li><a data-toggle="tab" href="#tabArea' + id + '">New Tab</a> <span> x </span></li>');
         $('.tab-content').append('<div class="tab-pane fade" id=tabArea' + id + '></div>');
 
         var selector="#tabArea"+ id;
-         svg[id] = d3.select(selector)
+    if(!tabsClosedRecently) {
+        svg[id] = d3.select(selector)
             .append("svg")
-            .attr("id",tabId)
-            .attr("width",width)
-            .attr("height",height);
+            .attr("id", tabId)
+            .attr("width", width)
+            .attr("height", height);
+
+        force[id] = d3.layout.force()
+            .distance(100)
+            .linkDistance([150])
+            .charge(-500)
+            .size([1050, 620])
+            .gravity(0.1)
+            .alpha(0);
+    }
+        var ulItems=document.getElementsByClassName("workspaceTab");
+        var liItems=ulItems[0].getElementsByTagName("li");
+        var divElements=document.getElementsByClassName("tab-content");
+        if(tabsClosedRecently){
+            for(var i=0;i<liItems.length-1;i++){
+                var changedId="#tabArea"+i;
+                liItems[i].getElementsByTagName('a')[0].setAttribute("href",changedId);
+                divElements[0].getElementsByTagName("div")[i].setAttribute("id","tabArea"+i);
+            }
+            id = $(".workspaceTab").children().length-2;
+            svg[id] = d3.select(selector)
+                .append("svg")
+                .attr("id", tabId)
+                .attr("width", width)
+                .attr("height", height);
+
+            force[id] = d3.layout.force()
+                .distance(100)
+                .linkDistance([150])
+                .charge(-500)
+                .size([1050, 620])
+                .gravity(0.1)
+                .alpha(0);
+
+            for(var j=0;j<divElements[0].getElementsByTagName("div").length;j++){
+                divElements[0].getElementsByTagName("div")[j].getElementsByTagName("svg")[0].setAttribute("id","paperGraphArea"+j);
+            }
+            //id = $(".workspaceTab").children().length-2;
+            tabsClosedRecently=false;
+        }
+
+
+
 
         $('.workspaceTab li:nth-child(' + id + ') a').click();
+        authorAlreadyAdded[id]=new Map();
+        publicationAlreadyAdded[id]=new Map();
+        venueAlreadyAdded[id]=new Map();
+        coAuthorsAlreadyAdded[id]=new Map();
+        fosAlreadyAdded[id]=new Map();
+        instituteAlreadyAdded[id]=new Map();
 
         processedArray[id]=[];
         linksArray[id]=[];

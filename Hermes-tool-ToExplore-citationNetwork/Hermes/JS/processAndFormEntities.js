@@ -1,15 +1,22 @@
 var linksArray = [[]];
-var authorAlreadyAdded=new Map();
-var publicationAlreadyAdded=new Map();
-var venueAlreadyAdded=new Map();
-var coAuthorsAlreadyAdded=new Map();
-var fosAlreadyAdded=new Map();
+var authorAlreadyAdded=[[]];
+var publicationAlreadyAdded=[[]];
+var venueAlreadyAdded=[[]];
+var coAuthorsAlreadyAdded=[[]];
+var fosAlreadyAdded=[[]];
 var paperAlreadyAdded=new Map();
 var paperExpanded= new Set();
 var nodeExpandedforRefernce = new Set();
-var instituteAlreadyAdded=new Map();
+var instituteAlreadyAdded=[[]];
 var addedSVGs;
 var idName;
+
+authorAlreadyAdded[0]=new Map();
+publicationAlreadyAdded[0]=new Map();
+venueAlreadyAdded[0]=new Map();
+coAuthorsAlreadyAdded[0]=new Map();
+fosAlreadyAdded[0]=new Map();
+instituteAlreadyAdded[0]=new Map();
 
 class _source {
     constructor(state, value) {
@@ -92,14 +99,14 @@ function showAuthors(idToEXpand, paperjgId,processedArray,activeTab) {
         if (processedArray[i]._source.vType === "paper") {
             if ((processedArray[i]._id === idToEXpand) && (processedArray[i]._source.authors!== undefined)) {
                 for (var j = 0; j < processedArray[i]._source.authors.length; j++) {
-                    if (!authorAlreadyAdded.has(processedArray[i]._source.authors[j])) {
+                    if (!authorAlreadyAdded[activeTab].has(processedArray[i]._source.authors[j])) {
                         var newNode = new createAuthorNode(paperjgId, processedArray[i]._source.authors[j])
                         var index = processedArray.push(newNode);
-                        authorAlreadyAdded.set(processedArray[i]._source.authors[j], index - 1);
+                        authorAlreadyAdded[activeTab].set(processedArray[i]._source.authors[j], index - 1);
                         var newLink = new createLinks(i, processedArray.length - 1);
                         linksArray[activeTab].push(newLink);
                     }else{
-                        var newLink = new createLinks(i, authorAlreadyAdded.get(processedArray[i]._source.authors[j]));
+                        var newLink = new createLinks(i, authorAlreadyAdded[activeTab].get(processedArray[i]._source.authors[j]));
                         linksArray[activeTab].push(newLink);
                     }
                 }
@@ -111,8 +118,8 @@ function showAuthors(idToEXpand, paperjgId,processedArray,activeTab) {
         if (processedArray[i]._source.vType === vertexType.PAPER) {
             if ((processedArray[i]._id !== idToEXpand) && (!paperExpanded.has(processedArray[i]._id)) && (processedArray[i]._source.authors !== undefined)) {
                 for (var j = 0; j < processedArray[i]._source.authors.length; j++) {
-                    if (authorAlreadyAdded.has(processedArray[i]._source.authors[j].name)) {
-                        var newLink = new createLinks(i, authorAlreadyAdded.get(processedArray[i]._source.authors[j].name));
+                    if (authorAlreadyAdded[activeTab].has(processedArray[i]._source.authors[j].name)) {
+                        var newLink = new createLinks(i, authorAlreadyAdded[activeTab].get(processedArray[i]._source.authors[j].name));
                         linksArray[activeTab].push(newLink);
                     }
                 }
@@ -125,7 +132,7 @@ function showAuthors(idToEXpand, paperjgId,processedArray,activeTab) {
                 for (var j = 0; j < processedArray[i]._source.authors.length; j++) {
                     var newNode = new createAuthorNode(paperjgId, processedArray[i]._source.authors[j])
                     var index = processedArray.push(newNode);
-                    authorAlreadyAdded.set(processedArray[i]._source.authors[j], index - 1);
+                    authorAlreadyAdded[activeTab].set(processedArray[i]._source.authors[j], index - 1);
                     var newLink = new createLinks(i, processedArray.length - 1);
                     linksArray[activeTab].push(newLink);
                 }
@@ -136,18 +143,16 @@ function showAuthors(idToEXpand, paperjgId,processedArray,activeTab) {
     JSON.stringify(linksArray);
     JSON.stringify(processedArray);
     addedSVGs=d3.selectAll("svg");
-    idName= "#"+addedSVGs[0][activeTab].getAttribute("id")
+    idName= "#"+addedSVGs[0][activeTab].getAttribute("id");
     $(idName).empty();
-    //d3.selectAll("svg > *").remove();
-   // var mydata=new Set(processedArray);
-   // for(let item of mydata) console.log(item);
-    createGraph(processedArray, linksArray[activeTab],false,false);
+
+    createGraph(processedArray, linksArray[activeTab],false,false,activeTab);
     $("#graphArea").css("cursor","default");
     d3.select('.context-menu').style('display', 'none');
 }
 
 
-function showPublication(idToEXpand,selectedIndex,processedArray) {
+function showPublication(idToEXpand,selectedIndex,processedArray,activeTab) {
     $("#graphArea").css("cursor","wait");
 
     if(processedArray[selectedIndex]._source.publisherPaper===undefined){
@@ -156,40 +161,41 @@ function showPublication(idToEXpand,selectedIndex,processedArray) {
 
         if ((processedArray[selectedIndex]._source.vType === vertexType.PAPER)&&(processedArray[selectedIndex]._source.publisherPaper!==undefined)){
             if (processedArray[selectedIndex]._id === idToEXpand) {
-                    if (!publicationAlreadyAdded.has(processedArray[selectedIndex]._source.publisherPaper)) {
+                    if (!publicationAlreadyAdded[activeTab].has(processedArray[selectedIndex]._source.publisherPaper)) {
                         var newNode = new createPublicationNode(processedArray[selectedIndex]._source.publisherPaper)
                         var index = processedArray.push(newNode);
-                        publicationAlreadyAdded.set(processedArray[selectedIndex]._source.publisherPaper, index - 1);
+                        publicationAlreadyAdded[activeTab].set(processedArray[selectedIndex]._source.publisherPaper, index - 1);
                         var newLink = new createLinks(selectedIndex, processedArray.length - 1);
-                        linksArray.push(newLink);
+                        linksArray[activeTab].push(newLink);
                     }else{
-                        var newLink = new createLinks(selectedIndex, publicationAlreadyAdded.get(processedArray[selectedIndex]._source.publisherPaper));
-                        linksArray.push(newLink);
+                        var newLink = new createLinks(selectedIndex, publicationAlreadyAdded[activeTab].get(processedArray[selectedIndex]._source.publisherPaper));
+                        linksArray[activeTab].push(newLink);
                     }
                 }
             }
 
         if ((processedArray[selectedIndex]._source.vType === vertexType.PAPER)&&(processedArray[selectedIndex]._source.publisherPaper!==undefined)) {
             if (processedArray[selectedIndex]._id !== idToEXpand) {
-                    if (publicationAlreadyAdded.has(processedArray[selectedIndex]._source.publisherPaper)) {
-                        var newLink = new createLinks(selectedIndex, publicationAlreadyAdded.get(processedArray[selectedIndex]._source.publisherPaper));
-                        linksArray.push(newLink);
+                    if (publicationAlreadyAdded[activeTab].has(processedArray[selectedIndex]._source.publisherPaper)) {
+                        var newLink = new createLinks(selectedIndex, publicationAlreadyAdded[activeTab].get(processedArray[selectedIndex]._source.publisherPaper));
+                        linksArray[activeTab].push(newLink);
                     }
             }
         }
 
     JSON.stringify(linksArray);
     JSON.stringify(processedArray);
-    d3.selectAll("svg > *").remove();
-    var mydata=new Set(processedArray);
-    for(let item of mydata) console.log(item);
-    createGraph(processedArray, linksArray,false,false);
+    addedSVGs=d3.selectAll("svg");
+    idName= "#"+addedSVGs[0][activeTab].getAttribute("id")
+    $(idName).empty();
+
+    createGraph(processedArray, linksArray[activeTab],false,false,activeTab);
     $("#graphArea").css("cursor","default");
     d3.select('.context-menu').style('display', 'none');
 }
 
 
-function showVenue(idToEXpand,selectedIndex,processedArray) {
+function showVenue(idToEXpand,selectedIndex,processedArray,activeTab) {
     $("#graphArea").css("cursor","wait");
 
     if(processedArray[selectedIndex]._source.venuePaper===undefined){
@@ -198,14 +204,14 @@ function showVenue(idToEXpand,selectedIndex,processedArray) {
 
         if ((processedArray[selectedIndex]._source.vType === vertexType.PAPER)&&(processedArray[selectedIndex]._source.venuePaper!==undefined)){
             if (processedArray[selectedIndex]._id === idToEXpand) {
-                if (!venueAlreadyAdded.has(processedArray[selectedIndex]._source.venuePaper)) {
+                if (!venueAlreadyAdded[activeTab].has(processedArray[selectedIndex]._source.venuePaper)) {
                     var newNode = new createVenueNode(processedArray[selectedIndex]._source.venuePaper);
                     var index = processedArray.push(newNode);
-                    venueAlreadyAdded.set(processedArray[selectedIndex]._source.venuePaper, index - 1);
+                    venueAlreadyAdded[activeTab].set(processedArray[selectedIndex]._source.venuePaper, index - 1);
                     var newLink = new createLinks(selectedIndex, processedArray.length - 1);
                     linksArray.push(newLink);
                 }else{
-                    var newLink = new createLinks(selectedIndex, venueAlreadyAdded.get(processedArray[selectedIndex]._source.venuePaper));
+                    var newLink = new createLinks(selectedIndex, venueAlreadyAdded[activeTab].get(processedArray[selectedIndex]._source.venuePaper));
                     linksArray.push(newLink);
                 }
             }
@@ -213,8 +219,8 @@ function showVenue(idToEXpand,selectedIndex,processedArray) {
 
         if ((processedArray[selectedIndex]._source.vType === vertexType.PAPER)&&(processedArray[selectedIndex]._source.venuePaper!==undefined)) {
             if (processedArray[selectedIndex]._id !== idToEXpand) {
-                if (venueAlreadyAdded.has(processedArray[selectedIndex]._source.venuePaper)) {
-                    var newLink = new createLinks(selectedIndex, venueAlreadyAdded.get(processedArray[selectedIndex]._source.venuePaper));
+                if (venueAlreadyAdded[activeTab].has(processedArray[selectedIndex]._source.venuePaper)) {
+                    var newLink = new createLinks(selectedIndex, venueAlreadyAdded[activeTab].get(processedArray[selectedIndex]._source.venuePaper));
                     linksArray.push(newLink);
                 }
             }
@@ -222,10 +228,10 @@ function showVenue(idToEXpand,selectedIndex,processedArray) {
 
     JSON.stringify(linksArray);
     JSON.stringify(processedArray);
-    d3.selectAll("svg > *").remove();
-    var mydata=new Set(processedArray);
-    for(let item of mydata) console.log(item);
-    createGraph(processedArray, linksArray,false,false);
+    addedSVGs=d3.selectAll("svg");
+    idName= "#"+addedSVGs[0][activeTab].getAttribute("id");
+    $(idName).empty();
+    createGraph(processedArray, linksArray[activeTab],false,false,activeTab);
     $("#graphArea").css("cursor","default");
     d3.select('.context-menu').style('display', 'none');
 }
@@ -252,9 +258,12 @@ function showCitations(idToEXpand,janusGraphId,scrIdPaperIndex,processedArray) {
 
         JSON.stringify(linksArray);
         JSON.stringify(processedArray);
-        d3.selectAll("svg > *").remove();
-        var mydata = new Set(processedArray);
-        createGraph(processedArray, linksArray, false,false);
+
+        addedSVGs=d3.selectAll("svg");
+        idName= "#"+addedSVGs[0][activeTab].getAttribute("id");
+        $(idName).empty();
+
+        createGraph(processedArray, linksArray[activeTab], false,false,activeTab);
         d3.select('.context-menu').style('display', 'none');
         $("#graphArea").css("cursor","default");
     });
@@ -276,15 +285,17 @@ function showReferences(idToEXpand){
     }
     JSON.stringify(linksArray);
     JSON.stringify(processedArray);
-    d3.selectAll("svg > *").remove();
-    var mydata=new Set(processedArray);
-    for(let item of mydata) console.log(item);
-    createGraph(processedArray, linksArray,false,false);
+
+    addedSVGs=d3.selectAll("svg");
+    idName= "#"+addedSVGs[0][activeTab].getAttribute("id");
+    $(idName).empty();
+
+    createGraph(processedArray, linksArray,false,false,activeTab);
     d3.select('.context-menu').style('display', 'none');
 }
 
 
-function showInstitution(idToEXpand,authorName,indexofCreatedAuthorNode,processedArray) {
+function showInstitution(idToEXpand,authorName,indexofCreatedAuthorNode,processedArray,activeTab) {
     var targetId="";
     var orgNames=new Array();
     var url= "http://localhost:9200/janusgraph_edgees/_search?q=eType=authorship AND srcId="+idToEXpand+" AND authorEdge="+authorName;
@@ -307,15 +318,19 @@ if(json.hits.hits.length>0) {
             var index = processedArray.push(newNode);
             var newLink = new createLinks(indexofCreatedAuthorNode, processedArray.length - 1);
             linksArray.push(newLink);
-            instituteAlreadyAdded.set(orgNames);
+            instituteAlreadyAdded[activeTab].set(orgNames);
         } else {
             alert("Membership data not available ")
         }
 
         JSON.stringify(linksArray);
         JSON.stringify(processedArray);
-        d3.selectAll("svg > *").remove();
-        createGraph(processedArray, linksArray, false,false);
+
+        addedSVGs=d3.selectAll("svg");
+        idName= "#"+addedSVGs[0][activeTab].getAttribute("id");
+        $(idName).empty();
+
+        createGraph(processedArray, linksArray[activeTab], false,false,activeTab);
         $("#graphArea").css("cursor", "default");
         });
       }else{
@@ -326,7 +341,7 @@ if(json.hits.hits.length>0) {
 
 }
 
-function showCoAuthorship(paperId,selectedIndex,processedArray) {
+function showCoAuthorship(paperId,selectedIndex,processedArray,activeTab) {
    // var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:author AND jgId:"+author;
 
     var url="http://localhost:9200/janusgraph_edgees/_search?q=srcId:"+ paperId +" AND eType:authorship";
@@ -348,14 +363,14 @@ function showCoAuthorship(paperId,selectedIndex,processedArray) {
                 d3.json(authordataQuery,function (error,jsonResult) {
                     var newNode = new createAuthorNode(jsonResult.hits.hits[0]._source.author);
                     var index = processedArray.push(newNode);
-                    coAuthorsAlreadyAdded.set(jsonResult.hits.hits[0]._source.author, index - 1);
+                    coAuthorsAlreadyAdded[activeTab].set(jsonResult.hits.hits[0]._source.author, index - 1);
                     var newLink = new createLinks(selectedIndex, processedArray.length - 1);
                     linksArray.push(newLink);
 
                     JSON.stringify(linksArray);
                     JSON.stringify(processedArray);
                     d3.selectAll("svg > *").remove();
-                    createGraph(processedArray, linksArray, false,true);
+                    createGraph(processedArray, linksArray, false,true,activeTab);
                 })
             //}
         });
@@ -364,7 +379,7 @@ function showCoAuthorship(paperId,selectedIndex,processedArray) {
 
 }
 
-function showInstitutionFromAuthor(idToEXpand,selectedIndex,processedArray) {
+function showInstitutionFromAuthor(idToEXpand,selectedIndex,processedArray,activeTabIndex) {
     $("#graphArea").css("cursor","wait");
     if(processedArray[selectedIndex]._source.orgList===undefined){
         alert("Institution information not available")
@@ -383,13 +398,17 @@ function showInstitutionFromAuthor(idToEXpand,selectedIndex,processedArray) {
 
     JSON.stringify(linksArray);
     JSON.stringify(processedArray);
-    d3.selectAll("svg > *").remove();
-    createGraph(processedArray, linksArray,false,false);
+
+    addedSVGs=d3.selectAll("svg");
+    idName= "#"+addedSVGs[0][activeTab].getAttribute("id");
+    $(idName).empty();
+
+    createGraph(processedArray, linksArray,false,false,activeTab);
     $("#graphArea").css("cursor","default");
     d3.select('.context-menu').style('display', 'none');
 }
 
-function removeNodeAndLinks(selectedIndex,processedArray,linksArray) {
+function removeNodeAndLinks(selectedIndex,processedArray,linksArray,activeTab) {
     processedArray.splice(selectedIndex,1);
 
     var initialLength=linksArray.length;
@@ -418,12 +437,12 @@ function removeNodeAndLinks(selectedIndex,processedArray,linksArray) {
     JSON.stringify(processedArray);
 
     d3.selectAll("svg > *").remove();
-    createGraph(processedArray, linksArray,false,false);
+    createGraph(processedArray, linksArray,false,false,activeTab);
     $("#graphArea").css("cursor","default");
     d3.select('.context-menu').style('display', 'none');
 }
 
-function showFOS(idToEXpand,selectedIndex,processedArray) {
+function showFOS(idToEXpand,selectedIndex,processedArray,activeTab) {
     $("#graphArea").css("cursor","wait");
    // var intial_length = processedArray.length;
     //for (var i = 0; i < intial_length; i++) {
@@ -434,14 +453,14 @@ function showFOS(idToEXpand,selectedIndex,processedArray) {
         if (processedArray[selectedIndex]._source.vType === vertexType.PAPER) {
             if ((processedArray[selectedIndex]._id === idToEXpand) && (processedArray[selectedIndex]._source.fosPaper!== undefined)) {
                 for (var j = 0; j < processedArray[selectedIndex]._source.fosPaper.length; j++) {
-                    if (!fosAlreadyAdded.has(processedArray[selectedIndex]._source.fosPaper[j])) {
+                    if (!fosAlreadyAdded[activeTab].has(processedArray[selectedIndex]._source.fosPaper[j])) {
                         var newNode = new createFOSNode(processedArray[selectedIndex]._id, processedArray[selectedIndex]._source.fosPaper[j])
                         var index = processedArray.push(newNode);
-                        fosAlreadyAdded.set(processedArray[selectedIndex]._source.fosPaper[j], index - 1);
+                        fosAlreadyAdded[activeTab].set(processedArray[selectedIndex]._source.fosPaper[j], index - 1);
                         var newLink = new createLinks(selectedIndex, processedArray.length - 1);
-                        linksArray.push(newLink);
+                        linksArray[activeTab].push(newLink);
                     }else{
-                        var newLink = new createLinks(selectedIndex, fosAlreadyAdded.get(processedArray[selectedIndex]._source.fosPaper[j]));
+                        var newLink = new createLinks(selectedIndex, fosAlreadyAdded[activeTab].get(processedArray[selectedIndex]._source.fosPaper[j]));
                         linksArray.push(newLink);
                     }
                 }
@@ -451,8 +470,8 @@ function showFOS(idToEXpand,selectedIndex,processedArray) {
         if (processedArray[selectedIndex]._source.vType === vertexType.PAPER) {
             if ((processedArray[selectedIndex]._id !== idToEXpand) && (!paperExpanded.has(processedArray[selectedIndex]._id)) && (processedArray[selectedIndex]._source.fosPaper !== undefined)) {
                 for (var j = 0; j < processedArray[selectedIndex]._source.fosPaper.length; j++) {
-                    if (fosAlreadyAdded.has(processedArray[selectedIndex]._source.fosPaper[j].name)) {
-                        var newLink = new createLinks(selectedIndex, fosAlreadyAdded.get(processedArray[selectedIndex]._source.fosPaper[j].name));
+                    if (fosAlreadyAdded[activeTab].has(processedArray[selectedIndex]._source.fosPaper[j].name)) {
+                        var newLink = new createLinks(selectedIndex, fosAlreadyAdded[activeTab].get(processedArray[selectedIndex]._source.fosPaper[j].name));
                         linksArray.push(newLink);
                     }
                 }
@@ -461,10 +480,12 @@ function showFOS(idToEXpand,selectedIndex,processedArray) {
 
     JSON.stringify(linksArray);
     JSON.stringify(processedArray);
-    d3.selectAll("svg > *").remove();
-    var mydata=new Set(processedArray);
-    for(let item of mydata) console.log(item);
-    createGraph(processedArray, linksArray,false,false);
+
+    addedSVGs=d3.selectAll("svg");
+    idName= "#"+addedSVGs[0][activeTab].getAttribute("id");
+    $(idName).empty();
+
+    createGraph(processedArray, linksArray[activeTab],false,false,activeTab);
     $("#graphArea").css("cursor","default");
     d3.select('.context-menu').style('display', 'none');
 }
