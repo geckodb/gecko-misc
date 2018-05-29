@@ -1,0 +1,191 @@
+
+<body onload="loadmsg()">
+<!--
+<ul class="nav nav-tabs" id="resultList">
+    <li class="active"><a data-toggle="tab" href="#ResultsArea" onclick="loadResults()">Results</a></li>
+
+    <li class="dropdown">
+        <a data-toggle="dropdown" class="dropdown-toggle" href="#" >Facets <span class="caret"></span> </a>
+        <ul class="dropdown-menu">
+            <li><a  data-toggle="tab" href="#FacetsArea" onclick="loadFacets(searchValue,true)"> by year</a></li>
+            <li><a data-toggle="tab" href="#FacetsArea" onclick="loadFacets(searchValue,false)"> by citation count</a></li>
+        </ul>
+    </li>
+</ul>
+<div class="tab-content">
+
+    <div class="tab-pane fade in active searchsize" id="ResultsArea">
+        <table style="margin-left: 15px">
+            <tr>
+                <td>
+                    <p><b>Search Results for :</b> <p style="color:green"><b id="searchText"></b></b></p></p>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="list-group" id="list" style="width: 430px">
+                        <div id="tabContainer">
+                            <table  class="table-hover" id="resultTab" style="word-break: break-all;">
+                                <tbody id="searchResults">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="pager">
+                            <ul id="pagination" class="pagination-sm"></ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div id="FacetsArea" class="tab-pane fade">
+        <table  style="margin-left: 15px" class="table-hover table-bordered" id="facetTab" style="word-break: break-all;">
+            <tbody id="facetResults" >
+            </tbody>
+        </table>
+    </div>
+
+</div>-->
+
+<div id="graphArea" class="startSize">
+    <div>
+        <table>
+            <tr>
+                <td width="50px" ><a href="#" title="Export data" onclick="downloadGraphAsData(); return false;"><span class="glyphicon glyphicon-save-file" id="exportData_glyphicons"></span></a></td>
+                <td width="50px"><a href="#" title="Download svg" onclick="downloadGraphAsSVG(); return false;"><span class="glyphicon glyphicon-download-alt" id="exportSVG_glyphicons"></span></a></td>
+                <td width="50px"><a href="#" title="Clear" onclick="clearSVG();return false;"><img src="../Images/clearicon.png" id="clearSVG"></a></td>
+                <td width="650px"></td>
+                <td width="250px"></td>
+                <td width="50px"><a href="#" title="" onclick=resize()><span class="glyphicon glyphicon-resize-full" id="enlarge_glyphicons"></span></a></td>
+            </tr>
+        </table>
+    </div>
+
+    <div >
+        <ul class="workspaceTab nav nav-tabs" role="tablist">
+            <li class="active" ><a href="#tabArea0" data-toggle="tab">Default tab <span>x</span></a>
+            </li>
+
+            <li><a href="#" class="add-tab">+</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="tabArea0"></div>
+
+        </div>
+
+    </div>
+</div>
+<script src="../JS/HermesGraphLoader.js"></script>
+
+<script>
+
+    var tabsClosedRecently=false;
+    $(".workspaceTab").on("click", "a", function (e) {
+        e.preventDefault();
+        if (!$(this).hasClass('add-tab')) {
+            $(this).tab('show');
+        }
+    })
+        .on("click", "span", function () {
+            var anchor = $(this).siblings('a');
+
+            var indexofClosingTab=$(this).siblings("a")[0].getAttribute("href").substring(8,9);
+            svg.splice(indexofClosingTab,1);
+            force.splice(indexofClosingTab,1);
+            authorAlreadyAdded.splice(indexofClosingTab,1);
+            publicationAlreadyAdded.splice(indexofClosingTab,1);
+            venueAlreadyAdded.splice(indexofClosingTab,1);
+            coAuthorsAlreadyAdded.splice(indexofClosingTab,1);
+            fosAlreadyAdded.splice(indexofClosingTab,1)
+            instituteAlreadyAdded.splice(indexofClosingTab,1);
+            processedArray.splice(indexofClosingTab,1);
+            linksArray.splice(indexofClosingTab,1);
+
+            tabsClosedRecently=true;
+            $(anchor.attr('href')).remove();
+            $(this).parent().remove();
+            $(".workspaceTab li").children('a').first().click();
+
+
+        });
+
+    $('.add-tab').click(function (e) {
+        e.preventDefault();
+        var id = $(".workspaceTab").children().length-1;
+
+        if(id>10){
+            alert("Sorry!! you cannot add more then 10 tabs");
+        }
+        else{
+            var tabId = 'paperGraphArea' + id;
+            $(this).closest('li').before('<li><a data-toggle="tab" href="#tabArea' + id + '">New Tab</a> <span> x </span></li>');
+            $('.tab-content').append('<div class="tab-pane fade" id=tabArea' + id + '></div>');
+
+            var selector="#tabArea"+ id;
+            if(!tabsClosedRecently) {
+                svg[id] = d3.select(selector)
+                    .append("svg")
+                    .attr("id", tabId)
+                    .attr("width", width)
+                    .attr("height", height);
+
+                force[id] = d3.layout.force()
+                    .distance(100)
+                    .linkDistance([150])
+                    .charge(-500)
+                    .size([1050, 620])
+                    .gravity(0.1)
+                    .alpha(0);
+            }
+            var ulItems=document.getElementsByClassName("workspaceTab");
+            var liItems=ulItems[0].getElementsByTagName("li");
+            var divElements=document.getElementsByClassName("tab-content");
+            if(tabsClosedRecently){
+                for(var i=0;i<liItems.length-1;i++){
+                    var changedId="#tabArea"+i;
+                    liItems[i].getElementsByTagName('a')[0].setAttribute("href",changedId);
+                    divElements[0].getElementsByTagName("div")[i].setAttribute("id","tabArea"+i);
+                }
+                id = $(".workspaceTab").children().length-2;
+                svg[id] = d3.select(selector)
+                    .append("svg")
+                    .attr("id", tabId)
+                    .attr("width", width)
+                    .attr("height", height);
+
+                force[id] = d3.layout.force()
+                    .distance(100)
+                    .linkDistance([150])
+                    .charge(-500)
+                    .size([1050, 620])
+                    .gravity(0.1)
+                    .alpha(0);
+
+                for(var j=0;j<divElements[0].getElementsByTagName("div").length;j++){
+                    divElements[0].getElementsByTagName("div")[j].getElementsByTagName("svg")[0].setAttribute("id","paperGraphArea"+j);
+                }
+                //id = $(".workspaceTab").children().length-2;
+                tabsClosedRecently=false;
+            }
+
+            $('.workspaceTab li:nth-child(' + id + ') a').click();
+            authorAlreadyAdded[id]=new Map();
+            publicationAlreadyAdded[id]=new Map();
+            venueAlreadyAdded[id]=new Map();
+            coAuthorsAlreadyAdded[id]=new Map();
+            fosAlreadyAdded[id]=new Map();
+            instituteAlreadyAdded[id]=new Map();
+
+            processedArray[id]=[];
+            linksArray[id]=[];
+        }
+    });
+</script>
+
+</body>
+</html>

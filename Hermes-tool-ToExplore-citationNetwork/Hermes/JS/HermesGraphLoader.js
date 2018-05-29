@@ -6,9 +6,10 @@ var nodeAdded= new Set();
 var fullscreen=true;
 var dataLoaded=false;
 var activeTabIndex;
-
+var yearFilteredArray=new Array();
 var svg=new Array();
 var force=new Array();
+var node;
  svg[0]=d3.select("#tabArea0")
     .append("svg")
      .attr("id","paperGraphArea0")
@@ -76,6 +77,32 @@ function getActiveTabIndex() {
         }
     }
     return tabIndex;
+}
+
+function checkYear(nodesInActiveTab) {
+
+
+        if(nodesInActiveTab._source.year==document.getElementById("sliderValue").value){
+            // yearFilteredArray.push(processedArray[inTab][i]);
+            return true;
+        }else{
+           return false;
+        }
+}
+
+function sliderMoved() {
+    var val = document.getElementById("sliderValue").value;
+    var selectedYearValue = document.getElementById("selectedyear");
+    selectedYearValue.innerText = val;
+    //checkYear(val);
+    var inTab = getActiveTabIndex();
+    var nodesInActiveTab = svg[inTab].selectAll(".node");
+
+   // for (var j = 0; j < nodesInActiveTab[0].length; j++) {
+        node.style("opacity", function (o) {
+            return checkYear(o) ? 1 : 0.1;
+        });
+  //  }
 }
 
 function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
@@ -193,6 +220,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
         }
     }
 
+
     var edgepaths = selectedSVG.selectAll(".edgepath")
         .data(links)
         .enter()
@@ -238,7 +266,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
         });
 
 
-    var node = selectedSVG.selectAll("node")
+     node = selectedSVG.selectAll("node")
         .data(nodes)
         .enter().append("g")
         .attr("class", "node")

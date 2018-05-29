@@ -42,75 +42,75 @@ function fillSuggestion() {
     var suggestionData=new Array();
     var val=document.getElementById("searchinput").value;
     console.log(val.length);
-  if(val.length>0) {
-      var urlSuggestion = "http://localhost:9200/janusgraph_vertexes/_search?q=fos:\"" + val + "\"* OR author:\"" + val + "\"* OR title:\"" + val + "\"*&size=10";
-      d3.json(urlSuggestion, function (error, json) {
-          if (error) throw error;
+    if(val.length>0) {
+        var urlSuggestion = "http://localhost:9200/janusgraph_vertexes/_search?q=fos:\"" + val + "\"* OR author:\"" + val + "\"* OR title:\"" + val + "\"*&size=10";
+        d3.json(urlSuggestion, function (error, json) {
+            if (error) throw error;
 
-          suggestionData = json.hits.hits;
-          // console.log(suggestionData)
-          $('#suggestionBox').html('');
+            suggestionData = json.hits.hits;
+            // console.log(suggestionData)
+            $('#suggestionBox').html('');
 
-          for (var i = 0; i < suggestionData.length; i++) {
+            for (var i = 0; i < suggestionData.length; i++) {
 
-              var sBox = document.getElementById("suggestionBox");
-              var li = document.createElement("li");
-             // var a = document.createElement("a");
-              li.setAttribute("id", "aTag");
-              if (suggestionData[i]._source.vType === vertexType.PAPER) {
-                  //aTag = sBox.appendChild(a);
+                var sBox = document.getElementById("suggestionBox");
+                var li = document.createElement("li");
+                // var a = document.createElement("a");
+                li.setAttribute("id", "aTag");
+                if (suggestionData[i]._source.vType === vertexType.PAPER) {
+                    //aTag = sBox.appendChild(a);
 
-                  li.setAttribute("class", "suggestedItem");
-                  li.setAttribute("id", i);
-                  li.innerText = suggestionData[i]._source.title;
-                  li.onclick = function (d) {
-                      if(d.path===undefined){
-                          fillSearchInput( d.currentTarget.id, suggestionData);
-                      }else{
-                          fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
-                      }
+                    li.setAttribute("class", "suggestedItem");
+                    li.setAttribute("id", i);
+                    li.innerText = suggestionData[i]._source.title;
+                    li.onclick = function (d) {
+                        if(d.path===undefined){
+                            fillSearchInput( d.currentTarget.id, suggestionData);
+                        }else{
+                            fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
+                        }
 
-                      $('#suggestionBox').html('');
-                  }
+                        $('#suggestionBox').html('');
+                    }
 
-                  liTag = sBox.appendChild(li);
-                  pTag = document.createElement("p");
-                  pTag.innerText = "in paper ";
-                  pTag_handler = liTag.appendChild(pTag);
-                  citationTag = document.createElement("bold");
-                  citationTag.innerText = "Citation : ";
-                  spanCitationTag = document.createElement("span");
-                  if (suggestionData[i]._source.magNCitation === undefined) {
-                      spanCitationTag.innerText = 0;
-                  } else {
-                      spanCitationTag.innerText = suggestionData[i]._source.magNCitation;
-                  }
+                    liTag = sBox.appendChild(li);
+                    pTag = document.createElement("p");
+                    pTag.innerText = "in paper ";
+                    pTag_handler = liTag.appendChild(pTag);
+                    citationTag = document.createElement("bold");
+                    citationTag.innerText = "Citation : ";
+                    spanCitationTag = document.createElement("span");
+                    if (suggestionData[i]._source.magNCitation === undefined) {
+                        spanCitationTag.innerText = 0;
+                    } else {
+                        spanCitationTag.innerText = suggestionData[i]._source.magNCitation;
+                    }
 
-                  pTag_handler.appendChild(citationTag);
-                  pTag_handler.appendChild(spanCitationTag);
+                    pTag_handler.appendChild(citationTag);
+                    pTag_handler.appendChild(spanCitationTag);
 
 
 
-              } else if (suggestionData[i]._source.vType === vertexType.AUTHOR) {
-                 // aTag = sBox.appendChild(a);
-                  li.setAttribute("class", "suggestedItem");
-                  li.setAttribute("id", i);
-                  li.innerText = suggestionData[i]._source.author;
-                  li.onclick = function (d) {
-                      if(d.path===undefined){
-                          fillSearchInput(d.currentTarget.id, suggestionData);
-                      }else{
-                          fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
-                      }
-                      $('#suggestionBox').html('');
-                  }
+                } else if (suggestionData[i]._source.vType === vertexType.AUTHOR) {
+                    // aTag = sBox.appendChild(a);
+                    li.setAttribute("class", "suggestedItem");
+                    li.setAttribute("id", i);
+                    li.innerText = suggestionData[i]._source.author;
+                    li.onclick = function (d) {
+                        if(d.path===undefined){
+                            fillSearchInput(d.currentTarget.id, suggestionData);
+                        }else{
+                            fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
+                        }
+                        $('#suggestionBox').html('');
+                    }
 
-                  liTag = sBox.appendChild(li)
-                  pTag = document.createElement("p");
-                  pTag.innerText = "in author"
-                  liTag.appendChild(pTag);
+                    liTag = sBox.appendChild(li)
+                    pTag = document.createElement("p");
+                    pTag.innerText = "in author"
+                    liTag.appendChild(pTag);
 
-              }/*else if(suggestionData[i]._source.vType===vertexType.ORG){
+                }/*else if(suggestionData[i]._source.vType===vertexType.ORG){
                 aTag=sBox.appendChild(a);
                 li.setAttribute("class","suggestedItem");
                 li.setAttribute("id",i);
@@ -125,62 +125,62 @@ function fillSuggestion() {
                 liTag.appendChild(pTag);
 
             }*/ else if (suggestionData[i]._source.vType === vertexType.FOS) {
-                  //aTag = sBox.appendChild(a);
-                  li.setAttribute("class", "suggestedItem");
-                  li.setAttribute("id", i);
-                  li.innerText = suggestionData[i]._source.fos;
-                  li.onclick = function (d) {
-                      if(d.path===undefined){
-                          fillSearchInput(d.currentTarget.id, suggestionData);
-                      }else{
-                          fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
-                      }
-                      $('#suggestionBox').html('');
-                  }
-                  liTag = sBox.appendChild(li)
-                  pTag = document.createElement("p");
-                  pTag.innerText = "in Field of study"
-                  liTag.appendChild(pTag);
+                    //aTag = sBox.appendChild(a);
+                    li.setAttribute("class", "suggestedItem");
+                    li.setAttribute("id", i);
+                    li.innerText = suggestionData[i]._source.fos;
+                    li.onclick = function (d) {
+                        if(d.path===undefined){
+                            fillSearchInput(d.currentTarget.id, suggestionData);
+                        }else{
+                            fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
+                        }
+                        $('#suggestionBox').html('');
+                    }
+                    liTag = sBox.appendChild(li)
+                    pTag = document.createElement("p");
+                    pTag.innerText = "in Field of study"
+                    liTag.appendChild(pTag);
 
-              }
-              /*else if(suggestionData[i]._source.vType===vertexType.PUBLICATION){
-                              aTag=sBox.appendChild(a);
-                              li.setAttribute("class","suggestedItem");
-                              li.setAttribute("id",i);
-                              li.innerText=suggestionData[i]._source.publisher;
-                              a.onclick=function (d) {
-                                  fillSearchInput(d.path[1].getAttribute("id"),suggestionData);
-                                  $('#suggestionBox').html('');
-                              }
-                              liTag=aTag.appendChild(li)
-                              pTag=document.createElement("p");
-                              pTag.innerText="in publication"
-                              liTag.appendChild(pTag);
-                          }*/
-          }
+                }
+                /*else if(suggestionData[i]._source.vType===vertexType.PUBLICATION){
+                                aTag=sBox.appendChild(a);
+                                li.setAttribute("class","suggestedItem");
+                                li.setAttribute("id",i);
+                                li.innerText=suggestionData[i]._source.publisher;
+                                a.onclick=function (d) {
+                                    fillSearchInput(d.path[1].getAttribute("id"),suggestionData);
+                                    $('#suggestionBox').html('');
+                                }
+                                liTag=aTag.appendChild(li)
+                                pTag=document.createElement("p");
+                                pTag.innerText="in publication"
+                                liTag.appendChild(pTag);
+                            }*/
+            }
 
-      });
-  }else{
-      $('#suggestionBox').html('');
-  }
+        });
+    }else{
+        $('#suggestionBox').html('');
+    }
 }
 
 
 function submitIfEnter(event) {
-        if (event.keyCode === 13) {
-            event.preventDefault();
-            var userEnteredtext=document.getElementById("searchinput").value;
-            var typeOfVertex=document.getElementById("hiddenInput").value;
-            if(!(userEnteredtext.length>0)){
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        var userEnteredtext=document.getElementById("searchinput").value;
+        var typeOfVertex=document.getElementById("hiddenInput").value;
+        if(!(userEnteredtext.length>0)){
 
-                alert("please enter value");
-                event.preventDefault();
-                $('#search').addClass('open');
-                $('#search > form > input[type="search"]').focus();
-            }else{
-                window.location.href="scholarlyResult.html?value="+userEnteredtext+"&type="+typeOfVertex;
-            }
+            alert("please enter value");
+            event.preventDefault();
+            $('#search').addClass('open');
+            $('#search > form > input[type="search"]').focus();
+        }else{
+            window.location.href="scholarlyResult.html?value="+userEnteredtext+"&type="+typeOfVertex;
         }
+    }
 }
 
 //verifies if search field is not empty, and redirects to scholarlyResult.html
@@ -218,7 +218,7 @@ function searchClicked(userEnteredtext,chosenType) {
         if(json.hits.hits.length==0){
             searchtextfield = document.getElementById("searchText");
             searchtextfield.innerText = userEnteredtext;
-           // document.getElementById("resultCount").innerText=0;
+            // document.getElementById("resultCount").innerText=0;
             var doc = document.getElementById("searchResults");
 
             var tr = document.createElement("tr");
@@ -468,22 +468,22 @@ function searchClicked(userEnteredtext,chosenType) {
                         onPageClick: function (event, page) {
                             displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
 
-                                if(chosenType!=""){
-                                    var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:"+chosenType+" AND "+userEnteredtext+"&from="+displayRecordsIndex+"&size=5";
-                                }else{
-                                    var url="http://localhost:9200/janusgraph_vertexes/_search?q="+userEnteredtext+"&from="+displayRecordsIndex+"&size=5";
+                            if(chosenType!=""){
+                                var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:"+chosenType+" AND "+userEnteredtext+"&from="+displayRecordsIndex+"&size=5";
+                            }else{
+                                var url="http://localhost:9200/janusgraph_vertexes/_search?q="+userEnteredtext+"&from="+displayRecordsIndex+"&size=5";
 
-                                }
-                                d3.json(url, function (error, jsonrangeResult) {
-                                    if (error) throw error;
-                                    records=jsonrangeResult.hits.hits;
-                                    searchData=records;
-                                    totalHits=jsonrangeResult.hits.total;
-                                    timeTaken=jsonrangeResult.took;
-                                   //Array.prototype.push.apply(records,rangeValues);
-                                    displayRecords = records;
-                                    generate_table();
-                                });
+                            }
+                            d3.json(url, function (error, jsonrangeResult) {
+                                if (error) throw error;
+                                records=jsonrangeResult.hits.hits;
+                                searchData=records;
+                                totalHits=jsonrangeResult.hits.total;
+                                timeTaken=jsonrangeResult.took;
+                                //Array.prototype.push.apply(records,rangeValues);
+                                displayRecords = records;
+                                generate_table();
+                            });
                         }
                     });
                 }
