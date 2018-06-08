@@ -1,3 +1,5 @@
+var searchData=new Array();
+
 $(function () {
     $('a[href="#search"]').on('click', function(event) {
         event.preventDefault();
@@ -195,13 +197,14 @@ $("#searchRes").click(function(){
         $('#search > form > input[type="search"]').focus();
     }else{
         window.location.href="scholarlyResult.html?value="+userEnteredtext+"&type="+typeOfVertex;
+
     }
 });
 
 
 
 function searchClicked(userEnteredtext,chosenType) {
-    var searchData=new Array();
+    document.getElementById("sliderValue").disabled=true;
     document.getElementById("overlay").style.display="block";
     $('#search').removeClass('open');
     //Pagination code
@@ -212,10 +215,33 @@ function searchClicked(userEnteredtext,chosenType) {
         var url="http://localhost:9200/janusgraph_vertexes/_search?q="+userEnteredtext+"&from=0&size=5";
 
     }
-
+    _LTracker.push({
+        'method':'searchClicked',
+        'text': 'httpRequest begins',
+        'url': url,
+        'searchParams': {
+            'chosenType': chosenType,
+            'enteredText': userEnteredtext
+        },
+        'tag':'textualSearch'
+    });
     d3.json(url, function (error, json) {
         if (error) throw error;
         if(json.hits.hits.length==0){
+            _LTracker.push({
+                'method':'searchClicked',
+                'text': 'httpRequest successful',
+                'url': url,
+                'searchParams': {
+                    'chosenType': chosenType,
+                    'enteredText': userEnteredtext
+                },
+                'tag':'searchResult',
+                'searchResult':{
+                    'totalRecods':0,
+                    'timetaken':json.took
+                }
+            });
             searchtextfield = document.getElementById("searchText");
             searchtextfield.innerText = userEnteredtext;
             // document.getElementById("resultCount").innerText=0;
@@ -257,6 +283,21 @@ function searchClicked(userEnteredtext,chosenType) {
 
 
                 function generate_table() {
+                    _LTracker.push({
+                        'method':'generate_table',
+                        'text': 'httpRequest successful',
+                        'url': url,
+                        'searchParams': {
+                            'chosenType': chosenType,
+                            'enteredText': userEnteredtext
+                        },
+                        'tag':'searchResult',
+                        'searchResult':{
+                            'totalRecods':totalRecords,
+                            'timetaken':timeTaken
+                        }
+                    });
+
                     $('#searchResults').html('');
 
                     var doc = document.getElementById("searchResults");
@@ -279,9 +320,9 @@ function searchClicked(userEnteredtext,chosenType) {
                             a.style.cursor="pointer";
                             a.onclick = function (d) {
                                 if(d.path===undefined){
-                                    poplateClickedNode(d.currentTarget.id,searchData);
+                                    poplateClickedNode(d.currentTarget.id,searchData,false);
                                 }else{
-                                    poplateClickedNode(d.path[1].getAttribute("id"), searchData);
+                                    poplateClickedNode(d.path[1].getAttribute("id"), searchData,false);
                                 }
                             };
                             a.setAttribute("data-toggle","tooltip");
@@ -323,9 +364,9 @@ function searchClicked(userEnteredtext,chosenType) {
                             a.style.cursor="pointer";
                             a.onclick = function (d) {
                                 if(d.path===undefined){
-                                    poplateClickedNode(d.currentTarget.id,searchData);
+                                    poplateClickedNode(d.currentTarget.id,searchData,false);
                                 }else{
-                                    poplateClickedNode(d.path[1].getAttribute("id"), searchData);
+                                    poplateClickedNode(d.path[1].getAttribute("id"), searchData,false);
                                 }
                             }
                             linebreak = document.createElement("br");
@@ -350,9 +391,9 @@ function searchClicked(userEnteredtext,chosenType) {
                             a.setAttribute("id", displayRecords[i]._id);
                             a.onclick = function (d) {
                                 if(d.path===undefined){
-                                    poplateClickedNode(d.currentTarget.id,searchData);
+                                    poplateClickedNode(d.currentTarget.id,searchData,false);
                                 }else{
-                                    poplateClickedNode(d.path[1].getAttribute("id"), searchData);
+                                    poplateClickedNode(d.path[1].getAttribute("id"), searchData,false);
                                 }
                             };
                             linebreak = document.createElement("br");
@@ -377,9 +418,9 @@ function searchClicked(userEnteredtext,chosenType) {
                             a.style.cursor="pointer";
                             a.onclick = function (d) {
                                 if(d.path===undefined){
-                                    poplateClickedNode(d.currentTarget.id,searchData);
+                                    poplateClickedNode(d.currentTarget.id,searchData,false);
                                 }else{
-                                    poplateClickedNode(d.path[1].getAttribute("id"), searchData);
+                                    poplateClickedNode(d.path[1].getAttribute("id"), searchData,false);
                                 }
                             };
                             linebreak = document.createElement("br");
@@ -404,9 +445,9 @@ function searchClicked(userEnteredtext,chosenType) {
                             a.style.cursor="pointer";
                             a.onclick = function (d) {
                                 if(d.path===undefined){
-                                    poplateClickedNode(d.currentTarget.id,searchData);
+                                    poplateClickedNode(d.currentTarget.id,searchData,false);
                                 }else{
-                                    poplateClickedNode(d.path[1].getAttribute("id"), searchData);
+                                    poplateClickedNode(d.path[1].getAttribute("id"), searchData,false);
                                 }
                             };
                             linebreak = document.createElement("br");
@@ -431,9 +472,9 @@ function searchClicked(userEnteredtext,chosenType) {
                             a.style.cursor="pointer";
                             a.onclick = function (d) {
                                 if(d.path===undefined){
-                                    poplateClickedNode(d.currentTarget.id,searchData);
+                                    poplateClickedNode(d.currentTarget.id,searchData,false);
                                 }else{
-                                    poplateClickedNode(d.path[1].getAttribute("id"), searchData);
+                                    poplateClickedNode(d.path[1].getAttribute("id"), searchData,false);
                                 }
                             };
                             linebreak = document.createElement("br");

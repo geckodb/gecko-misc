@@ -1,4 +1,5 @@
 ﻿var processedArray=[[]];
+var sliderArray=[[]];
 d3.json("../JSON/temp.json",processedArray); //temp.json holds the format required to map d3 objects **DO NOT DELETE TEMP.JSON**
 var width = 1050,
     height = 620;
@@ -9,7 +10,13 @@ var activeTabIndex;
 var yearFilteredArray=new Array();
 var svg=new Array();
 var force=new Array();
-var node;
+var node=new Array();
+var link=new Array();
+var edgepaths=new Array();
+var edgelabels=new Array();
+var linkedByIndex = {};
+
+var sliderEnabled;
  svg[0]=d3.select("#tabArea0")
     .append("svg")
      .attr("id","paperGraphArea0")
@@ -39,7 +46,7 @@ var tooltip = d3.select("body")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
-function poplateClickedNode(nodeId,dataArray) {
+function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
     var ulItems=document.getElementsByClassName("workspaceTab");
     var liItems=ulItems[0].getElementsByTagName("li");
     var svgList=d3.selectAll("svg");
@@ -51,19 +58,30 @@ function poplateClickedNode(nodeId,dataArray) {
             selectedSVG=svg[i];
         }
     }
-
-    for(let i=0;i<dataArray.length;i++){
-        if(nodeId===dataArray[i]._id){
-            processedArray[activeTabIndex].push(dataArray[i]);
-            //nodeAdded.add(nodeId);
-            //d3.selectAll("svg > *").remove();
-            var idName="#"+svgList[0][activeTabIndex].getAttribute("id");
-           $(idName).empty();
-            createGraph(processedArray[activeTabIndex],linksArray[activeTabIndex],false,false,activeTabIndex);
-            break;
+    if(!populateAllNodes){
+        for(let i=0;i<dataArray.length;i++){
+            if(nodeId===dataArray[i]._id){
+                processedArray[activeTabIndex].push(dataArray[i]);
+                //nodeAdded.add(nodeId);
+                //d3.selectAll("svg > *").remove();
+                var idName="#"+svgList[0][activeTabIndex].getAttribute("id");
+                $(idName).empty();
+                createGraph(processedArray[activeTabIndex],linksArray[activeTabIndex],false,false,activeTabIndex);
+                break;
+            }
+        }
+    }else{
+        for(let i=0;i<dataArray.length;i++){
+                processedArray[activeTabIndex].push(dataArray[i]);
+                var idName="#"+svgList[0][activeTabIndex].getAttribute("id");
+                $(idName).empty();
+                createGraph(processedArray[activeTabIndex],linksArray[activeTabIndex],false,false,activeTabIndex);
         }
     }
+
 }
+
+
 
 function getActiveTabIndex() {
     var tabIndex;
@@ -80,29 +98,46 @@ function getActiveTabIndex() {
 }
 
 function checkYear(nodesInActiveTab) {
-
-
-        if(nodesInActiveTab._source.year==document.getElementById("sliderValue").value){
-            // yearFilteredArray.push(processedArray[inTab][i]);
+    var activetab=getActiveTabIndex();
+        if(nodesInActiveTab._source.year<=document.getElementById("sliderValue").value){
+            sliderArray[activetab].push(nodesInActiveTab);
             return true;
         }else{
            return false;
         }
 }
 
+function neighbors(a, b) {
+    return linkedByIndex[a.index + "," + b.index];
+}
+
 function sliderMoved() {
+    if(sliderEnabled){
     var val = document.getElementById("sliderValue").value;
     var selectedYearValue = document.getElementById("selectedyear");
     selectedYearValue.innerText = val;
     //checkYear(val);
     var inTab = getActiveTabIndex();
     var nodesInActiveTab = svg[inTab].selectAll(".node");
+    var linksInActiveTab=svg[inTab].selectAll(".link");
+    var edgeLabels=svg[inTab].selectAll(".edgelabels");
 
-   // for (var j = 0; j < nodesInActiveTab[0].length; j++) {
-        node.style("opacity", function (o) {
-            return checkYear(o) ? 1 : 0.1;
+    if(nodesInActiveTab[0].length>0){
+        sliderArray[inTab]=new Array();
+        node[inTab].style("opacity", function (o) {
+            return checkYear(o) ? 1 : 0.05;
         });
-  //  }
+        }
+    }
+
+    if((linksInActiveTab[0].length>0)||(sliderArray[inTab].length==0)){
+        link[inTab].style("opacity",0.001);
+    }
+
+    if(edgeLabels[0].length>0){
+        edgelabels[inTab].style("opacity",0.001);
+        edgepaths[inTab].style("opacity",0.05);
+    }
 }
 
 function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
@@ -117,6 +152,16 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
     var liItems=ulItems[0].getElementsByTagName("li");
     var htmlObj=$(liItems[activeTab].innerHTML);
     selectedSVG=svg[activeTab];
+
+    _LTracker.push({
+        'method':'createGraph',
+        'text': 'graph structure',
+        'graphStructure': {
+            'nodes': nodes,
+            'edges': links
+        },
+        'tag':'graphstructure'
+    });
 
 //To form arrowhead
     if(noArrowhead){
@@ -147,7 +192,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
         .links(links)
         .start();
 
-    var link = selectedSVG.selectAll("link")
+     link[activeTab] = selectedSVG.selectAll("link")
         .data(links)
         .enter().append("line")
         .attr("class", "link")
@@ -182,7 +227,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
     var toggle = 0;
 
 //Create an array logging what is connected to what
-    var linkedByIndex = {};
+
     for (i = 0; i < nodes.length; i++) {
         linkedByIndex[i + "," + i] = 1;
     };
@@ -199,29 +244,29 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
         if (toggle == 0) {
             //Reduce the opacity of all but the neighbouring nodes
             d = d3.select(this).node().__data__;
-            node.style("opacity", function (o) {
+            node[activeTab].style("opacity", function (o) {
                 return neighboring(d, o) | neighboring(o, d) ? 1 : 0.1;
             });
 
-            link.style("opacity", function (o) {
+            link[activeTab].style("opacity", function (o) {
                 return d.index==o.source.index | d.index==o.target.index ? 1 : 0.1;
             });
 
-            edgelabels.style("opacity",function (o) {
+            edgelabels[activeTab].style("opacity",function (o) {
                 return d.index==o.source.index | d.index==o.target.index ? 1 : 0.1;
             });
             toggle = 1;
         } else {
             //Reset opacity to 1
-            node.style("opacity", 1);
-            link.style("opacity", 1);
-            edgelabels.style("opacity",1);
+            node[activeTab].style("opacity", 1);
+            link[activeTab].style("opacity", 1);
+            edgelabels[activeTab].style("opacity",1);
             toggle = 0;
         }
     }
 
 
-    var edgepaths = selectedSVG.selectAll(".edgepath")
+     edgepaths[activeTab] = selectedSVG.selectAll(".edgepath")
         .data(links)
         .enter()
         .append('path')
@@ -232,7 +277,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
             'id':function(d,i) { return 'edgepath'+i;}})
         .style("pointer-events", "none");
 
-    var edgelabels = selectedSVG.selectAll(".edgelabel")
+     edgelabels[activeTab] = selectedSVG.selectAll(".edgelabel")
         .data(links)
         .enter()
         .append('text')
@@ -244,7 +289,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
             'font-size':10,
             'fill':'#aaa'});
 
-    edgelabels.append("textPath")
+    edgelabels[activeTab].append("textPath")
         .attr('xlink:href',function(d,i) {return '#edgepath'+i})
         .style("pointer-events", "none")
         .text(function(d,i){
@@ -266,7 +311,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
         });
 
 
-     node = selectedSVG.selectAll("node")
+     node[activeTab] = selectedSVG.selectAll("node")
         .data(nodes)
         .enter().append("g")
         .attr("class", "node")
@@ -274,7 +319,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
         .on("dblclick",connectedNodes);
 
 
-    node.append("image")
+    node[activeTab].append("image")
         .attr("xlink:href", function (d) {
             if((d._source.vType==="paper") || (d._source.vType==="reference")||(d._source.vType==="cites")) {
                 return "http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/512/Document-icon.png"
@@ -598,12 +643,12 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
         });
 
 
-    node.append("title")
+    node[activeTab].append("title")
         .attr("dx", 20)
         .attr("dy", ".35em");
 
 
-    node.append("text")
+    node[activeTab].append("text")
         .attr("dx", 20)
         .attr("dy", ".35em")
         .text(function (d) {
@@ -636,12 +681,12 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
 
 
     function node_tick() {
-        node.attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; });
+        node[activeTab].attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; });
     }
 
     function tick() {
         if (!drawnodesOnly) {
-            link.attr("x1", function (d) {
+            link[activeTab].attr("x1", function (d) {
                 return d.source.x;
             })
                 .attr("y1", function (d) {
@@ -655,15 +700,15 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                 });
 
 
-            node.attr("transform", function (d) {
+            node[activeTab].attr("transform", function (d) {
                 return "translate(" + d.x + "," + d.y + ")";
             });
 
-            edgepaths.attr('d', function (d) {
+            edgepaths[activeTab].attr('d', function (d) {
                 return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y;
             });
 
-            edgelabels.attr('transform', function (d, i) {
+            edgelabels[activeTab].attr('transform', function (d, i) {
                 if (d.target.x < d.source.x) {
                     bbox = this.getBBox();
                     rx = bbox.x + bbox.width / 2;
@@ -713,7 +758,11 @@ function downloadGraphAsSVG() {
 
     var blob = new Blob([graphDwn], {type: "image/svg+xml"});
     saveAs(blob, "scholarlyNetwork.html");
-
+    _LTracker.push({
+        'method':'downloadGraphAsSVG',
+        'text': 'Graph image downloaded',
+        'Image-elements': graphDwn
+    });
 }
 
 
@@ -723,6 +772,11 @@ function downloadGraphAsData() {
     var data=JSON.stringify(processedArray[tabIndexToDownload]);
     var blob_json = new Blob([data], { type: 'text/data;charset=utf-8;' });
     saveAs(blob_json,"data.json");
+    _LTracker.push({
+        'method':'downloadGraphAsData',
+        'text': 'Graph data downloaded',
+        'Data': data
+    });
 }
 
 function clearSVG() {

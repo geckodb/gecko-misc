@@ -93,11 +93,17 @@ function createPublicationNode(name) {
 }
 
 function showAuthors(idToEXpand, paperjgId,processedArray,activeTab) {
+
     $("#graphArea").css("cursor","wait");
     var intial_length = processedArray.length;
     for (var i = 0; i < intial_length; i++) {
         if (processedArray[i]._source.vType === "paper") {
             if ((processedArray[i]._id === idToEXpand) && (processedArray[i]._source.authors!== undefined)) {
+                _LTracker.push({
+                    'method':'showAuthors',
+                    'tag': 'Authors',
+                    'value':processedArray[i]
+                });
                 for (var j = 0; j < processedArray[i]._source.authors.length; j++) {
                     if (!authorAlreadyAdded[activeTab].has(processedArray[i]._source.authors[j])) {
                         var newNode = new createAuthorNode(paperjgId, processedArray[i]._source.authors[j])
@@ -161,6 +167,11 @@ function showPublication(idToEXpand,selectedIndex,processedArray,activeTab) {
 
         if ((processedArray[selectedIndex]._source.vType === vertexType.PAPER)&&(processedArray[selectedIndex]._source.publisherPaper!==undefined)){
             if (processedArray[selectedIndex]._id === idToEXpand) {
+                _LTracker.push({
+                    'method':'showPublication',
+                    'tag': 'Publications',
+                    'value':processedArray[selectedIndex]
+                });
                     if (!publicationAlreadyAdded[activeTab].has(processedArray[selectedIndex]._source.publisherPaper)) {
                         var newNode = new createPublicationNode(processedArray[selectedIndex]._source.publisherPaper)
                         var index = processedArray.push(newNode);
@@ -204,6 +215,11 @@ function showVenue(idToEXpand,selectedIndex,processedArray,activeTab) {
 
         if ((processedArray[selectedIndex]._source.vType === vertexType.PAPER)&&(processedArray[selectedIndex]._source.venuePaper!==undefined)){
             if (processedArray[selectedIndex]._id === idToEXpand) {
+                _LTracker.push({
+                    'method':'showPublication',
+                    'tag': 'Publications',
+                    'value':processedArray[selectedIndex]
+                });
                 if (!venueAlreadyAdded[activeTab].has(processedArray[selectedIndex]._source.venuePaper)) {
                     var newNode = new createVenueNode(processedArray[selectedIndex]._source.venuePaper);
                     var index = processedArray.push(newNode);
@@ -299,11 +315,17 @@ function showInstitution(idToEXpand,authorName,indexofCreatedAuthorNode,processe
     var targetId="";
     var orgNames=new Array();
     var url= "http://localhost:9200/janusgraph_edgees/_search?q=eType=authorship AND srcId="+idToEXpand+" AND authorEdge="+authorName;
+
     $("#graphArea").css("cursor","wait");
     d3.json(url, function (error, json) {
          if (error) throw error;
-         console.log(json)
-
+        // console.log(json)
+        _LTracker.push({
+            'method':'showInstitution',
+            'tag': 'Institution',
+            'url':url,
+            'execution time':json.took
+        });
 if(json.hits.hits.length>0) {
     targetId = json.hits.hits[0]._source.tgtId;
     var getAuthorData = "http://localhost:9200/janusgraph_vertexes/_search?q=vType:author AND jgId:" + targetId;
@@ -311,7 +333,12 @@ if(json.hits.hits.length>0) {
     d3.json(getAuthorData, function (error, jsonResult) {
         if (error) throw error;
         orgNames = jsonResult.hits.hits[0]._source.orgList;
-
+        _LTracker.push({
+            'method':'showInstitution',
+            'tag': 'Institution',
+            'url':url,
+            'execution time':jsonResult.took
+        });
 
         if ((orgNames != undefined)) {
             var newNode = new createInstitutionNode(orgNames);
@@ -387,6 +414,11 @@ function showInstitutionFromAuthor(idToEXpand,selectedIndex,processedArray,activ
 
         if ((processedArray[selectedIndex]._source.vType === vertexType.AUTHOR)&&(processedArray[selectedIndex]._source.orgList!==undefined)) {
             if ((processedArray[selectedIndex]._id === idToEXpand)) {
+                _LTracker.push({
+                    'method':'showInstitutionFromAuthor',
+                    'tag': 'InstitutionFromAuthor',
+                    'value':processedArray[selectedIndex]
+                });
                 var newNode=new createInstitutionNode(processedArray[selectedIndex]._source.orgList);
                 var index=processedArray.push(newNode);
                 var newLink=new createLinks(selectedIndex,processedArray.length-1);
@@ -452,6 +484,11 @@ function showFOS(idToEXpand,selectedIndex,processedArray,activeTab) {
 
         if (processedArray[selectedIndex]._source.vType === vertexType.PAPER) {
             if ((processedArray[selectedIndex]._id === idToEXpand) && (processedArray[selectedIndex]._source.fosPaper!== undefined)) {
+                _LTracker.push({
+                    'method':'showFOS',
+                    'tag': 'FieldofStudy',
+                    'value':processedArray[selectedIndex]
+                });
                 for (var j = 0; j < processedArray[selectedIndex]._source.fosPaper.length; j++) {
                     if (!fosAlreadyAdded[activeTab].has(processedArray[selectedIndex]._source.fosPaper[j])) {
                         var newNode = new createFOSNode(processedArray[selectedIndex]._id, processedArray[selectedIndex]._source.fosPaper[j])
@@ -702,6 +739,14 @@ if(byYear) {
         contentType: 'application/json',
         data: query,
         success: function (response) {
+            _LTracker.push({
+                'method':'loadFacets',
+                'tag': 'Facets',
+                'query':query,
+                'value':response,
+                'timetaken':response.took,
+                'totalHits':response.hits.total
+            });
             buckets=response.aggregations.paperByYear.buckets;
             console.log(response.aggregations.paperByYear.buckets);
 

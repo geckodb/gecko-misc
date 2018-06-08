@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script type="text/javascript" src="//cloudfront.loggly.com/js/loggly.tracker-latest.min.js" async></script>
+    <script>
+        var _LTracker = _LTracker || [];
+        _LTracker.push({'logglyKey': '83c6d341-b035-4b41-9e40-db52dfd7a7b8',
+            'sendConsoleErrors' : false,
+            'tag' : 'hermesLogs'});
+    </script>
 
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
@@ -51,7 +58,7 @@
 
                     <div>
                         <ul class="workspaceTab nav nav-tabs" role="tablist">
-                            <li class="active" ><a href="#tabArea0" data-toggle="tab">Default tab <span>x</span></a>
+                            <li class="active" ><a href="#tabArea0" data-toggle="tab">Default <span>x</span></a>
                             </li>
 
                             <li><a href="#" class="add-tab">+</a>
@@ -65,15 +72,20 @@
                         <div >
                             <table class="slider">
                                 <tr>
-                                    <td style="width: 110px">Selected Year: </td>
+                                    <td style="width: 150px">Selected Year: </td>
                                        <!-- <p>Selected year:<p id="selectedyear" style="color:green"></p></p>-->
-                                    <td style="width: 60px">
-                                        <p id="selectedyear"></p>
+                                    <td style="width: 120px">
+                                        <p style="margin-left: 40px" id="selectedyear"></p>
                                     </td>
-                                    <td>
-                                        <form class="range-field" onclick=sliderMoved()>
-                                            <input id="sliderValue" type="range" min="1940" max="2020" />
+                                    <td style="width:850px;">
+                                        <form style="margin-left: 50px" class="range-field">
+                                            <input id="sliderValue" type="range" value="1940" min="1940" max="2020" onchange="sliderMoved()"/>
                                         </form>
+                                    </td>
+                                    <td style="width: 280px;">
+                                        <div class="checkbox" >
+                                            <label style="margin-left: 40px"><input id="sliderChkbox" onclick=enableSlider() type="checkbox" value="">Enable slider</label>
+                                        </div>
                                     </td>
                                 </tr>
                             </table>
@@ -100,6 +112,10 @@
                             <tr>
                                 <td>
                                     <p><b>Search Results for :</b> <p style="color:green"><b id="searchText"></b></b></p></p>
+                                </td>
+
+                                <td >
+                                    <button style="margin-left: -250px" type="button" class="btn btn-info" onclick=poplateClickedNode("",searchData,true)>Add all results to graph area</button>
                                 </td>
                             </tr>
 
@@ -201,6 +217,7 @@
         e.preventDefault();
         if (!$(this).hasClass('add-tab')) {
             $(this).tab('show');
+            //sliderMoved();
         }
     })
         .on("click", "span", function () {
@@ -224,7 +241,10 @@
             $(".workspaceTab li").children('a').first().click();
 
 
-        });
+        })
+        .contextmenu(function () {
+            alert("right clicked")
+        })
 
     $('.add-tab').click(function (e) {
         e.preventDefault();
@@ -298,6 +318,22 @@
         }
     });
 
+    //$("#sliderValue").on("input change",sliderMoved());
+
+function enableSlider() {
+
+
+    if(document.getElementById("sliderChkbox").checked==true){
+        document.getElementById("sliderValue").disabled=false;
+        sliderEnabled=true;
+        sliderMoved();
+    }else{
+        document.getElementById("sliderValue").disabled=true;
+        node[getActiveTabIndex()].style("opacity",1);
+        link[getActiveTabIndex()].style("opacity",1);
+        sliderEnabled=false;
+    }
+}
 
 </script>
 </body>
