@@ -11,7 +11,7 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-
+    <script src="../JS/Search.js"></script>
 </head>
 
 <body>
@@ -23,12 +23,27 @@
     <table>
         <tr>
             <td>
+            <input id="searchinput" class="searchinputStyling" autocomplete="off" type="search" onkeypress="submitIfEnter(event)" onkeyup="fillSuggestion()" placeholder="type keyword(s) here" />
+                <input id="hiddenInput" autocomplete="off" type="hidden">
+                <div class="mysuggestion">
+                    <ul id="suggestionBox" class="suggestionboxMain">
+
+                    </ul>
+                </div>
+            </td>
+            <td>
+               <button type="submit" id ="searchRes" class="searchResMain" class="btn btn-primary"> <span class='glyphicon glyphicon-search'></span> </button>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <div class="" id="logo">
                     <img src="../Images/Logo.png">
                 </div>
             </td>
 
-            <td>
+
+           <!-- <td>
                 <div class="row infoBox">
                     <div class="col-sm-12 col-xs-12">
                         <div class="panel panel-default text-center">
@@ -46,7 +61,7 @@
                         </div>
                     </div>
                 </div>
-            </td>
+            </td>-->
         </tr>
     </table>
 
@@ -63,6 +78,23 @@
             $("#header").load("Header.html");
             $("#footer").load("Footer.html");
         });
+
+
+
+        $('div.mysuggestion').on('focus', 'li', function() {
+            $this = $(this);
+            $this.addClass('active1').siblings().removeClass();
+            $this.closest('div.mysuggestion').scrollTop($this.index() * $this.outerHeight());
+        }).on('keydown', 'li', function(e) {
+            $this = $(this);
+            if (e.keyCode == 40) {
+                $this.next().focus();
+                return false;
+            } else if (e.keyCode == 38) {
+                $this.prev().focus();
+                return false;
+            }
+        }).find('li').first().focus();
     </script>
 
 </body>

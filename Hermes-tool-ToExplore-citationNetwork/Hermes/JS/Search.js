@@ -1,4 +1,7 @@
 var searchData=new Array();
+var userEnteredtext;
+var typeOfVertex;
+var fromScholarlyPage;
 
 $(function () {
     $('a[href="#search"]').on('click', function(event) {
@@ -41,6 +44,7 @@ function fillSearchInput(index,tempArray){
 }
 
 function fillSuggestion() {
+
     var suggestionData=new Array();
     var val=document.getElementById("searchinput").value;
     console.log(val.length);
@@ -171,8 +175,8 @@ function fillSuggestion() {
 function submitIfEnter(event) {
     if (event.keyCode === 13) {
         event.preventDefault();
-        var userEnteredtext=document.getElementById("searchinput").value;
-        var typeOfVertex=document.getElementById("hiddenInput").value;
+         userEnteredtext=document.getElementById("searchinput").value;
+         typeOfVertex=document.getElementById("hiddenInput").value;
         if(!(userEnteredtext.length>0)){
 
             alert("please enter value");
@@ -185,27 +189,56 @@ function submitIfEnter(event) {
     }
 }
 
-//verifies if search field is not empty, and redirects to scholarlyResult.html
-$("#searchRes").click(function(){
-    var userEnteredtext=document.getElementById("searchinput").value;
-    var typeOfVertex=document.getElementById("hiddenInput").value;
-    if(!(userEnteredtext.length>0)){
+function submitIfEnter_scholarly(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        userEnteredtext=document.getElementById("searchinput").value;
+        typeOfVertex=document.getElementById("hiddenInput").value;
+        if(!(userEnteredtext.length>0)){
+            alert("please enter value");
+            event.preventDefault();
+            $('#search').addClass('open');
+            $('#search > form > input[type="search"]').focus();
+        }else{
+            document.getElementById("suggestionBox").style.display="none";
+            searchClickedFromScholarly();
+        }
+    }else{
+        document.getElementById("suggestionBox").style.display="block";
+    }
+}
 
+//verifies if search field is not empty, and redirects to scholarlyResult.html
+$(".searchResMain").click(function(){
+     userEnteredtext=document.getElementById("searchinput").value;
+     typeOfVertex=document.getElementById("hiddenInput").value;
+    if(!(userEnteredtext.length>0)){
         alert("please enter value");
         event.preventDefault();
         $('#search').addClass('open');
         $('#search > form > input[type="search"]').focus();
     }else{
-        window.location.href="scholarlyResult.html?value="+userEnteredtext+"&type="+typeOfVertex;
+        //alert(userEnteredtext+typeOfVertex)
+        window.location.href="scholarlyResult.html?value="+userEnteredtext+"&type="+typeOfVertex,true;
 
     }
 });
 
 
+function searchClickedFromScholarly() {
+     userEnteredtext=document.getElementById("searchinput").value;
+     typeOfVertex=document.getElementById("hiddenInput").value;
+    console.log("in searchclicked"+userEnteredtext+typeOfVertex)
+    fromScholarlyPage=true;
+    searchClicked(userEnteredtext,typeOfVertex,fromScholarlyPage);
+}
 
-function searchClicked(userEnteredtext,chosenType) {
-    document.getElementById("sliderValue").disabled=true;
-    document.getElementById("overlay").style.display="block";
+function searchClicked(userEnteredtext,chosenType,fromScholarly) {
+
+    if(!fromScholarly){
+        document.getElementById("overlay").style.display="block";
+    }
+
     $('#search').removeClass('open');
     //Pagination code
     if(chosenType!=""){
@@ -215,6 +248,7 @@ function searchClicked(userEnteredtext,chosenType) {
         var url="http://localhost:9200/janusgraph_vertexes/_search?q="+userEnteredtext+"&from=0&size=5";
 
     }
+    console.log(url);
     _LTracker.push({
         'method':'searchClicked',
         'text': 'httpRequest begins',
@@ -261,7 +295,7 @@ function searchClicked(userEnteredtext,chosenType) {
             var timeTaken;
             //searchData = json.hits.hits;
             searchtextfield = document.getElementById("searchText");
-            searchtextfield.setAttribute("id","hits")
+            //searchtextfield.setAttribute("id","hits")
             searchtextfield.innerText = userEnteredtext;
 
             //Pagination code
@@ -276,10 +310,16 @@ function searchClicked(userEnteredtext,chosenType) {
                     page = 1,
                     totalPages = 0;
 
-                //records = searchData;
+
                 totalRecords = json.hits.total;
                 totalPages = Math.ceil(totalRecords / recPerPage);
-                apply_pagination();
+                apply_pagination(userEnteredtext,chosenType);
+
+                if(fromScholarlyPage){
+                    displayRecords= json.hits.hits;
+                    searchData=json.hits.hits;
+                    generate_table();
+                }
 
 
                 function generate_table() {
@@ -497,8 +537,10 @@ function searchClicked(userEnteredtext,chosenType) {
                         tr.appendChild(td);
                         doc.appendChild(tr);
                     }
+                    if(!fromScholarly){
+                        document.getElementById("overlay").style.display = "none";
+                    }
 
-                    document.getElementById("overlay").style.display = "none";
                 }
 
                 //calculates start and end indices and sends set of records to display
@@ -508,13 +550,25 @@ function searchClicked(userEnteredtext,chosenType) {
                         visiblePages: 5,
                         onPageClick: function (event, page) {
                             displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
+                            enteredtext=document.getElementById("searchinput").value;
+                            typeOfVertex=document.getElementById("hiddenInput").value;
 
-                            if(chosenType!=""){
-                                var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:"+chosenType+" AND "+userEnteredtext+"&from="+displayRecordsIndex+"&size=5";
+                            if(fromScholarlyPage){
+                                if(typeOfVertex!=""){
+                                    var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:"+typeOfVertex+" AND "+enteredtext+"&from="+displayRecordsIndex+"&size=5";
+                                }else{
+                                    var url="http://localhost:9200/janusgraph_vertexes/_search?q="+enteredtext+"&from="+displayRecordsIndex+"&size=5";
+
+                                }
                             }else{
-                                var url="http://localhost:9200/janusgraph_vertexes/_search?q="+userEnteredtext+"&from="+displayRecordsIndex+"&size=5";
+                                if(chosenType!=""){
+                                    var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:"+chosenType+" AND "+userEnteredtext+"&from="+displayRecordsIndex+"&size=5";
+                                }else{
+                                    var url="http://localhost:9200/janusgraph_vertexes/_search?q="+userEnteredtext+"&from="+displayRecordsIndex+"&size=5";
 
+                                }
                             }
+
                             d3.json(url, function (error, jsonrangeResult) {
                                 if (error) throw error;
                                 records=jsonrangeResult.hits.hits;

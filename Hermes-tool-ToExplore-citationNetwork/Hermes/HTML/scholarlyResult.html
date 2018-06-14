@@ -31,7 +31,7 @@
 
 </head>
 
-<body onload="searchClicked(searchValue,typeValue)">
+<body onload="searchClicked(searchValue,typeValue,false)">
 
 <div id="header1"></div>
 <div id="overlay">
@@ -73,7 +73,7 @@
                             <table class="slider">
                                 <tr>
                                     <td style="width: 150px">Selected Year: </td>
-                                       <!-- <p>Selected year:<p id="selectedyear" style="color:green"></p></p>-->
+                                    <!-- <p>Selected year:<p id="selectedyear" style="color:green"></p></p>-->
                                     <td style="width: 120px">
                                         <p style="margin-left: 40px" id="selectedyear"></p>
                                     </td>
@@ -109,6 +109,16 @@
 
                     <div class="tab-pane fade in active searchsize" id="ResultsArea">
                         <table style="margin-left: 15px">
+                            <tr>
+                                <td>
+                                    <input id="searchinput" class="scholarlySearch" autocomplete="off" type="search" onkeypress="submitIfEnter_scholarly(event)" onkeyup="fillSuggestion()" placeholder="type keyword(s) here" />
+                                    <input id="hiddenInput" autocomplete="off" type="hidden">
+                                </td>
+
+                                <td>
+                                    <button type="submit" id="searchRes" class="searchbtn" class="btn" onclick=searchClickedFromScholarly()> <span class='glyphicon glyphicon-search'></span> </button>
+                                </td>
+                            </tr>
                             <tr>
                                 <td>
                                     <p><b>Search Results for :</b> <p style="color:green"><b id="searchText"></b></b></p></p>
@@ -174,6 +184,11 @@
     </div>
 </div>
 
+<div class="mysuggestion">
+    <ul id="suggestionBox" class="suggestionBoxscholarly">
+
+    </ul>
+</div>
 
 <div id="addTagModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-sm">
@@ -193,12 +208,15 @@
             </div>
         </div>
     </div>
+
 </div>
 <script src="../JS/HermesGraphLoader.js"></script>
 <script src="../JS/Search.js"></script>
 <script src="../JS/processAndFormEntities.js"></script>
 
 <div id="footer1" class="footerClass"></div>
+
+
 <script>
 
     var tabsClosedRecently=false;
@@ -320,20 +338,18 @@
 
     //$("#sliderValue").on("input change",sliderMoved());
 
-function enableSlider() {
-
-
-    if(document.getElementById("sliderChkbox").checked==true){
-        document.getElementById("sliderValue").disabled=false;
-        sliderEnabled=true;
-        sliderMoved();
-    }else{
-        document.getElementById("sliderValue").disabled=true;
-        node[getActiveTabIndex()].style("opacity",1);
-        link[getActiveTabIndex()].style("opacity",1);
-        sliderEnabled=false;
+    function enableSlider() {
+        if(document.getElementById("sliderChkbox").checked==true){
+            document.getElementById("sliderValue").disabled=false;
+            sliderEnabled=true;
+            sliderMoved();
+        }else{
+            document.getElementById("sliderValue").disabled=true;
+            node[getActiveTabIndex()].style("opacity",1);
+            link[getActiveTabIndex()].style("opacity",1);
+            sliderEnabled=false;
+        }
     }
-}
 
 </script>
 </body>
