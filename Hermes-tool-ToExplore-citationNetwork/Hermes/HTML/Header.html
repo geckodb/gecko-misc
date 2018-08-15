@@ -1,6 +1,4 @@
 ﻿
-
-
 <nav class="navbar navbar-default navbar-fixed-top" id="navbarId">
     <div class="container-fluid">
 
@@ -17,34 +15,5 @@
     </div>
 </nav>
 
-<!--<div id="search">
-    <button type="button" class="close">X</button>
-    <form autocomplete="off">
-        <input id="searchinput" autocomplete="off" type="search" onkeypress="submitIfEnter(event)" onkeyup="fillSuggestion()" placeholder="type keyword(s) here" />
-        <input id="hiddenInput" autocomplete="off" type="hidden">
-        <div class="mysuggestion">
-            <ul id="suggestionBox">
 
-            </ul>
-        </div>
-        <a href=""><button type="reset" id ="searchRes" class="btn btn-primary" title="Search" name="Search"> GO </button></a>
-    </form>
-</div>
-
-<script>
-    $('div.mysuggestion').on('focus', 'li', function() {
-        $this = $(this);
-        $this.addClass('active1').siblings().removeClass();
-        $this.closest('div.mysuggestion').scrollTop($this.index() * $this.outerHeight());
-    }).on('keydown', 'li', function(e) {
-        $this = $(this);
-        if (e.keyCode == 40) {
-            $this.next().focus();
-            return false;
-        } else if (e.keyCode == 38) {
-            $this.prev().focus();
-            return false;
-        }
-    }).find('li').first().focus();
-</script>-->
 

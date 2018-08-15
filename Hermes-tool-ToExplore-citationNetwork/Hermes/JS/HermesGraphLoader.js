@@ -80,24 +80,58 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                     if(!paperAlreadyAdded[activeTabIndex].has(dataArray[i]._source.PAPER_ID)){
                         pos=processedArray[activeTabIndex].push(dataArray[i]);
                         paperAlreadyAdded[activeTabIndex].set(dataArray[i]._source.PAPER_ID,pos-1);
+                        _LTracker.push({
+                            'method':'poplateClickedNode',
+                            'text': 'PaperNode',
+                            'PaperNode': {
+                                'PaperID': dataArray[i]._source.PAPER_ID,
+                                'Title':dataArray[i]._source.Title
+                            },
+                            'tag':'PopulateNode-paper'
+                        });
                         buildGraph=true;
                     }
                 }else if(dataArray[i]._source.vType===vertexType.AUTHOR){
                     if(!authorAlreadyAdded[activeTabIndex].has(dataArray[i]._source.AUTHOR_NAME)){
                         pos=processedArray[activeTabIndex].push(dataArray[i]);
                         authorAlreadyAdded[activeTabIndex].set(dataArray[i]._source.AUTHOR_NAME,pos-1);
+                        _LTracker.push({
+                            'method':'poplateClickedNode',
+                            'text': 'AuthorNode',
+                            'AuthorNode': {
+                                'AuthorId': dataArray[i]._source.AUTHOR_ID,
+                                'AuthorName':dataArray[i]._source.AUTHOR_NAME
+                            },
+                            'tag':'PopulateNode-author'
+                        });
                         buildGraph=true;
                     }
                 }else if(dataArray[i]._source.vType===vertexType.PUBLICATION){
                     if(!publicationAlreadyAdded[activeTabIndex].has(dataArray[i]._source.JOURNAL_NAME)){
                         pos=processedArray[activeTabIndex].push(dataArray[i]);
                         publicationAlreadyAdded[activeTabIndex].set(dataArray[i]._source.JOURNAL_NAME,pos-1);
+                        _LTracker.push({
+                            'method':'poplateClickedNode',
+                            'text': 'JournalNode',
+                            'JournalNode': {
+                                'JournalId': dataArray[i]._source.JOURNAL_ID,
+                            },
+                            'tag':'PopulateNode-journal'
+                        });
                         buildGraph=true;
                     }
                 }else if(dataArray[i]._source.vType===vertexType.VENUE){
                     if(!publicationAlreadyAdded[activeTabIndex].has(dataArray[i]._source.VENUE_NAME)){
                         pos=processedArray[activeTabIndex].push(dataArray[i]);
                         publicationAlreadyAdded[activeTabIndex].set(dataArray[i]._source.VENUE_NAME,pos-1);
+                        _LTracker.push({
+                            'method':'poplateClickedNode',
+                            'text': 'VenueNode',
+                            'VenueNode': {
+                                'VenueId': dataArray[i]._source.VENUE_ID,
+                            },
+                            'tag':'PopulateNode-venue'
+                        });
                         buildGraph=true;
                     }
                 }
@@ -111,19 +145,43 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
         }
     }else{
         for(let i=0;i<dataArray.length;i++){
-            if(!paperAlreadyAdded[activeTabIndex].has(dataArray[i]._source.PAPER_ID)){
-                processedArray[activeTabIndex].push(dataArray[i]);
-                paperAlreadyAdded[activeTabIndex].set(dataArray[i]._source.PAPER_ID,pos-1)
-                var idName="#"+svgList[0][activeTabIndex].getAttribute("id");
-                $(idName).empty();
-                createGraph(processedArray[activeTabIndex],linksArray[activeTabIndex],false,false,activeTabIndex);
-        }
+            if(dataArray[i]._source.PAPER_ID!==undefined){
+                if(!paperAlreadyAdded[activeTabIndex].has(dataArray[i]._source.PAPER_ID)){
+                    _LTracker.push({
+                        'method':'poplateClickedNode',
+                        'text': 'PaperNode',
+                        'PaperNode': {
+                            'PaperID': dataArray[i]._source.PAPER_ID,
+                            'Title':dataArray[i]._source.Title
+                        },
+                        'tag':'PopulateNode-paper'
+                    });
+                    processedArray[activeTabIndex].push(dataArray[i]);
+                    paperAlreadyAdded[activeTabIndex].set(dataArray[i]._source.PAPER_ID,pos-1)
+                }
+            }else if(dataArray[i]._source.AUTHOR_ID!==undefined){
+                if(!authorAlreadyAdded[activeTabIndex].has(dataArray[i]._source.AUTHOR_NAME)){
+                    _LTracker.push({
+                        'method':'poplateClickedNode',
+                        'text': 'AuthorNode',
+                        'AuthorNode': {
+                            'AuthorId': dataArray[i]._source.AUTHOR_ID,
+                            'AuthorName':dataArray[i]._source.AUTHOR_NAME
+                        },
+                        'tag':'PopulateNode-author'
+                    });
+
+                    processedArray[activeTabIndex].push(dataArray[i]);
+                    authorAlreadyAdded[activeTabIndex].set(dataArray[i]._source.AUTHOR_NAME,pos-1)
+                }
+            }
       }
+        var idName="#"+svgList[0][activeTabIndex].getAttribute("id");
+        $(idName).empty();
+        createGraph(processedArray[activeTabIndex],linksArray[activeTabIndex],false,false,activeTabIndex);
     }
 
 }
-
-
 
 function getActiveTabIndex() {
     var tabIndex;

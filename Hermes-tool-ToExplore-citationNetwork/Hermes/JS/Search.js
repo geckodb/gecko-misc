@@ -221,49 +221,72 @@ function searchClickedFromScholarly() {
 
 function searchClicked(userEnteredtext,chosenType,fromScholarly) {
     var urlSearch;
-   // if(!fromScholarly){
+
         document.getElementById("overlay").style.display="block";
-   // }
 
     $('#search').removeClass('open');
     //Pagination code
     if(chosenType===vertexType.AUTHOR) {
         console.log(chosenType+userEnteredtext)
          urlSearch = "http://localhost:9200/dblpvertexes/_search?q=vType:" + chosenType + " AND AUTHOR_NAME:" + userEnteredtext +"*&from=0&size=5";
-                //"http://localhost:9200/dblpvertexes/_search?q=Title:\"" + val + "\"* OR AUTHOR_NAME:\"" + val +  "\"* OR JOURNAL_NAME:\""+  val +"\"* OR VENUE_NAME:\""+ val +"\"*&size=10";
+        _LTracker.push({
+            'method':'searchClicked',
+            'tag': 'Search for Author',
+            'url': urlSearch,
+            'searchParams': {
+                'chosenType': chosenType,
+                'enteredText': userEnteredtext
+            }
+        });
     }else if((chosenType===vertexType.PAPER)){
          urlSearch = "http://localhost:9200/dblpvertexes/_search?q=vType:" + chosenType + " AND Title:" + userEnteredtext + "*&from=0&size=5";
+        _LTracker.push({
+            'method':'searchClicked',
+            'tag': 'Search for Paper',
+            'url': urlSearch,
+            'searchParams': {
+                'chosenType': chosenType,
+                'enteredText': userEnteredtext
+            }
+        });
     }else{
          urlSearch="http://localhost:9200/dblpvertexes/_search?q="+userEnteredtext+"&from=0&size=5";
+        _LTracker.push({
+            'method':'searchClicked',
+            'tag': 'Search with notype',
+            'url': urlSearch,
+            'searchParams': {
+                'chosenType': "",
+                'enteredText': userEnteredtext
+            }
+        });
     }
     console.log(urlSearch);
-    _LTracker.push({
-        'method':'searchClicked',
-        'text': 'httpRequest begins',
-        'url': urlSearch,
-        'searchParams': {
-            'chosenType': chosenType,
-            'enteredText': userEnteredtext
-        },
-        'tag':'textualSearch'
-    });
+
     d3.json(urlSearch, function (error, json) {
-        if (error) throw error;
+        if (error)
+            if (error)
+                _LTracker.push({
+                    'method':'searchClicked',
+                    'tag': 'Error',
+                    'value':error
+                });
+
         if(json.hits.hits.length==0){
             _LTracker.push({
                 'method':'searchClicked',
-                'text': 'httpRequest successful',
+                'tag':'No search Result',
                 'url': urlSearch,
                 'searchParams': {
                     'chosenType': chosenType,
                     'enteredText': userEnteredtext
                 },
-                'tag':'searchResult',
                 'searchResult':{
                     'totalRecods':0,
                     'timetaken':json.took
                 }
             });
+
             searchtextfield = document.getElementById("searchText");
             searchtextfield.innerText = userEnteredtext;
             // document.getElementById("resultCount").innerText=0;
@@ -313,13 +336,13 @@ function searchClicked(userEnteredtext,chosenType,fromScholarly) {
                 function generate_table() {
                     _LTracker.push({
                         'method':'generate_table',
-                        'text': 'httpRequest successful',
+                        'text': 'Binding result',
+                        'tag':'search Result',
                         'url': urlSearch,
                         'searchParams': {
                             'chosenType': chosenType,
                             'enteredText': userEnteredtext
                         },
-                        'tag':'searchResult',
                         'searchResult':{
                             'totalRecods':totalRecords,
                             'timetaken':timeTaken
