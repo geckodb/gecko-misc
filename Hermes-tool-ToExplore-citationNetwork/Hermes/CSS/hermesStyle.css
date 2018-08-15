@@ -128,14 +128,14 @@ div.tooltip.n:after {
 .context-menu {
     position: absolute;
     display: none;
-    background-color: #e3e3e3;
+    background-color: rgba(10, 10, 20, 0.22);
     border-radius: 4px;
     font-family: Open Sans;
     font-size: 14px;
     width: auto;
     height: auto;
     border: 0px solid #000000;
-    z-index: 10000;
+    z-index: 20000000;
 }
 
 .context-menu ul {
@@ -642,13 +642,16 @@ body {
 
 }
 
-
 .mysuggestion {
     height:100px;
     border-color:black;
     overflow:auto;
+
 }
 
+#scholarlysuggestion{
+    display:none;
+}
 .active1{
     background-color: rgba(10, 10, 20, 0.28);
 }
@@ -678,41 +681,32 @@ body {
 .slider {
     width: 750px;
     position: relative;
-    top: -100px;
-
+    top: 30px;
 }
 
-/*.slider-tray {
+.rename-menu{
+    width: 100px;
+    height: auto;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.44);
+    background-color: rgba(0, 0, 0, 0.53);
+    color: white;
     position: absolute;
-    width: 100%;
-    height: 6px;
-    border: solid 1px #ccc;
-    border-top-color: #aaa;
-    border-radius: 4px;
-    background-color: #f0f0f0;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
+    display: none;
 }
 
-.slider-handle {
-    position: absolute;
-    top: 3px;
+.rename-menu ul{
+    list-style: none;
+    padding: 5px 0px 5px 0px;
 }
 
-.slider-handle-icon {
-    width: 14px;
-    height: 14px;
-    border: solid 1px #aaa;
-    position: absolute;
-    border-radius: 10px;
-    background-color: #fff;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-    top: -7px;
-    left: -7px;
+.rename-menu ul li:not(.separator){
+    padding: 10px 5px 10px 5px;
+    border-left: 4px solid transparent;
+    cursor: pointer;
 }
 
-.handle {
-    fill: #fff;
-    stroke: #000;
-    stroke-opacity: 0.5;
-    stroke-width: 1.25px;
-}*/
+.rename-menu ul li:hover{
+    background: rgba(10, 10, 20, 0.52);
+    color: white;
+    border-left: 4px solid #666;
+}

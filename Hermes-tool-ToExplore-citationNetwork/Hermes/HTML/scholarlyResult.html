@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<html>
 <head>
     <script type="text/javascript" src="//cloudfront.loggly.com/js/loggly.tracker-latest.min.js" async></script>
     <script>
@@ -58,15 +59,14 @@
 
                     <div>
                         <ul class="workspaceTab nav nav-tabs" role="tablist">
-                            <li class="active" ><a href="#tabArea0" data-toggle="tab">Default <span>x</span></a>
-                            </li>
+                            <li class="active"><a href="#tabArea0" data-toggle="tab" oncontextmenu="return showContextMenu(event,this);"> Default </a> <span> x </span></li>
 
                             <li><a href="#" class="add-tab">+</a>
                             </li>
                         </ul>
 
                         <div class="tab-content">
-                            <div class="tab-pane fade in active" id="tabArea0"></div>
+                            <div class="tab-pane fade in active" id="tabArea0" style="overflow: auto; width: 1054px; height: 540px;"></div>
                         </div>
 
                         <div >
@@ -118,15 +118,16 @@
                                 <td>
                                     <button type="submit" id="searchRes" class="searchbtn" class="btn" onclick=searchClickedFromScholarly()> <span class='glyphicon glyphicon-search'></span> </button>
                                 </td>
+                                <td >
+                                    <button style="margin-left: -38px" type="button" class="btn btn-info" title="adds all nodes to graph area" onclick=poplateClickedNode("",searchData,true)><span class="glyphicon glyphicon-plus"></span></button>
+                                </td>
                             </tr>
                             <tr>
                                 <td>
                                     <p><b>Search Results for :</b> <p style="color:green"><b id="searchText"></b></b></p></p>
                                 </td>
 
-                                <td >
-                                    <button style="margin-left: -250px" type="button" class="btn btn-info" onclick=poplateClickedNode("",searchData,true)>Add all results to graph area</button>
-                                </td>
+
                             </tr>
 
                             <tr>
@@ -184,11 +185,11 @@
     </div>
 </div>
 
-<div class="mysuggestion">
+<!--<div class="mysuggestion" id="scholarlysuggestion">-->
     <ul id="suggestionBox" class="suggestionBoxscholarly">
 
     </ul>
-</div>
+<!--</div>-->
 
 <div id="addTagModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-sm">
@@ -196,19 +197,24 @@
         <div class="modal-content" id="addTagstyle">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add Tag</h4>
+                <h4 class="modal-title">Rename Tab</h4>
             </div>
             <div class="modal-body">
                 <input type="text" id="modalInput" autofocus>
             </div>
 
             <div class="modal-footer">
-                <button type="submit" id="btnAddTag" onclick="postTag">Add</button>
+                <button type="submit" id="btnAddTag" onclick="changeTabName()">Rename</button>
                 <button type="submit" id="btnCancel" onclick="CloseAddTagWindow()">Cancel</button>
             </div>
         </div>
     </div>
-
+</div>
+<div id="contextMenu" class="rename-menu">
+    <ul>
+        <li onclick="renameTab(clickedElement)">Rename</li>
+       <!-- <li onclick="hideContextMenu()">Close</li>-->
+    </ul>
 </div>
 <script src="../JS/HermesGraphLoader.js"></script>
 <script src="../JS/Search.js"></script>
@@ -218,7 +224,7 @@
 
 
 <script>
-
+    var clickedElement;
     var tabsClosedRecently=false;
     $(function () {
         $("#header1").load("Header.html");
@@ -239,30 +245,46 @@
         }
     })
         .on("click", "span", function () {
-            var anchor = $(this).siblings('a');
+            if($(".workspaceTab li").length>2){
+                var anchor = $(this).siblings('a');
+                var indexofClosingTab=$(this).siblings("a")[0].getAttribute("href").substring(8,9);
+                svg.splice(indexofClosingTab,1);
+                force.splice(indexofClosingTab,1);
+                authorAlreadyAdded.splice(indexofClosingTab,1);
+                publicationAlreadyAdded.splice(indexofClosingTab,1);
+                venueAlreadyAdded.splice(indexofClosingTab,1);
+                coAuthorsAlreadyAdded.splice(indexofClosingTab,1);
+                fosAlreadyAdded.splice(indexofClosingTab,1)
+                instituteAlreadyAdded.splice(indexofClosingTab,1);
+                processedArray.splice(indexofClosingTab,1);
+                linksArray.splice(indexofClosingTab,1);
 
-            var indexofClosingTab=$(this).siblings("a")[0].getAttribute("href").substring(8,9);
-            svg.splice(indexofClosingTab,1);
-            force.splice(indexofClosingTab,1);
-            authorAlreadyAdded.splice(indexofClosingTab,1);
-            publicationAlreadyAdded.splice(indexofClosingTab,1);
-            venueAlreadyAdded.splice(indexofClosingTab,1);
-            coAuthorsAlreadyAdded.splice(indexofClosingTab,1);
-            fosAlreadyAdded.splice(indexofClosingTab,1)
-            instituteAlreadyAdded.splice(indexofClosingTab,1);
-            processedArray.splice(indexofClosingTab,1);
-            linksArray.splice(indexofClosingTab,1);
+                tabsClosedRecently=true;
+                $(anchor.attr('href')).remove();
+                $(this).parent().remove();
+                $(".workspaceTab li").children('a').first().click();
+            }
+            else{
+                alert("Minimum of one tab should be retained!!")
+            }
 
-            tabsClosedRecently=true;
-            $(anchor.attr('href')).remove();
-            $(this).parent().remove();
-            $(".workspaceTab li").children('a').first().click();
+        });
 
+    window.onclick = hideContextMenu;
+    function showContextMenu (event,element) {
+        var contextMenu = document.getElementById('contextMenu');
+        contextMenu.style.display = 'block';
+        contextMenu.style.left = event.clientX + 'px';
+        contextMenu.style.top = event.clientY + 'px';
 
-        })
-        .contextmenu(function () {
-            alert("right clicked")
-        })
+         clickedElement=element;
+        console.log(clickedElement)
+        return false;
+    }
+
+    function hideContextMenu () {
+        contextMenu.style.display = 'none';
+    }
 
     $('.add-tab').click(function (e) {
         e.preventDefault();
@@ -273,8 +295,8 @@
         }
         else{
             var tabId = 'paperGraphArea' + id;
-            $(this).closest('li').before('<li><a data-toggle="tab" href="#tabArea' + id + '">New Tab</a> <span> x </span></li>');
-            $('.tab-content').append('<div class="tab-pane fade" id=tabArea' + id + '></div>');
+            $(this).closest('li').before('<li><a data-toggle="tab" oncontextmenu="return showContextMenu(event,this);" href="#tabArea' + id + '">New Tab</a> <span> x </span></li>');
+            $('.tab-content').append('<div class="tab-pane fade" id="tabArea' + id +'" style="overflow: auto; width: 1054px; height: 540px;"></div>');
 
             var selector="#tabArea"+ id;
             if(!tabsClosedRecently) {
@@ -282,8 +304,8 @@
                     .append("svg")
                     .attr("id", tabId)
                     .attr("width", width)
-                    .attr("height", height);
-
+                    .attr("height", height)
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
                 force[id] = d3.layout.force()
                     .distance(100)
                     .linkDistance([150])
@@ -325,6 +347,7 @@
 
             $('.workspaceTab li:nth-child(' + id + ') a').click();
             authorAlreadyAdded[id]=new Map();
+            paperAlreadyAdded[id]=new Map();
             publicationAlreadyAdded[id]=new Map();
             venueAlreadyAdded[id]=new Map();
             coAuthorsAlreadyAdded[id]=new Map();
@@ -337,6 +360,16 @@
     });
 
     //$("#sliderValue").on("input change",sliderMoved());
+    function changeTabName(element) {
+        var newName=document.getElementById("modalInput").value;
+        if(newName.length>0){
+            clickedElement.innerText=newName;
+            CloseAddTagWindow()
+        }else{
+            alert("Tab name cannot be empty")
+        }
+
+    }
 
     function enableSlider() {
         if(document.getElementById("sliderChkbox").checked==true){

@@ -1,8 +1,7 @@
 ﻿var processedArray=[[]];
 var sliderArray=[[]];
 d3.json("../JSON/temp.json",processedArray); //temp.json holds the format required to map d3 objects **DO NOT DELETE TEMP.JSON**
-var width = 1050,
-    height = 620;
+var width, height
 var nodeAdded= new Set();
 var fullscreen=true;
 var dataLoaded=false;
@@ -16,18 +15,31 @@ var edgepaths=new Array();
 var edgelabels=new Array();
 var linkedByIndex = {};
 
+var margin = {
+        top: 40,
+        right: 20,
+        bottom: 40,
+        left: -10
+    },
+    width = 1040 - margin.right - margin.left,
+    height = 1600 - margin.top - margin.bottom;
+
 var sliderEnabled;
  svg[0]=d3.select("#tabArea0")
     .append("svg")
      .attr("id","paperGraphArea0")
+     //.attr("viewBox", "0 0 100% auto")
     .attr("width",width)
-    .attr("height",height);
+    .attr("height",height)
+     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    // .attr({"width":"100%","height":"auto"})
+   //  .attr("overflow","scroll");
 
-var paperMenuItems = ["Show more info","Remove","Authorship","Domain", "Hosting", "Publishing", "Cited By", "Add tag", "Co-citation", "Bibliographic Coupling", "References"];
-var authorMenuItems=["Co-authorship", "Membership","Remove"];
+var paperMenuItems = ["Show more info","Remove","Show Authors", "References", "Hosting", "Publishing", "Citations"]; //,"Domain", "Co-citation", "Bibliographic Coupling"
+var authorMenuItems=["Co-authorship", "Papers Authored","Citing non-coauthors","Remove"];
 var institutionMenuItems=["Papers","Remove"];
 var venueMenuItems=["Papers","Remove"];
-var publicationMenuItems=["Papers"];
+var publicationMenuItems=["Papers published","Remove"];
 var FOSMenuItems=["Papers","Remove"];
 var selectedSVG;
 
@@ -35,10 +47,11 @@ var selectedSVG;
  force[0] = d3.layout.force()
     .distance(100)
     .linkDistance([150])
-    .charge(-500)
-    .size([width, height])
-    .gravity(0.1)
+    .charge(-400)
+    .size([1050, 620])
+    .gravity(0.3)
     .alpha(0);
+
 
 //	Define the div for the tooltip
 var tooltip = d3.select("body")
@@ -50,7 +63,8 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
     var ulItems=document.getElementsByClassName("workspaceTab");
     var liItems=ulItems[0].getElementsByTagName("li");
     var svgList=d3.selectAll("svg");
-
+    var pos;
+    var buildGraph=false;
     for(var i=0;i<liItems.length;i++){
         if(liItems[i].className==="active"){
             activeTabIndex=i;
@@ -61,22 +75,50 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
     if(!populateAllNodes){
         for(let i=0;i<dataArray.length;i++){
             if(nodeId===dataArray[i]._id){
-                processedArray[activeTabIndex].push(dataArray[i]);
-                //nodeAdded.add(nodeId);
-                //d3.selectAll("svg > *").remove();
-                var idName="#"+svgList[0][activeTabIndex].getAttribute("id");
-                $(idName).empty();
-                createGraph(processedArray[activeTabIndex],linksArray[activeTabIndex],false,false,activeTabIndex);
-                break;
+               // if( (!paperAlreadyAdded[activeTabIndex].has(dataArray[i]._source.PAPER_ID))||(!authorAlreadyAdded[activeTabIndex].has(dataArray[i]._source.AUTHOR_ID))){
+                if(dataArray[i]._source.vType===vertexType.PAPER){
+                    if(!paperAlreadyAdded[activeTabIndex].has(dataArray[i]._source.PAPER_ID)){
+                        pos=processedArray[activeTabIndex].push(dataArray[i]);
+                        paperAlreadyAdded[activeTabIndex].set(dataArray[i]._source.PAPER_ID,pos-1);
+                        buildGraph=true;
+                    }
+                }else if(dataArray[i]._source.vType===vertexType.AUTHOR){
+                    if(!authorAlreadyAdded[activeTabIndex].has(dataArray[i]._source.AUTHOR_NAME)){
+                        pos=processedArray[activeTabIndex].push(dataArray[i]);
+                        authorAlreadyAdded[activeTabIndex].set(dataArray[i]._source.AUTHOR_NAME,pos-1);
+                        buildGraph=true;
+                    }
+                }else if(dataArray[i]._source.vType===vertexType.PUBLICATION){
+                    if(!publicationAlreadyAdded[activeTabIndex].has(dataArray[i]._source.JOURNAL_NAME)){
+                        pos=processedArray[activeTabIndex].push(dataArray[i]);
+                        publicationAlreadyAdded[activeTabIndex].set(dataArray[i]._source.JOURNAL_NAME,pos-1);
+                        buildGraph=true;
+                    }
+                }else if(dataArray[i]._source.vType===vertexType.VENUE){
+                    if(!publicationAlreadyAdded[activeTabIndex].has(dataArray[i]._source.VENUE_NAME)){
+                        pos=processedArray[activeTabIndex].push(dataArray[i]);
+                        publicationAlreadyAdded[activeTabIndex].set(dataArray[i]._source.VENUE_NAME,pos-1);
+                        buildGraph=true;
+                    }
+                }
+                    if(buildGraph) {
+                        var idName = "#" + svgList[0][activeTabIndex].getAttribute("id");
+                        $(idName).empty();
+                        createGraph(processedArray[activeTabIndex], linksArray[activeTabIndex], false, false, activeTabIndex);
+                        break;
+                    }
             }
         }
     }else{
         for(let i=0;i<dataArray.length;i++){
+            if(!paperAlreadyAdded[activeTabIndex].has(dataArray[i]._source.PAPER_ID)){
                 processedArray[activeTabIndex].push(dataArray[i]);
+                paperAlreadyAdded[activeTabIndex].set(dataArray[i]._source.PAPER_ID,pos-1)
                 var idName="#"+svgList[0][activeTabIndex].getAttribute("id");
                 $(idName).empty();
                 createGraph(processedArray[activeTabIndex],linksArray[activeTabIndex],false,false,activeTabIndex);
         }
+      }
     }
 
 }
@@ -99,12 +141,18 @@ function getActiveTabIndex() {
 
 function checkYear(nodesInActiveTab) {
     var activetab=getActiveTabIndex();
-        if(nodesInActiveTab._source.year<=document.getElementById("sliderValue").value){
+    if(nodesInActiveTab._source.vType===vertexType.PAPER)
+    {
+        if ((nodesInActiveTab._source.Year <= document.getElementById("sliderValue").value)) {
             sliderArray[activetab].push(nodesInActiveTab);
             return true;
-        }else{
-           return false;
+        } else {
+            return false;
         }
+    }else{
+        sliderArray[activetab].push(nodesInActiveTab);
+        return true;
+    }
 }
 
 function neighbors(a, b) {
@@ -193,10 +241,18 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
         .start();
 
      link[activeTab] = selectedSVG.selectAll("link")
-        .data(links)
+         .data(links)
         .enter().append("line")
-        .attr("class", "link")
-        .attr("marker-end", "url(#arrowhead)")
+        .attr("class", function(d) {
+            if (d.label !== "coauthor") {
+                return "link"
+            }
+        })
+        .attr("marker-end", function(d){
+            if(d.label!=="coauthor"){
+              return  "url(#arrowhead)"
+            }
+        })
         .attr('fill', '#ccc')
         .attr('stroke', '#ccc');
 
@@ -293,21 +349,18 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
         .attr('xlink:href',function(d,i) {return '#edgepath'+i})
         .style("pointer-events", "none")
         .text(function(d,i){
-            if((d.target._source.vType===vertexType.PAPER)||(d.target._source.vType==="cites")){
+            return d.label;
+            /*if((d.target._source.vType===vertexType.PAPER)||(d.target._source.vType==="cites")){
                 return "cited by"
             }else if(d.target._source.vType===vertexType.AUTHOR){
                 return "author"
             }else if(d.target._source.vType===vertexType.ORG){
                 return "affiliation"
-            } else if(d.target._source.vType==="reference"){
-                return "refers to"
-            }else if(d.target._source.vType===vertexType.FOS){
-                return "fos"
             }else if(d.target._source.vType===vertexType.PUBLICATION){
                 return "publisher"
             }else if(d.target._source.vType===vertexType.VENUE){
                 return "venue"
-            }
+            }*/
         });
 
 
@@ -343,10 +396,10 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
         .attr("x", -8)
         .attr("y", -8)
         .attr("width",function (d) {
-            return 30;
+            return 27;
         })
         .attr("height", function (d) {
-            return 30;
+            return 27;
         })
 
         //to populate context menu
@@ -367,12 +420,12 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                 .append('ul')
                 .selectAll('li')
                 .data(function () {
-                    if((d._source.vType===vertexType.PAPER)||(d._source.vType===vertexType.CITES))
+                    if(d._source.vType===vertexType.PAPER)
                         return paperMenuItems;
-                    else if((d._source.vType===vertexType.AUTHOR)){
+                    else if(d._source.vType===vertexType.AUTHOR){
                         return authorMenuItems;
-                    }else if(d._source.vType===vertexType.ORG){
-                        return institutionMenuItems;
+                    }else if(d._source.vType===vertexType.PUBLICATION){
+                        return publicationMenuItems;
                     }else if(d._source.vType===vertexType.VENUE){
                         return venueMenuItems;
                     }else if(d._source.vType===vertexType.FOS){
@@ -383,47 +436,22 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                 .append('li')
                 .on('click', function (d) {
                     activeTabIndex=getActiveTabIndex();
-                    if((d==="Authorship")){
-
-                        if((processedArray[activeTabIndex][scrIdPaperIndex]._source.vType===vertexType.CITES)&&(processedArray[activeTabIndex][selectedIndex]._source.venuePaper===undefined)){
-                            var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper AND jgId="+processedArray[activeTabIndex][scrIdPaperIndex]._id;
-                            d3.json(url,function (error,json){
-                                if (error) throw error;
-                                if(json.hits.hits.length==1){
-                                    processedArray[activeTabIndex][scrIdPaperIndex]._source=json.hits.hits[0]._source;
-
-                                    showAuthors(paperId,srcjgId,processedArray[activeTabIndex],activeTabIndex);
-                                    paperExpanded.add(paperId);
-
-                                }
-                            });
-                        }else{
-                            showAuthors(paperId,srcjgId,processedArray[activeTabIndex],activeTabIndex);
+                    if((d==="Show Authors")){
+                            showAuthors(processedArray[activeTab][selectedIndex]._source.PAPER_ID,selectedIndex,processedArray[activeTabIndex],activeTabIndex);
                             paperExpanded.add(paperId);
-                        }
+
                         d3.select('.context-menu').style('display', 'none');
-                    }else if(d==="Cited By"){
-                        showCitations(targetId,srcjgId,scrIdPaperIndex,processedArray[activeTabIndex],activeTabIndex);
+                    }else if(d==="Citations"){
+                        showCitations(scrIdPaperIndex,processedArray[activeTabIndex],activeTabIndex);
                         d3.select('.context-menu').style('display', 'none');
                     }else if(d==="References"){
-                        showReferences(paperId);
+                        showReferences(selectedIndex,processedArray[activeTabIndex],activeTabIndex);
                         d3.select('.context-menu').style('display', 'none');
                         nodeExpandedforRefernce.add(paperId);
-                    }else if(d==="Membership"){
-                        if(fromAuthor){
-                            showInstitutionFromAuthor(paperId,processedArray[activeTabIndex],activeTabIndex);
-                            d3.select('.context-menu').style('display', 'none');
-                            fromAuthor=false;
-
-                        }else{
-
-                            showInstitution(authorSrcId,authorName,index,processedArray[activeTabIndex],activeTabIndex);
-                            d3.select('.context-menu').style('display', 'none');
-                        }
                     }
                     else if(d==="Domain"){
                         if((processedArray[activeTab][scrIdPaperIndex]._source.vType===vertexType.CITES)&&(processedArray[activeTab][scrIdPaperIndex]._source.fosPaper===undefined)){
-                            var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper AND jgId="+processedArray[scrIdPaperIndex]._id;
+                            var url="http://localhost:9200/https://mondrian-db.slack.com//_search?q=vType:paper AND jgId="+processedArray[scrIdPaperIndex]._id;
                             d3.json(url,function (error,json){
                                 if (error) throw error;
                                 if(json.hits.hits.length==1){
@@ -437,48 +465,30 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                         }
                         d3.select('.context-menu').style('display', 'none');
                     }
-                    else if(d==="Publishing"){
-                        if((processedArray[activeTab][scrIdPaperIndex]._source.vType===vertexType.CITES)&&(processedArray[activeTab][scrIdPaperIndex]._source.publisherPaper===undefined)){
-                            var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper AND jgId="+processedArray[scrIdPaperIndex]._id;
-                            d3.json(url,function (error,json){
-                                if (error) throw error;
-                                if(json.hits.hits.length==1){
-                                    processedArray[activeTab][scrIdPaperIndex]._source=json.hits.hits[0]._source;
-                                    showPublication(paperId,scrIdPaperIndex,processedArray[activeTabIndex],activeTabIndex);
-                                    dataLoaded=true;
-                                }
-                            });
-                        }else{
-                            showPublication(paperId,scrIdPaperIndex,processedArray[activeTabIndex],activeTabIndex);
+                    else if(d==="Publishing") {
+                        if (processedArray[activeTab][scrIdPaperIndex]._source.vType === vertexType.PAPER) {
+                            showJournals(scrIdPaperIndex,processedArray[activeTabIndex],activeTabIndex);
+                            d3.select('.context-menu').style('display', 'none');
                         }
-                        d3.select('.context-menu').style('display', 'none');
+                    }else if(d==="Papers published"){
+                        showPapersPublished(selectedIndex,processedArray[activeTabIndex],activeTabIndex)
                     }
                     else if(d==="Hosting"){
-                        if((processedArray[activeTab][scrIdPaperIndex]._source.vType===vertexType.CITES)&&(processedArray[activeTab][selectedIndex]._source.venuePaper===undefined)){
-                            var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper AND jgId="+processedArray[scrIdPaperIndex]._id;
-                            d3.json(url,function (error,json){
-                                if (error) throw error;
-                                if(json.hits.hits.length==1){
-                                    processedArray[activeTab][scrIdPaperIndex]._source=json.hits.hits[0]._source;
-                                    showVenue(paperId,scrIdPaperIndex,processedArray[activeTabIndex],activeTabIndex);
-
-                                }
-                            });
-                        }else{
-                            showVenue(paperId,scrIdPaperIndex,processedArray[activeTabIndex],activeTabIndex);
+                        if (processedArray[activeTab][scrIdPaperIndex]._source.vType === vertexType.PAPER) {
+                            showVenue(scrIdPaperIndex, processedArray[activeTabIndex], activeTabIndex);
+                            d3.select('.context-menu').style('display', 'none');
                         }
-                        d3.select('.context-menu').style('display', 'none');
+
 
                     }
                     else if(d=="Show more info"){
-                        if(processedArray[activeTab][scrIdPaperIndex]._source.vType===vertexType.CITES){
-                            var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper AND jgId="+processedArray[activeTab][scrIdPaperIndex]._id;
+                        if(processedArray[activeTab][scrIdPaperIndex]._type===vertexType.CITES){
+                            var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper AND _id="+processedArray[activeTab][scrIdPaperIndex]._id;
                             d3.json(url,function (error,json){
                                 if (error) throw error;
                                 if(json.hits.hits.length==1){
                                     processedArray[activeTab][scrIdPaperIndex]._source=json.hits.hits[0]._source;
                                     showCompleteDetails(selectedIndex,processedArray[activeTabIndex],activeTabIndex);
-
                                 }
                             });
                         }else{
@@ -486,27 +496,27 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                         }
                         d3.select('.context-menu').style('display', 'none');
                     }else if(d=="Co-authorship"){
-                        // if(processedArray[scrIdPaperIndex]._source.vType===vertexType.PAPER){
-                        showCoAuthorship(authorSrcId,selectedIndex,processedArray);
-                        /*}else{
-                            showCoAuthorship(selectedIndex,processedArray);
-                        }*/
+                        showCoAuthorship(selectedIndex,processedArray[activeTabIndex],activeTabIndex);
 
+                    }else if(d=="Papers Authored"){
+                        showPapersAuthored(selectedIndex,processedArray[activeTabIndex],activeTabIndex);
+                    }else if(d=="Citing non-coauthors"){
+                        showAuthorNotCoauthor(selectedIndex,processedArray[activeTabIndex],activeTabIndex);
                     }
                     else if(d=="Add tag"){
                         addTag();
                         d3.select('.context-menu').style('display', 'none');
                     }else if(d=="Remove"){
-                        if(processedArray[activeTab][selectedIndex]._source.vType===vertexType.PAPER){
-                            if((nodeAdded.has(processedArray[activeTab][selectedIndex]._id))){
-                                nodeAdded.delete(processedArray[activeTab][selectedIndex]._id);
+                        if(processedArray[activeTabIndex][selectedIndex]._source.vType===vertexType.PAPER){
+                            if((paperAlreadyAdded[activeTabIndex].has(processedArray[activeTabIndex][selectedIndex]._id))){
+                                paperAlreadyAdded[activeTabIndex].delete(processedArray[activeTabIndex][selectedIndex]._id);
                             }
-                        }else if(processedArray[selectedIndex]._source.vType===vertexType.AUTHOR){
-                            if((authorAlreadyAdded.has(processedArray[activeTab][selectedIndex]._source.author))){
-                                authorAlreadyAdded.delete(processedArray[activeTab][selectedIndex]._source.author)
+                        }else if(processedArray[activeTabIndex][selectedIndex]._source.vType===vertexType.AUTHOR){
+                            if((authorAlreadyAdded[activeTabIndex].has(processedArray[activeTabIndex][selectedIndex]._source.AUTHOR_NAME))){
+                                authorAlreadyAdded[activeTabIndex].delete(processedArray[activeTabIndex][selectedIndex]._source.AUTHOR_NAME)
                             }
                         }
-                        removeNodeAndLinks(selectedIndex,processedArray,linksArray);
+                        removeNodeAndLinks(selectedIndex,processedArray[activeTabIndex],linksArray[activeTabIndex],activeTabIndex);
                         d3.select('.context-menu').style('display', 'none');
                     }
                 })
@@ -520,23 +530,19 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                 .style('top', d3.event.pageY - 2 + 'px')
                 .style('display', 'block');
             d3.event.preventDefault();
-            console.log(d);
+
             if(d._source.vType===vertexType.PAPER){
                 paperId = d._id;
-                srcjgId=d._source.jgId;
+                //srcjgId=d._source.jgId;
                 scrIdPaperIndex=d.index;
             }else if(d._source.vType===vertexType.AUTHOR){
                 if(d.createdNode!==undefined){
-                    var authorSrcId=d.authorId;
-                    var authorName=d._source.author;
+                    var authorSrcId=d._id;
+                   // var authorName=d._source.AUTHOR_NAME;
                     var index=d.index;
                 }else{
                     fromAuthor=true;
                 }
-            }else if(d._source.vType===vertexType.CITES){
-                var targetId=d._source.tgtId;
-                srcjgId=d._source.jgId;
-                scrIdPaperIndex=d.index;
             }
             paperId = d._id;
             var selectedIndex=d.index;
@@ -550,8 +556,8 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 0.9);
-                tooltip.html("<b>Title : </b>"+d._source.title + "<br/>"+
-                    "<b>Authors : </b>"+d._source.authors + "<br/>"+
+                tooltip.html("<b>Title : </b>"+d._source.Title + "<br/>"+
+                    "<b>Authors : </b>"+d._source.Authors + "<br/>"+
                     "<a> To view more details use show more info option ...</a>"+ "<br/>")
                     .style("left", (d.x+20) + "px")
                     .style("top", (d.y) + "px");
@@ -570,7 +576,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 0.9);
-                tooltip.html(d._source.author + "<br/>")
+                tooltip.html(d._source.AUTHOR_NAME + "<br/>")
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 30) + "px");
             }
@@ -586,7 +592,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 0.9);
-                tooltip.html(d._source.venue + "<br/>")
+                tooltip.html(d._source.VENUE_NAME + "<br/>")
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 30) + "px");
             }
@@ -602,7 +608,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 0.9);
-                tooltip.html(d._source.publisher + "<br/>")
+                tooltip.html(d._source.JOURNAL_NAME + "<br/>")
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 30) + "px");
             }
@@ -632,8 +638,8 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                 .transition()
                 .attr("x", function(d) { return -5;})
                 .attr("y", function(d) { return -5;})
-                .attr("height", 30)
-                .attr("width", 30);
+                .attr("height", 27)
+                .attr("width", 27);
         })
         //to disbale tooltip
         .on("mouseout", function (d) {
@@ -643,7 +649,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
         });
 
 
-    node[activeTab].append("title")
+    node[activeTab].append("Title")
         .attr("dx", 20)
         .attr("dy", ".35em");
 
@@ -653,11 +659,11 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
         .attr("dy", ".35em")
         .text(function (d) {
             if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cites")){
-                var temp=d._source.title;
+                var temp=d._source.Title;
                 return temp.substring(0,15)+"...";
             }
             else if(d._source.vType===vertexType.AUTHOR){
-                return d._source.author;
+                return d._source.AUTHOR_NAME;
             }
             else if(d._source.vType==="reference"){
                 return d._source.title;
@@ -667,9 +673,9 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
             }else if(d._source.vType===vertexType.FOS){
                 return d._source.fos;
             }else if(d._source.vType===vertexType.PUBLICATION){
-                return d._source.publisher;
+                return d._source.JOURNAL_NAME;
             }else if(d._source.vType===vertexType.VENUE){
-                return d._source.venue;
+                return d._source.VENUE_NAME;
             }
         });
 
@@ -728,13 +734,13 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
 function resize() {
     if(fullscreen){
         $("#graphArea").removeClass("startSize").addClass("newSize");
-        svg.attr("width",1500)
+        svg[activeTabIndex].attr("width",1500)
             .attr("height",1000);
         fullscreen=false;
     }
     else{
         $("#graphArea").removeClass("newSize").addClass("startSize");
-        svg.attr("width",1050)
+        svg[activeTabIndex].attr("width",1050)
             .attr("height",600);
         fullscreen=true;
     }
@@ -793,21 +799,28 @@ function clearSVG() {
     authorAlreadyAdded[tabIndexToCLear]=new Map();
     publicationAlreadyAdded[tabIndexToCLear]=new Map();
     venueAlreadyAdded[tabIndexToCLear]=new Map();
+    paperAlreadyAdded[tabIndexToCLear]=new Map()
     fosAlreadyAdded[tabIndexToCLear]=new Map();
-    paperAlreadyAded[tabIndexToCLear]=new Map();
     paperExpanded= new Set();
     nodeExpandedforRefernce = new Set();
     instituteAlreadyAdded[tabIndexToCLear]=new Map();
-
 }
 
+function update(activeTab) {
+   var newHeight =30;
+if(processedArray[activeTab].length>20) {
+    d3.select("#paperGraphArea0 svg")
+        .attr("width", width )
+        .attr("height", height+500);
+}
+}
 
 var vertexType={
     PAPER:"paper",
     AUTHOR:"author",
     ORG:"org",
     FOS:"fos",
-    PUBLICATION:"publication",
+    PUBLICATION:"journal",
     VENUE:"venue",
     CITES:"cites",
     REFERENCES:""

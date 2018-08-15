@@ -18,38 +18,36 @@ $(function () {
 });
 
 function fillSearchInput(index,tempArray){
-
-    var assignVal=document.getElementById("searchinput");
-    var hiddenVal=document.getElementById("hiddenInput");
-    if(tempArray[index]._source.vType===vertexType.PAPER){
-        assignVal.value=tempArray[index]._source.title;
-        hiddenVal.value=vertexType.PAPER;
+//if(tempArray[index]!==undefined) {
+    var assignVal = document.getElementById("searchinput");
+    var hiddenVal = document.getElementById("hiddenInput");
+    if (tempArray[index]._source.vType === vertexType.PAPER) {
+        assignVal.value = tempArray[index]._source.Title;
+        hiddenVal.value = vertexType.PAPER;
         document.getElementById("searchRes").focus();
-    }else if(tempArray[index]._source.vType===vertexType.AUTHOR){
-        assignVal.value=tempArray[index]._source.author;
-        hiddenVal.value=vertexType.AUTHOR;
-        document.getElementById("searchRes").focus();
-    }else if(tempArray[index]._source.vType===vertexType.ORG){
-        assignVal.value=tempArray[index]._source.org;
-        hiddenVal.value=vertexType.ORG;
-    }else if(tempArray[index]._source.vType===vertexType.FOS){
-        assignVal.value=tempArray[index]._source.fos;
-        hiddenVal.value=vertexType.FOS;
-        document.getElementById("searchRes").focus();
-    }else if(tempArray[index]._source.vType===vertexType.PUBLICATION){
-        assignVal.value=tempArray[index]._source.publisher;
-        hiddenVal.value=vertexType.PUBLICATION;
+    } else if (tempArray[index]._source.vType === vertexType.AUTHOR) {
+        assignVal.value = tempArray[index]._source.AUTHOR_NAME;
+        hiddenVal.value = vertexType.AUTHOR;
         document.getElementById("searchRes").focus();
     }
+    else if (tempArray[index]._source.vType === vertexType.PUBLICATION) {
+        assignVal.value = tempArray[index]._source.JOURNAL_NAME;
+        hiddenVal.value = vertexType.PUBLICATION;
+        document.getElementById("searchRes").focus();
+    } else if (tempArray[index]._source.vType === vertexType.VENUE) {
+        assignVal.value = tempArray[index]._source.VENUE_NAME;
+        hiddenVal.value = vertexType.VENUE;
+        document.getElementById("searchRes").focus();
+    }
+//}
 }
 
 function fillSuggestion() {
-
     var suggestionData=new Array();
     var val=document.getElementById("searchinput").value;
     console.log(val.length);
     if(val.length>0) {
-        var urlSuggestion = "http://localhost:9200/janusgraph_vertexes/_search?q=fos:\"" + val + "\"* OR author:\"" + val + "\"* OR title:\"" + val + "\"*&size=10";
+        var urlSuggestion = "http://localhost:9200/dblpvertexes/_search?q=Title:\"" + val + "\"* OR AUTHOR_NAME:\"" + val +  "\"* OR JOURNAL_NAME:\""+  val +"\"* OR VENUE_NAME:\""+ val +"\"*&size=10";
         d3.json(urlSuggestion, function (error, json) {
             if (error) throw error;
 
@@ -68,8 +66,9 @@ function fillSuggestion() {
 
                     li.setAttribute("class", "suggestedItem");
                     li.setAttribute("id", i);
-                    li.innerText = suggestionData[i]._source.title;
-                    li.onclick = function (d) {
+                    li.innerText = suggestionData[i]._source.Title;
+                    liTag = sBox.appendChild(li);
+                    liTag.onclick=function (d) {
                         if(d.path===undefined){
                             fillSearchInput( d.currentTarget.id, suggestionData);
                         }else{
@@ -77,19 +76,18 @@ function fillSuggestion() {
                         }
 
                         $('#suggestionBox').html('');
-                    }
+                    };
 
-                    liTag = sBox.appendChild(li);
                     pTag = document.createElement("p");
                     pTag.innerText = "in paper ";
                     pTag_handler = liTag.appendChild(pTag);
                     citationTag = document.createElement("bold");
                     citationTag.innerText = "Citation : ";
                     spanCitationTag = document.createElement("span");
-                    if (suggestionData[i]._source.magNCitation === undefined) {
-                        spanCitationTag.innerText = 0;
+                    if ((suggestionData[i]._source.CitationCount === undefined)||(suggestionData[i]._source.CitationCount === 0)) {
+                        spanCitationTag.innerText = "NA";
                     } else {
-                        spanCitationTag.innerText = suggestionData[i]._source.magNCitation;
+                        spanCitationTag.innerText = suggestionData[i]._source.CitationCount;
                     }
 
                     pTag_handler.appendChild(citationTag);
@@ -101,7 +99,7 @@ function fillSuggestion() {
                     // aTag = sBox.appendChild(a);
                     li.setAttribute("class", "suggestedItem");
                     li.setAttribute("id", i);
-                    li.innerText = suggestionData[i]._source.author;
+                    li.innerText = suggestionData[i]._source.AUTHOR_NAME;
                     li.onclick = function (d) {
                         if(d.path===undefined){
                             fillSearchInput(d.currentTarget.id, suggestionData);
@@ -111,30 +109,30 @@ function fillSuggestion() {
                         $('#suggestionBox').html('');
                     }
 
-                    liTag = sBox.appendChild(li)
+                    liTag = sBox.appendChild(li);
                     pTag = document.createElement("p");
-                    pTag.innerText = "in author"
+                    pTag.innerText = "in author";
                     liTag.appendChild(pTag);
 
-                }/*else if(suggestionData[i]._source.vType===vertexType.ORG){
+                }else if(suggestionData[i]._source.vType===vertexType.PUBLICATION){
                 aTag=sBox.appendChild(a);
                 li.setAttribute("class","suggestedItem");
                 li.setAttribute("id",i);
-                li.innerText=suggestionData[i]._source.org ;
+                li.innerText=suggestionData[i]._source.JOURNAL_NAME ;
                 a.onclick=function (d) {
                     fillSearchInput(d.path[1].getAttribute("id"),suggestionData);
                     $('#suggestionBox').html('');
                 }
-                liTag=aTag.appendChild(li)
+                liTag=aTag.appendChild(li);
                 pTag=document.createElement("p");
-                pTag.innerText="in Organisation"
+                pTag.innerText="in journal";
                 liTag.appendChild(pTag);
 
-            }*/ else if (suggestionData[i]._source.vType === vertexType.FOS) {
+            } else if (suggestionData[i]._source.vType === vertexType.VENUE) {
                     //aTag = sBox.appendChild(a);
                     li.setAttribute("class", "suggestedItem");
                     li.setAttribute("id", i);
-                    li.innerText = suggestionData[i]._source.fos;
+                    li.innerText = suggestionData[i]._source.VENUE_NAME;
                     li.onclick = function (d) {
                         if(d.path===undefined){
                             fillSearchInput(d.currentTarget.id, suggestionData);
@@ -143,26 +141,12 @@ function fillSuggestion() {
                         }
                         $('#suggestionBox').html('');
                     }
-                    liTag = sBox.appendChild(li)
+                    liTag = sBox.appendChild(li);
                     pTag = document.createElement("p");
-                    pTag.innerText = "in Field of study"
+                    pTag.innerText = "in venue";
                     liTag.appendChild(pTag);
 
                 }
-                /*else if(suggestionData[i]._source.vType===vertexType.PUBLICATION){
-                                aTag=sBox.appendChild(a);
-                                li.setAttribute("class","suggestedItem");
-                                li.setAttribute("id",i);
-                                li.innerText=suggestionData[i]._source.publisher;
-                                a.onclick=function (d) {
-                                    fillSearchInput(d.path[1].getAttribute("id"),suggestionData);
-                                    $('#suggestionBox').html('');
-                                }
-                                liTag=aTag.appendChild(li)
-                                pTag=document.createElement("p");
-                                pTag.innerText="in publication"
-                                liTag.appendChild(pTag);
-                            }*/
             }
 
         });
@@ -192,7 +176,7 @@ function submitIfEnter(event) {
 function submitIfEnter_scholarly(event) {
     if (event.keyCode === 13) {
         event.preventDefault();
-        userEnteredtext=document.getElementById("searchinput").value;
+         userEnteredtext=document.getElementById("searchinput").value;
         typeOfVertex=document.getElementById("hiddenInput").value;
         if(!(userEnteredtext.length>0)){
             alert("please enter value");
@@ -226,46 +210,50 @@ $(".searchResMain").click(function(){
 
 
 function searchClickedFromScholarly() {
+   document.getElementById("content").style.cursor="wait";
      userEnteredtext=document.getElementById("searchinput").value;
      typeOfVertex=document.getElementById("hiddenInput").value;
     console.log("in searchclicked"+userEnteredtext+typeOfVertex)
     fromScholarlyPage=true;
     searchClicked(userEnteredtext,typeOfVertex,fromScholarlyPage);
+    document.getElementById("content").style.cursor="default";
 }
 
 function searchClicked(userEnteredtext,chosenType,fromScholarly) {
-
-    if(!fromScholarly){
+    var urlSearch;
+   // if(!fromScholarly){
         document.getElementById("overlay").style.display="block";
-    }
+   // }
 
     $('#search').removeClass('open');
     //Pagination code
-    if(chosenType!=""){
-        var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:"+chosenType+" AND "+userEnteredtext+"&from=0&size=5";
-        //http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper AND relational data&from=50&size=500
+    if(chosenType===vertexType.AUTHOR) {
+        console.log(chosenType+userEnteredtext)
+         urlSearch = "http://localhost:9200/dblpvertexes/_search?q=vType:" + chosenType + " AND AUTHOR_NAME:" + userEnteredtext +"*&from=0&size=5";
+                //"http://localhost:9200/dblpvertexes/_search?q=Title:\"" + val + "\"* OR AUTHOR_NAME:\"" + val +  "\"* OR JOURNAL_NAME:\""+  val +"\"* OR VENUE_NAME:\""+ val +"\"*&size=10";
+    }else if((chosenType===vertexType.PAPER)){
+         urlSearch = "http://localhost:9200/dblpvertexes/_search?q=vType:" + chosenType + " AND Title:" + userEnteredtext + "*&from=0&size=5";
     }else{
-        var url="http://localhost:9200/janusgraph_vertexes/_search?q="+userEnteredtext+"&from=0&size=5";
-
+         urlSearch="http://localhost:9200/dblpvertexes/_search?q="+userEnteredtext+"&from=0&size=5";
     }
-    console.log(url);
+    console.log(urlSearch);
     _LTracker.push({
         'method':'searchClicked',
         'text': 'httpRequest begins',
-        'url': url,
+        'url': urlSearch,
         'searchParams': {
             'chosenType': chosenType,
             'enteredText': userEnteredtext
         },
         'tag':'textualSearch'
     });
-    d3.json(url, function (error, json) {
+    d3.json(urlSearch, function (error, json) {
         if (error) throw error;
         if(json.hits.hits.length==0){
             _LTracker.push({
                 'method':'searchClicked',
                 'text': 'httpRequest successful',
-                'url': url,
+                'url': urlSearch,
                 'searchParams': {
                     'chosenType': chosenType,
                     'enteredText': userEnteredtext
@@ -326,7 +314,7 @@ function searchClicked(userEnteredtext,chosenType,fromScholarly) {
                     _LTracker.push({
                         'method':'generate_table',
                         'text': 'httpRequest successful',
-                        'url': url,
+                        'url': urlSearch,
                         'searchParams': {
                             'chosenType': chosenType,
                             'enteredText': userEnteredtext
@@ -366,37 +354,45 @@ function searchClicked(userEnteredtext,chosenType,fromScholarly) {
                                 }
                             };
                             a.setAttribute("data-toggle","tooltip");
-                            a.setAttribute("title",displayRecords[i]._source.title);
+                            a.setAttribute("title",displayRecords[i]._source.Title);
                             linebreak = document.createElement("br");
                             boldHeader = document.createElement("b");
                             handler_a = td.appendChild(a);
-                            if(displayRecords[i]._source.title.length>100){
-                                boldHeader.innerText = displayRecords[i]._source.title.slice(0,110)+"...";
+                            if(displayRecords[i]._source.Title.length>100){
+                                boldHeader.innerText = displayRecords[i]._source.Title.slice(0,110)+"...";
                             }else{
-                                boldHeader.innerText = displayRecords[i]._source.title
+                                boldHeader.innerText = displayRecords[i]._source.Title
                             }
                             handler_a.appendChild(boldHeader);
 
                             p = document.createElement("p");
                             handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
                             b = document.createElement("b");
-                            b.innerText = "Citation Count :  ";
+                            b.innerText = "Citation :  ";
                             span = document.createElement("span");
-                            if(displayRecords[i]._source.magNCitation===undefined){
-                                span.innerText=0;
+                            if((displayRecords[i]._source.CitationCount===undefined)||(displayRecords[i]._source.CitationCount==="0")){
+                                span.innerText="NA";
                             }else{
-                                span.innerText = displayRecords[i]._source.magNCitation;
+                                span.innerText = displayRecords[i]._source.CitationCount;
                             }
 
                             handler_p.appendChild(b);
                             handler_p.appendChild(span);
 
                             b1 = document.createElement("b");
-                            b1.innerText = " Year of publication : ";
+                            b1.innerText = " Year of publish: ";
                             span1 = document.createElement("span");
-                            span1.innerText = displayRecords[i]._source.year;
+                            span1.innerText = displayRecords[i]._source.Year;
                             handler_p.appendChild(b1);
                             handler_p.appendChild(span1);
+
+                           /* b2 = document.createElement("b");
+                            b2.innerText = " Type : ";
+                            span2 = document.createElement("span");
+                            span2.innerText = displayRecords[i]._source.articleType;
+                            handler_p.appendChild(b2);
+                            handler_p.appendChild(span2);*/
+
                             td.appendChild(linebreak);
                         } else if (displayRecords[i]._source.vType === vertexType.AUTHOR) {
                             a = document.createElement("a");
@@ -412,13 +408,13 @@ function searchClicked(userEnteredtext,chosenType,fromScholarly) {
                             linebreak = document.createElement("br");
                             boldHeader = document.createElement("b");
                             handler_a = td.appendChild(a);
-                            boldHeader.innerText = displayRecords[i]._source.author;
+                            boldHeader.innerText = displayRecords[i]._source.AUTHOR_NAME;
                             handler_a.appendChild(boldHeader);
 
                             p = document.createElement("p");
                             handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
                             b = document.createElement("b");
-                            b.innerText = "Affiliation :  ";
+                            b.innerText = "Total Papers :  ";
                             span = document.createElement("span");
                             span.innerText = displayRecords[i]._source.orgList;
                             handler_p.appendChild(b);
@@ -466,7 +462,7 @@ function searchClicked(userEnteredtext,chosenType,fromScholarly) {
                             linebreak = document.createElement("br");
                             boldHeader = document.createElement("b");
                             handler_a = td.appendChild(a);
-                            boldHeader.innerText = displayRecords[i]._source.publisher;
+                            boldHeader.innerText = displayRecords[i]._source.JOURNAL_NAME;
                             handler_a.appendChild(boldHeader);
 
                             p = document.createElement("p");
@@ -520,7 +516,7 @@ function searchClicked(userEnteredtext,chosenType,fromScholarly) {
                             linebreak = document.createElement("br");
                             boldHeader = document.createElement("b");
                             handler_a = td.appendChild(a);
-                            boldHeader.innerText = displayRecords[i]._source.venue;
+                            boldHeader.innerText = displayRecords[i]._source.VENUE_NAME;
                             handler_a.appendChild(boldHeader);
 
                             p = document.createElement("p");
@@ -537,9 +533,9 @@ function searchClicked(userEnteredtext,chosenType,fromScholarly) {
                         tr.appendChild(td);
                         doc.appendChild(tr);
                     }
-                    if(!fromScholarly){
+                   // if(!fromScholarly){
                         document.getElementById("overlay").style.display = "none";
-                    }
+                    //}
 
                 }
 
@@ -552,19 +548,25 @@ function searchClicked(userEnteredtext,chosenType,fromScholarly) {
                             displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
                             enteredtext=document.getElementById("searchinput").value;
                             typeOfVertex=document.getElementById("hiddenInput").value;
-
+                            var url;
                             if(fromScholarlyPage){
-                                if(typeOfVertex!=""){
-                                    var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:"+typeOfVertex+" AND "+enteredtext+"&from="+displayRecordsIndex+"&size=5";
-                                }else{
-                                    var url="http://localhost:9200/janusgraph_vertexes/_search?q="+enteredtext+"&from="+displayRecordsIndex+"&size=5";
-
+                                if(typeOfVertex===vertexType.AUTHOR){
+                                     url="http://localhost:9200/dblpvertexes/_search?q=vType:"+typeOfVertex+" AND AUTHOR_NAME:"+enteredtext+"*"+"&from="+displayRecordsIndex+"&size=5";
+                                    console.log("table"+url)
+                                }else if(typeOfVertex===vertexType.PAPER){
+                                     url="http://localhost:9200/dblpvertexes/_search?q=vType:"+typeOfVertex+" AND Title:"+enteredtext+"*&from="+displayRecordsIndex+"&size=5";
+                                }
+                                else{
+                                     url="http://localhost:9200/dblpvertexes/_search?q="+enteredtext+"&from="+displayRecordsIndex+"&size=5";
                                 }
                             }else{
-                                if(chosenType!=""){
-                                    var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:"+chosenType+" AND "+userEnteredtext+"&from="+displayRecordsIndex+"&size=5";
-                                }else{
-                                    var url="http://localhost:9200/janusgraph_vertexes/_search?q="+userEnteredtext+"&from="+displayRecordsIndex+"&size=5";
+                                if(typeOfVertex===vertexType.AUTHOR){
+                                     url="http://localhost:9200/dblpvertexes/_search?q=vType:"+chosenType+" AND AUTHOR_NAME:"+userEnteredtext+"&from="+displayRecordsIndex+"&size=5";
+                                }else if(typeOfVertex===vertexType.PAPER){
+                                 url="http://localhost:9200/dblpvertexes/_search?q=vType:"+typeOfVertex+" AND Title:"+enteredtext+"*&from="+displayRecordsIndex+"&size=5";
+                            }
+                                else{
+                                     url="http://localhost:9200/dblpvertexes/_search?q="+userEnteredtext+"&from="+displayRecordsIndex+"&size=5";
 
                                 }
                             }
