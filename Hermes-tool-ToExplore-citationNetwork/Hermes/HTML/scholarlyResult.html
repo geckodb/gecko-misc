@@ -107,8 +107,8 @@
                 </ul>
                 <div class="tab-content">
 
-                    <div class="tab-pane fade in active searchsize" id="ResultsArea">
-                        <table style="margin-left: 15px">
+                    <div class="tab-pane fade in active searchsize" id="ResultsArea" style="margin-left: 10px">
+                        <table style="margin-left: 5px">
                             <tr>
                                 <td>
                                     <input id="searchinput" class="scholarlySearch" autocomplete="off" type="search" onkeypress="submitIfEnter_scholarly(event)" onkeyup="fillSuggestion()" placeholder="type keyword(s) here" />
@@ -167,7 +167,7 @@
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
-        <!-- Modal content-->
+        <!-- Modal content to show complete details of the paper-->
         <div class="modal-content" id="modalStyle">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -210,6 +210,44 @@
         </div>
     </div>
 </div>
+
+
+<div id="showLimitedRecords" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content" id="showLimitedRecordstyle">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Limit Record Display</h4>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tr>
+                        <td>
+                            <p id="totalRec"></p>
+                        </td>
+                        <td>
+                            <b id="countofRec"></b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p id="recInputTitle">Enter records to display </p>
+                        </td>
+                        <td>
+                            <input type="text" id="recInput">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" id="OKbtn">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="contextMenu" class="rename-menu">
     <ul>
         <li onclick="renameTab(clickedElement)">Rename</li>

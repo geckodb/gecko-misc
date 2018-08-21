@@ -184,7 +184,7 @@ function submitIfEnter_scholarly(event) {
             $('#search').addClass('open');
             $('#search > form > input[type="search"]').focus();
         }else{
-            document.getElementById("suggestionBox").style.display="none";
+            //document.getElementById("suggestionBox").style.display="none";
             searchClickedFromScholarly();
         }
     }else{
@@ -210,10 +210,10 @@ $(".searchResMain").click(function(){
 
 
 function searchClickedFromScholarly() {
+    document.getElementById("suggestionBox").style.display="none";
    document.getElementById("content").style.cursor="wait";
      userEnteredtext=document.getElementById("searchinput").value;
      typeOfVertex=document.getElementById("hiddenInput").value;
-    console.log("in searchclicked"+userEnteredtext+typeOfVertex)
     fromScholarlyPage=true;
     searchClicked(userEnteredtext,typeOfVertex,fromScholarlyPage);
     document.getElementById("content").style.cursor="default";
@@ -224,11 +224,15 @@ function searchClicked(userEnteredtext,chosenType,fromScholarly) {
 
         document.getElementById("overlay").style.display="block";
 
+    var elmnt = document.getElementById("tabArea"+getActiveTabIndex());
+    elmnt.scrollLeft = 100;
+    elmnt.scrollTop = 360;
+
     $('#search').removeClass('open');
     //Pagination code
     if(chosenType===vertexType.AUTHOR) {
         console.log(chosenType+userEnteredtext)
-         urlSearch = "http://localhost:9200/dblpvertexes/_search?q=vType:" + chosenType + " AND AUTHOR_NAME:" + userEnteredtext +"*&from=0&size=5";
+         urlSearch = "http://localhost:9200/dblpvertexes/_search?q=vType:" + chosenType + " AND AUTHOR_NAME:" + userEnteredtext +"&from=0&size=5";
         _LTracker.push({
             'method':'searchClicked',
             'tag': 'Search for Author',
@@ -239,7 +243,7 @@ function searchClicked(userEnteredtext,chosenType,fromScholarly) {
             }
         });
     }else if((chosenType===vertexType.PAPER)){
-         urlSearch = "http://localhost:9200/dblpvertexes/_search?q=vType:" + chosenType + " AND Title:" + userEnteredtext + "*&from=0&size=5";
+         urlSearch = "http://localhost:9200/dblpvertexes/_search?q=vType:" + chosenType + " AND Title:" + userEnteredtext + "&from=0&size=5";
         _LTracker.push({
             'method':'searchClicked',
             'tag': 'Search for Paper',
@@ -310,7 +314,7 @@ function searchClicked(userEnteredtext,chosenType,fromScholarly) {
             searchtextfield.innerText = userEnteredtext;
 
             //Pagination code
-            $(document).ready(function () {
+         //   $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
 
                 var $pagination = $('#pagination'),
@@ -323,8 +327,9 @@ function searchClicked(userEnteredtext,chosenType,fromScholarly) {
 
 
                 totalRecords = json.hits.total;
+                timeTaken=json.took;
                 totalPages = Math.ceil(totalRecords / recPerPage);
-                apply_pagination(userEnteredtext,chosenType);
+                apply_pagination();
 
                 if(fromScholarlyPage){
                     displayRecords= json.hits.hits;
@@ -574,19 +579,19 @@ function searchClicked(userEnteredtext,chosenType,fromScholarly) {
                             var url;
                             if(fromScholarlyPage){
                                 if(typeOfVertex===vertexType.AUTHOR){
-                                     url="http://localhost:9200/dblpvertexes/_search?q=vType:"+typeOfVertex+" AND AUTHOR_NAME:"+enteredtext+"*"+"&from="+displayRecordsIndex+"&size=5";
+                                     url="http://localhost:9200/dblpvertexes/_search?q=vType:"+typeOfVertex+" AND AUTHOR_NAME:"+enteredtext+"&from="+displayRecordsIndex+"&size=5";
                                     console.log("table"+url)
                                 }else if(typeOfVertex===vertexType.PAPER){
-                                     url="http://localhost:9200/dblpvertexes/_search?q=vType:"+typeOfVertex+" AND Title:"+enteredtext+"*&from="+displayRecordsIndex+"&size=5";
+                                     url="http://localhost:9200/dblpvertexes/_search?q=vType:"+typeOfVertex+" AND Title:"+enteredtext+"&from="+displayRecordsIndex+"&size=5";
                                 }
                                 else{
                                      url="http://localhost:9200/dblpvertexes/_search?q="+enteredtext+"&from="+displayRecordsIndex+"&size=5";
                                 }
                             }else{
                                 if(typeOfVertex===vertexType.AUTHOR){
-                                     url="http://localhost:9200/dblpvertexes/_search?q=vType:"+chosenType+" AND AUTHOR_NAME:"+userEnteredtext+"&from="+displayRecordsIndex+"&size=5";
+                                     url="http://localhost:9200/dblpvertexes/_search?q=vType:"+typeOfVertex+" AND AUTHOR_NAME:"+userEnteredtext+"&from="+displayRecordsIndex+"&size=5";
                                 }else if(typeOfVertex===vertexType.PAPER){
-                                 url="http://localhost:9200/dblpvertexes/_search?q=vType:"+typeOfVertex+" AND Title:"+enteredtext+"*&from="+displayRecordsIndex+"&size=5";
+                                 url="http://localhost:9200/dblpvertexes/_search?q=vType:"+typeOfVertex+" AND Title:"+enteredtext+"&from="+displayRecordsIndex+"&size=5";
                             }
                                 else{
                                      url="http://localhost:9200/dblpvertexes/_search?q="+userEnteredtext+"&from="+displayRecordsIndex+"&size=5";
@@ -607,7 +612,7 @@ function searchClicked(userEnteredtext,chosenType,fromScholarly) {
                         }
                     });
                 }
-            });
+            //});
         }
     });
 

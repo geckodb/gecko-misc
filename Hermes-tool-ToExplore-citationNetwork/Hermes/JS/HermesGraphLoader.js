@@ -21,7 +21,7 @@ var margin = {
         bottom: 40,
         left: -10
     },
-    width = 1040 - margin.right - margin.left,
+    width = 1300 - margin.right - margin.left,
     height = 1600 - margin.top - margin.bottom;
 
 var sliderEnabled;
@@ -47,9 +47,11 @@ var selectedSVG;
  force[0] = d3.layout.force()
     .distance(100)
     .linkDistance([150])
-    .charge(-400)
-    .size([1050, 620])
-    .gravity(0.3)
+    .charge(-200)
+     .chargeDistance(1400)
+    .size([1050,1000])
+    .gravity(0.1)
+     .friction(0.8)
     .alpha(0);
 
 
