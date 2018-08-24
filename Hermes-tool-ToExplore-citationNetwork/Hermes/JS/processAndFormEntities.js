@@ -11,6 +11,12 @@ var instituteAlreadyAdded=[[]];
 var addedSVGs;
 var idName;
 var totalCitingRecords;
+var availableRecordCount;
+var citedIds=[];
+var citedPaperdetails=[];
+var paperWithCitationSeen=[[]];
+
+
 
 authorAlreadyAdded[0]=new Map();
 publicationAlreadyAdded[0]=new Map();
@@ -19,6 +25,7 @@ coAuthorsAlreadyAdded[0]=new Map();
 fosAlreadyAdded[0]=new Map();
 instituteAlreadyAdded[0]=new Map();
 paperAlreadyAdded[0]=new Map();
+paperWithCitationSeen[0]=new Map();
 
 class _source {
     constructor(state, value) {
@@ -1175,11 +1182,11 @@ function showReferences(index,processedArray,activeTab) {
     });
 }
 
+
+
 function showCitations(index,processedArray,activeTab) {
 
-    var citedIds=[];
-    var citedPaperdetails=[];
-    var cids;
+    var selIndex=index;
 
     d3.select('.context-menu').style('display', 'none');
     $("#graphArea").css("cursor", "wait");
@@ -1191,122 +1198,161 @@ function showCitations(index,processedArray,activeTab) {
             'value': processedArray[index]._source.PAPER_ID
         });
     }
-    var urlforReferenceids="http://localhost:9200/dblprelation_citation/_search?q=REFERENCE_ID:"+"\""+processedArray[index]._source.PAPER_ID+"\"&size=90";
-    _LTracker.push({
-        'method':'showCitations',
-        'tag': 'Queries',
-        'url':urlforReferenceids
+
+    var urlforReferenceids="http://localhost:9200/dblprelation_citation/_count?q=REFERENCE_ID:"+"\""+processedArray[index]._source.PAPER_ID+"\"";
+
+    $.ajax({
+        dataType: "json",
+        url: urlforReferenceids,
+        async: false,
+        success: function (dataCount) {
+            totalCitingRecords=parseInt(dataCount.count);
+        }
     });
 
+        if(totalCitingRecords>0){
 
+            document.getElementById("totalRec").innerText="Total Records";
+            document.getElementById("countofRec").innerText=totalCitingRecords;
+            document.getElementById("recInput").value="";
+            document.getElementById("OKbtn").classList.add("disabled");
+            document.getElementById("OKbtn").style.cursor="not-allowed";
+            document.getElementById("warningMsg").style.color="black";
+            document.getElementById("recInput").disabled=false;
 
-    d3.json(urlforReferenceids,function (error,resultIds) {
-        if (error)
-            _LTracker.push({
-                'method':'showCitations',
-                'tag': 'Error',
-                'value':error
-            });
-        var citedIds=[];
-        citedIds = resultIds.hits.hits;
-        totalCitingRecords=resultIds.hits.total;
-        _LTracker.push({
-            'method':'showCitations',
-            'tag': 'Results',
-            'time in ms':resultIds.took,
-            'value':resultIds.hits.hits
-        });
+            if(paperWithCitationSeen[activeTab].has(processedArray[index]._source.PAPER_ID)){
+                availableRecordCount= totalCitingRecords - paperWithCitationSeen[activeTab].get(processedArray[index]._source.PAPER_ID);
+                document.getElementById("countofEnteredRec").innerText=availableRecordCount;
+                document.getElementById("countofDisplayedRec").innerText=paperWithCitationSeen[activeTab].get(processedArray[index]._source.PAPER_ID);
 
+                if(availableRecordCount===0){
+                    document.getElementById("recInput").disabled=true;
+                    /*document.getElementById("OKbtn").classList.add("disabled");
+                    document.getElementById("OKbtn").style.cursor="not-allowed";*/
+                }
+            }else{
+                availableRecordCount=totalCitingRecords;
+                document.getElementById("countofEnteredRec").innerText=0;
+                document.getElementById("countofDisplayedRec").innerText=0;
+            }
 
-        if(resultIds.hits.total>0){
-            document.getElementById("totalRec").innerText="Total number of papers";
-            document.getElementById("countofRec").innerText=resultIds.hits.total;
-            $("#showLimitedRecords").modal();
-            var x=document.getElementById("OKbtn");
-            x.addEventListener("click",okClicked);
+            document.getElementById("selectedIndexValue").innerText=index;
+
+           $("#showLimitedRecords").modal('show');
+
+            //document.getElementById("OKbtn").addEventListener("click",okClicked,{once: true});*/
+            //$("#OKbtn").click(okClicked,{once:true});
+
         }else{
             alert("Citation information of the paper is not available");
             $("#graphArea").css("cursor", "default");
         }
+}
 
+function okClicked(activeTab,index,processedArray) {
+    var cids;
+    var retrievalSize;
+    var sizeofrecords;
+    var refrom;
+    document.getElementById("OKbtn").style.cursor="wait";
+    var enteredVal = parseInt(document.getElementById("recInput").value);
+    if(paperWithCitationSeen[activeTab].has(processedArray[index]._source.PAPER_ID)){
+        var prevValue=paperWithCitationSeen[activeTab].get(processedArray[index]._source.PAPER_ID);
+        paperWithCitationSeen[activeTab].set(processedArray[index]._source.PAPER_ID,parseInt(enteredVal)+parseInt(prevValue));
+        refrom=prevValue;
+    }else{
+        paperWithCitationSeen[activeTab].set(processedArray[index]._source.PAPER_ID,parseInt(enteredVal));
+        refrom=0;
+    }
 
-        function okClicked() {
-            var enteredVal = document.getElementById("recInput").value;
+       // if ((enteredVal <= totalCitingRecords)) {
             CloseLimitRecordsWindow();
-            if(enteredVal>0) {
-                if ((enteredVal <= totalCitingRecords)) {
-                    if (enteredVal > 0) {
-                        for (var m = 0; m < enteredVal; m++) {
+            sizeofrecords=enteredVal;
+            // if(enteredVal>100) {
 
-                            if (m < enteredVal - 1) {
-                                cids = cids + ("\"" + citedIds[m]._source.PAPER_ID + "\"") + "OR";
-                            }
-                            else {
-                                cids = cids + ("\"" + citedIds[m]._source.PAPER_ID + "\"");
-                            }
-                        }
-                    }
-
-                    if (cids !== undefined) {
-                        var urlforPaperDetails = "http://localhost:9200/dblpvertexes/_search?q=vType:paper AND PAPER_ID:(" + cids.substring(9, cids.length) + ")&size=90";
-                        _LTracker.push({
-                            'method': 'showCitations',
-                            'tag': 'Queries',
-                            'url': urlforPaperDetails
-                        });
-
-                        d3.json(urlforPaperDetails, function (error, resultnames) {
-                            if (error)
-                                _LTracker.push({
-                                    'method': 'showCitations',
-                                    'tag': 'Error',
-                                    'value': error
-                                });
-
-                            citedPaperdetails = resultnames.hits.hits;
-                            _LTracker.push({
-                                'method': 'showCitations',
-                                'tag': 'Results',
-                                'time in ms': resultnames.took,
-                                'value': resultnames.hits.hits
-                            });
-
-                            for (var j = 0; j < citedPaperdetails.length; j++) {
-                                if (!paperAlreadyAdded[activeTab].has(citedPaperdetails[j]._source.PAPER_ID)) {
-
-                                    var idPos = processedArray.push(citedPaperdetails[j]);
-                                    paperAlreadyAdded[activeTab].set(citedPaperdetails[j]._source.PAPER_ID, idPos - 1);
-                                    var newLink = new createLinks(processedArray.length - 1, index, "cites");
-                                    linksArray[activeTab].push(newLink);
-                                } else {
-                                    var newLink = new createLinks(paperAlreadyAdded[activeTab].get(citedPaperdetails[j]._source.PAPER_ID), index, "cites");
-                                    linksArray[activeTab].push(newLink);
-                                }
-                            }
-
-                            JSON.stringify(linksArray);
-                            JSON.stringify(processedArray);
-                            addedSVGs = d3.selectAll("svg");
-                            idName = "#" + addedSVGs[0][activeTab].getAttribute("id");
-                            $(idName).empty();
-
-                            createGraph(processedArray, linksArray[activeTab], false, false, activeTab);
-                            $("#graphArea").css("cursor", "default");
-                        });
-
-                    } else {
-                        alert("Citation information of the paper is not available");
-                        $("#graphArea").css("cursor", "default");
-
-                    }
-                } else {
-                    alert("Please enter the value within total records available")
+            var loopCnt = Math.ceil(enteredVal / 90);
+            for (var x = 0; x < loopCnt; x++) {
+                if(sizeofrecords>90){
+                    retrievalSize=90;
+                    sizeofrecords=sizeofrecords-90;
+                }else{
+                    retrievalSize=sizeofrecords;
                 }
-            }else{
-                alert("Please enter the number of records to display")
+                // refrom=(x*90);
+                var urlforReferenceids="http://localhost:9200/dblprelation_citation/_search?q=REFERENCE_ID:"+"\""+processedArray[index]._source.PAPER_ID+"\"&from="+refrom+"&size="+retrievalSize;
+                $.ajax({
+                    dataType: "json",
+                    url: urlforReferenceids,
+                    async: false,
+                    success: function (dataids) {
+                        citedIds=[];
+                        citedIds= citedIds.concat(dataids.hits.hits);
+                    }
+                });
+                cids="";
+                for (var m = 0; m <citedIds.length; m++) {
+
+                    if (m < citedIds.length-1) {
+                        cids = cids + ("\"" + citedIds[m]._source.PAPER_ID + "\"") + "OR";
+                    }
+                    else {
+                        cids = cids + ("\"" + citedIds[m]._source.PAPER_ID + "\"");
+                    }
+                }
+
+                var urlforPaperDetails = "http://localhost:9200/dblpvertexes/_search?q=vType:paper AND PAPER_ID:(" + cids + ")&size="+retrievalSize;
+                _LTracker.push({
+                    'method': 'showCitations',
+                    'tag': 'Queries',
+                    'url': urlforPaperDetails
+                });
+
+                $.ajax({
+                    dataType: "json",
+                    url: urlforPaperDetails,
+                    async: false,
+                    success: function (data) {
+                        citedPaperdetails=[];
+                        citedPaperdetails= citedPaperdetails.concat(data.hits.hits)
+                    }
+                });
             }
-        }
-    });
+            for (var j = 0; j < citedPaperdetails.length; j++) {
+                if (!paperAlreadyAdded[activeTab].has(citedPaperdetails[j]._source.PAPER_ID)) {
+
+                    var idPos = processedArray.push(citedPaperdetails[j]);
+                    paperAlreadyAdded[activeTab].set(citedPaperdetails[j]._source.PAPER_ID, idPos - 1);
+                    var newLink = new createLinks(processedArray.length - 1, index, "cites");
+                    linksArray[activeTab].push(newLink);
+                } else {
+                    var newLink = new createLinks(paperAlreadyAdded[activeTab].get(citedPaperdetails[j]._source.PAPER_ID), index, "cites");
+                    linksArray[activeTab].push(newLink);
+                }
+            }
+
+            JSON.stringify(linksArray);
+            JSON.stringify(processedArray);
+            addedSVGs = d3.selectAll("svg");
+            idName = "#" + addedSVGs[0][activeTab].getAttribute("id");
+            $(idName).empty();
+
+            createGraph(processedArray, linksArray[activeTab], false, false, parseInt(activeTab));
+        document.getElementById("OKbtn").style.cursor= "default";
+        //}
+    $("#graphArea").css("cursor", "default");
+}
+
+function checkValueENtered() {
+    var value=document.getElementById("recInput").value;
+    if((value>0) && (value<=availableRecordCount)){
+        document.getElementById("OKbtn").classList.remove("disabled");
+        document.getElementById("OKbtn").style.cursor="pointer";
+        //document.getElementById("warningMsg").style.color="black";
+    }else{
+        document.getElementById("OKbtn").classList.add("disabled");
+        document.getElementById("OKbtn").style.cursor="not-allowed";
+        document.getElementById("warningMsg").style.color="Red";
+    }
 }
 
 function showInstitution(idToEXpand,authorName,indexofCreatedAuthorNode,processedArray,activeTab) {
@@ -1403,36 +1449,66 @@ function showInstitutionFromAuthor(idToEXpand,selectedIndex,processedArray,activ
 }
 
 function removeNodeAndLinks(selectedIndex,processedArray,linksArray,activeTab) {
-    processedArray.splice(selectedIndex,1);
-
+    var isSource=false;
+    var slicePos=[];
     var initialLength=linksArray.length;
     var i=0;
+    var newlyProcessedArray=[];
+    processedArray.splice(selectedIndex,1);
+   // slicePos.push(selectedIndex);
     while (i<linksArray.length){
 
-        if(linksArray.length>1){
+        if(linksArray.length>=1){
             if((linksArray[i].source.index===selectedIndex)){
-                for(var j=0;j<processedArray.length;j++){
-                    if((processedArray[j].index)===linksArray[i].target.index){
-                        if(processedArray[j]._source.vType===vertexType.PAPER){
-                            paperAlreadyAdded[activeTab].delete(processedArray[j]._source.PAPER_ID);
-                        }else if(processedArray[j]._source.vType===vertexType.AUTHOR){
-                            authorAlreadyAdded[activeTab].delete(processedArray[j]._source.AUTHOR_NAME);
+                //for(var j=0;j<processedArray.length;j++){
+                    for(var k=i+1;k<linksArray.length;k++){
+                        if((linksArray[i].target.index===linksArray[k].source.index)||(linksArray[i].source.index===linksArray[k].target.index)){
+                            isSource=true;
+                            break;
                         }
-                        processedArray.splice(j,1);
+                    }
+                    if(isSource){
+                        linksArray.splice(i,1);
+                        isSource=false;
+                    }else{
+                        if(processedArray[i]._source.vType===vertexType.PAPER){
+                            paperAlreadyAdded[activeTab].delete(processedArray[i]._source.PAPER_ID);
+                        }else if(processedArray[i]._source.vType===vertexType.AUTHOR){
+                            authorAlreadyAdded[activeTab].delete(processedArray[i]._source.AUTHOR_NAME);
+                        }
+                       //processedArray.splice(i,1);
+                        slicePos.push(linksArray[i].target.index);
+                        linksArray.splice(i,1);
+                    }
+                i=0;
+            }
+            else if((linksArray[i].target.index===selectedIndex)){
+                for(var k=i+1;k<linksArray.length;k++){
+                    if((linksArray[i].source.index===linksArray[k].source.index)||(linksArray[i].source.index===linksArray[k].target.index)){
+                        isSource=true;
                         break;
                     }
                 }
-                linksArray.splice(i,1);
-                i=0;
-            }else{
-                if((linksArray[i].target.index===selectedIndex)){
+                if(isSource){
+                    linksArray.splice(i,1);
+                    isSource=false;
+                }else{
+                    if(processedArray[i]._source.vType===vertexType.PAPER){
+                        paperAlreadyAdded[activeTab].delete(processedArray[i]._source.PAPER_ID);
+                    }else if(processedArray[i]._source.vType===vertexType.AUTHOR){
+                        authorAlreadyAdded[activeTab].delete(processedArray[i]._source.AUTHOR_NAME);
+                    }
+                  // processedArray.splice(i,1);
+                    slicePos.push(linksArray[i].source.index);
                     linksArray.splice(i,1);
                 }
+                i=0;
+            }else{
                 i++;
             }
         }
-        else if(linksArray.length===1){
-            if((linksArray[i].source.index===selectedIndex)){
+       /* else if(linksArray.length===1){
+            if((linksArray[i].source.index===selectedIndex)||(linksArray[i].target.index===selectedIndex)){
 
                 for(var j=0;j<processedArray.length;j++){
                     if((processedArray[j].index)===linksArray[i].target.index){
@@ -1448,13 +1524,26 @@ function removeNodeAndLinks(selectedIndex,processedArray,linksArray,activeTab) {
                 linksArray.splice(i,1);
                 i=0;
             }else{
-                if((linksArray[i].target.index===selectedIndex)){
-                    linksArray.splice(i,1);
-                }
                 i++;
             }
-        }
+        }*/
     }
+
+    /*for(var n=0;n<processedArray.length;n++){
+        for(var m=0;m<slicePos.length;m++){
+            if(n!==slicePos[m]){
+
+            }
+        }
+    }*/
+    /*for(var m=0;m<slicePos.length;m++){
+        if(processedArray[slicePos[m]]._source.vType===vertexType.PAPER){
+            paperAlreadyAdded[activeTab].delete(processedArray[slicePos[m]]._source.PAPER_ID);
+        }else if(processedArray[slicePos[m]]._source.vType===vertexType.AUTHOR){
+            authorAlreadyAdded[activeTab].delete(processedArray[slicePos[m]]._source.AUTHOR_NAME);
+        }
+        processedArray.splice(slicePos[m],1);
+    }*/
 
     JSON.stringify(linksArray);
     JSON.stringify(processedArray);
@@ -1689,6 +1778,11 @@ function CloseAddTagWindow() {
 
 function CloseLimitRecordsWindow() {
     $("#showLimitedRecords").modal('hide');
+}
+
+function CancelLimitRecordsWindow() {
+    $("#showLimitedRecords").modal('hide');
+    $("#graphArea").css("cursor", "default");
 }
 
 function loadFacets(searchValue,byYear){

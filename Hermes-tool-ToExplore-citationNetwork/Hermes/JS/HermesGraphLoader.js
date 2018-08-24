@@ -265,8 +265,8 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
         'method':'createGraph',
         'text': 'graph structure',
         'graphStructure': {
-            'nodes': nodes,
-            'edges': links
+            'nodes': nodes.length,
+            'edges': links.length
         },
         'tag':'graphstructure'
     });
@@ -502,7 +502,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
 
                         d3.select('.context-menu').style('display', 'none');
                     }else if(d==="Citations"){
-                        showCitations(scrIdPaperIndex,processedArray[activeTabIndex],activeTabIndex);
+                        showCitations(selectedIndex,processedArray[activeTabIndex],activeTabIndex);
                         d3.select('.context-menu').style('display', 'none');
                     }else if(d==="References"){
                         showReferences(selectedIndex,processedArray[activeTabIndex],activeTabIndex);
@@ -568,8 +568,8 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                         d3.select('.context-menu').style('display', 'none');
                     }else if(d=="Remove"){
                         if(processedArray[activeTabIndex][selectedIndex]._source.vType===vertexType.PAPER){
-                            if((paperAlreadyAdded[activeTabIndex].has(processedArray[activeTabIndex][selectedIndex]._id))){
-                                paperAlreadyAdded[activeTabIndex].delete(processedArray[activeTabIndex][selectedIndex]._id);
+                            if((paperAlreadyAdded[activeTabIndex].has(processedArray[activeTabIndex][selectedIndex]._source.PAPER_ID))){
+                                paperAlreadyAdded[activeTabIndex].delete(processedArray[activeTabIndex][selectedIndex]._source.PAPER_ID);
                             }
                         }else if(processedArray[activeTabIndex][selectedIndex]._source.vType===vertexType.AUTHOR){
                             if((authorAlreadyAdded[activeTabIndex].has(processedArray[activeTabIndex][selectedIndex]._source.AUTHOR_NAME))){
@@ -580,7 +580,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                         d3.select('.context-menu').style('display', 'none');
                     }
                 })
-                .text(function (d) { console.log(d); return d;});
+                .text(function (d) { return d;});
 
 
             d3.select('.context-menu').style('display', 'none');

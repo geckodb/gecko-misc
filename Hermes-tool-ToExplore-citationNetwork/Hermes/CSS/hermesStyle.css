@@ -733,12 +733,12 @@ body {
     padding: 2px;
 }
 
-#countofRec{
+#countofRec,#countofEnteredRec,#countofDisplayedRec{
     width: 100px;
     padding: 12px;
 }
 
-#recInputTitle{
+#recInputTitle,#recEnteredTitle,#recDisplayedTitle{
     width: 250px;
     padding: 2px;
 }

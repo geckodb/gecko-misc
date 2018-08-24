@@ -217,7 +217,7 @@
         <!-- Modal content-->
         <div class="modal-content" id="showLimitedRecordstyle">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" onclick="CancelLimitRecordsWindow()">&times;</button>
                 <h4 class="modal-title">Limit Record Display</h4>
             </div>
             <div class="modal-body">
@@ -225,24 +225,56 @@
                     <tr>
                         <td>
                             <p id="totalRec"></p>
+                            <input id="selectedIndexValue" autocomplete="off" type="hidden">
                         </td>
                         <td>
                             <b id="countofRec"></b>
                         </td>
                     </tr>
+
                     <tr>
                         <td>
-                            <p id="recInputTitle">Enter records to display </p>
+                            <p id="recDisplayedTitle">Records Displayed</p>
+                        </td>
+
+                        <td>
+                            <b id="countofDisplayedRec"></b>
+                        </td>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <p id="recEnteredTitle">Available Records</p>
+                        </td>
+
+                        <td>
+                            <b id="countofEnteredRec"></b>
+                        </td>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <p id="recInputTitle">Enter number of records to display </p>
                         </td>
                         <td>
-                            <input type="text" id="recInput">
+                            <input type="text" id="recInput" onkeyup="checkValueENtered()" autofocus>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <p id="warningMsg" style="font-size: 11px; margin-top: 25px">*Please enter a non-negative number within total number of records available</p>
                         </td>
                     </tr>
                 </table>
             </div>
 
             <div class="modal-footer">
-                <button type="submit" id="OKbtn">OK</button>
+                <button type="submit" id="OKbtn" class="btn btn-primary">OK</button>
+                <button type="submit" id="Cancelbtn" class="btn btn-primary" onclick="CancelLimitRecordsWindow()">Cancel</button>
             </div>
         </div>
     </div>
@@ -308,6 +340,13 @@
 
         });
 
+
+    $("#OKbtn").click(function(){
+        var activetab=parseInt(getActiveTabIndex());
+        var index=parseInt(document.getElementById("selectedIndexValue").innerText);
+        okClicked(activetab,index,processedArray[activetab]);
+    });
+
     window.onclick = hideContextMenu;
     function showContextMenu (event,element) {
         var contextMenu = document.getElementById('contextMenu');
@@ -319,6 +358,8 @@
         console.log(clickedElement)
         return false;
     }
+
+
 
     function hideContextMenu () {
         contextMenu.style.display = 'none';
