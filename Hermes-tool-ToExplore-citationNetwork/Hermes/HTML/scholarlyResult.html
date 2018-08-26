@@ -218,7 +218,7 @@
         <div class="modal-content" id="showLimitedRecordstyle">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" onclick="CancelLimitRecordsWindow()">&times;</button>
-                <h4 class="modal-title">Limit Record Display</h4>
+                <h4 class="modal-title" id="headerTitle"></h4>
             </div>
             <div class="modal-body">
                 <table>
@@ -260,7 +260,7 @@
                             <p id="recInputTitle">Enter number of records to display </p>
                         </td>
                         <td>
-                            <input type="text" id="recInput" onkeyup="checkValueENtered()" autofocus>
+                            <input type="text" id="recInput" onkeyup="checkValueEntered()" autofocus>
                         </td>
                     </tr>
 
@@ -344,7 +344,12 @@
     $("#OKbtn").click(function(){
         var activetab=parseInt(getActiveTabIndex());
         var index=parseInt(document.getElementById("selectedIndexValue").innerText);
-        okClicked(activetab,index,processedArray[activetab]);
+        if(document.getElementById("headerTitle").innerText==="Citations"){
+            okOfCitationsClicked(activetab,index,processedArray[activetab]);
+        }else if(document.getElementById("headerTitle").innerText==="References"){
+            okOfReferencesClicked(activetab,index,processedArray[activetab]);
+        }
+
     });
 
     window.onclick = hideContextMenu;

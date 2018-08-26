@@ -10,11 +10,16 @@ var nodeExpandedforRefernce = new Set();
 var instituteAlreadyAdded=[[]];
 var addedSVGs;
 var idName;
-var totalCitingRecords;
+//variables used for showCitations
+var totalRecords;
 var availableRecordCount;
 var citedIds=[];
 var citedPaperdetails=[];
 var paperWithCitationSeen=[[]];
+//variables used for showCitations
+var referenceIds=[];
+var referencePaperdetails=[];
+var paperWithReferenceSeen=[[]];
 
 
 
@@ -26,6 +31,7 @@ fosAlreadyAdded[0]=new Map();
 instituteAlreadyAdded[0]=new Map();
 paperAlreadyAdded[0]=new Map();
 paperWithCitationSeen[0]=new Map();
+paperWithReferenceSeen[0]=new Map();
 
 class _source {
     constructor(state, value) {
@@ -1077,11 +1083,13 @@ function showVenue(index,processedArray,activeTab) {
 }
 
 
+/**
+ * shows modal and available reference count, allows user to enter records to be displayed
+ * @param index
+ * @param processedArray
+ * @param activeTab
+ */
 function showReferences(index,processedArray,activeTab) {
-
-    var referenceIds=[];
-    var referencedPaperdetails=[];
-    var refids;
 
     d3.select('.context-menu').style('display', 'none');
     $("#graphArea").css("cursor", "wait");
@@ -1093,97 +1101,157 @@ function showReferences(index,processedArray,activeTab) {
             'value': processedArray[index]._source.PAPER_ID
         });
     }
-    var urlforReferenceids="http://localhost:9200/dblprelation_citation/_search?q=PAPER_ID:"+"\""+processedArray[index]._source.PAPER_ID+"\"&size=90";
-    _LTracker.push({
-        'method':'showReferences',
-        'tag': 'Queries',
-        'url':urlforReferenceids
+
+    var urlforReferenceids="http://localhost:9200/dblprelation_citation/_count?q=PAPER_ID:"+"\""+processedArray[index]._source.PAPER_ID+"\"";
+
+    $.ajax({
+        dataType: "json",
+        url: urlforReferenceids,
+        async: false,
+        success: function (dataCount) {
+            totalRecords=parseInt(dataCount.count);
+        }
     });
 
-    d3.json(urlforReferenceids,function (error,resultIds) {
-        if (error)
-            _LTracker.push({
-                'method':'showReferences',
-                'tag': 'Error',
-                'value':error
-            });
+    if(totalRecords>0){
+        document.getElementById("headerTitle").innerText="References"
+        document.getElementById("totalRec").innerText="Total Records";
+        document.getElementById("countofRec").innerText=totalRecords;
+        document.getElementById("recInput").value="";
+        document.getElementById("OKbtn").classList.add("disabled");
+        document.getElementById("OKbtn").style.cursor="not-allowed";
+        document.getElementById("warningMsg").style.color="black";
+        document.getElementById("recInput").disabled=false;
 
+        if(paperWithReferenceSeen[activeTab].has(processedArray[index]._source.PAPER_ID)){
+            availableRecordCount= totalRecords - paperWithReferenceSeen[activeTab].get(processedArray[index]._source.PAPER_ID);
+            document.getElementById("countofEnteredRec").innerText=availableRecordCount;
+            document.getElementById("countofDisplayedRec").innerText=paperWithReferenceSeen[activeTab].get(processedArray[index]._source.PAPER_ID);
 
-        referenceIds = resultIds.hits.hits;
-        _LTracker.push({
-            'method':'showReferences',
-            'tag': 'Results',
-            'time in ms':resultIds.took,
-            'value':resultIds.hits.hits
-        });
-
-        if(referenceIds.length>0){
-            for(var m=0;m<referenceIds.length;m++){
-
-                if( m<referenceIds.length-1){
-                    refids=refids+("\""+referenceIds[m]._source.REFERENCE_ID+"\"")+"OR";
-                }
-                else{
-                    refids=refids+("\""+referenceIds[m]._source.REFERENCE_ID+"\"");
-                }
+            if(availableRecordCount===0){
+                document.getElementById("recInput").disabled=true;
+                /*document.getElementById("OKbtn").classList.add("disabled");
+                document.getElementById("OKbtn").style.cursor="not-allowed";*/
             }
-        }
-        if(refids!==undefined) {
-            var urlforPaperDetails = "http://localhost:9200/dblpvertexes/_search?q=vType:paper AND PAPER_ID:(" + refids.substring(9, refids.length) + ")&size=90";
-            _LTracker.push({
-                'method':'showReferences',
-                'tag': 'Queries',
-                'url':urlforPaperDetails
-            });
-
-            d3.json(urlforPaperDetails, function (error, resultnames) {
-                if (error)
-                    _LTracker.push({
-                        'method':'showReferences',
-                        'tag': 'Error',
-                        'value':error
-                    });
-
-                referencedPaperdetails = resultnames.hits.hits;
-                _LTracker.push({
-                    'method':'showReferences',
-                    'tag': 'Results',
-                    'time in ms':resultnames.took,
-                    'value':resultnames.hits.hits
-                });
-
-                for (var j = 0; j < referencedPaperdetails.length; j++) {
-                    if (!paperAlreadyAdded[activeTab].has(referencedPaperdetails[j]._source.PAPER_ID)) {
-
-                        var idPos = processedArray.push(referencedPaperdetails[j]);
-                        paperAlreadyAdded[activeTab].set(referencedPaperdetails[j]._source.PAPER_ID, idPos - 1);
-                        var newLink = new createLinks(index, processedArray.length - 1, "cites");
-                        linksArray[activeTab].push(newLink);
-                    } else {
-                        var newLink = new createLinks(index, paperAlreadyAdded[activeTab].get(referencedPaperdetails[j]._source.PAPER_ID), "cites");
-                        linksArray[activeTab].push(newLink);
-                    }
-                }
-
-                JSON.stringify(linksArray);
-                JSON.stringify(processedArray);
-                addedSVGs = d3.selectAll("svg");
-                idName = "#" + addedSVGs[0][activeTab].getAttribute("id");
-                $(idName).empty();
-
-                createGraph(processedArray, linksArray[activeTab], false, false, activeTab);
-                $("#graphArea").css("cursor", "default");
-            });
         }else{
-            alert("Reference information of the paper is not available");
-            $("#graphArea").css("cursor", "default");
-
+            availableRecordCount=totalRecords;
+            document.getElementById("countofEnteredRec").innerText=0;
+            document.getElementById("countofDisplayedRec").innerText=0;
         }
-    });
+
+        document.getElementById("selectedIndexValue").innerText=index;
+
+        $("#showLimitedRecords").modal('show');
+
+    }else{
+        alert("Citation information of the paper is not available");
+        $("#graphArea").css("cursor", "default");
+    }
+
 }
 
 
+/**
+ * Synchronous http requests to get the citing papers of a particular paper,(from, size are calculated based on entered value)
+ * @param activeTab
+ * @param index
+ * @param processedArray
+ */
+function okOfReferencesClicked(activeTab,index,processedArray) {
+    var rids;
+    var retrievalSize;
+    var sizeofrecords;
+    var refrom;
+    document.getElementById("OKbtn").style.cursor="wait";
+    var enteredVal = parseInt(document.getElementById("recInput").value);
+    if(paperWithReferenceSeen[activeTab].has(processedArray[index]._source.PAPER_ID)){
+        var prevValue=paperWithReferenceSeen[activeTab].get(processedArray[index]._source.PAPER_ID);
+        paperWithReferenceSeen[activeTab].set(processedArray[index]._source.PAPER_ID,parseInt(enteredVal)+parseInt(prevValue));
+        refrom=prevValue;
+    }else{
+        paperWithReferenceSeen[activeTab].set(processedArray[index]._source.PAPER_ID,parseInt(enteredVal));
+        refrom=0;
+    }
+    CloseLimitRecordsWindow();
+    sizeofrecords=enteredVal;
 
+    var loopCnt = Math.ceil(enteredVal / 90);
+    for (var x = 0; x < loopCnt; x++) {
+        if(sizeofrecords>90){
+            retrievalSize=90;
+            sizeofrecords=sizeofrecords-90;
+        }else{
+            retrievalSize=sizeofrecords;
+        }
+
+        var urlforReferenceids="http://localhost:9200/dblprelation_citation/_search?q=PAPER_ID:"+"\""+processedArray[index]._source.PAPER_ID+"\"&from="+refrom+"&size="+retrievalSize;
+        $.ajax({
+            dataType: "json",
+            url: urlforReferenceids,
+            async: false,
+            success: function (dataids) {
+                referenceIds=[];
+                referenceIds= referenceIds.concat(dataids.hits.hits);
+            }
+        });
+        rids="";
+        for (var m = 0; m <referenceIds.length; m++) {
+
+            if (m < referenceIds.length-1) {
+                rids = rids + ("\"" + referenceIds[m]._source.REFERENCE_ID + "\"") + "OR";
+            }
+            else {
+                rids = rids + ("\"" + referenceIds[m]._source.REFERENCE_ID + "\"");
+            }
+        }
+
+        var urlforPaperDetails = "http://localhost:9200/dblpvertexes/_search?q=vType:paper AND PAPER_ID:(" + rids + ")&size="+retrievalSize;
+        _LTracker.push({
+            'method': 'showCitations',
+            'tag': 'Queries',
+            'url': urlforPaperDetails
+        });
+
+        $.ajax({
+            dataType: "json",
+            url: urlforPaperDetails,
+            async: false,
+            success: function (data) {
+                referencePaperdetails=[];
+                referencePaperdetails= referencePaperdetails.concat(data.hits.hits)
+            }
+        });
+    }
+    for (var j = 0; j < referencePaperdetails.length; j++) {
+        if (!paperAlreadyAdded[activeTab].has(referencePaperdetails[j]._source.PAPER_ID)) {
+
+            var idPos = processedArray.push(referencePaperdetails[j]);
+            paperAlreadyAdded[activeTab].set(referencePaperdetails[j]._source.PAPER_ID, idPos - 1);
+            var newLink = new createLinks(index,processedArray.length - 1, "cites");
+            linksArray[activeTab].push(newLink);
+        } else {
+            var newLink = new createLinks(index,paperAlreadyAdded[activeTab].get(referencePaperdetails[j]._source.PAPER_ID), "cites");
+            linksArray[activeTab].push(newLink);
+        }
+    }
+
+    JSON.stringify(linksArray);
+    JSON.stringify(processedArray);
+    addedSVGs = d3.selectAll("svg");
+    idName = "#" + addedSVGs[0][activeTab].getAttribute("id");
+    $(idName).empty();
+
+    createGraph(processedArray, linksArray[activeTab], false, false, parseInt(activeTab));
+    document.getElementById("OKbtn").style.cursor= "default";
+}
+
+
+/**
+ * shows modal and available citation count, allows user to enter records to be displayed
+ * @param index
+ * @param processedArray
+ * @param activeTab
+ */
 function showCitations(index,processedArray,activeTab) {
 
     var selIndex=index;
@@ -1206,14 +1274,14 @@ function showCitations(index,processedArray,activeTab) {
         url: urlforReferenceids,
         async: false,
         success: function (dataCount) {
-            totalCitingRecords=parseInt(dataCount.count);
+            totalRecords=parseInt(dataCount.count);
         }
     });
 
-        if(totalCitingRecords>0){
-
+        if(totalRecords>0){
+            document.getElementById("headerTitle").innerText="Citations"
             document.getElementById("totalRec").innerText="Total Records";
-            document.getElementById("countofRec").innerText=totalCitingRecords;
+            document.getElementById("countofRec").innerText=totalRecords;
             document.getElementById("recInput").value="";
             document.getElementById("OKbtn").classList.add("disabled");
             document.getElementById("OKbtn").style.cursor="not-allowed";
@@ -1221,7 +1289,7 @@ function showCitations(index,processedArray,activeTab) {
             document.getElementById("recInput").disabled=false;
 
             if(paperWithCitationSeen[activeTab].has(processedArray[index]._source.PAPER_ID)){
-                availableRecordCount= totalCitingRecords - paperWithCitationSeen[activeTab].get(processedArray[index]._source.PAPER_ID);
+                availableRecordCount= totalRecords - paperWithCitationSeen[activeTab].get(processedArray[index]._source.PAPER_ID);
                 document.getElementById("countofEnteredRec").innerText=availableRecordCount;
                 document.getElementById("countofDisplayedRec").innerText=paperWithCitationSeen[activeTab].get(processedArray[index]._source.PAPER_ID);
 
@@ -1231,7 +1299,7 @@ function showCitations(index,processedArray,activeTab) {
                     document.getElementById("OKbtn").style.cursor="not-allowed";*/
                 }
             }else{
-                availableRecordCount=totalCitingRecords;
+                availableRecordCount=totalRecords;
                 document.getElementById("countofEnteredRec").innerText=0;
                 document.getElementById("countofDisplayedRec").innerText=0;
             }
@@ -1249,7 +1317,13 @@ function showCitations(index,processedArray,activeTab) {
         }
 }
 
-function okClicked(activeTab,index,processedArray) {
+/**
+ * Synchronous http requests to get the citing papers of a particular paper,(from, size are calculated based on entered value)
+ * @param activeTab
+ * @param index
+ * @param processedArray
+ */
+function okOfCitationsClicked(activeTab,index,processedArray) {
     var cids;
     var retrievalSize;
     var sizeofrecords;
@@ -1264,11 +1338,8 @@ function okClicked(activeTab,index,processedArray) {
         paperWithCitationSeen[activeTab].set(processedArray[index]._source.PAPER_ID,parseInt(enteredVal));
         refrom=0;
     }
-
-       // if ((enteredVal <= totalCitingRecords)) {
-            CloseLimitRecordsWindow();
+                CloseLimitRecordsWindow();
             sizeofrecords=enteredVal;
-            // if(enteredVal>100) {
 
             var loopCnt = Math.ceil(enteredVal / 90);
             for (var x = 0; x < loopCnt; x++) {
@@ -1338,11 +1409,12 @@ function okClicked(activeTab,index,processedArray) {
 
             createGraph(processedArray, linksArray[activeTab], false, false, parseInt(activeTab));
         document.getElementById("OKbtn").style.cursor= "default";
-        //}
-    $("#graphArea").css("cursor", "default");
-}
+  }
 
-function checkValueENtered() {
+/**
+ * Checks if user entered value to view citation record is within available records
+ */
+function checkValueEntered() {
     var value=document.getElementById("recInput").value;
     if((value>0) && (value<=availableRecordCount)){
         document.getElementById("OKbtn").classList.remove("disabled");
