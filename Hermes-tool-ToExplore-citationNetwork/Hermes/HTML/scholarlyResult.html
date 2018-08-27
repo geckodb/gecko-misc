@@ -224,11 +224,11 @@
                 <table>
                     <tr>
                         <td>
-                            <p id="totalRec"></p>
+                            <p id="totalRec">Total Records</p>
                             <input id="selectedIndexValue" autocomplete="off" type="hidden">
                         </td>
                         <td>
-                            <b id="countofRec"></b>
+                            <b id="countofTotalRec"></b>
                         </td>
                     </tr>
 
@@ -249,7 +249,7 @@
                         </td>
 
                         <td>
-                            <b id="countofEnteredRec"></b>
+                            <b id="countofAvailableRec"></b>
                         </td>
                         </td>
                     </tr>
@@ -348,6 +348,10 @@
             okOfCitationsClicked(activetab,index,processedArray[activetab]);
         }else if(document.getElementById("headerTitle").innerText==="References"){
             okOfReferencesClicked(activetab,index,processedArray[activetab]);
+        }else if(document.getElementById("headerTitle").innerText==="Publications"){
+            okOfPapersAuthoredClicked(activetab,index,processedArray[activetab]);
+        }else if(document.getElementById("headerTitle").innerText==="Co-authorship"){
+            okOfCoAuthorshipClicked(activetab,index,processedArray[activetab]);
         }
 
     });

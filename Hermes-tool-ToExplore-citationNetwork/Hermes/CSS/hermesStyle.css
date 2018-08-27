@@ -735,7 +735,6 @@ body {
 
 #countofRec,#countofEnteredRec,#countofDisplayedRec{
     width: 100px;
-    padding: 12px;
 }
 
 #recInputTitle,#recEnteredTitle,#recDisplayedTitle{
