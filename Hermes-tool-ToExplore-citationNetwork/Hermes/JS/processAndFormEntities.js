@@ -398,6 +398,114 @@ function showPapersPublished(index,processedArray,activeTab) {
 
 }
 
+function showVenue(index,processedArray,activeTab) {
+    var venueIds = [];
+    var venuecompltDetails = [];
+    var venids;
+
+    d3.select('.context-menu').style('display', 'none');
+    $("#graphArea").css("cursor", "wait");
+
+    var intial_length = processedArray.length;
+    if (processedArray[index]._source.vType === vertexType.PAPER) {
+        _LTracker.push({
+            'method':'showVenue',
+            'tag': 'VenueofPaper',
+            'value':processedArray[index]._source.PAPER_ID
+        });
+
+        var urlforvenueId = "http://localhost:9200/dblprelation_venueofpaper/_search?q=PAPER_ID:" + "\"" + processedArray[index]._source.PAPER_ID + "\"";
+        _LTracker.push({
+            'method':'showVenue',
+            'tag': 'Queries',
+            'url':urlforvenueId
+        });
+
+        d3.json(urlforvenueId, function (error, resultIds) {
+
+            if (error)
+                _LTracker.push({
+                    'method':'showVenue',
+                    'tag': 'Error',
+                    'value':error
+                });
+
+            venueIds=resultIds.hits.hits;
+            _LTracker.push({
+                'method':'showVenue',
+                'tag': 'Results',
+                'time in ms':resultIds.took,
+                'value':resultIds.hits.hits
+            });
+
+            if(venueIds.length>0){
+                for(var m=0;m<venueIds.length;m++){
+
+                    if( m<venueIds.length-1){
+                        venids=venids+("\""+venueIds[m]._source.VENUE_ID+"\"")+"OR";
+                    }
+                    else{
+                        venids=venids+("\""+venueIds[m]._source.VENUE_ID+"\"");
+                    }
+                }
+            }
+            if(venids!==undefined) {
+                var urlforVenueName = "http://localhost:9200/dblpvertexes/_search?q=vType:venue AND VENUE_ID:(" + venids.substring(9, venids.length) + ")";
+                _LTracker.push({
+                    'method':'showVenue',
+                    'tag': 'Queries',
+                    'url':urlforVenueName
+                });
+
+                d3.json(urlforVenueName, function (error, resultnames) {
+
+                    if (error)
+                        _LTracker.push({
+                            'method':'showVenue',
+                            'tag': 'Error',
+                            'value':error
+                        });
+
+                    venuecompltDetails = resultnames.hits.hits;
+                    _LTracker.push({
+                        'method':'showVenue',
+                        'tag': 'Results',
+                        'time in ms':resultnames.took,
+                        'value':resultnames.hits.hits
+                    });
+
+                    for (var j = 0; j < venuecompltDetails.length; j++) {
+                        if (!venueAlreadyAdded[activeTab].has(venuecompltDetails[j]._source.VENUE_NAME)) {
+
+                            var idPos = processedArray.push(venuecompltDetails[j]);
+                            venueAlreadyAdded[activeTab].set(venuecompltDetails[j]._source.VENUE_NAME, idPos - 1);
+                            var newLink = new createLinks(index, processedArray.length - 1, "has_venue");
+                            linksArray[activeTab].push(newLink);
+                        } else {
+                            var newLink = new createLinks(index, venueAlreadyAdded[activeTab].get(venuecompltDetails[j]._source.VENUE_NAME), "has_venue");
+                            linksArray[activeTab].push(newLink);
+                        }
+                    }
+
+                    JSON.stringify(linksArray);
+                    JSON.stringify(processedArray);
+                    addedSVGs = d3.selectAll("svg");
+                    idName = "#" + addedSVGs[0][activeTab].getAttribute("id");
+                    $(idName).empty();
+
+                    createGraph(processedArray, linksArray[activeTab], false, false, activeTab);
+                    $("#graphArea").css("cursor", "default");
+
+
+                });
+            }else{
+                alert("Venue information of the paper is not available");
+                $("#graphArea").css("cursor", "default");
+            }
+        });
+    }
+}
+
 function showAuthorNotCoauthor(index,processedArray,activeTab) {
     var coAuthorIds=[];
     var mainAuthorIds=[];
@@ -652,115 +760,13 @@ function showAuthorNotCoauthor(index,processedArray,activeTab) {
     });
 }
 
-function showVenue(index,processedArray,activeTab) {
-    var venueIds = [];
-    var venuecompltDetails = [];
-    var venids;
-
-    d3.select('.context-menu').style('display', 'none');
-    $("#graphArea").css("cursor", "wait");
-
-    var intial_length = processedArray.length;
-    if (processedArray[index]._source.vType === vertexType.PAPER) {
-        _LTracker.push({
-            'method':'showVenue',
-            'tag': 'VenueofPaper',
-            'value':processedArray[index]._source.PAPER_ID
-        });
-
-        var urlforvenueId = "http://localhost:9200/dblprelation_venueofpaper/_search?q=PAPER_ID:" + "\"" + processedArray[index]._source.PAPER_ID + "\"";
-        _LTracker.push({
-            'method':'showVenue',
-            'tag': 'Queries',
-            'url':urlforvenueId
-        });
-
-        d3.json(urlforvenueId, function (error, resultIds) {
-
-            if (error)
-                _LTracker.push({
-                    'method':'showVenue',
-                    'tag': 'Error',
-                    'value':error
-                });
-
-            venueIds=resultIds.hits.hits;
-            _LTracker.push({
-                'method':'showVenue',
-                'tag': 'Results',
-                'time in ms':resultIds.took,
-                'value':resultIds.hits.hits
-            });
-
-            if(venueIds.length>0){
-                for(var m=0;m<venueIds.length;m++){
-
-                    if( m<venueIds.length-1){
-                        venids=venids+("\""+venueIds[m]._source.VENUE_ID+"\"")+"OR";
-                    }
-                    else{
-                        venids=venids+("\""+venueIds[m]._source.VENUE_ID+"\"");
-                    }
-                }
-            }
-            if(venids!==undefined) {
-                var urlforVenueName = "http://localhost:9200/dblpvertexes/_search?q=vType:venue AND VENUE_ID:(" + venids.substring(9, venids.length) + ")";
-                _LTracker.push({
-                    'method':'showVenue',
-                    'tag': 'Queries',
-                    'url':urlforVenueName
-                });
-
-                d3.json(urlforVenueName, function (error, resultnames) {
-
-                    if (error)
-                        _LTracker.push({
-                            'method':'showVenue',
-                            'tag': 'Error',
-                            'value':error
-                        });
-
-                    venuecompltDetails = resultnames.hits.hits;
-                    _LTracker.push({
-                        'method':'showVenue',
-                        'tag': 'Results',
-                        'time in ms':resultnames.took,
-                        'value':resultnames.hits.hits
-                    });
-
-                    for (var j = 0; j < venuecompltDetails.length; j++) {
-                        if (!venueAlreadyAdded[activeTab].has(venuecompltDetails[j]._source.VENUE_NAME)) {
-
-                            var idPos = processedArray.push(venuecompltDetails[j]);
-                            venueAlreadyAdded[activeTab].set(venuecompltDetails[j]._source.VENUE_NAME, idPos - 1);
-                            var newLink = new createLinks(index, processedArray.length - 1, "has_venue");
-                            linksArray[activeTab].push(newLink);
-                        } else {
-                            var newLink = new createLinks(index, venueAlreadyAdded[activeTab].get(venuecompltDetails[j]._source.VENUE_NAME), "has_venue");
-                            linksArray[activeTab].push(newLink);
-                        }
-                    }
-
-                    JSON.stringify(linksArray);
-                    JSON.stringify(processedArray);
-                    addedSVGs = d3.selectAll("svg");
-                    idName = "#" + addedSVGs[0][activeTab].getAttribute("id");
-                    $(idName).empty();
-
-                    createGraph(processedArray, linksArray[activeTab], false, false, activeTab);
-                    $("#graphArea").css("cursor", "default");
-
-
-                });
-            }else{
-                alert("Venue information of the paper is not available");
-                $("#graphArea").css("cursor", "default");
-            }
-        });
-    }
-}
-
-
+/**
+ * shows modal and available coauthorship count of an author,for this we query for coauthors and for authors when given author is coauthor and add in a set to avoid duplicates
+ * allows user to enter number of records to be displayed
+ * @param index
+ * @param processedArray
+ * @param activeTab
+ */
 function showCoAuthorship(index,processedArray,activeTab) {
     var coauthorIds=new Set();
 
@@ -889,187 +895,13 @@ function showCoAuthorship(index,processedArray,activeTab) {
         $("#graphArea").css("cursor", "default");
     }
 
-
-/*
-    d3.select('.context-menu').style('display', 'none');
-    $("#graphArea").css("cursor", "wait");
-
-    if (processedArray[index]._source.vType ===vertexType.AUTHOR) {
-        _LTracker.push({
-            'method': 'showCoAuthorship',
-            'tag': 'CoAuthors',
-            'value': processedArray[index]._source.AUTHOR_ID
-        });
-    }
-    var urlcoAuthors="http://localhost:9200/dblprelation_coauthorship/_search?q=AUTHOR_ID:"+"\""+processedArray[index]._source.AUTHOR_ID+"\"&size=100";
-    _LTracker.push({
-        'method':'showCoAuthorship',
-        'tag': 'Queries',
-        'url':urlcoAuthors
-    });
-
-    d3.json(urlcoAuthors,function (error,resultIds) {
-        if (error)
-            _LTracker.push({
-                'method':'showCoAuthorship',
-                'tag': 'Error',
-                'value':error
-            });
-
-        coAuthorIds = resultIds.hits.hits;
-        _LTracker.push({
-            'method':'showCoAuthorship',
-            'tag': 'Results',
-            'time in ms':resultIds.took,
-            'value':resultIds.hits.hits
-        });
-
-        if(coAuthorIds.length>0){
-            for(var m=0;m<coAuthorIds.length;m++){
-
-                if( m<coAuthorIds.length-1){
-                    cauids=cauids+("\""+coAuthorIds[m]._source.COAUTHOR_ID+"\"")+"OR";
-                }
-                else{
-                    cauids=cauids+("\""+coAuthorIds[m]._source.COAUTHOR_ID+"\"");
-                }
-            }
-            urlforcoAuthors = "http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:(" + cauids.substring(9, cauids.length) + ")&size=100";
-        }else{
-            urlforcoAuthors = "http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:"+ "\""+"\"";
-        }
-
-        _LTracker.push({
-            'method':'showCoAuthorship',
-            'tag': 'Queries',
-            'url':urlforcoAuthors
-        });
-        d3.json(urlforcoAuthors, function (error, resultnames) {
-            if (error)
-                _LTracker.push({
-                    'method':'showCoAuthorship',
-                    'tag': 'Error',
-                    'value':error
-                });
-
-            coAuthorcmpltdetails = resultnames.hits.hits;
-            _LTracker.push({
-                'method':'showCoAuthorship',
-                'tag': 'Results',
-                'time in ms':resultnames.took,
-                'value':resultnames.hits.hits
-            });
-
-            for (var j = 0; j < coAuthorcmpltdetails.length; j++) {
-                if (!authorAlreadyAdded[activeTab].has(coAuthorcmpltdetails[j]._source.AUTHOR_NAME)) {
-
-                    var idPos = processedArray.push(coAuthorcmpltdetails[j]);
-                    authorAlreadyAdded[activeTab].set(coAuthorcmpltdetails[j]._source.AUTHOR_NAME, idPos - 1);
-                    var newLink = new createLinks(index, processedArray.length - 1, "coauthor");
-                    linksArray[activeTab].push(newLink);
-                } else {
-                    var newLink = new createLinks(index, authorAlreadyAdded[activeTab].get(coAuthorcmpltdetails[j]._source.AUTHOR_NAME), "");
-                    linksArray[activeTab].push(newLink);
-                }
-            }
-
-            //Querying for authors for whom selected author maybe a coauthor
-            var urlmainAuthorsOfcoAuthors = "http://localhost:9200/dblprelation_coauthorship/_search?q=COAUTHOR_ID:" + "\"" + processedArray[index]._source.AUTHOR_ID + "\"size=100";
-            _LTracker.push({
-                'method':'showCoAuthorship',
-                'tag': 'Queries',
-                'url':urlmainAuthorsOfcoAuthors
-            });
-            d3.json(urlmainAuthorsOfcoAuthors, function (error, resultIds) {
-
-                if (error)
-                    _LTracker.push({
-                        'method':'showCoAuthorship',
-                        'tag': 'Error',
-                        'value':error
-                    });
-
-                mainAuthorsOfcoauthorIds = resultIds.hits.hits;
-                _LTracker.push({
-                    'method':'showCoAuthorship',
-                    'tag': 'Results',
-                    'time in ms':resultIds.took,
-                    'value':resultIds.hits.hits
-                });
-                if (mainAuthorsOfcoauthorIds.length > 0) {
-                    for (var m = 0; m < mainAuthorsOfcoauthorIds.length; m++) {
-
-                        if (m < mainAuthorsOfcoauthorIds.length - 1) {
-                            auids = auids + ("\"" + mainAuthorsOfcoauthorIds[m]._source.AUTHOR_ID + "\"") + "OR";
-                        }
-                        else {
-                            auids = auids + ("\"" + mainAuthorsOfcoauthorIds[m]._source.AUTHOR_ID + "\"");
-                        }
-                    }
-                    urlformainAuthorsOfcoAuthors = "http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:(" + auids.substring(9, auids.length) + ")&size=100";
-
-                }else{
-
-                    urlformainAuthorsOfcoAuthors = "http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:" + "\""+"\"";
-                }
-                _LTracker.push({
-                    'method':'showCoAuthorship',
-                    'tag': 'Queries',
-                    'url':urlformainAuthorsOfcoAuthors
-                });
-                d3.json(urlformainAuthorsOfcoAuthors, function (error, resultnames) {
-                    if (error)
-                        _LTracker.push({
-                            'method':'showCoAuthorship',
-                            'tag': 'Error',
-                            'value':error
-                        });
-
-                    mainAuthorsOfcoauthorcmpltDetails = resultnames.hits.hits;
-                    _LTracker.push({
-                        'method':'showCoAuthorship',
-                        'tag': 'Results',
-                        'time in ms':resultnames.took,
-                        'value':resultnames.hits.hits
-                    });
-
-                    if(mainAuthorsOfcoauthorcmpltDetails.length>0) {
-                        for (var j = 0; j < mainAuthorsOfcoauthorcmpltDetails.length; j++) {
-                            if (!authorAlreadyAdded[activeTab].has(mainAuthorsOfcoauthorcmpltDetails[j]._source.AUTHOR_NAME)) {
-                                var idPos = processedArray.push(mainAuthorsOfcoauthorcmpltDetails[j]);
-                                authorAlreadyAdded[activeTab].set(mainAuthorsOfcoauthorcmpltDetails[j]._source.AUTHOR_NAME, idPos - 1);
-                                var newLink = new createLinks(index, processedArray.length - 1, "coauthor");
-                                linksArray[activeTab].push(newLink);
-                            } else {
-                                var newLink = new createLinks(index, authorAlreadyAdded[activeTab].get(mainAuthorsOfcoauthorcmpltDetails[j]._source.AUTHOR_NAME), "");
-                                linksArray[activeTab].push(newLink);
-                            }
-                        }
-                        JSON.stringify(linksArray);
-                        JSON.stringify(processedArray);
-                        addedSVGs = d3.selectAll("svg");
-                        idName = "#" + addedSVGs[0][activeTab].getAttribute("id");
-                        $(idName).empty();
-                        update(activeTabIndex);
-                        createGraph(processedArray, linksArray[activeTab], false, true, activeTab);
-                        $("#graphArea").css("cursor", "default");
-                    }else{
-                        JSON.stringify(linksArray);
-                        JSON.stringify(processedArray);
-                        addedSVGs = d3.selectAll("svg");
-                        idName = "#" + addedSVGs[0][activeTab].getAttribute("id");
-                        $(idName).empty();
-                        update(activeTabIndex);
-                        createGraph(processedArray, linksArray[activeTab], false, true, activeTab);
-                        $("#graphArea").css("cursor", "default");
-
-                    }
-                });
-            });
-        });
-    });*/
 }
-
+/**
+ * Synchronous http requests to get the coauthor details of a particular author,the authorids in set is used  (from, size are calculated based on entered value)
+ * @param activeTab
+ * @param index
+ * @param processedArray
+ */
 function okOfCoAuthorshipClicked(activeTab,index,processedArray) {
     var aids;
     var retrievalSize;
@@ -1105,7 +937,7 @@ function okOfCoAuthorshipClicked(activeTab,index,processedArray) {
             }
         }
 
-        var urlforAuthorDetails = "http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:(" + aids + ")&size=100";
+        var urlforAuthorDetails = "http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:(" + aids + ")&size="+enteredVal;
 
         $.ajax({
             dataType: "json",
@@ -1132,18 +964,19 @@ function okOfCoAuthorshipClicked(activeTab,index,processedArray) {
                 }else{
                     retrievalSize=sizeofrecords;
                 }
-
-                for(var l=start;l<retrievalSize;l++){
-                    if (l< retrievalSize-1) {
+                aids="";
+                for(var l=start;l<(start+retrievalSize);l++){
+                    if (l< (start+retrievalSize)-1) {
                         aids = aids + ("\"" + limitedIds[l]+ "\"") + "OR";
                     }
                     else {
                         aids = aids + ("\"" + limitedIds[l]+ "\"");
                     }
                 }
-                start+=retrievalSize;
 
                 var urlforAuthorDetails = "http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:(" + aids + ")&size="+retrievalSize;
+
+                start+=retrievalSize;
 
                 $.ajax({
                     dataType: "json",
