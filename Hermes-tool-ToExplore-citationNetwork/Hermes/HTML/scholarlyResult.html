@@ -352,8 +352,9 @@
             okOfPapersAuthoredClicked(activetab,index,processedArray[activetab]);
         }else if(document.getElementById("headerTitle").innerText==="Co-authorship"){
             okOfCoAuthorshipClicked(activetab,index,processedArray[activetab]);
+        }else if(document.getElementById("headerTitle").innerText==="Citing non-coauthors"){
+            okOfNonCoAuthorshipClicked(activetab,index,processedArray[activetab]);
         }
-
     });
 
     window.onclick = hideContextMenu;
@@ -441,6 +442,14 @@
             coAuthorsAlreadyAdded[id]=new Map();
             fosAlreadyAdded[id]=new Map();
             instituteAlreadyAdded[id]=new Map();
+            paperWithCitationSeen[id]=new Map();
+            paperWithReferenceSeen[id]=new Map();
+            authorWithPublicationSeen[id]=new Map();
+            authorWithCoauthorshipSeen[id]=new Map();
+            coAtuthorIdsofAuthor[id]=new Map();
+
+            authorWithCitingNonCoauthorshipSeen[id]=new Map();
+            citingNoncoAtuthorIdsofAuthor[id]=new Map();
 
             processedArray[id]=[];
             linksArray[id]=[];

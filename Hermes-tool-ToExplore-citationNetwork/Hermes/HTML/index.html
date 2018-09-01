@@ -58,22 +58,6 @@
             $("#header").load("Header.html");
             $("#footer").load("Footer.html");
         });
-
-
-        $('div.mysuggestion').on('focus', 'li', function() {
-            $this = $(this);
-            $this.addClass('active1').siblings().removeClass();
-            $this.closest('div.mysuggestion').scrollTop($this.index() * $this.outerHeight());
-        }).on('keydown', 'li', function(e) {
-            $this = $(this);
-            if (e.keyCode == 40) {
-                $this.next().focus();
-                return false;
-            } else if (e.keyCode == 38) {
-                $this.prev().focus();
-                return false;
-            }
-        }).find('li').first().focus();
     </script>
 
 </body>

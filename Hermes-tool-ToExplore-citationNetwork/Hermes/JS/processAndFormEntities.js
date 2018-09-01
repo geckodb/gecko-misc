@@ -30,7 +30,12 @@ var authorWithPublicationSeen=[[]];
 //variables used to view coauthorship
 var authorWithCoauthorshipSeen=[[]];
 var coAtuthorIdsofAuthor=[[]];
-var coAuthorDetails=[[]];
+var coAuthorDetails=[];
+
+//variables used to view coauthorship
+var authorWithCitingNonCoauthorshipSeen=[[]];
+var citingNoncoAtuthorIdsofAuthor=[[]];
+var nonCoAuthorDetails=[];
 
 authorAlreadyAdded[0]=new Map();
 publicationAlreadyAdded[0]=new Map();
@@ -39,50 +44,36 @@ coAuthorsAlreadyAdded[0]=new Map();
 fosAlreadyAdded[0]=new Map();
 instituteAlreadyAdded[0]=new Map();
 paperAlreadyAdded[0]=new Map();
+
 paperWithCitationSeen[0]=new Map();
 paperWithReferenceSeen[0]=new Map();
+
 authorWithPublicationSeen[0]=new Map();
 authorWithCoauthorshipSeen[0]=new Map();
+
 coAtuthorIdsofAuthor[0]=new Map();
+authorWithCitingNonCoauthorshipSeen[0]=new Map();
+citingNoncoAtuthorIdsofAuthor[0]=new Map();
 
-class _source {
-    constructor(state, value) {
-        switch (state) {
-            case "author":
-                this.vType = state;
-                this.author = value;
-                break;
-            case "org":
-                this.vType = state;
-                this.org = value;
-                break;
-            case "fos":
-                this.vType = state;
-                this.fos = value;
-                break;
-            case "journal":
-                this.vType = state;
-                this.publisher = value;
-                break;
-            case "venue":
-                this.vType = state;
-                this.venue = value;
-                break;
-            case "cites":
-                this.vType=state;
-                this.title=value._source.titleCiter;
-            //this.authors=value._source.authorsCited;
-
-        }
-    }
-}
-
+/**
+ * creates links between passed source and target index with a label
+ * @param source
+ * @param target
+ * @param edgeName
+ */
 function createLinks(source, target,edgeName) {
     this.source = source;
     this.target = target;
     this.label=edgeName;
 }
 
+/**
+ * shows authors of the selected paper
+ * @param idToEXpand
+ * @param index
+ * @param processedArray
+ * @param activeTab
+ */
 function showAuthors(idToEXpand,index, processedArray,activeTab) {
     var authorIds=[];
     var authorcompltDetails=[];
@@ -186,6 +177,12 @@ function showAuthors(idToEXpand,index, processedArray,activeTab) {
     }
 }
 
+/**
+ * shows journal for the selected paper
+ * @param index
+ * @param processedArray
+ * @param activeTab
+ */
 function showJournals(index, processedArray,activeTab) {
     var journalIds = [];
     var journalcompltDetails = [];
@@ -294,6 +291,12 @@ function showJournals(index, processedArray,activeTab) {
     }
 }
 
+/**
+ * shows the papers published for a selected venue
+ * @param index
+ * @param processedArray
+ * @param activeTab
+ */
 function showPapersPublished(index,processedArray,activeTab) {
     var paperIds=[];
     var papercompltDetails=[];
@@ -398,6 +401,12 @@ function showPapersPublished(index,processedArray,activeTab) {
 
 }
 
+/**
+ * shows venue node for selected paper
+ * @param index
+ * @param processedArray
+ * @param activeTab
+ */
 function showVenue(index,processedArray,activeTab) {
     var venueIds = [];
     var venuecompltDetails = [];
@@ -506,23 +515,32 @@ function showVenue(index,processedArray,activeTab) {
     }
 }
 
+
+/**
+ * shows modal and available cited non coauthors count of an author,for this we query citing non-coauthors of a given author and add them into Map with author id as key and set as the value.
+ * and also allows user to enter number of records to be displayed
+ * @param index
+ * @param processedArray
+ * @param activeTab
+ */
 function showAuthorNotCoauthor(index,processedArray,activeTab) {
+
     var coAuthorIds=[];
-    var mainAuthorIds=[];
-    var paperIds=[];
     var coAuthorId= new Set();
-    var pIds;
-    var urlforCitingIds;
+    var totalRecordCnt;
+    var paperIdsofAuthor=[];
+    var pids;
+    var retrievalSize;
+    var sizeofrecords;
+    var refrom;
+    var start=0;
     var citingIds=[];
     var cids;
-    var urlforCitingAuthors;
-    var citingAuthorIds=[];
-    var citingAuthorsNotCoauthors=[];
-    var aids;
-    var urlgetAuthorInfo;
+    var urlforCitingIds;
+    var citedAuthorIds=[];
+    var nonCoAuthorId=new Set();
 
-    d3.select('.context-menu').style('display', 'none');
-    $("#graphArea").css("cursor", "wait");
+
 
     _LTracker.push({
         'method': 'showAuthorNotCoauthor',
@@ -530,61 +548,179 @@ function showAuthorNotCoauthor(index,processedArray,activeTab) {
         'value': processedArray[index]._source.AUTHOR_ID
     });
 
-    //fill coauthorids into set
-    var urlcoAuthors="http://localhost:9200/dblprelation_coauthorship/_search?q=AUTHOR_ID:"+"\""+processedArray[index]._source.AUTHOR_ID+"\"&size=100";
-    _LTracker.push({
-        'method':'showAuthorNotCoauthor',
-        'tag': 'Queries',
-        'url':urlcoAuthors
-    });
+    if(coAtuthorIdsofAuthor[activeTab].has(processedArray[index]._source.AUTHOR_ID)){
+        coAuthorId=coAtuthorIdsofAuthor[activeTab].get(processedArray[index]._source.AUTHOR_ID);
+    }
+    else {
+        coAuthorId=fillCoAUthorIds(processedArray[index]._source.AUTHOR_ID);
+        coAtuthorIdsofAuthor[activeTab].set(processedArray[index]._source.AUTHOR_ID,coAuthorId);
+    }
 
-    coAuthorId.add(processedArray[index]._source.AUTHOR_ID);
-    d3.json(urlcoAuthors, function (error, resultIds) {
-        if (error)
-            _LTracker.push({
-                'method':'showAuthorNotCoauthor',
-                'tag': 'Error',
-                'value':error
+    if(citingNoncoAtuthorIdsofAuthor[activeTab].has(processedArray[index]._source.AUTHOR_ID)){
+        nonCoAuthorId=citingNoncoAtuthorIdsofAuthor[activeTab].get(processedArray[index]._source.AUTHOR_ID);
+    }else {
+        //get all papers of the author
+        var urlPaperIds = "http://localhost:9200/dblprelation_authorship/_search?q=AUTHOR_ID:\"" + processedArray[index]._source.AUTHOR_ID + "\"&size=1000";
+        $.ajax({
+            dataType: "json",
+            url: urlPaperIds,
+            async: false,
+            success: function (data) {
+                totalRecordCnt = parseInt(data.hits.total);
+                var paperIds = [];
+                paperIds = data.hits.hits;
+
+                for (var i = 0; i < paperIds.length; i++) {
+                    paperIdsofAuthor.push(paperIds[i]._source.PAPER_ID);
+                }
+
+                if (totalRecordCnt > 1000) {
+                    var loopCnt = Math.ceil(totalRecordCnt / 1000);
+                    for (var j = 1; j < loopCnt; j++) {
+                        $.ajax({
+                            dataType: "json",
+                            url: "http://localhost:9200/dblprelation_authorship/_search?q=AUTHOR_ID:\"" + processedArray[index]._source.AUTHOR_ID + "\"&from=" + (j * 1000) + "&size=1000",
+                            async: false,
+                            success: function (extendeddata) {
+                                var extendedIds = [];
+                                extendedIds = extendeddata.hits.hits;
+
+                                for (var i = 0; i < extendedIds.length; i++) {
+                                    paperIdsofAuthor.push(paperIds[i]._source.PAPER_ID);
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+
+        //get all citing papers for a given set of paper ids
+        var loops = Math.ceil(paperIdsofAuthor.length / 90);
+        sizeofrecords = paperIdsofAuthor.length;
+        for (var k = 0; k < loops; k++) {
+            if (sizeofrecords > 90) {
+                retrievalSize = 90;
+                sizeofrecords = sizeofrecords - 90;
+            } else {
+                retrievalSize = sizeofrecords;
+            }
+            pids = "";
+            for (var l = start; l < (start + retrievalSize); l++) {
+                if (l < (start + retrievalSize) - 1) {
+                    pids = pids + ("\"" + paperIdsofAuthor[l] + "\"") + "OR";
+                }
+                else {
+                    pids = pids + ("\"" + paperIdsofAuthor[l] + "\"");
+                }
+            }
+
+            var urlforCitingIds = "http://localhost:9200/dblprelation_citation/_search?q=REFERENCE_ID:(" + pids + ")&size=" + retrievalSize;
+
+            start += retrievalSize;
+
+            $.ajax({
+                dataType: "json",
+                url: urlforCitingIds,
+                async: false,
+                success: function (data) {
+                    citingIds = citingIds.concat(data.hits.hits);
+
+                }
             });
-
-        coAuthorIds=resultIds.hits.hits;
-        _LTracker.push({
-            'method':'showAuthorNotCoauthor',
-            'tag': 'Results',
-            'time in ms':resultIds.took,
-            'value':resultIds.hits.hits
-        });
-
-        for(var m=0;m<coAuthorIds.length;m++){
-            coAuthorId.add(coAuthorIds[m]._source.COAUTHOR_ID);
         }
-        //fill coauthorids into set
-        var urlmainAuthorsOfcoAuthors = "http://localhost:9200/dblprelation_coauthorship/_search?q=COAUTHOR_ID:" + "\"" + processedArray[index]._source.AUTHOR_ID + "\"&size=100";
-        _LTracker.push({
-            'method':'showAuthorNotCoauthor',
-            'tag': 'Queries',
-            'url':urlmainAuthorsOfcoAuthors
-        });
+
+        //get all author ids for a given set of paper ids
+
+        var loop = Math.ceil(citingIds.length / 90);
+        sizeofrecords = citingIds.length;
+        start = 0;
+        retrievalSize = 0;
+        for (var k = 0; k < loop; k++) {
+            if (sizeofrecords > 90) {
+                retrievalSize = 90;
+                sizeofrecords = sizeofrecords - 90;
+            } else {
+                retrievalSize = sizeofrecords;
+            }
+            cids = "";
+            for (var l = start; l < (start + retrievalSize); l++) {
+                if (l < (start + retrievalSize) - 1) {
+                    cids = cids + ("\"" + citingIds[l]._source.PAPER_ID + "\"") + "OR";
+                }
+                else {
+                    cids = cids + ("\"" + citingIds[l]._source.PAPER_ID + "\"");
+                }
+            }
+
+            var urlforCitedAuthorIds = "http://localhost:9200/dblprelation_authorship/_search?q=PAPER_ID:(" + cids + ")&size=" + retrievalSize;
+
+            start += retrievalSize;
+
+            $.ajax({
+                dataType: "json",
+                url: urlforCitedAuthorIds,
+                async: false,
+                success: function (data) {
+                    citedAuthorIds = citedAuthorIds.concat(data.hits.hits);
+                }
+            });
+        }
+
+        //check if obtained citedAuthorIds are in coAuthorId set and store only which are not
+
+        for (var i = 0; i < citedAuthorIds.length; i++) {
+            if ((!coAuthorId.has(citedAuthorIds[i]._source.AUTHOR_ID))&&!(citedAuthorIds[i]._source.AUTHOR_ID===processedArray[index]._source.AUTHOR_ID)) {
+                nonCoAuthorId.add(citedAuthorIds[i]._source.AUTHOR_ID);
+            }
+        }
+    }
+
+    if(nonCoAuthorId.size>0){
+        document.getElementById("headerTitle").innerText="Citing non-coauthors";
+        document.getElementById("totalRec").innerText="Total Records";
+        document.getElementById("countofTotalRec").innerText=nonCoAuthorId.size;
+        document.getElementById("recInput").value="";
+        document.getElementById("OKbtn").classList.add("disabled");
+        document.getElementById("OKbtn").style.cursor="not-allowed";
+        document.getElementById("warningMsg").style.color="black";
+        document.getElementById("recInput").disabled=false;
+
+        if(authorWithCitingNonCoauthorshipSeen[activeTab].has(processedArray[index]._source.AUTHOR_ID)){
+            availableRecordCount= nonCoAuthorId.size - authorWithCitingNonCoauthorshipSeen[activeTab].get(processedArray[index]._source.AUTHOR_ID);
+            document.getElementById("countofAvailableRec").innerText=availableRecordCount;
+            document.getElementById("countofDisplayedRec").innerText=authorWithCitingNonCoauthorshipSeen[activeTab].get(processedArray[index]._source.AUTHOR_ID);
+
+            if(availableRecordCount===0){
+                document.getElementById("recInput").disabled=true;
+            }
+        }else{
+            citingNoncoAtuthorIdsofAuthor[activeTab].set(processedArray[index]._source.AUTHOR_ID,nonCoAuthorId);
+            availableRecordCount=nonCoAuthorId.size;
+            document.getElementById("countofAvailableRec").innerText=availableRecordCount;
+            document.getElementById("countofDisplayedRec").innerText=0;
+        }
+
+        document.getElementById("selectedIndexValue").innerText=index;
+
+        $("#showLimitedRecords").modal('show');
+
+    }else{
+        alert("Citing non-coauthor information for a selected author is not available");
+        $("#graphArea").css("cursor", "default");
+    }
+
+     //fill coauthorids into set
+
+    /*d3.json(urlcoAuthors, function (error, resultIds) {
+        if (error)
+
+
+
 
         d3.json(urlmainAuthorsOfcoAuthors, function (error, resultIds) {
-            if (error)
-                _LTracker.push({
-                    'method':'showAuthorNotCoauthor',
-                    'tag': 'Error',
-                    'value':error
-                });
 
-            mainAuthorIds = resultIds.hits.hits;
-            _LTracker.push({
-                'method':'showAuthorNotCoauthor',
-                'tag': 'Results',
-                'time in ms':resultIds.took,
-                'value':resultIds.hits.hits
-            });
-
-            for (var m = 0; m < mainAuthorIds.length; m++) {
-                coAuthorId.add(mainAuthorIds[m]._source.AUTHOR_ID);
-            }
             //take the authorid and get all his papers
             var urlPaperIds="http://localhost:9200/dblprelation_authorship/_search?q=AUTHOR_ID:\""+processedArray[index]._source.AUTHOR_ID+"\"&size=90";
             _LTracker.push({
@@ -757,7 +893,221 @@ function showAuthorNotCoauthor(index,processedArray,activeTab) {
                 });
             });
         });
+    });*/
+}
+
+/**
+ * Synchronous http requests to get the citing non-coauthor details of a particular author,the authorids in nonCoAuthorDetails set is used  (from, size are calculated based on entered value)
+ * @param activeTab
+ * @param index
+ * @param processedArray
+ */
+function okOfNonCoAuthorshipClicked(activeTab,index,processedArray) {
+    var aids;
+    var retrievalSize;
+    var sizeofrecords;
+    var refrom;
+    var start=0;
+    var coAuthorshipIds=[];
+    nonCoAuthorDetails=[];
+
+    CloseLimitRecordsWindow();
+    $("#graphArea").css("cursor", "wait");
+    var enteredVal = parseInt(document.getElementById("recInput").value);
+    if(authorWithCitingNonCoauthorshipSeen[activeTab].has(processedArray[index]._source.AUTHOR_ID)){
+        var prevValue=authorWithCitingNonCoauthorshipSeen[activeTab].get(processedArray[index]._source.AUTHOR_ID);
+        authorWithCitingNonCoauthorshipSeen[activeTab].set(processedArray[index]._source.AUTHOR_ID,parseInt(enteredVal)+parseInt(prevValue));
+        refrom=prevValue;
+    }else{
+        authorWithCitingNonCoauthorshipSeen[activeTab].set(processedArray[index]._source.AUTHOR_ID,parseInt(enteredVal));
+        refrom=0;
+    }
+
+    coAuthorshipIds=Array.from(citingNoncoAtuthorIdsofAuthor[activeTab].get(processedArray[index]._source.AUTHOR_ID));
+    aids="";
+    if(enteredVal<=100){
+
+        for (var m = refrom; m <(enteredVal+refrom); m++) {
+
+            if (m < enteredVal-1) {
+                aids = aids + ("\"" + coAuthorshipIds[m]+ "\"") + "OR";
+            }
+            else {
+                aids = aids + ("\"" + coAuthorshipIds[m]+ "\"");
+            }
+        }
+
+        var urlforAuthorDetails = "http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:(" + aids + ")&size="+enteredVal;
+
+        $.ajax({
+            dataType: "json",
+            url: urlforAuthorDetails,
+            async: false,
+            success: function (data) {
+                nonCoAuthorDetails= nonCoAuthorDetails.concat(data.hits.hits)
+            }
+        });
+
+    }else{
+        var limitedIds=[];
+        var count=0;
+        for(var x=refrom;x<(enteredVal+refrom);x++){
+            limitedIds[count++]=coAuthorshipIds[x];
+        }
+
+        var loops=Math.ceil(enteredVal/100);
+        sizeofrecords=limitedIds.length;
+        for(var k=0;k<loops;k++){
+            if(sizeofrecords>100){
+                retrievalSize=100;
+                sizeofrecords=sizeofrecords-100;
+            }else{
+                retrievalSize=sizeofrecords;
+            }
+            aids="";
+            for(var l=start;l<(start+retrievalSize);l++){
+                if (l< (start+retrievalSize)-1) {
+                    aids = aids + ("\"" + limitedIds[l]+ "\"") + "OR";
+                }
+                else {
+                    aids = aids + ("\"" + limitedIds[l]+ "\"");
+                }
+            }
+
+            var urlforAuthorDetails = "http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:(" + aids + ")&size="+retrievalSize;
+
+            start+=retrievalSize;
+
+            $.ajax({
+                dataType: "json",
+                url: urlforAuthorDetails,
+                async: false,
+                success: function (data) {
+                    nonCoAuthorDetails= nonCoAuthorDetails.concat(data.hits.hits)
+                }
+            });
+        }
+    }
+
+
+
+
+    for (var j = 0; j < nonCoAuthorDetails.length; j++) {
+        if (!authorAlreadyAdded[activeTab].has(nonCoAuthorDetails[j]._source.AUTHOR_NAME)) {
+
+            var idPos = processedArray.push(nonCoAuthorDetails[j]);
+            authorAlreadyAdded[activeTab].set(nonCoAuthorDetails[j]._source.AUTHOR_NAME, idPos - 1);
+            var newLink = new createLinks(processedArray.length - 1,index, "citing author");
+            linksArray[activeTab].push(newLink);
+        } else {
+            var newLink = new createLinks(authorAlreadyAdded[activeTab].get(nonCoAuthorDetails[j]._source.AUTHOR_NAME),index, "citing author");
+            linksArray[activeTab].push(newLink);
+        }
+    }
+
+    JSON.stringify(linksArray);
+    JSON.stringify(processedArray);
+    addedSVGs = d3.selectAll("svg");
+    idName = "#" + addedSVGs[0][activeTab].getAttribute("id");
+    $(idName).empty();
+
+    createGraph(processedArray, linksArray[activeTab], false, true, parseInt(activeTab));
+    $("#graphArea").css("cursor", "default");
+}
+
+
+/**
+ * Returns a set filled with coauthor ids of given author id
+ * @param authorId
+ * @returns {Set<any>}
+ */
+function fillCoAUthorIds(authorId) {
+    var totalRecords;
+    var coAuthorIds=new Set();
+    var urlcoAuthors = "http://localhost:9200/dblprelation_coauthorship/_search?q=AUTHOR_ID:" + "\"" + authorId + "\"&from=0&size=1000";
+    _LTracker.push({
+        'method': 'showCoAuthorship',
+        'tag': 'Queries',
+        'url': urlcoAuthors
     });
+
+    $.ajax({
+        dataType: "json",
+        url: urlcoAuthors,
+        async: false,
+        success: function (data) {
+            totalRecords = parseInt(data.hits.total);
+            var ids = [];
+            ids = data.hits.hits;
+
+
+            for (var i = 0; i < ids.length; i++) {
+                coAuthorIds.add(ids[i]._source.COAUTHOR_ID);
+            }
+
+            if (totalRecords > 1000) {
+                var loopCnt = Math.ceil(totalRecords / 1000);
+                for (var j = 1; j < loopCnt; j++) {
+                    $.ajax({
+                        dataType: "json",
+                        url: "http://localhost:9200/dblprelation_coauthorship/_search?q=AUTHOR_ID:" + "\"" + authorId + "\"&from=" + (j * 1000) + "&size=1000",
+                        async: false,
+                        success: function (extendeddata) {
+                            var extendedIds = [];
+                            extendedIds = extendeddata.hits.hits;
+
+                            for (var i = 0; i < extendedIds.length; i++) {
+                                coAuthorIds.add(ids[i]._source.COAUTHOR_ID);
+                            }
+                        }
+                    });
+                }
+            }
+        }
+    });
+
+    var urlAuthors = "http://localhost:9200/dblprelation_coauthorship/_search?q=COAUTHOR_ID:" + "\"" + authorId + "\"&from=0&size=1000";
+    _LTracker.push({
+        'method': 'showCoAuthorship',
+        'tag': 'Queries',
+        'url': urlAuthors
+    });
+
+    $.ajax({
+        dataType: "json",
+        url: urlAuthors,
+        async: false,
+        success: function (data) {
+            totalRecords = parseInt(data.hits.total);
+            var ids = [];
+            ids = data.hits.hits;
+
+            for (var i = 0; i < ids.length; i++) {
+                coAuthorIds.add(ids[i]._source.AUTHOR_ID);
+            }
+
+            if (totalRecords > 1000) {
+                var loopCnt = Math.ceil(totalRecords / 1000);
+                for (var j = 1; j < loopCnt; j++) {
+                    $.ajax({
+                        dataType: "json",
+                        url: "http://localhost:9200/dblprelation_coauthorship/_search?q=COAUTHOR_ID:" + "\"" + authorId + "\"&from=" + (j * 1000) + "&size=1000",
+                        async: false,
+                        success: function (extendeddata) {
+                            var extendedIds = [];
+                            extendedIds = extendeddata.hits.hits;
+
+                            for (var i = 0; i < extendedIds.length; i++) {
+                                coAuthorIds.add(ids[i]._source.AUTHOR_ID);
+                            }
+                        }
+                    });
+                }
+            }
+        }
+    });
+
+    return coAuthorIds;
 }
 
 /**
@@ -778,88 +1128,7 @@ function showCoAuthorship(index,processedArray,activeTab) {
         coauthorIds=coAtuthorIdsofAuthor[activeTab].get(processedArray[index]._source.AUTHOR_ID);
     }
     else {
-        var urlcoAuthors = "http://localhost:9200/dblprelation_coauthorship/_search?q=AUTHOR_ID:" + "\"" + processedArray[index]._source.AUTHOR_ID + "\"&from=0&size=1000";
-        _LTracker.push({
-            'method': 'showCoAuthorship',
-            'tag': 'Queries',
-            'url': urlcoAuthors
-        });
-
-        $.ajax({
-            dataType: "json",
-            url: urlcoAuthors,
-            async: false,
-            success: function (data) {
-                totalRecords = parseInt(data.hits.total);
-                var ids = [];
-                ids = data.hits.hits;
-
-
-                for (var i = 0; i < ids.length; i++) {
-                    coauthorIds.add(ids[i]._source.COAUTHOR_ID);
-                }
-
-                if (totalRecords > 1000) {
-                    var loopCnt = Math.ceil(totalRecords / 1000);
-                    for (var j = 1; j < loopCnt; j++) {
-                        $.ajax({
-                            dataType: "json",
-                            url: "http://localhost:9200/dblprelation_coauthorship/_search?q=AUTHOR_ID:" + "\"" + processedArray[index]._source.AUTHOR_ID + "\"&from=" + (j * 1000) + "&size=1000",
-                            async: false,
-                            success: function (extendeddata) {
-                                var extendedIds = [];
-                                extendedIds = extendeddata.hits.hits;
-
-                                for (var i = 0; i < extendedIds.length; i++) {
-                                    coauthorIds.add(ids[i]._source.COAUTHOR_ID);
-                                }
-                            }
-                        });
-                    }
-                }
-            }
-        });
-
-        var urlAuthors = "http://localhost:9200/dblprelation_coauthorship/_search?q=COAUTHOR_ID:" + "\"" + processedArray[index]._source.AUTHOR_ID + "\"&from=0&size=1000";
-        _LTracker.push({
-            'method': 'showCoAuthorship',
-            'tag': 'Queries',
-            'url': urlAuthors
-        });
-
-        $.ajax({
-            dataType: "json",
-            url: urlAuthors,
-            async: false,
-            success: function (data) {
-                totalRecords = parseInt(data.hits.total);
-                var ids = [];
-                ids = data.hits.hits;
-
-                for (var i = 0; i < ids.length; i++) {
-                    coauthorIds.add(ids[i]._source.AUTHOR_ID);
-                }
-
-                if (totalRecords > 1000) {
-                    var loopCnt = Math.ceil(totalRecords / 1000);
-                    for (var j = 1; j < loopCnt; j++) {
-                        $.ajax({
-                            dataType: "json",
-                            url: "http://localhost:9200/dblprelation_coauthorship/_search?q=COAUTHOR_ID:" + "\"" + processedArray[index]._source.AUTHOR_ID + "\"&from=" + (j * 1000) + "&size=1000",
-                            async: false,
-                            success: function (extendeddata) {
-                                var extendedIds = [];
-                                extendedIds = extendeddata.hits.hits;
-
-                                for (var i = 0; i < extendedIds.length; i++) {
-                                    coauthorIds.add(ids[i]._source.AUTHOR_ID);
-                                }
-                            }
-                        });
-                    }
-                }
-            }
-        });
+            coauthorIds=fillCoAUthorIds(processedArray[index]._source.AUTHOR_ID);
     }
     if(coauthorIds.size>0){
         document.getElementById("headerTitle").innerText="Co-authorship";
@@ -1515,6 +1784,13 @@ function checkValueEntered() {
     }
 }
 
+/**
+ * removes the selected node with its connected links based on selection
+ * @param selectedIndex
+ * @param processedArray
+ * @param linksArray
+ * @param activeTab
+ */
 function removeNodeAndLinks(selectedIndex,processedArray,linksArray,activeTab) {
     var isSource=false;
     var slicePos=[];
@@ -1622,6 +1898,11 @@ function removeNodeAndLinks(selectedIndex,processedArray,linksArray,activeTab) {
     d3.select('.context-menu').style('display', 'none');
 }
 
+/**
+ * Html elements are dynamically created and data of selected paper is binded
+ * @param idsOfDetailToShow
+ * @param processedArray
+ */
 function showCompleteDetails(idsOfDetailToShow,processedArray){
     $('#modalcontents').html('');
     var modalbody=document.getElementById("modalcontents");
@@ -1779,6 +2060,10 @@ function showCompleteDetails(idsOfDetailToShow,processedArray){
     $("#myModal").modal();
 }
 
+/**
+ * shows popup to rename selected tab
+ * @param element
+ */
 function renameTab(element) {
     //console.log(element)
     $('#modalInput').html('');
@@ -1786,19 +2071,36 @@ function renameTab(element) {
     $("#addTagModal").modal();
 }
 
+/**
+ * hides the add tag modal
+ * @constructor
+ */
 function CloseAddTagWindow() {
     $("#addTagModal").modal('hide');
 }
 
+/**
+ * hides limit record displayed modal
+ * @constructor
+ */
 function CloseLimitRecordsWindow() {
     $("#showLimitedRecords").modal('hide');
 }
 
+/**
+ *  hides limit record displayed modal and sets cursor to default
+ * @constructor
+ */
 function CancelLimitRecordsWindow() {
     $("#showLimitedRecords").modal('hide');
     $("#graphArea").css("cursor", "default");
 }
 
+/**
+ * aggregated query for year
+ * @param searchValue
+ * @param byYear
+ */
 function loadFacets(searchValue,byYear){
     var query;
     var buckets=new Array();
@@ -1905,7 +2207,41 @@ function loadResults(){
 }
 
 
-//deprecated methods for new data structure
+
+
+// methods discarded for new data structure
+
+class _source {
+    constructor(state, value) {
+        switch (state) {
+            case "author":
+                this.vType = state;
+                this.author = value;
+                break;
+            case "org":
+                this.vType = state;
+                this.org = value;
+                break;
+            case "fos":
+                this.vType = state;
+                this.fos = value;
+                break;
+            case "journal":
+                this.vType = state;
+                this.publisher = value;
+                break;
+            case "venue":
+                this.vType = state;
+                this.venue = value;
+                break;
+            case "cites":
+                this.vType=state;
+                this.title=value._source.titleCiter;
+            //this.authors=value._source.authorsCited;
+
+        }
+    }
+}
 function showInstitutionFromAuthor(idToEXpand,selectedIndex,processedArray,activeTabIndex) {
     $("#graphArea").css("cursor","wait");
     if(processedArray[selectedIndex]._source.orgList===undefined){

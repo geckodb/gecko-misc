@@ -6,7 +6,6 @@ var nodeAdded= new Set();
 var fullscreen=true;
 var dataLoaded=false;
 var activeTabIndex;
-var yearFilteredArray=new Array();
 var svg=new Array();
 var force=new Array();
 var node=new Array();
@@ -556,11 +555,15 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                         }
                         d3.select('.context-menu').style('display', 'none');
                     }else if(d=="Co-authorship"){
+                        d3.select('.context-menu').style('display', 'none');
+                        $("#graphArea").css("cursor", "wait");
                         showCoAuthorship(selectedIndex,processedArray[activeTabIndex],activeTabIndex);
 
                     }else if(d=="Papers Authored"){
                         showPapersAuthored(selectedIndex,processedArray[activeTabIndex],activeTabIndex);
                     }else if(d=="Citing non-coauthors"){
+                        d3.select('.context-menu').style('display', 'none');
+                        $("#graphArea").css("cursor", "wait");
                         showAuthorNotCoauthor(selectedIndex,processedArray[activeTabIndex],activeTabIndex);
                     }
                     else if(d=="Add tag"){
@@ -864,6 +867,15 @@ function clearSVG() {
     paperExpanded= new Set();
     nodeExpandedforRefernce = new Set();
     instituteAlreadyAdded[tabIndexToCLear]=new Map();
+
+    paperWithCitationSeen[tabIndexToCLear]=new Map();
+    paperWithReferenceSeen[tabIndexToCLear]=new Map();
+    authorWithPublicationSeen[tabIndexToCLear]=new Map();
+    authorWithCoauthorshipSeen[tabIndexToCLear]=new Map();
+    coAtuthorIdsofAuthor[tabIndexToCLear]=new Map();
+
+    authorWithCitingNonCoauthorshipSeen[tabIndexToCLear]=new Map();
+    citingNoncoAtuthorIdsofAuthor[tabIndexToCLear]=new Map();
 }
 
 function update(activeTab) {
