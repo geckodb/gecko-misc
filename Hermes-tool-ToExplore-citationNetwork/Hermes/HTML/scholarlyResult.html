@@ -32,7 +32,7 @@
 
 </head>
 
-<body onload="searchClicked(searchValue,typeValue,false)">
+<body onload="searchClicked(searchValue,typeValue)">
 
 <div id="header1"></div>
 <div id="overlay">
@@ -292,7 +292,9 @@
 
 <div id="footer1" class="footerClass"></div>
 
-
+<!-- This script is used for 2 purposes
+1. To extract data from the input field  and use it as parameter for searchClicked() which is invoked in onload
+2. Handle add and close tab functionality-->
 <script>
     var clickedElement;
     var tabsClosedRecently=false;
@@ -311,7 +313,6 @@
         e.preventDefault();
         if (!$(this).hasClass('add-tab')) {
             $(this).tab('show');
-            //sliderMoved();
         }
     })
         .on("click", "span", function () {
@@ -328,6 +329,13 @@
                 instituteAlreadyAdded.splice(indexofClosingTab,1);
                 processedArray.splice(indexofClosingTab,1);
                 linksArray.splice(indexofClosingTab,1);
+                paperWithCitationSeen.splice(indexofClosingTab,1);
+                paperWithReferenceSeen.splice(indexofClosingTab,1);
+                authorWithPublicationSeen.splice(indexofClosingTab,1);
+                authorWithCoauthorshipSeen.splice(indexofClosingTab,1);
+                coAtuthorIdsofAuthor.splice(indexofClosingTab,1);
+                authorWithCitingNonCoauthorshipSeen.splice(indexofClosingTab,1);
+                citingNoncoAtuthorIdsofAuthor.splice(indexofClosingTab,1);
 
                 tabsClosedRecently=true;
                 $(anchor.attr('href')).remove();
@@ -417,20 +425,22 @@
                     .append("svg")
                     .attr("id", tabId)
                     .attr("width", width)
-                    .attr("height", height);
+                    .attr("height", height)
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");;
 
                 force[id] = d3.layout.force()
                     .distance(100)
                     .linkDistance([150])
-                    .charge(-500)
-                    .size([1050, 620])
+                    .charge(-200)
+                    .chargeDistance(1400)
+                    .size([1050,1000])
                     .gravity(0.1)
+                    .friction(0.8)
                     .alpha(0);
 
                 for(var j=0;j<divElements[0].getElementsByTagName("div").length;j++){
                     divElements[0].getElementsByTagName("div")[j].getElementsByTagName("svg")[0].setAttribute("id","paperGraphArea"+j);
                 }
-                //id = $(".workspaceTab").children().length-2;
                 tabsClosedRecently=false;
             }
 
@@ -456,7 +466,6 @@
         }
     });
 
-    //$("#sliderValue").on("input change",sliderMoved());
     function changeTabName(element) {
         var newName=document.getElementById("modalInput").value;
         if(newName.length>0){

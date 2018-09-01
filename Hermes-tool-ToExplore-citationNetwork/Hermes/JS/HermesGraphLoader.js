@@ -13,6 +13,7 @@ var link=new Array();
 var edgepaths=new Array();
 var edgelabels=new Array();
 var linkedByIndex = {};
+var sliderEnabled;
 
 var margin = {
         top: 40,
@@ -23,43 +24,46 @@ var margin = {
     width = 1300 - margin.right - margin.left,
     height = 1600 - margin.top - margin.bottom;
 
-var sliderEnabled;
- svg[0]=d3.select("#tabArea0")
+//svg for default tab
+svg[0]=d3.select("#tabArea0")
     .append("svg")
-     .attr("id","paperGraphArea0")
-     //.attr("viewBox", "0 0 100% auto")
+    .attr("id","paperGraphArea0")
     .attr("width",width)
     .attr("height",height)
-     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    // .attr({"width":"100%","height":"auto"})
-   //  .attr("overflow","scroll");
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
 
 var paperMenuItems = ["Show more info","Remove","Show Authors", "References", "Hosting", "Publishing", "Citations"]; //,"Domain", "Co-citation", "Bibliographic Coupling"
 var authorMenuItems=["Co-authorship", "Papers Authored","Citing non-coauthors","Remove"];
-var institutionMenuItems=["Papers","Remove"];
 var venueMenuItems=["Papers","Remove"];
 var publicationMenuItems=["Papers published","Remove"];
 var FOSMenuItems=["Papers","Remove"];
 var selectedSVG;
 
-
- force[0] = d3.layout.force()
+//force for default tab - d3 directed force layout that handles the physics of nodes and edges in each of the svg
+force[0] = d3.layout.force()
     .distance(100)
     .linkDistance([150])
     .charge(-200)
-     .chargeDistance(1400)
+    .chargeDistance(1400)
     .size([1050,1000])
     .gravity(0.1)
-     .friction(0.8)
+    .friction(0.8)
     .alpha(0);
 
 
-//	Define the div for the tooltip
+//Define the div for the tooltip
 var tooltip = d3.select("body")
     .append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
+/**
+ * Adds the clicked node(author, paper or journal) the graph area
+ * @param nodeId
+ * @param dataArray
+ * @param populateAllNodes
+ */
 function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
     var ulItems=document.getElementsByClassName("workspaceTab");
     var liItems=ulItems[0].getElementsByTagName("li");
@@ -76,7 +80,7 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
     if(!populateAllNodes){
         for(let i=0;i<dataArray.length;i++){
             if(nodeId===dataArray[i]._id){
-               // if( (!paperAlreadyAdded[activeTabIndex].has(dataArray[i]._source.PAPER_ID))||(!authorAlreadyAdded[activeTabIndex].has(dataArray[i]._source.AUTHOR_ID))){
+                // if( (!paperAlreadyAdded[activeTabIndex].has(dataArray[i]._source.PAPER_ID))||(!authorAlreadyAdded[activeTabIndex].has(dataArray[i]._source.AUTHOR_ID))){
                 if(dataArray[i]._source.vType===vertexType.PAPER){
                     if(!paperAlreadyAdded[activeTabIndex].has(dataArray[i]._source.PAPER_ID)){
                         pos=processedArray[activeTabIndex].push(dataArray[i]);
@@ -136,12 +140,12 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                         buildGraph=true;
                     }
                 }
-                    if(buildGraph) {
-                        var idName = "#" + svgList[0][activeTabIndex].getAttribute("id");
-                        $(idName).empty();
-                        createGraph(processedArray[activeTabIndex], linksArray[activeTabIndex], false, false, activeTabIndex);
-                        break;
-                    }
+                if(buildGraph) {
+                    var idName = "#" + svgList[0][activeTabIndex].getAttribute("id");
+                    $(idName).empty();
+                    createGraph(processedArray[activeTabIndex], linksArray[activeTabIndex], false, false, activeTabIndex);
+                    break;
+                }
             }
         }
     }else{
@@ -176,7 +180,7 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                     authorAlreadyAdded[activeTabIndex].set(dataArray[i]._source.AUTHOR_NAME,pos-1)
                 }
             }
-      }
+        }
         var idName="#"+svgList[0][activeTabIndex].getAttribute("id");
         $(idName).empty();
         createGraph(processedArray[activeTabIndex],linksArray[activeTabIndex],false,false,activeTabIndex);
@@ -184,6 +188,10 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
 
 }
 
+/**
+ *
+ * @returns {active tab index the user currently is in}
+ */
 function getActiveTabIndex() {
     var tabIndex;
     var ulItems=document.getElementsByClassName("workspaceTab");
@@ -198,6 +206,11 @@ function getActiveTabIndex() {
     return tabIndex;
 }
 
+/**
+ * When the slider is enabled, checks the papers present within the selected year and highlights the node
+ * @param nodesInActiveTab
+ * @returns {boolean}
+ */
 function checkYear(nodesInActiveTab) {
     var activetab=getActiveTabIndex();
     if(nodesInActiveTab._source.vType===vertexType.PAPER)
@@ -214,26 +227,25 @@ function checkYear(nodesInActiveTab) {
     }
 }
 
-function neighbors(a, b) {
-    return linkedByIndex[a.index + "," + b.index];
-}
-
+/**
+ * Handles the slider: Shows only papers which are within selected year
+ */
 function sliderMoved() {
     if(sliderEnabled){
-    var val = document.getElementById("sliderValue").value;
-    var selectedYearValue = document.getElementById("selectedyear");
-    selectedYearValue.innerText = val;
-    //checkYear(val);
-    var inTab = getActiveTabIndex();
-    var nodesInActiveTab = svg[inTab].selectAll(".node");
-    var linksInActiveTab=svg[inTab].selectAll(".link");
-    var edgeLabels=svg[inTab].selectAll(".edgelabels");
+        var val = document.getElementById("sliderValue").value;
+        var selectedYearValue = document.getElementById("selectedyear");
+        selectedYearValue.innerText = val;
+        //checkYear(val);
+        var inTab = getActiveTabIndex();
+        var nodesInActiveTab = svg[inTab].selectAll(".node");
+        var linksInActiveTab=svg[inTab].selectAll(".link");
+        var edgeLabels=svg[inTab].selectAll(".edgelabels");
 
-    if(nodesInActiveTab[0].length>0){
-        sliderArray[inTab]=new Array();
-        node[inTab].style("opacity", function (o) {
-            return checkYear(o) ? 1 : 0.05;
-        });
+        if(nodesInActiveTab[0].length>0){
+            sliderArray[inTab]=new Array();
+            node[inTab].style("opacity", function (o) {
+                return checkYear(o) ? 1 : 0.05;
+            });
         }
     }
 
@@ -247,6 +259,14 @@ function sliderMoved() {
     }
 }
 
+/**
+ * Draws the graph with nodes, links and labels. Binds context menu for each node also with node titles and tooltip
+ * @param nodes
+ * @param links
+ * @param drawnodesOnly
+ * @param noArrowhead
+ * @param activeTab
+ */
 function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
     var paperId="";
     var srcjgId="";
@@ -299,8 +319,8 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
         .links(links)
         .start();
 
-     link[activeTab] = selectedSVG.selectAll("link")
-         .data(links)
+    link[activeTab] = selectedSVG.selectAll("link")
+        .data(links)
         .enter().append("line")
         .attr("class", function(d) {
             if (d.label !== "coauthor") {
@@ -309,7 +329,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
         })
         .attr("marker-end", function(d){
             if(d.label!=="coauthor"){
-              return  "url(#arrowhead)"
+                return  "url(#arrowhead)"
             }
         })
         .attr('fill', '#ccc')
@@ -381,7 +401,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
     }
 
 
-     edgepaths[activeTab] = selectedSVG.selectAll(".edgepath")
+    edgepaths[activeTab] = selectedSVG.selectAll(".edgepath")
         .data(links)
         .enter()
         .append('path')
@@ -392,7 +412,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
             'id':function(d,i) { return 'edgepath'+i;}})
         .style("pointer-events", "none");
 
-     edgelabels[activeTab] = selectedSVG.selectAll(".edgelabel")
+    edgelabels[activeTab] = selectedSVG.selectAll(".edgelabel")
         .data(links)
         .enter()
         .append('text')
@@ -423,7 +443,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
         });
 
 
-     node[activeTab] = selectedSVG.selectAll("node")
+    node[activeTab] = selectedSVG.selectAll("node")
         .data(nodes)
         .enter().append("g")
         .attr("class", "node")
@@ -496,8 +516,8 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                 .on('click', function (d) {
                     activeTabIndex=getActiveTabIndex();
                     if((d==="Show Authors")){
-                            showAuthors(processedArray[activeTab][selectedIndex]._source.PAPER_ID,selectedIndex,processedArray[activeTabIndex],activeTabIndex);
-                            paperExpanded.add(paperId);
+                        showAuthors(processedArray[activeTab][selectedIndex]._source.PAPER_ID,selectedIndex,processedArray[activeTabIndex],activeTabIndex);
+                        paperExpanded.add(paperId);
 
                         d3.select('.context-menu').style('display', 'none');
                     }else if(d==="Citations"){
@@ -601,7 +621,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
             }else if(d._source.vType===vertexType.AUTHOR){
                 if(d.createdNode!==undefined){
                     var authorSrcId=d._id;
-                   // var authorName=d._source.AUTHOR_NAME;
+                    // var authorName=d._source.AUTHOR_NAME;
                     var index=d.index;
                 }else{
                     fromAuthor=true;
@@ -622,8 +642,8 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                 tooltip.html("<b>Title : </b>"+d._source.Title + "<br/>"+
                     "<b>Authors : </b>"+d._source.Authors + "<br/>"+
                     "<a> To view more details use show more info option ...</a>"+ "<br/>")
-                    .style("left", (d.x+20) + "px")
-                    .style("top", (d.y) + "px");
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 30) + "px");
 
             }
             else if(d._source.vType==="cites"){
@@ -794,21 +814,9 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
     $("#graphArea").css("cursor","default");
 }
 
-function resize() {
-    if(fullscreen){
-        $("#graphArea").removeClass("startSize").addClass("newSize");
-        svg[activeTabIndex].attr("width",1500)
-            .attr("height",1000);
-        fullscreen=false;
-    }
-    else{
-        $("#graphArea").removeClass("newSize").addClass("startSize");
-        svg[activeTabIndex].attr("width",1050)
-            .attr("height",600);
-        fullscreen=true;
-    }
-}
-
+/**
+ *  Downloads the graph with .html extension
+ */
 function downloadGraphAsSVG() {
     try {
         var isFileSaverSupported = !!new Blob();
@@ -834,7 +842,9 @@ function downloadGraphAsSVG() {
     });
 }
 
-
+/**
+ *Downloads the data of the nodes in json format
+ */
 function downloadGraphAsData() {
     var tabIndexToDownload;
     tabIndexToDownload=getActiveTabIndex();
@@ -848,6 +858,9 @@ function downloadGraphAsData() {
     });
 }
 
+/**
+ * Clears all the processed data and redraws empty svg area withou any nodes, links or labels
+ */
 function clearSVG() {
 
     var tabIndexToCLear;
@@ -878,15 +891,10 @@ function clearSVG() {
     citingNoncoAtuthorIdsofAuthor[tabIndexToCLear]=new Map();
 }
 
-function update(activeTab) {
-   var newHeight =30;
-if(processedArray[activeTab].length>20) {
-    d3.select("#paperGraphArea0 svg")
-        .attr("width", width )
-        .attr("height", height+500);
-}
-}
-
+/**
+ * Holds constant values as an object
+ * @type {{PAPER: string, AUTHOR: string, ORG: string, FOS: string, PUBLICATION: string, VENUE: string, CITES: string, REFERENCES: string}}
+ */
 var vertexType={
     PAPER:"paper",
     AUTHOR:"author",
@@ -896,4 +904,35 @@ var vertexType={
     VENUE:"venue",
     CITES:"cites",
     REFERENCES:""
+}
+
+
+/**
+ * Used to resize svg area - currently not used since it has scroll bars
+ */
+function resize() {
+    activeTabIndex=getActiveTabIndex();
+    if(fullscreen){
+        $("#graphArea").removeClass("startSize").addClass("newSize");
+        svg[activeTabIndex]
+            .attr("width",1500)
+            .attr("height",2000);
+        fullscreen=false;
+    }
+    else{
+        $("#graphArea").removeClass("newSize").addClass("startSize");
+        svg[activeTabIndex].attr("width",1290)
+            .attr("height",1600);
+        fullscreen=true;
+    }
+}
+
+/**
+ * Identifies the neighbors of the selected nodes
+ * @param a
+ * @param b
+ * @returns {*}
+ */
+function neighbors(a, b) {
+    return linkedByIndex[a.index + "," + b.index];
 }

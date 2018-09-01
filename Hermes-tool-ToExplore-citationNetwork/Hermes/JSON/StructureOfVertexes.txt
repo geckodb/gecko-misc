@@ -1,0 +1,54 @@
+//dblpvertexes - Type: paper
+
+[{"_index":"dblpvertexes","_type":"vertex","_id":"E-QcA2UBw7UqFATQe8kb",
+  "_score":1.0,"_source":{"Pages":"231-241",
+    "articleType":"article",
+    "message":"\"db300a72-cbbf-4a1e-bdb7-54328adb97ea\",\"A Parametric Correlation Framework for the Statistical Evaluation and Estimation of Biometric-Based Classification Performance in a Single Environment\",\"2009\",\"Michael E. Schuckers\",\"IEEE Transactions on Information Forensics and Security\",\"2\",\"\",\"231-241\",\"article\",\"\",\"4\",\"IEEE Trans. Information Forensics and Security\",\"\",\"\",\"https://doi.org/10.1109/TIFS.2008.2012206;db/journals/tifs/tifs4.html#Schuckers09\",\"In this paper, we propose parametric correlation models for the assessment of biometric classification error rates. Correctly specified correlations are integral to variance estimation and the corresponding inferential quantities which depend upon these estimates. We present methodology here for false match and false nonmatch error rates for a single environment. This paper generalizes other work that has previously appeared in the bioauthentication literature. Since symmetric- and asymmetric-matching algorithms are used in practice, we present a general correlation structure for both types of algorithms. Along with the correlation structure, we describe estimators for the parameters in these models. The correlation structure described here for binary decision data is then used to derive explicit confidence intervals and sample-size calculations for the estimation of false match and false nonmatch error rates. We then apply the correlation structure described herein to two match scores databases to illustrate our approach. A discussion of the utility and consequences of this correlation structure are also provided.\",\"paper\"\r",
+    "@timestamp":"2018-08-04T04:05:16.499Z",
+    "path":"F:/logstash-6.2.2/data/paperVertex.csv",
+    "Authors":"Michael E. Schuckers",
+    "Volume":"4",
+    "Venue":"IEEE Transactions on Information Forensics and Security",
+    "ISBN":"",
+    "Institution":"",
+    "CitationCount":"2",
+    "host":"DESKTOP-XXXXXX",
+    "@version":"1",
+    "PAPER_ID":"db300a72-cbbf-4a1e-bdb7-54328adb97ea",
+    "URL":"https://doi.org/10.1109/TIFS.2008.2012206;db/journals/tifs/tifs4.html#Schuckers09",
+    "Abstract":"In this paper, we propose parametric correlation models for the assessment of biometric classification error rates. Correctly specified correlations are integral to variance estimation and the corresponding inferential quantities which depend upon these estimates. We present methodology here for false match and false nonmatch error rates for a single environment. This paper generalizes other work that has previously appeared in the bioauthentication literature. Since symmetric- and asymmetric-matching algorithms are used in practice, we present a general correlation structure for both types of algorithms. Along with the correlation structure, we describe estimators for the parameters in these models. The correlation structure described here for binary decision data is then used to derive explicit confidence intervals and sample-size calculations for the estimation of false match and false nonmatch error rates. We then apply the correlation structure described herein to two match scores databases to illustrate our approach. A discussion of the utility and consequences of this correlation structure are also provided.","Number":"","vType":"paper","Title":"A Parametric Correlation Framework for the Statistical Evaluation and Estimation of Biometric-Based Classification Performance in a Single Environment",
+    "BookTitle":"",
+    "Year":"2009",
+    "Journal":"IEEE Trans. Information Forensics and Security"}}]
+
+//dblpvertexes - Type: author
+[{"_index":"dblpvertexes","_type":"vertex","_id":"DgjDBGUBw7UqFATQq4kd","_score":1.0204782,
+  "_source":{"message":"\"au_630\",\"Yang-Ki Cho\",\"author\"\r","vType":"author",
+    "path":"F:/logstash-6.2.2/data/authorVertex.csv",
+    "AUTHOR_ID":"au_630",
+    "@timestamp":"2018-08-04T11:47:35.111Z",
+    "AUTHOR_NAME":"Yang-Ki Cho",
+    "@version":"1",
+    "host":"DESKTOP-XXXXX"}}]
+
+//dblpvertexes - Type: journal
+[{"_index":"dblpvertexes","_type":"vertex","_id":"giNDBWUBw7UqFATQfo_X","_score":8.0517235,
+"_source":{"@timestamp":"2018-08-04T14:07:12.931Z",
+"vType":"journal",
+"@version":"1","JOURNAL_ID":"jour_27",
+"host":"DESKTOP-XXXXX",
+"JOURNAL_NAME":"IJWIN",
+"message":"\"jour_27\",\"IJWIN\",\"journal\"\r",
+"path":"F:/logstash-6.2.2/data/journalVertex.csv"}}]
+
+//dblpvertexes - Type: venue
+[{"_index":"dblpvertexes","_type":"vertex","_id":"5yM4BWUBw7UqFATQaIfZ","_score":6.9059434,
+"_source":{"vType":"venue",
+"VENUE_ID":"ven_3137",
+"message":"\"ven_3137\",\"Iet Radar Sonar and Navigation\",\"venue\"\r",
+"host":"DESKTOP-XXXXX",
+"VENUE_NAME":"Iet Radar Sonar and Navigation",
+"@version":"1",
+"path":"F:/logstash-6.2.2/data/venueVertex.csv",
+"@timestamp":"2018-08-04T13:55:05.546Z"}}
+

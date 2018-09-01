@@ -2206,9 +2206,6 @@ function loadResults(){
     document.getElementById("ResultsArea").style.visibility="visible";
 }
 
-
-
-
 // methods discarded for new data structure
 
 class _source {

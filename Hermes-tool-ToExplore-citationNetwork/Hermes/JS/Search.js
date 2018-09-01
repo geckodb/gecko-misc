@@ -214,7 +214,7 @@ $(".searchResMain").click(function(){
 
 
 /**
- *
+ *handles sea
  * @param userEnteredtext
  * @param chosenType
  * @param fromScholarly
@@ -224,27 +224,26 @@ function searchClickedFromScholarly() {
     document.getElementById("content").style.cursor="wait";
     userEnteredtext=document.getElementById("searchinput").value;
     typeOfVertex=document.getElementById("hiddenInput").value;
-    //console.log("in searchclicked"+userEnteredtext+typeOfVertex)
     fromScholarlyPage=true;
-    searchClicked(userEnteredtext,typeOfVertex,fromScholarlyPage);
+    searchClicked(userEnteredtext,typeOfVertex);
     document.getElementById("content").style.cursor="default";
 }
 
 /**
- *
+ *Queries for user entered texts, handles pagination and binding of results
  * @param userEnteredtext
  * @param chosenType
  * @param fromScholarly
  */
-function searchClicked(userEnteredtext,chosenType,fromScholarly) {
+function searchClicked(userEnteredtext,chosenType) {
     var urlSearch;
     var $pagination = $('#pagination'),
         totalRecords = 0,
         records = [],
         displayRecords = [],
         recPerPage = 5,
-        page = 0,
-        totalPages = 0;
+        page = 1,
+        totalPages = 1;
 
     document.getElementById("overlay").style.display="block";
 
@@ -289,7 +288,13 @@ function searchClicked(userEnteredtext,chosenType,fromScholarly) {
             }
         });
     }
-   // console.log(urlSearch);
+    $('[data-toggle="tooltip"]').tooltip();
+
+    $('#pagination').empty();
+
+    $('#pagination').removeData("twbs-pagination");
+
+    $('#pagination').unbind("page");
 
     $.ajax({
         dataType: "json",
@@ -311,37 +316,8 @@ function searchClicked(userEnteredtext,chosenType,fromScholarly) {
                         'timetaken': json.took
                     }
                 });
-               /* $('#searchResults').html('');
                 searchtextfield = document.getElementById("searchText");
                 searchtextfield.innerText = userEnteredtext;
-                var doc = document.getElementById("searchResults");
-
-                var tr = document.createElement("tr");
-                var td = document.createElement("td");
-                boldHeader = document.createElement("b");
-                boldHeader.innerText = "No search results found";
-                td.appendChild(boldHeader);
-                tr.appendChild(td);
-                doc.appendChild(tr);
-                document.getElementById("overlay").style.display = "none";*/
-                searchtextfield = document.getElementById("searchText");
-                searchtextfield.innerText = userEnteredtext;
-                //Pagination code
-                $('[data-toggle="tooltip"]').tooltip();
-
-                $('#pagination').empty();
-
-                $('#pagination').removeData("twbs-pagination");
-
-                $('#pagination').unbind("page");
-
-                $pagination = $('#pagination'),
-                    totalRecords = 0,
-                    records = [],
-                    displayRecords = [],
-                    recPerPage = 5,
-                    page = 1,
-                    totalPages = 1;
 
                apply_pagination(userEnteredtext,chosenType);
             }
@@ -351,14 +327,6 @@ function searchClicked(userEnteredtext,chosenType,fromScholarly) {
                 searchtextfield = document.getElementById("searchText");
                 searchtextfield.innerText = userEnteredtext;
 
-                //Pagination code
-                $('[data-toggle="tooltip"]').tooltip();
-
-                $('#pagination').empty();
-
-                $('#pagination').removeData("twbs-pagination");
-
-                $('#pagination').unbind("page");
 
                 $pagination = $('#pagination'),
                     totalRecords = 0,
@@ -450,14 +418,6 @@ function searchClicked(userEnteredtext,chosenType,fromScholarly) {
                         span1.innerText = displayRecords[i]._source.Year;
                         handler_p.appendChild(b1);
                         handler_p.appendChild(span1);
-
-                        /* b2 = document.createElement("b");
-                         b2.innerText = " Type : ";
-                         span2 = document.createElement("span");
-                         span2.innerText = displayRecords[i]._source.articleType;
-                         handler_p.appendChild(b2);
-                         handler_p.appendChild(span2);*/
-
                         td.appendChild(linebreak);
                     } else if (displayRecords[i]._source.vType === vertexType.AUTHOR) {
                         a = document.createElement("a");
@@ -475,45 +435,25 @@ function searchClicked(userEnteredtext,chosenType,fromScholarly) {
                         handler_a = td.appendChild(a);
                         boldHeader.innerText = displayRecords[i]._source.AUTHOR_NAME;
                         handler_a.appendChild(boldHeader);
-
                         p = document.createElement("p");
                         handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
                         b = document.createElement("b");
-                        b.innerText = "Total Papers :  ";
-                        span = document.createElement("span");
-                        span.innerText = displayRecords[i]._source.orgList;
-                        handler_p.appendChild(b);
-                        handler_p.appendChild(span);
-
-                        td.appendChild(linebreak);
-                    } else if (displayRecords[i]._source.vType === vertexType.ORG) {
-                        a = document.createElement("a");
-                        a.style.cursor = "pointer";
-                        a.setAttribute("id", displayRecords[i]._id);
-                        a.onclick = function (d) {
-                            if (d.path === undefined) {
-                                poplateClickedNode(d.currentTarget.id, searchData, false);
-                            } else {
-                                poplateClickedNode(d.path[1].getAttribute("id"), searchData, false);
+                        b.innerText = "Total papers available :  ";
+                        $.ajax({
+                            dataType: "json",
+                            url: "http://localhost:9200/dblprelation_authorship/_count?q=AUTHOR_ID:\""+displayRecords[i]._source.AUTHOR_ID+"\"",
+                            async: false,
+                            success: function (paperCount) {
+                                span = document.createElement("span");
+                                span.innerText = paperCount.count;
                             }
-                        };
-                        linebreak = document.createElement("br");
-                        boldHeader = document.createElement("b");
-                        handler_a = td.appendChild(a);
-                        boldHeader.innerText = displayRecords[i]._source.org;
-                        handler_a.appendChild(boldHeader);
+                        });
 
-                        p = document.createElement("p");
-                        handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
-                        b = document.createElement("b");
-                        b.innerText = " ";
-                        span = document.createElement("span");
-                        span.innerText = " ";
                         handler_p.appendChild(b);
                         handler_p.appendChild(span);
 
                         td.appendChild(linebreak);
-                    } else if (displayRecords[i]._source.vType === vertexType.PUBLICATION) {
+                    }else if (displayRecords[i]._source.vType === vertexType.PUBLICATION) {
                         a = document.createElement("a");
                         a.setAttribute("id", displayRecords[i]._id);
                         a.style.cursor = "pointer";

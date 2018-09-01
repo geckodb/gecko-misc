@@ -1,0 +1,66 @@
+//dblprelation_citation - Citation relationship
+
+[{"_index":"dblprelation_citation","_type":"cites","_id":"tnDi8WQB-EpE7EgrB6Zv","_score":1.0,
+"_source":{"path":"F:/logstash-6.2.2/data/paperReferenceRelationship.csv",
+"@timestamp":"2018-07-31T19:47:57.040Z","@version":"1",
+"host":"DESKTOP-XXXXX",
+"REFERENCE_ID":"485eeb4b-a2f8-4796-9b1e-ed3c793bc6b1",
+"message":"\"0c23defd-5cc4-45c2-940c-aa6b2cf72fc0\",\"485eeb4b-a2f8-4796-9b1e-ed3c793bc6b1\"\r",
+"PAPER_ID":"0c23defd-5cc4-45c2-940c-aa6b2cf72fc0"}}]
+
+
+//dblprelation_authorship - relation between authors and paper
+
+[{"_index":"dblprelation_authorship",
+"_type":"AUTHOR_OF",
+"_id":"OcKZ72QB-EpE7Egrz1L9",
+"_score":1.0,
+"_source":{"host":"DESKTOP-XXXXX",
+"@version":"1",
+"message":"\"038a0eb8-5350-4cf6-b86b-1effa9ad405f\",\"au_8\"\r",
+"AUTHOR_ID":"au_8",
+"path":"F:/logstash-6.2.2/data/paperAuthorRelationship.csv",
+"PAPER_ID":"038a0eb8-5350-4cf6-b86b-1effa9ad405f",
+"@timestamp":"2018-07-31T09:09:45.605Z"}}]
+
+
+//dblprelation_coauthorship - relation between authors
+
+[{"_index":"dblprelation_coauthorship",
+"_type":"CO_AUTHOR",
+"_id":"3CeRCWUBw7UqFATQRVzv",
+"_score":1.0,
+"_source":{"AUTHOR_ID":"au_205281","COAUTHOR_ID":"au_197204",
+"host":"DESKTOP-XXXXX",
+"message":"\"au_205281\",\"au_197204\"\r","@timestamp":"2018-08-05T10:10:38.105Z",
+"@version":"1",
+"path":"F:/logstash-6.2.2/data/coauthorshipRelationship.csv"}}]
+
+
+//dblprelation_journalofpaper - relation between papers and journals
+
+[{"_index":"dblprelation_journalofpaper",
+"_type":"HAS_JOURNAL",
+"_id":"clJn8WQB-EpE7EgrdOzh",
+"_score":1.0,
+"_source":{"JOURNAL_ID":"jour_50",
+"PAPER_ID":"72ac112d-f605-4362-86e9-78e67b08da0c",
+"@timestamp":"2018-07-31T17:34:04.888Z",
+"@version":"1","message":"\"72ac112d-f605-4362-86e9-78e67b08da0c\",\"jour_50\"\r",
+"host":"DESKTOP-XXXXX",
+"path":"F:/logstash-6.2.2/data/paperJournalRelationship.csv"}}]
+
+
+//dblprelation_venueofpaper - relation between paper and venue of conference in which it was published
+
+[{"_index":"dblprelation_venueofpaper",
+"_type":"HAS_JOURNAL",
+"_id":"SeWB9mQB-EpE7Egrrisw",
+"_score":1.0,
+"_source":{"message":"\"3992ae10-531a-4d98-a5c3-ac4edc1f5eac\",\"ven_299\"\r",
+"VENUE_ID":"ven_299",
+"@timestamp":"2018-08-01T17:20:44.355Z",
+"host":"DESKTOP-XXXXX",
+"@version":"1",
+"PAPER_ID":"3992ae10-531a-4d98-a5c3-ac4edc1f5eac",
+"path":"F:/logstash-6.2.2/data/paperVenueRelationship.csv"}}
