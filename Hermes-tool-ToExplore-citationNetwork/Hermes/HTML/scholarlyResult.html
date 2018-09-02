@@ -52,7 +52,7 @@
                                 <td width="50px"><a href="#" title="Clear" onclick="clearSVG();return false;"><img src="../Images/clearicon.png" id="clearSVG"></a></td>
                                 <td width="650px"></td>
                                 <td width="250px"></td>
-                                <td width="50px"><a href="#" title="" onclick=resize()><span class="glyphicon glyphicon-resize-full" id="enlarge_glyphicons"></span></a></td>
+                                <td width="50px"><a href="#" title="adds all nodes to graph area" onclick=poplateClickedNode("",searchData,true)><span class="glyphicon glyphicon glyphicon-plus" id="enlarge_glyphicons"></span></a></td>
                             </tr>
                         </table>
                     </div>
@@ -117,9 +117,6 @@
 
                                 <td>
                                     <button type="submit" id="searchRes" class="searchbtn" class="btn" onclick=searchClickedFromScholarly()> <span class='glyphicon glyphicon-search'></span> </button>
-                                </td>
-                                <td >
-                                    <button style="margin-left: -38px" type="button" class="btn btn-info" title="adds all nodes to graph area" onclick=poplateClickedNode("",searchData,true)><span class="glyphicon glyphicon-plus"></span></button>
                                 </td>
                             </tr>
                             <tr>
@@ -313,7 +310,13 @@
         e.preventDefault();
         if (!$(this).hasClass('add-tab')) {
             $(this).tab('show');
+            var elmnt = document.getElementById(e.currentTarget.attributes.href.nodeValue.replace("#",""));
+            if(elmnt!==null){
+                elmnt.scrollLeft = 250;
+                elmnt.scrollTop = 600;
+            }
         }
+
     })
         .on("click", "span", function () {
             if($(".workspaceTab li").length>2){
@@ -350,6 +353,7 @@
 
 
     $("#OKbtn").click(function(){
+
         var activetab=parseInt(getActiveTabIndex());
         var index=parseInt(document.getElementById("selectedIndexValue").innerText);
         if(document.getElementById("headerTitle").innerText==="Citations"){
@@ -391,11 +395,15 @@
             alert("Sorry!! you cannot add more then 10 tabs");
         }
         else{
+            var currentTab=getActiveTabIndex();
+
             var tabId = 'paperGraphArea' + id;
             $(this).closest('li').before('<li><a data-toggle="tab" oncontextmenu="return showContextMenu(event,this);" href="#tabArea' + id + '">New Tab</a> <span> x </span></li>');
             $('.tab-content').append('<div class="tab-pane fade" id="tabArea' + id +'" style="overflow: auto; width: 1054px; height: 540px;"></div>');
 
+            //document.getElementById("tabArea"+id).classList.add("active");
             var selector="#tabArea"+ id;
+
             if(!tabsClosedRecently) {
                 svg[id] = d3.select(selector)
                     .append("svg")
@@ -403,12 +411,15 @@
                     .attr("width", width)
                     .attr("height", height)
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
                 force[id] = d3.layout.force()
                     .distance(100)
                     .linkDistance([150])
-                    .charge(-500)
-                    .size([1050, 620])
+                    .charge(-200)
+                    .chargeDistance(1400)
+                    .size([1300,1400])
                     .gravity(0.1)
+                    .friction(0.8)
                     .alpha(0);
             }
             var ulItems=document.getElementsByClassName("workspaceTab");
@@ -426,17 +437,18 @@
                     .attr("id", tabId)
                     .attr("width", width)
                     .attr("height", height)
-                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");;
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
                 force[id] = d3.layout.force()
                     .distance(100)
                     .linkDistance([150])
                     .charge(-200)
                     .chargeDistance(1400)
-                    .size([1050,1000])
+                    .size([1300,1400])
                     .gravity(0.1)
                     .friction(0.8)
                     .alpha(0);
+
 
                 for(var j=0;j<divElements[0].getElementsByTagName("div").length;j++){
                     divElements[0].getElementsByTagName("div")[j].getElementsByTagName("svg")[0].setAttribute("id","paperGraphArea"+j);
@@ -465,6 +477,8 @@
             linksArray[id]=[];
         }
     });
+
+
 
     function changeTabName(element) {
         var newName=document.getElementById("modalInput").value;

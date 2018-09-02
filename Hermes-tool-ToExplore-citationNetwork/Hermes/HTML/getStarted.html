@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Get started</title>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <link rel="stylesheet" type="text/css" href="../CSS/hermesStyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="../JS/Search.js"></script>
+</head>
+<body>
+<div id="header1"></div>
+<div class="row infoBox">
+    <div class="col-sm-12 col-xs-12">
+        <div class="panel panel-default text-center">
+            <div class="panel-heading">
+                <h3>Featrue List</h3>
+            </div>
+            <div class="panel-body" style="font-family: 'Open Sans';text-align: left;font-size: 17px;">
+                <ul>
+                    <li>
+                       <b> Citation network </b> - A network consisting of papers as nodes and co-citations as links
+                        <ol>
+                            <li>
+                                To view citations of any selected paper, right click on the paper node select "Citations" option and enter the number of results to view.
+                            </li>
+                            <li>
+                                In case of unavailabilty of the citation information for the chosen paper an alert is shown.
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                       <b> Collaboration network </b> - A network consisting of authors as nodes and co-authorship as links
+                        <ol>
+                            <li>
+                                To view Collaboration network of any selected author, right click on the author node select "Co-authorship" option and enter the number of results to view.
+                            </li>
+                            <li>
+                                In case of unavailabilty of the co-authorship information for the chosen author an alert is shown.
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                       <b> Citing non-coauthors </b> - A network consisting of authors who've cited selected authors work but not the co-authors of a selected author
+                        <ol>
+                            <li>
+                                To view Citing non-coauthors network of any selected author, right click on the author node select "Citing non-coauthors" option and enter the number of results to view.
+                            </li>
+                            <li>
+                                In case of unavailabilty of the Citing non-coauthors information for the chosen author an alert is shown.
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        <b>Authorship </b> - View papers authored by a selected author
+                        <ol>
+                            <li>
+                                To view authorship network of any selected author, right click on the author node select "Paper authored" option and enter the number of results to view.
+                            </li>
+                            <li>
+                                In case of unavailabilty of the authorship information for the chosen author an alert is shown.
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                       <b> Popularity of Topic over time</b> - Use API's to explore this section
+                    </li>
+                    <li>
+                        <b>Degree centrality</b>
+                    </li>
+                    <li>
+                        <b>Download data and image of graph explored </b>
+                    </li>
+                    <li>
+                        <b>Clear the graph area </b>
+                    </li>
+                    <li>
+                        <b>Work with multiple tabs </b>
+                    </li>
+                    <li>
+                        <b>View papers published by a journal </b>
+                    </li>
+                    <li>
+                        <b>Slider </b> - To view papers within a selected year
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../JS/HermesGraphLoader.js"></script>
+<script src="../JS/Search.js"></script>
+<script src="../JS/processAndFormEntities.js"></script>
+
+<div id="footer1" class="footerClass"></div>
+<script>
+    $(function () {
+        $("#header1").load("Header.html");
+        $("#footer1").load("Footer.html");
+    });
+</script>
+</body>
+</html>

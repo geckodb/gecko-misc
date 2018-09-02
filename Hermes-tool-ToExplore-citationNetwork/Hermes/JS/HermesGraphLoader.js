@@ -21,8 +21,8 @@ var margin = {
         bottom: 40,
         left: -10
     },
-    width = 1300 - margin.right - margin.left,
-    height = 1600 - margin.top - margin.bottom;
+    width = 1800 - margin.right - margin.left,
+    height = 2100 - margin.top - margin.bottom;
 
 //svg for default tab
 svg[0]=d3.select("#tabArea0")
@@ -46,7 +46,7 @@ force[0] = d3.layout.force()
     .linkDistance([150])
     .charge(-200)
     .chargeDistance(1400)
-    .size([1050,1000])
+    .size([1300,1400])
     .gravity(0.1)
     .friction(0.8)
     .alpha(0);
@@ -70,6 +70,14 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
     var svgList=d3.selectAll("svg");
     var pos;
     var buildGraph=false;
+
+    var elmnt = document.getElementById("tabArea"+getActiveTabIndex());
+    if(elmnt.scrollLeft===0 && elmnt.scrollTop===0){
+        elmnt.scrollLeft = 250;
+        elmnt.scrollTop = 600;
+    }
+
+
     for(var i=0;i<liItems.length;i++){
         if(liItems[i].className==="active"){
             activeTabIndex=i;
@@ -429,17 +437,6 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
         .style("pointer-events", "none")
         .text(function(d,i){
             return d.label;
-            /*if((d.target._source.vType===vertexType.PAPER)||(d.target._source.vType==="cites")){
-                return "cited by"
-            }else if(d.target._source.vType===vertexType.AUTHOR){
-                return "author"
-            }else if(d.target._source.vType===vertexType.ORG){
-                return "affiliation"
-            }else if(d.target._source.vType===vertexType.PUBLICATION){
-                return "publisher"
-            }else if(d.target._source.vType===vertexType.VENUE){
-                return "venue"
-            }*/
         });
 
 

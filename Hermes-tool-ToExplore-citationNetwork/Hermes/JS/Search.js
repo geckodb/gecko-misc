@@ -248,8 +248,8 @@ function searchClicked(userEnteredtext,chosenType) {
     document.getElementById("overlay").style.display="block";
 
     var elmnt = document.getElementById("tabArea"+getActiveTabIndex());
-    elmnt.scrollLeft = 100;
-    elmnt.scrollTop = 360;
+    elmnt.scrollLeft = 250;
+    elmnt.scrollTop = 500;
 
     //$('#search').removeClass('open');
     //Pagination code
@@ -438,7 +438,7 @@ function searchClicked(userEnteredtext,chosenType) {
                         p = document.createElement("p");
                         handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
                         b = document.createElement("b");
-                        b.innerText = "Total papers available :  ";
+                        b.innerText = "Papers available :  ";
                         $.ajax({
                             dataType: "json",
                             url: "http://localhost:9200/dblprelation_authorship/_count?q=AUTHOR_ID:\""+displayRecords[i]._source.AUTHOR_ID+"\"",
