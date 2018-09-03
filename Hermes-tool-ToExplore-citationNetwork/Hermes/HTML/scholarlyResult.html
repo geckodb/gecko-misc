@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<html>
+<html style="width: 100%;height: 810px;margin: 0px;padding: 0px;overflow-x: hidden;">
 <head>
     <script type="text/javascript" src="//cloudfront.loggly.com/js/loggly.tracker-latest.min.js" async></script>
     <script>
@@ -72,19 +72,21 @@
                         <div >
                             <table class="slider">
                                 <tr>
-                                    <td style="width: 150px">Selected Year: </td>
+                                    <td style="width: 150px;">
+                                        <p style=" margin-bottom: 30px; margin-left: 10px">Selected Year:</p>
+                                    </td>
                                     <!-- <p>Selected year:<p id="selectedyear" style="color:green"></p></p>-->
                                     <td style="width: 120px">
-                                        <p style="margin-left: 40px" id="selectedyear"></p>
+                                        <p style="margin-left: 40px;" id="selectedyear"></p>
                                     </td>
                                     <td style="width:850px;">
-                                        <form style="margin-left: 50px" class="range-field">
-                                            <input id="sliderValue" type="range" value="1940" min="1940" max="2020" onchange="sliderMoved()"/>
+                                        <form style="margin-left: 30px" class="range-field">
+                                            <input id="sliderValue" type="range" value="1940" min="1940" max="2020" style="margin-bottom: 30px;"onchange="sliderMoved()"/>
                                         </form>
                                     </td>
                                     <td style="width: 280px;">
                                         <div class="checkbox" >
-                                            <label style="margin-left: 40px"><input id="sliderChkbox" onclick=enableSlider() type="checkbox" value="">Enable slider</label>
+                                            <label style="margin-left: 40px;margin-bottom: 30px"><input id="sliderChkbox" onclick=enableSlider() type="checkbox" value="">Enable slider</label>
                                         </div>
                                     </td>
                                 </tr>
