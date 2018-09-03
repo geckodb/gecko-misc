@@ -246,6 +246,7 @@ function searchClicked(userEnteredtext,chosenType) {
         totalPages = 1;
 
     document.getElementById("overlay").style.display="block";
+    document.getElementById("hiddenInput").value="";
 
     var elmnt = document.getElementById("tabArea"+getActiveTabIndex());
     elmnt.scrollLeft = 250;
@@ -258,8 +259,8 @@ function searchClicked(userEnteredtext,chosenType) {
         urlSearch = "http://localhost:9200/dblpvertexes/_search?q=vType:" + chosenType + " AND AUTHOR_NAME:" + userEnteredtext +"*&from=0&size=5";
         _LTracker.push({
             'method':'searchClicked',
-            'tag': 'Search for Author',
-            'url': urlSearch,
+            'tag': 'Search-Author',
+            'Query': urlSearch,
             'searchParams': {
                 'chosenType': chosenType,
                 'enteredText': userEnteredtext
@@ -269,8 +270,8 @@ function searchClicked(userEnteredtext,chosenType) {
         urlSearch = "http://localhost:9200/dblpvertexes/_search?q=vType:" + chosenType + " AND Title:" + userEnteredtext + "*&from=0&size=5";
         _LTracker.push({
             'method':'searchClicked',
-            'tag': 'Search for Paper',
-            'url': urlSearch,
+            'tag': 'Search-Paper',
+            'Query': urlSearch,
             'searchParams': {
                 'chosenType': chosenType,
                 'enteredText': userEnteredtext
@@ -280,8 +281,8 @@ function searchClicked(userEnteredtext,chosenType) {
         urlSearch="http://localhost:9200/dblpvertexes/_search?q="+userEnteredtext+"&from=0&size=5";
         _LTracker.push({
             'method':'searchClicked',
-            'tag': 'Search with notype',
-            'url': urlSearch,
+            'tag': 'Search-noType',
+            'Query': urlSearch,
             'searchParams': {
                 'chosenType': "",
                 'enteredText': userEnteredtext
@@ -305,8 +306,8 @@ function searchClicked(userEnteredtext,chosenType) {
             if (json.hits.total == 0) {
                 _LTracker.push({
                     'method': 'searchClicked',
-                    'tag': 'No search Result',
-                    'url': urlSearch,
+                    'tag': 'searchResult-null',
+                    'Query': urlSearch,
                     'searchParams': {
                         'chosenType': chosenType,
                         'enteredText': userEnteredtext
@@ -319,7 +320,7 @@ function searchClicked(userEnteredtext,chosenType) {
                 searchtextfield = document.getElementById("searchText");
                 searchtextfield.innerText = userEnteredtext;
 
-               apply_pagination(userEnteredtext,chosenType);
+                apply_pagination(userEnteredtext,chosenType);
             }
             else {
                 var totalHits;
@@ -336,7 +337,6 @@ function searchClicked(userEnteredtext,chosenType) {
                     page = 1,
                     totalPages = 0;
 
-
                 totalRecords = json.hits.total;
                 totalPages = Math.ceil(totalRecords / recPerPage);
                 apply_pagination(userEnteredtext, chosenType);
@@ -344,21 +344,6 @@ function searchClicked(userEnteredtext,chosenType) {
             }
             //binds the result obtained for a given text
             function generate_table() {
-                _LTracker.push({
-                    'method': 'generate_table',
-                    'text': 'Binding result',
-                    'tag': 'search Result',
-                    'url': urlSearch,
-                    'searchParams': {
-                        'chosenType': chosenType,
-                        'enteredText': userEnteredtext
-                    },
-                    'searchResult': {
-                        'totalRecods': totalRecords,
-                        'timetaken': timeTaken
-                    }
-                });
-
                 $('#searchResults').html('');
 
                 var doc = document.getElementById("searchResults");
@@ -565,12 +550,27 @@ function searchClicked(userEnteredtext,chosenType) {
 
                         d3.json(url, function (error, jsonrangeResult) {
                             if (error) throw error;
+
                             records = jsonrangeResult.hits.hits;
                             searchData = records;
                             totalHits = jsonrangeResult.hits.total;
                             timeTaken = jsonrangeResult.took;
-                            //Array.prototype.push.apply(records,rangeValues);
                             displayRecords = records;
+
+                            _LTracker.push({
+                                'method': 'searchClicked',
+                                'tag': 'searchResult',
+                                'Query': url,
+                                'searchParams': {
+                                    'chosenType': typeOfVertex,
+                                    'enteredText': enteredtext
+                                },
+                                'searchResult': {
+                                    'totalRecods': totalHits,
+                                    'timetaken': timeTaken
+                                }
+                            });
+
                             generate_table();
                         });
                     }

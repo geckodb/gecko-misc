@@ -77,7 +77,7 @@
                                     </td>
                                     <!-- <p>Selected year:<p id="selectedyear" style="color:green"></p></p>-->
                                     <td style="width: 120px">
-                                        <p style="margin-left: 40px;" id="selectedyear"></p>
+                                        <p style="margin-bottom: 30px;" id="selectedyear"></p>
                                     </td>
                                     <td style="width:850px;">
                                         <form style="margin-left: 30px" class="range-field">
@@ -341,7 +341,7 @@
                 coAtuthorIdsofAuthor.splice(indexofClosingTab,1);
                 authorWithCitingNonCoauthorshipSeen.splice(indexofClosingTab,1);
                 citingNoncoAtuthorIdsofAuthor.splice(indexofClosingTab,1);
-
+                journalWithPublicationSeen.splice(indexofClosingTab,1)
                 tabsClosedRecently=true;
                 $(anchor.attr('href')).remove();
                 $(this).parent().remove();
@@ -368,6 +368,8 @@
             okOfCoAuthorshipClicked(activetab,index,processedArray[activetab]);
         }else if(document.getElementById("headerTitle").innerText==="Citing non-coauthors"){
             okOfNonCoAuthorshipClicked(activetab,index,processedArray[activetab]);
+        }else if(document.getElementById("headerTitle").innerText==="Papers Published"){
+            okOfPapersPublishedClicked(activetab,index,processedArray[activetab]);
         }
     });
 
@@ -471,7 +473,7 @@
             authorWithPublicationSeen[id]=new Map();
             authorWithCoauthorshipSeen[id]=new Map();
             coAtuthorIdsofAuthor[id]=new Map();
-
+            journalWithPublicationSeen[id]=new Map();
             authorWithCitingNonCoauthorshipSeen[id]=new Map();
             citingNoncoAtuthorIdsofAuthor[id]=new Map();
 

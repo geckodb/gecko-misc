@@ -1,7 +1,7 @@
 ﻿var processedArray=[[]];
 var sliderArray=[[]];
 d3.json("../JSON/temp.json",processedArray); //temp.json holds the format required to map d3 objects **DO NOT DELETE TEMP.JSON**
-var width, height
+var width, height;
 var nodeAdded= new Set();
 var fullscreen=true;
 var dataLoaded=false;
@@ -35,9 +35,9 @@ svg[0]=d3.select("#tabArea0")
 
 var paperMenuItems = ["Show more info","Remove","Show Authors", "References", "Hosting", "Publishing", "Citations"]; //,"Domain", "Co-citation", "Bibliographic Coupling"
 var authorMenuItems=["Co-authorship", "Papers Authored","Citing non-coauthors","Remove"];
-var venueMenuItems=["Papers","Remove"];
+var venueMenuItems=["Remove"];
 var publicationMenuItems=["Papers published","Remove"];
-var FOSMenuItems=["Papers","Remove"];
+var FOSMenuItems=["Papers","Authors","Remove"];
 var selectedSVG;
 
 //force for default tab - d3 directed force layout that handles the physics of nodes and edges in each of the svg
@@ -290,7 +290,6 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
 
     _LTracker.push({
         'method':'createGraph',
-        'text': 'graph structure',
         'graphStructure': {
             'nodes': nodes.length,
             'edges': links.length
@@ -840,19 +839,39 @@ function downloadGraphAsSVG() {
 }
 
 /**
- *Downloads the data of the nodes in json format
+ *Downloads the data of added nodes and links in json format
  */
 function downloadGraphAsData() {
+    var data=[];
+    var linkData=[];
     var tabIndexToDownload;
+
+    //code to download nodes information
     tabIndexToDownload=getActiveTabIndex();
-    var data=JSON.stringify(processedArray[tabIndexToDownload]);
+    for(var j=0;j<processedArray[tabIndexToDownload].length;j++){
+        data[j]=JSON.stringify(processedArray[tabIndexToDownload][j])
+    }
+
     var blob_json = new Blob([data], { type: 'text/data;charset=utf-8;' });
-    saveAs(blob_json,"data.json");
+    saveAs(blob_json,"Nodedata.json");
     _LTracker.push({
         'method':'downloadGraphAsData',
         'text': 'Graph data downloaded',
-        'Data': data
+        'Data Size(in rows)': processedArray[tabIndexToDownload].length
     });
+
+    for(var j=0;j<linksArray[tabIndexToDownload].length;j++){
+        linkData[j]=JSON.stringify(linksArray[tabIndexToDownload][j])
+    }
+
+    var blob = new Blob([linkData], { type: 'text/data;charset=utf-8;' });
+    saveAs(blob,"Linkdata.json");
+    _LTracker.push({
+        'method':'downloadGraphAsData',
+        'text': 'Graph data downloaded',
+        'Data Size(in rows)': linksArray[tabIndexToDownload].length
+    });
+
 }
 
 /**
@@ -883,7 +902,7 @@ function clearSVG() {
     authorWithPublicationSeen[tabIndexToCLear]=new Map();
     authorWithCoauthorshipSeen[tabIndexToCLear]=new Map();
     coAtuthorIdsofAuthor[tabIndexToCLear]=new Map();
-
+    journalWithPublicationSeen[tabIndexToCLear]=new Map();
     authorWithCitingNonCoauthorshipSeen[tabIndexToCLear]=new Map();
     citingNoncoAtuthorIdsofAuthor[tabIndexToCLear]=new Map();
 }
