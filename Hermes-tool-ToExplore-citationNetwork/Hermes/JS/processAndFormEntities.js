@@ -96,7 +96,7 @@ function showAuthors(idToEXpand,index, processedArray,activeTab) {
             _LTracker.push({
                 'method':'showAuthors',
                 'tag': 'Authors-of-Papers',
-                'PaperID':processedArray[index]._source.PAPER_ID,
+                'PaperId':processedArray[index]._source.PAPER_ID,
             });
 
              urlforAuthorId="http://localhost:9200/dblprelation_authorship/_search?q=PAPER_ID:"+"\""+idToEXpand+"\"";
@@ -106,7 +106,7 @@ function showAuthors(idToEXpand,index, processedArray,activeTab) {
                     _LTracker.push({
                         'method':'showAuthors',
                         'tag': 'Error',
-                        'PaperID':processedArray[index]._source.PAPER_ID,
+                        'PaperId':processedArray[index]._source.PAPER_ID,
                         'Query':urlforAuthorId,
                         'value':error
                     });
@@ -115,7 +115,8 @@ function showAuthors(idToEXpand,index, processedArray,activeTab) {
                 authorIds=resultIds.hits.hits;
                 _LTracker.push({
                     'method':'showAuthors',
-                    'tag': 'Results-showAuthors-Q1',
+                    'tag': 'Results-showAuthors',
+                    'PaperId':processedArray[index]._source.PAPER_ID,
                     'Query':urlforAuthorId,
                     'time in ms':resultIds.took,
                     'Author Count':resultIds.hits.total
@@ -147,7 +148,8 @@ function showAuthors(idToEXpand,index, processedArray,activeTab) {
 
                     _LTracker.push({
                         'method':'showAuthors',
-                        'tag': 'Results-showAuthors-Q2',
+                        'tag': 'Results-showAuthors-ItrQuery',
+                        'PaperId':processedArray[index]._source.PAPER_ID,
                         'Query':urlforAuthorName,
                         'time in ms':resultnames.took,
                         'Author Count':resultnames.hits.total
@@ -199,7 +201,7 @@ function showJournals(index, processedArray,activeTab) {
         _LTracker.push({
             'method': 'showJournals',
             'tag': 'Publisher-of-Paper',
-            'PaperID': processedArray[index]._source.PAPER_ID
+            'PaperId': processedArray[index]._source.PAPER_ID
         });
 
         var urlforjournalId = "http://localhost:9200/dblprelation_journalofpaper/_search?q=PAPER_ID:" + "\"" + processedArray[index]._source.PAPER_ID + "\"";
@@ -210,7 +212,7 @@ function showJournals(index, processedArray,activeTab) {
                 _LTracker.push({
                     'method':'showJournals',
                     'tag': 'Error',
-                    'PaperID': processedArray[index]._source.PAPER_ID,
+                    'PaperId': processedArray[index]._source.PAPER_ID,
                     'Query':urlforjournalId,
                     'value':error
                 });
@@ -218,7 +220,8 @@ function showJournals(index, processedArray,activeTab) {
             journalIds=resultIds.hits.hits;
             _LTracker.push({
                 'method':'showJournals',
-                'tag': 'Results-showJournals-Q1',
+                'tag': 'Results-showJournals',
+                'PaperId': processedArray[index]._source.PAPER_ID,
                 'Query':urlforjournalId,
                 'time in ms':resultIds.took,
                 'Journal Count':resultIds.hits.total
@@ -245,13 +248,15 @@ function showJournals(index, processedArray,activeTab) {
                         _LTracker.push({
                             'method':'showJournals',
                             'tag': 'Error',
+                            'PaperId': processedArray[index]._source.PAPER_ID,
                             'value':error
                         });
 
                     journalcompltDetails = resultnames.hits.hits;
                     _LTracker.push({
                         'method':'showJournals',
-                        'tag': 'Results-showJournals-Q2',
+                        'tag': 'Results-showJournals-ItrQuery',
+                        'PaperId': processedArray[index]._source.PAPER_ID,
                         'Query':urlforJournalName,
                         'time in ms':resultnames.took,
                         'Journal Count':resultnames.hits.total
@@ -320,7 +325,7 @@ function showVenue(index,processedArray,activeTab) {
                 _LTracker.push({
                     'method':'showVenue',
                     'tag': 'Error',
-                    'PaperID': processedArray[index]._source.PAPER_ID,
+                    'PaperId': processedArray[index]._source.PAPER_ID,
                     'Query':urlforvenueId,
                     'value':error
                 });
@@ -330,6 +335,7 @@ function showVenue(index,processedArray,activeTab) {
             _LTracker.push({
                 'method':'showVenue',
                 'tag': 'Results-showVenue-Q1',
+                'PaperId': processedArray[index]._source.PAPER_ID,
                 'Query': urlforvenueId,
                 'time in ms':resultIds.took,
                 'value':resultIds.hits.total
@@ -362,7 +368,8 @@ function showVenue(index,processedArray,activeTab) {
                     venuecompltDetails = resultnames.hits.hits;
                     _LTracker.push({
                         'method':'showVenue',
-                        'tag': 'Results-showVenue-Q2',
+                        'tag': 'Results-showVenue-ItrQuery',
+                        'PaperId': processedArray[index]._source.PAPER_ID,
                         'Query':urlforVenueName,
                         'time in ms':resultnames.took,
                         'value':resultnames.hits.total
@@ -416,7 +423,7 @@ function showPapersPublished(index,processedArray,activeTab) {
         _LTracker.push({
             'method':'showPapersPublished',
             'tag': 'Papers-published',
-            'value':processedArray[index]._source.JOURNAL_ID
+            'JournalId':processedArray[index]._source.JOURNAL_ID
         });
     }
 
@@ -612,8 +619,9 @@ function okOfPapersPublishedClicked(activeTab,index,processedArray) {
             async: false,
             success: function (dataids) {
                 _LTracker.push({
-                    'method':'okOfPapersPublishedClicked',
-                    'tag': 'Results-Papers Published-Q1',
+                    'method':'showPapersPublished',
+                    'tag': 'Results-showPapersPublished-ItrQuery1',
+                    'PaperId': processedArray[index]._source.PAPER_ID,
                     'Query':urlforpaperId,
                     'time in ms':dataids.took,
                     'Paper Count':dataids.hits.total
@@ -642,8 +650,9 @@ function okOfPapersPublishedClicked(activeTab,index,processedArray) {
             async: false,
             success: function (data) {
                 _LTracker.push({
-                    'method':'okOfPapersPublishedClicked',
-                    'tag': 'Results-Papers Published-Q2',
+                    'method':'showPapersPublished',
+                    'tag': 'Results-showPapersPublished-ItrQuery2',
+                    'PaperId': processedArray[index]._source.PAPER_ID,
                     'Query':urlforpaperId,
                     'time in ms':data.took,
                     'Paper Count':data.hits.total
@@ -681,7 +690,7 @@ function okOfPapersPublishedClicked(activeTab,index,processedArray) {
  * @param authorId
  * @returns {Set<any>}
  */
-function fillCoAUthorIds(authorId) {
+function fillCoAUthorIds(authorId,from) {
     var totalRecords;
     var coAuthorIds=new Set();
     var urlcoAuthors = "http://localhost:9200/dblprelation_coauthorship/_search?q=AUTHOR_ID:" + "\"" + authorId + "\"&from=0&size=1000";
@@ -696,8 +705,9 @@ function fillCoAUthorIds(authorId) {
             var ids = [];
             ids = data.hits.hits;
             _LTracker.push({
-                'method':'fillCoAUthorIds',
-                'tag': 'Results-CoAuthorship-Q1',
+                'method':from,
+                'tag': 'Results-'+from+'-ItrQuery1',
+                'authorId':authorId,
                 'Query':urlcoAuthors,
                 'time in ms':data.took,
                 'Paper Count':data.hits.total
@@ -710,13 +720,23 @@ function fillCoAUthorIds(authorId) {
             if (totalRecords > 1000) {
                 var loopCnt = Math.ceil(totalRecords / 1000);
                 for (var j = 1; j < loopCnt; j++) {
+                    var urlcoAuthorsextnd="http://localhost:9200/dblprelation_coauthorship/_search?q=AUTHOR_ID:" + "\"" + authorId + "\"&from=" + (j * 1000) + "&size=1000"
                     $.ajax({
                         dataType: "json",
-                        url: "http://localhost:9200/dblprelation_coauthorship/_search?q=AUTHOR_ID:" + "\"" + authorId + "\"&from=" + (j * 1000) + "&size=1000",
+                        url:urlcoAuthorsextnd ,
                         async: false,
                         success: function (extendeddata) {
                             var extendedIds = [];
                             extendedIds = extendeddata.hits.hits;
+
+                            _LTracker.push({
+                                'method':from,
+                                'tag': 'Results-'+from+'-ItrQuery1',
+                                'authorId':authorId,
+                                'Query':urlcoAuthorsextnd,
+                                'time in ms':extendeddata.took,
+                                'Paper Count':extendeddata.hits.total
+                            });
 
                             for (var i = 0; i < extendedIds.length; i++) {
                                 coAuthorIds.add(ids[i]._source.COAUTHOR_ID);
@@ -741,7 +761,8 @@ function fillCoAUthorIds(authorId) {
 
             _LTracker.push({
                 'method':'fillCoAUthorIds',
-                'tag': 'Results-CoAuthorship-Q2',
+                'tag': 'Results-'+from+'-ItrQuery2',
+                'authorId':authorId,
                 'Query':urlAuthors,
                 'time in ms':data.took,
                 'Paper Count':data.hits.total
@@ -761,6 +782,14 @@ function fillCoAUthorIds(authorId) {
                         success: function (extendeddata) {
                             var extendedIds = [];
                             extendedIds = extendeddata.hits.hits;
+                            _LTracker.push({
+                                'method':'fillCoAUthorIds',
+                                'tag': 'Results-'+from+'-ItrQuery2',
+                                'authorId':authorId,
+                                'Query':urlAuthors,
+                                'time in ms':extendeddata.took,
+                                'Paper Count':extendeddata.hits.total
+                            });
 
                             for (var i = 0; i < extendedIds.length; i++) {
                                 coAuthorIds.add(ids[i]._source.AUTHOR_ID);
@@ -805,14 +834,14 @@ function showAuthorNotCoauthor(index,processedArray,activeTab) {
     _LTracker.push({
         'method': 'showAuthorNotCoauthor',
         'tag': 'Citing-Authors',
-        'value': processedArray[index]._source.AUTHOR_ID
+        'authorId': processedArray[index]._source.AUTHOR_ID
     });
 
     if(coAtuthorIdsofAuthor[activeTab].has(processedArray[index]._source.AUTHOR_ID)){
         coAuthorId=coAtuthorIdsofAuthor[activeTab].get(processedArray[index]._source.AUTHOR_ID);
     }
     else {
-        coAuthorId=fillCoAUthorIds(processedArray[index]._source.AUTHOR_ID);
+        coAuthorId=fillCoAUthorIds(processedArray[index]._source.AUTHOR_ID,'showAuthorNotCoauthor');
         coAtuthorIdsofAuthor[activeTab].set(processedArray[index]._source.AUTHOR_ID,coAuthorId);
     }
 
@@ -832,6 +861,7 @@ function showAuthorNotCoauthor(index,processedArray,activeTab) {
                 _LTracker.push({
                     'method':'showAuthorNotCoauthor',
                     'tag': 'Results-showAuthorNotCoauthor-Q3',
+                    'authorId': processedArray[index]._source.AUTHOR_ID,
                     'Query':urlPaperIds,
                     'time in ms':data.took,
                     'Author Count':data.hits.total
@@ -845,13 +875,24 @@ function showAuthorNotCoauthor(index,processedArray,activeTab) {
                 if (totalRecordCnt > 1000) {
                     var loopCnt = Math.ceil(totalRecordCnt / 1000);
                     for (var j = 1; j < loopCnt; j++) {
+                        var urlPaperIdextnd="http://localhost:9200/dblprelation_authorship/_search?q=AUTHOR_ID:\"" + processedArray[index]._source.AUTHOR_ID + "\"&from=" + (j * 1000) + "&size=1000"
                         $.ajax({
                             dataType: "json",
-                            url: "http://localhost:9200/dblprelation_authorship/_search?q=AUTHOR_ID:\"" + processedArray[index]._source.AUTHOR_ID + "\"&from=" + (j * 1000) + "&size=1000",
+                            url:urlPaperIdextnd ,
                             async: false,
                             success: function (extendeddata) {
                                 var extendedIds = [];
                                 extendedIds = extendeddata.hits.hits;
+
+                                _LTracker.push({
+                                    'method':'showAuthorNotCoauthor',
+                                    'tag': 'Results-showAuthorNotCoauthor-ItrQuery3',
+                                    'authorId': processedArray[index]._source.AUTHOR_ID,
+                                    'Query':urlPaperIdextnd,
+                                    'time in ms':data.took,
+                                    'Author Count':data.hits.total
+
+                                });
 
                                 for (var i = 0; i < extendedIds.length; i++) {
                                     paperIdsofAuthor.push(paperIds[i]._source.PAPER_ID);
@@ -896,7 +937,8 @@ function showAuthorNotCoauthor(index,processedArray,activeTab) {
 
                     _LTracker.push({
                         'method':'showAuthorNotCoauthor',
-                        'tag': 'Results-showAuthorNotCoauthor-Q4',
+                        'tag': 'Results-showAuthorNotCoauthor-ItrQuery4',
+                        'authorId': processedArray[index]._source.AUTHOR_ID,
                         'Query':urlforCitingIds,
                         'time in ms':data.took,
                         'Author Count':data.hits.total
@@ -943,7 +985,8 @@ function showAuthorNotCoauthor(index,processedArray,activeTab) {
                 success: function (data) {
                     _LTracker.push({
                         'method':'showAuthorNotCoauthor',
-                        'tag': 'Results-showAuthorNotCoauthor-Q5',
+                        'tag': 'Results-showAuthorNotCoauthor-ItrQuery5',
+                        'authorId': processedArray[index]._source.AUTHOR_ID,
                         'Query':urlforCitedAuthorIds,
                         'time in ms':data.took,
                         'Author Count':data.hits.total
@@ -996,190 +1039,6 @@ function showAuthorNotCoauthor(index,processedArray,activeTab) {
         alert("Citing non-coauthor information for a selected author is not available");
         $("#graphArea").css("cursor", "default");
     }
-
-     //fill coauthorids into set
-
-    /*d3.json(urlcoAuthors, function (error, resultIds) {
-        if (error)
-
-
-
-
-        d3.json(urlmainAuthorsOfcoAuthors, function (error, resultIds) {
-
-            //take the authorid and get all his papers
-            var urlPaperIds="http://localhost:9200/dblprelation_authorship/_search?q=AUTHOR_ID:\""+processedArray[index]._source.AUTHOR_ID+"\"&size=90";
-            _LTracker.push({
-                'method':'showAuthorNotCoauthor',
-                'tag': 'Queries',
-                'url':urlPaperIds
-            });
-
-            d3.json(urlPaperIds, function (error, resultIds) {
-                if (error)
-                    _LTracker.push({
-                        'method':'showAuthorNotCoauthor',
-                        'tag': 'Error',
-                        'value':error
-                    });
-
-                paperIds = resultIds.hits.hits;
-                _LTracker.push({
-                    'method':'showAuthorNotCoauthor',
-                    'tag': 'Results',
-                    'time in ms':resultIds.took,
-                    'value':resultIds.hits.hits
-                });
-
-                if(paperIds.length>0){
-                    for (var m = 0; m < paperIds.length; m++) {
-                        if (m < paperIds.length - 1) {
-                            pIds = pIds + ("\"" + paperIds[m]._source.PAPER_ID + "\"") + "OR";
-                        }
-                        else {
-                            pIds = pIds + ("\"" + paperIds[m]._source.PAPER_ID + "\"");
-                        }
-                    }
-                    urlforCitingIds = "http://localhost:9200/dblprelation_citation/_search?q=REFERENCE_ID:(" + pIds.substring(9, pIds.length) + ")&size=90";
-                }else{
-                    urlforCitingIds = "http://localhost:9200/dblprelation_citation/_search?q=REFERENCE_ID:"+ "\""+"\"";
-                }
-                _LTracker.push({
-                    'method':'showAuthorNotCoauthor',
-                    'tag': 'Queries',
-                    'url':urlforCitingIds
-                });
-
-                //take those paper ids and get all papers citing them
-                d3.json(urlforCitingIds, function (error, resultIds) {
-                    if (error)
-                        _LTracker.push({
-                            'method':'showAuthorNotCoauthor',
-                            'tag': 'Error',
-                            'value':error
-                        });
-
-                    citingIds = resultIds.hits.hits;
-                    _LTracker.push({
-                        'method':'showAuthorNotCoauthor',
-                        'tag': 'Results',
-                        'time in ms':resultIds.took,
-                        'value':resultIds.hits.hits
-                    });
-
-                    if (citingIds.length > 0) {
-                        for (var m = 0; m < citingIds.length; m++) {
-                            if (m < citingIds.length - 1) {
-                                cids = cids + ("\"" + citingIds[m]._source.PAPER_ID + "\"") + "OR";
-                            }
-                            else {
-                                cids = cids + ("\"" + citingIds[m]._source.PAPER_ID + "\"");
-                            }
-                        }
-                        urlforCitingAuthors = "http://localhost:9200/dblprelation_authorship/_search?q=PAPER_ID:(" + cids.substring(9, cids.length) + ")&size=90";
-                    } else {
-                        urlforCitingAuthors = "http://localhost:9200/dblprelation_authorship/_search?q=PAPER_ID:" + "\"" + "\"";
-                    }
-                    _LTracker.push({
-                        'method':'showAuthorNotCoauthor',
-                        'tag': 'Queries',
-                        'url':urlforCitingAuthors
-                    });
-
-                    //take all this citing papers and get authors of it, check if it already exists in coauthor list and add only if it's not present
-                    d3.json(urlforCitingAuthors, function (error, resultIds) {
-                        if (error)
-                            _LTracker.push({
-                                'method':'showAuthorNotCoauthor',
-                                'tag': 'Error',
-                                'value':error
-                            });
-
-                        citingAuthorIds = resultIds.hits.hits;
-                        _LTracker.push({
-                            'method':'showAuthorNotCoauthor',
-                            'tag': 'Results',
-                            'time in ms':resultIds.took,
-                            'value':resultIds.hits.hits
-                        });
-
-                        if (citingAuthorIds.length > 0) {
-                            for (var m = 0; m < citingAuthorIds.length; m++) {
-                                if (!coAuthorId.has(citingAuthorIds[m]._source.AUTHOR_ID)) {
-                                    if (m < citingAuthorIds.length - 1) {
-                                        aids = aids + ("\"" + citingAuthorIds[m]._source.AUTHOR_ID + "\"") + "OR";
-                                    }
-                                    else {
-                                        aids = aids + ("\"" + citingAuthorIds[m]._source.AUTHOR_ID + "\"");
-                                    }
-                                }
-                            }
-                            if(aids.substring(aids.length-2,aids.length)==="OR"){
-                                urlgetAuthorInfo = "http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:(" + aids.substring(9, aids.length-2) + ")&size=90";
-                            }else{
-                                urlgetAuthorInfo = "http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:(" + aids.substring(9, aids.length) + ")&size=90";
-                            }
-                        } else {
-                            urlgetAuthorInfo = "http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:" + "\"" + "\"";
-                        }
-                        _LTracker.push({
-                            'method':'showAuthorNotCoauthor',
-                            'tag': 'Queries',
-                            'url':urlgetAuthorInfo
-                        });
-
-                        d3.json(urlgetAuthorInfo, function (error, resultIds) {
-                            if (error)
-                                _LTracker.push({
-                                    'method':'showAuthorNotCoauthor',
-                                    'tag': 'Error',
-                                    'value':error
-                                });
-
-                            citingAuthorsNotCoauthors = resultIds.hits.hits;
-                            _LTracker.push({
-                                'method':'showAuthorNotCoauthor',
-                                'tag': 'Results',
-                                'time in ms':resultIds.took,
-                                'value':resultIds.hits.hits
-                            });
-
-                            if(citingAuthorsNotCoauthors.length>0) {
-                                for (var j = 0; j < citingAuthorsNotCoauthors.length; j++) {
-                                    if (!authorAlreadyAdded[activeTab].has(citingAuthorsNotCoauthors[j]._source.AUTHOR_NAME)) {
-                                        var idPos = processedArray.push(citingAuthorsNotCoauthors[j]);
-                                        authorAlreadyAdded[activeTab].set(citingAuthorsNotCoauthors[j]._source.AUTHOR_NAME, idPos - 1);
-                                        var newLink = new createLinks(index, processedArray.length - 1, "citing author");
-                                        linksArray[activeTab].push(newLink);
-                                    } else {
-                                        var newLink = new createLinks(index, authorAlreadyAdded[activeTab].get(citingAuthorsNotCoauthors[j]._source.AUTHOR_NAME), "");
-                                        linksArray[activeTab].push(newLink);
-                                    }
-                                }
-                                JSON.stringify(linksArray);
-                                JSON.stringify(processedArray);
-                                addedSVGs = d3.selectAll("svg");
-                                idName = "#" + addedSVGs[0][activeTab].getAttribute("id");
-                                $(idName).empty();
-                                createGraph(processedArray, linksArray[activeTab], false, true, activeTab);
-                                $("#graphArea").css("cursor", "default");
-
-                            }else{
-                                JSON.stringify(linksArray);
-                                JSON.stringify(processedArray);
-                                addedSVGs = d3.selectAll("svg");
-                                idName = "#" + addedSVGs[0][activeTab].getAttribute("id");
-                                $(idName).empty();
-                                createGraph(processedArray, linksArray[activeTab], false, true, activeTab);
-                                $("#graphArea").css("cursor", "default");
-
-                            }
-                        });
-                    });
-                });
-            });
-        });
-    });*/
 }
 
 /**
@@ -1230,6 +1089,15 @@ function okOfNonCoAuthorshipClicked(activeTab,index,processedArray) {
             url: urlforAuthorDetails,
             async: false,
             success: function (data) {
+                _LTracker.push({
+                    'method':'showAuthorNotCoauthor',
+                    'tag': 'Results-showAuthorNotCoauthor-ItrQuery6',
+                    'authorId':processedArray[index]._source.AUTHOR_ID,
+                    'Query':urlforAuthorDetails,
+                    'time in ms':data.took,
+                    'Author Count':data.hits.total
+
+                });
                 nonCoAuthorDetails= nonCoAuthorDetails.concat(data.hits.hits)
             }
         });
@@ -1269,6 +1137,15 @@ function okOfNonCoAuthorshipClicked(activeTab,index,processedArray) {
                 url: urlforAuthorDetails,
                 async: false,
                 success: function (data) {
+                    _LTracker.push({
+                        'method':'showAuthorNotCoauthor',
+                        'tag': 'Results-showAuthorNotCoauthor-ItrQuery6',
+                        'authorId':processedArray[index]._source.AUTHOR_ID,
+                        'Query':urlforAuthorDetails,
+                        'time in ms':data.took,
+                        'Author Count':data.hits.total
+
+                    });
                     nonCoAuthorDetails= nonCoAuthorDetails.concat(data.hits.hits)
                 }
             });
@@ -1318,14 +1195,14 @@ function showCoAuthorship(index,processedArray,activeTab) {
     _LTracker.push({
         'method': 'showCoAuthorship',
         'tag': 'Co-authors',
-        'authorid':processedArray[index]._source.AUTHOR_ID
+        'authorId':processedArray[index]._source.AUTHOR_ID
     });
 
     if(coAtuthorIdsofAuthor[activeTab].has(processedArray[index]._source.AUTHOR_ID)){
         coauthorIds=coAtuthorIdsofAuthor[activeTab].get(processedArray[index]._source.AUTHOR_ID);
     }
     else {
-            coauthorIds=fillCoAUthorIds(processedArray[index]._source.AUTHOR_ID);
+            coauthorIds=fillCoAUthorIds(processedArray[index]._source.AUTHOR_ID,'showCoAuthorship');
     }
     if(coauthorIds.size>0){
         document.getElementById("headerTitle").innerText="Co-authorship";
@@ -1410,6 +1287,15 @@ function okOfCoAuthorshipClicked(activeTab,index,processedArray) {
             url: urlforAuthorDetails,
             async: false,
             success: function (data) {
+
+                _LTracker.push({
+                    'method':'showCoAuthorship',
+                    'tag': 'Results-showCoAuthorship-ItrQuery3',
+                    'authorId':processedArray[index]._source.AUTHOR_ID,
+                    'Query':urlforAuthorDetails,
+                    'time in ms':data.took,
+                    'Paper Count':data.hits.total
+                });
                 coAuthorDetails= coAuthorDetails.concat(data.hits.hits)
             }
         });
@@ -1449,6 +1335,14 @@ function okOfCoAuthorshipClicked(activeTab,index,processedArray) {
                     url: urlforAuthorDetails,
                     async: false,
                     success: function (data) {
+                        _LTracker.push({
+                            'method':'showCoAuthorship',
+                            'tag': 'Results-showCoAuthorship-ItrQuery3',
+                            'authorId':processedArray[index]._source.AUTHOR_ID,
+                            'Query':urlforAuthorDetails,
+                            'time in ms':data.took,
+                            'Paper Count':data.hits.total
+                        });
                         coAuthorDetails= coAuthorDetails.concat(data.hits.hits)
                     }
                 });
@@ -1497,7 +1391,7 @@ function showPapersAuthored(index,processedArray,activeTab) {
         _LTracker.push({
             'method':'showPapersAuthored',
             'tag': 'Papers-of-Author',
-            'value':processedArray[index]._source.AUTHOR_ID
+            'authorId':processedArray[index]._source.AUTHOR_ID
         });
     }
 
@@ -1589,8 +1483,9 @@ function okOfPapersAuthoredClicked(activeTab,index,processedArray) {
             async: false,
             success: function (dataids) {
                 _LTracker.push({
-                    'method':'okOfPapersAuthoredClicked',
+                    'method':'showPapersAuthored',
                     'tag': 'Results-PapersAuthored',
+                    'authorId':processedArray[index]._source.AUTHOR_ID,
                     'Query':urlforpaperId,
                     'time in ms':dataids.took,
                     'Paper Count':dataids.hits.total
@@ -1618,6 +1513,15 @@ function okOfPapersAuthoredClicked(activeTab,index,processedArray) {
             url: urlforPaperDetails,
             async: false,
             success: function (data) {
+                _LTracker.push({
+                    'method':'showPapersAuthored',
+                    'tag': 'Results-PapersAuthored-ItrQuery1',
+                    'authorId':processedArray[index]._source.AUTHOR_ID,
+                    'Query':urlforpaperId,
+                    'time in ms':data.took,
+                    'Paper Count':data.hits.total
+                });
+
                 publishedPaperdetails= publishedPaperdetails.concat(data.hits.hits)
             }
         });
@@ -1662,7 +1566,7 @@ function showReferences(index,processedArray,activeTab) {
         _LTracker.push({
             'method': 'showReferences',
             'tag': 'Reference-of-Paper',
-            'value': processedArray[index]._source.PAPER_ID
+            'PaperId': processedArray[index]._source.PAPER_ID
         });
     }
 
@@ -1756,8 +1660,9 @@ function okOfReferencesClicked(activeTab,index,processedArray) {
             async: false,
             success: function (dataids) {
                 _LTracker.push({
-                    'method':'okOfReferencesClicked',
+                    'method':'showReferences',
                     'tag': 'Results-PapersReferred',
+                    'PaperId': processedArray[index]._source.PAPER_ID,
                     'Query':urlforReferenceids,
                     'time in ms':dataids.took,
                     'Paper Count':dataids.hits.total
@@ -1790,6 +1695,14 @@ function okOfReferencesClicked(activeTab,index,processedArray) {
             url: urlforPaperDetails,
             async: false,
             success: function (data) {
+                _LTracker.push({
+                    'method':'showReferences',
+                    'tag': 'Results-PapersReferred-ItrQuery1',
+                    'PaperId': processedArray[index]._source.PAPER_ID,
+                    'Query':urlforReferenceids,
+                    'time in ms':data.took,
+                    'Paper Count':data.hits.total
+                });
                 referencePaperdetails= referencePaperdetails.concat(data.hits.hits)
             }
         });
@@ -1834,8 +1747,8 @@ function showCitations(index,processedArray,activeTab) {
     if (processedArray[index]._source.vType ===vertexType.PAPER) {
         _LTracker.push({
             'method': 'showCitations',
-            'tag': 'Citations-of-papers',
-            'value': processedArray[index]._source.PAPER_ID
+            'tag': 'Cited-papers',
+            'PaperId': processedArray[index]._source.PAPER_ID
         });
     }
 
@@ -1931,8 +1844,9 @@ function okOfCitationsClicked(activeTab,index,processedArray) {
                     async: false,
                     success: function (dataids) {
                         _LTracker.push({
-                            'method':'okOfCitationsClicked',
+                            'method':'showCitations',
                             'tag': 'Results-PapersCited',
+                            'PaperId': processedArray[index]._source.PAPER_ID,
                             'Query':urlforReferenceids,
                             'time in ms':dataids.took,
                             'Paper Count':dataids.hits.total
@@ -1959,6 +1873,14 @@ function okOfCitationsClicked(activeTab,index,processedArray) {
                     url: urlforPaperDetails,
                     async: false,
                     success: function (data) {
+                        _LTracker.push({
+                            'method':'showCitations',
+                            'tag': 'Results-PapersCited-ItrQuery1',
+                            'PaperId': processedArray[index]._source.PAPER_ID,
+                            'Query':urlforReferenceids,
+                            'time in ms':data.took,
+                            'Paper Count':data.hits.total
+                        });
                         citedPaperdetails= citedPaperdetails.concat(data.hits.hits)
                     }
                 });

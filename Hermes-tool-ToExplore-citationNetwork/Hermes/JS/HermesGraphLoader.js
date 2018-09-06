@@ -14,6 +14,19 @@ var edgepaths=new Array();
 var edgelabels=new Array();
 var linkedByIndex = {};
 var sliderEnabled;
+var logArray=new Array();
+
+log4javascript.setEnabled(true);
+var pathurl="../JSON/log4j.txt"
+var ajaxLogger = log4javascript.getLogger();
+//ajaxLogger.setLevel(log4javascript.Level.ALL);
+var ajaxAppender = new log4javascript.AjaxAppender(pathurl); //"../Logs/log4j.txt"
+ajaxAppender.addHeader("Content-Type", "application/json");
+ajaxAppender.setLayout(new log4javascript.JsonLayout());
+//ajaxAppender.setThreshold(15);
+ajaxLogger.addAppender(ajaxAppender);
+
+
 
 var margin = {
         top: 40,
@@ -93,9 +106,11 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                     if(!paperAlreadyAdded[activeTabIndex].has(dataArray[i]._source.PAPER_ID)){
                         pos=processedArray[activeTabIndex].push(dataArray[i]);
                         paperAlreadyAdded[activeTabIndex].set(dataArray[i]._source.PAPER_ID,pos-1);
+
+                       // ajaxLogger.info("In paper");
+
                         _LTracker.push({
                             'method':'poplateClickedNode',
-                            'text': 'PaperNode',
                             'PaperNode': {
                                 'PaperID': dataArray[i]._source.PAPER_ID,
                                 'Title':dataArray[i]._source.Title
@@ -108,9 +123,18 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                     if(!authorAlreadyAdded[activeTabIndex].has(dataArray[i]._source.AUTHOR_NAME)){
                         pos=processedArray[activeTabIndex].push(dataArray[i]);
                         authorAlreadyAdded[activeTabIndex].set(dataArray[i]._source.AUTHOR_NAME,pos-1);
-                        _LTracker.push({
+
+                       /* ajaxLogger({
                             'method':'poplateClickedNode',
                             'text': 'AuthorNode',
+                            'AuthorNode': {
+                                'AuthorId': dataArray[i]._source.AUTHOR_ID,
+                                'AuthorName':dataArray[i]._source.AUTHOR_NAME
+                            },
+                            'tag':'PopulateNode-author'
+                        });*/
+                        _LTracker.push({
+                            'method':'poplateClickedNode',
                             'AuthorNode': {
                                 'AuthorId': dataArray[i]._source.AUTHOR_ID,
                                 'AuthorName':dataArray[i]._source.AUTHOR_NAME
@@ -123,9 +147,9 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                     if(!publicationAlreadyAdded[activeTabIndex].has(dataArray[i]._source.JOURNAL_NAME)){
                         pos=processedArray[activeTabIndex].push(dataArray[i]);
                         publicationAlreadyAdded[activeTabIndex].set(dataArray[i]._source.JOURNAL_NAME,pos-1);
+
                         _LTracker.push({
                             'method':'poplateClickedNode',
-                            'text': 'JournalNode',
                             'JournalNode': {
                                 'JournalId': dataArray[i]._source.JOURNAL_ID,
                             },
@@ -139,7 +163,6 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                         publicationAlreadyAdded[activeTabIndex].set(dataArray[i]._source.VENUE_NAME,pos-1);
                         _LTracker.push({
                             'method':'poplateClickedNode',
-                            'text': 'VenueNode',
                             'VenueNode': {
                                 'VenueId': dataArray[i]._source.VENUE_ID,
                             },
@@ -162,7 +185,6 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                 if(!paperAlreadyAdded[activeTabIndex].has(dataArray[i]._source.PAPER_ID)){
                     _LTracker.push({
                         'method':'poplateClickedNode',
-                        'text': 'PaperNode',
                         'PaperNode': {
                             'PaperID': dataArray[i]._source.PAPER_ID,
                             'Title':dataArray[i]._source.Title
@@ -176,7 +198,6 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                 if(!authorAlreadyAdded[activeTabIndex].has(dataArray[i]._source.AUTHOR_NAME)){
                     _LTracker.push({
                         'method':'poplateClickedNode',
-                        'text': 'AuthorNode',
                         'AuthorNode': {
                             'AuthorId': dataArray[i]._source.AUTHOR_ID,
                             'AuthorName':dataArray[i]._source.AUTHOR_NAME
@@ -806,8 +827,15 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
             });
         }
     }
-
+    updateNodeAndEdgeCount();
     $("#graphArea").css("cursor","default");
+    
+}
+
+function updateNodeAndEdgeCount() {
+    var tab=getActiveTabIndex();
+    document.getElementById("totnodes").innerText=processedArray[tab].length;
+    document.getElementById("totedges").innerText=linksArray[tab].length;
 }
 
 /**
@@ -905,6 +933,7 @@ function clearSVG() {
     journalWithPublicationSeen[tabIndexToCLear]=new Map();
     authorWithCitingNonCoauthorshipSeen[tabIndexToCLear]=new Map();
     citingNoncoAtuthorIdsofAuthor[tabIndexToCLear]=new Map();
+    updateNodeAndEdgeCount();
 }
 
 /**

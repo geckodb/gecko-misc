@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c547c847-dc05-4c6a-8c3a-344bb1fc2699" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/HTML/about.html" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/Library/colResizable-1.6.min.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/Library/log4javascript.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/CSS/hermesStyle.css" afterPath="$PROJECT_DIR$/CSS/hermesStyle.css" />
-      <change beforePath="$PROJECT_DIR$/HTML/Header.html" afterPath="$PROJECT_DIR$/HTML/Header.html" />
-      <change beforePath="$PROJECT_DIR$/HTML/getStarted.html" afterPath="$PROJECT_DIR$/HTML/getStarted.html" />
+      <change beforePath="$PROJECT_DIR$/HTML/index.html" afterPath="$PROJECT_DIR$/HTML/index.html" />
       <change beforePath="$PROJECT_DIR$/HTML/scholarlyResult.html" afterPath="$PROJECT_DIR$/HTML/scholarlyResult.html" />
       <change beforePath="$PROJECT_DIR$/JS/HermesGraphLoader.js" afterPath="$PROJECT_DIR$/JS/HermesGraphLoader.js" />
       <change beforePath="$PROJECT_DIR$/JS/Search.js" afterPath="$PROJECT_DIR$/JS/Search.js" />
@@ -32,25 +32,9 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HTML/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-780">
-              <caret line="3" column="6" lean-forward="true" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+            <state relative-caret-position="26">
+              <caret line="11" column="39" lean-forward="true" selection-start-line="11" selection-start-column="39" selection-end-line="11" selection-end-column="39" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="getStarted.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/HTML/getStarted.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="147" column="159" lean-forward="false" selection-start-line="147" selection-start-column="159" selection-end-line="147" selection-end-column="159" />
-              <folding>
-                <element signature="n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -68,16 +52,17 @@
       <file leaf-file-name="Search.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/JS/Search.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="555" column="67" lean-forward="true" selection-start-line="555" selection-start-column="67" selection-end-line="555" selection-end-column="67" />
+            <state relative-caret-position="390">
+              <caret line="38" column="26" lean-forward="false" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
               <folding>
                 <element signature="n#!!block;n#fillSearchInput#0" expanded="false" />
                 <element signature="n#!!block;n#fillSuggestion#0" expanded="false" />
                 <element signature="n#!!block;n#submitIfEnter#0" expanded="false" />
                 <element signature="n#!!block;n#submitIfEnter_scholarly#0" expanded="false" />
-                <element signature="e#8218#8722#0" expanded="false" />
+                <element signature="e#8217#8721#0" expanded="false" />
                 <element signature="n#!!block;n#searchClickedFromScholarly#0" expanded="false" />
-                <element signature="e#13148#23334#0" expanded="false" />
+                <element signature="n#!!block;n#searchClicked#0" expanded="false" />
+                <element signature="e#13147#23333#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -86,22 +71,20 @@
       <file leaf-file-name="processAndFormEntities.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/JS/processAndFormEntities.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="2118" column="62" lean-forward="false" selection-start-line="2118" selection-start-column="62" selection-end-line="2118" selection-end-column="62" />
+            <state relative-caret-position="-904">
+              <caret line="1739" column="55" lean-forward="false" selection-start-line="1739" selection-start-column="55" selection-end-line="1739" selection-end-column="55" />
               <folding>
                 <element signature="n#!!block;n#createLinks#0" expanded="false" />
                 <element signature="n#!!block;n#showAuthors#0" expanded="false" />
                 <element signature="n#!!block;n#showJournals#0" expanded="false" />
                 <element signature="n#!!block;n#showVenue#0" expanded="false" />
                 <element signature="n#!!block;n#showPapersPublished#0" expanded="false" />
-                <element signature="e#17618#21535#0" expanded="false" />
+                <element signature="e#18141#22058#0" expanded="false" />
                 <element signature="n#!!block;n#okOfPapersPublishedClicked#0" expanded="false" />
                 <element signature="n#!!block;n#fillCoAUthorIds#0" expanded="false" />
                 <element signature="n#!!block;n#showAuthorNotCoauthor#0" expanded="false" />
                 <element signature="n#!!block;n#okOfNonCoAuthorshipClicked#0" expanded="false" />
-                <element signature="e#48411#48701#0" expanded="false" />
-                <element signature="e#49009#49706#0" expanded="false" />
-                <element signature="e#49994#51010#0" expanded="false" />
+                <element signature="e#41547#41837#0" expanded="false" />
                 <element signature="n#!!block;n#showCoAuthorship#0" expanded="false" />
                 <element signature="n#!!block;n#okOfCoAuthorshipClicked#0" expanded="false" />
                 <element signature="n#!!block;n#showPapersAuthored#0" expanded="false" />
@@ -112,14 +95,14 @@
                 <element signature="n#!!block;n#okOfCitationsClicked#0" expanded="false" />
                 <element signature="n#!!block;n#checkValueEntered#0" expanded="false" />
                 <element signature="n#!!block;n#removeNodeAndLinks#0" expanded="false" />
-                <element signature="e#80717#83582#0" expanded="false" />
+                <element signature="e#76911#79776#0" expanded="false" />
                 <element signature="n#!!block;n#showCompleteDetails#0" expanded="false" />
                 <element signature="n#!!block;n#renameTab#0" expanded="false" />
                 <element signature="n#!!block;n#CloseAddTagWindow#0" expanded="false" />
                 <element signature="n#!!block;n#CloseLimitRecordsWindow#0" expanded="false" />
                 <element signature="n#!!block;n#CancelLimitRecordsWindow#0" expanded="false" />
                 <element signature="n#!!block;n#loadFacets#0" expanded="false" />
-                <element signature="e#93063#93759#0" expanded="false" />
+                <element signature="e#89257#89953#0" expanded="false" />
                 <element signature="n#!!block;n#loadResults#0" expanded="false" />
                 <element signature="n#_source#0" expanded="false" />
                 <element signature="n#!!block;n#showInstitutionFromAuthor#0" expanded="false" />
@@ -132,17 +115,16 @@
                 <element signature="n#!!block;n#createPublicationNode#0" expanded="false" />
                 <element signature="n#!!block;n#showFOS#0" expanded="false" />
                 <element signature="n#!!block;n#showInstitution#0" expanded="false" />
-                <marker date="1535998239186" expanded="false" signature="38373:47677" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="hermesStyle.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="hermesStyle.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CSS/hermesStyle.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2200">
-              <caret line="43" column="1" lean-forward="true" selection-start-line="43" selection-start-column="1" selection-end-line="43" selection-end-column="1" />
+            <state relative-caret-position="634">
+              <caret line="551" column="14" lean-forward="true" selection-start-line="551" selection-start-column="14" selection-end-line="551" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -151,18 +133,17 @@
       <file leaf-file-name="HermesGraphLoader.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/JS/HermesGraphLoader.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3042">
-              <caret line="915" column="20" lean-forward="true" selection-start-line="915" selection-start-column="20" selection-end-line="915" selection-end-column="20" />
+            <state relative-caret-position="342">
+              <caret line="935" column="29" lean-forward="false" selection-start-line="935" selection-start-column="29" selection-end-line="935" selection-end-column="29" />
               <folding>
                 <element signature="n#!!block;n#poplateClickedNode#0" expanded="false" />
+                <element signature="e#4553#4992#0" expanded="false" />
                 <element signature="n#!!block;n#getActiveTabIndex#0" expanded="false" />
                 <element signature="n#!!block;n#checkYear#0" expanded="false" />
                 <element signature="n#!!block;n#sliderMoved#0" expanded="false" />
-                <element signature="n#!!block;n#createGraph#0" expanded="false" />
                 <element signature="n#!!block;n#downloadGraphAsSVG#0" expanded="false" />
-                <element signature="e#32617#32661#0" expanded="false" />
+                <element signature="e#33566#33610#0" expanded="false" />
                 <element signature="n#!!block;n#downloadGraphAsData#0" expanded="false" />
-                <element signature="n#!!block;n#clearSVG#0" expanded="false" />
                 <element signature="n#!!block;n#resize#0" expanded="false" />
                 <element signature="n#!!block;n#neighbors#0" expanded="false" />
               </folding>
@@ -173,25 +154,36 @@
       <file leaf-file-name="scholarlyResult.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HTML/scholarlyResult.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1076">
-              <caret line="78" column="61" lean-forward="true" selection-start-line="78" selection-start-column="61" selection-end-line="78" selection-end-column="61" />
+            <state relative-caret-position="350">
+              <caret line="330" column="34" lean-forward="true" selection-start-line="330" selection-start-column="34" selection-end-line="330" selection-end-column="34" />
               <folding>
                 <element signature="n#style#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#0;n#table#0;n#div#1;n#div#1;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#td#0;n#tr#0;n#table#0;n#div#1;n#div#1;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#td#1;n#tr#0;n#table#0;n#div#1;n#div#1;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#form#0;n#td#2;n#tr#0;n#table#0;n#div#1;n#div#1;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#form#0;n#td#2;n#tr#0;n#table#0;n#div#1;n#div#1;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#label#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#1;n#div#1;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#style#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#1;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#2;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#td#0;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#td#1;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#form#0;n#td#2;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#form#0;n#td#2;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#table#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#1;n#td#0;n#tr#1;n#table#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#style#0;n#p#0;n#td#0;n#tr#4;n#table#0;n#div#1;n#div#0;n#div#0;n#div#5;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="e#17334#17653#0" expanded="false" />
-                <element signature="e#21712#21964#0" expanded="false" />
-                <element signature="e#21994#22434#0" expanded="false" />
-                <marker date="1535997905056" expanded="true" signature="18345:18390" ph="..." />
+                <element signature="n#div#6;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="e#18774#19093#0" expanded="false" />
+                <element signature="e#23152#23404#0" expanded="false" />
+                <element signature="e#23434#23874#0" expanded="false" />
+                <marker date="1536273631016" expanded="true" signature="19785:19830" ph="..." />
               </folding>
             </state>
           </provider>
@@ -211,8 +203,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>&quot;=&quot;search</find>
-      <find>CancelLimitRecordsWindow</find>
       <find>authorWithCitingNonCoauthorshipSeen</find>
       <find>CloseLimitRecordsWindow</find>
       <find>searchClicke</find>
@@ -241,6 +231,8 @@
       <find>#my</find>
       <find>classList</find>
       <find>selectedyea</find>
+      <find>'Citing-</find>
+      <find>exportData_glyphicons</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;instId&quot;</replace>
@@ -285,15 +277,15 @@
         <option value="$PROJECT_DIR$/JSON/Completedata.json" />
         <option value="$PROJECT_DIR$/JSON/StructureOfVertexes.txt" />
         <option value="$PROJECT_DIR$/JSON/StructureofLinks.txt" />
-        <option value="$PROJECT_DIR$/HTML/index.html" />
         <option value="$PROJECT_DIR$/HTML/about.html" />
         <option value="$PROJECT_DIR$/HTML/Header.html" />
-        <option value="$PROJECT_DIR$/CSS/hermesStyle.css" />
+        <option value="$PROJECT_DIR$/HTML/getStarted.html" />
+        <option value="$PROJECT_DIR$/HTML/index.html" />
+        <option value="$PROJECT_DIR$/JS/Search.js" />
+        <option value="$PROJECT_DIR$/JS/processAndFormEntities.js" />
         <option value="$PROJECT_DIR$/JS/HermesGraphLoader.js" />
         <option value="$PROJECT_DIR$/HTML/scholarlyResult.html" />
-        <option value="$PROJECT_DIR$/JS/processAndFormEntities.js" />
-        <option value="$PROJECT_DIR$/JS/Search.js" />
-        <option value="$PROJECT_DIR$/HTML/getStarted.html" />
+        <option value="$PROJECT_DIR$/CSS/hermesStyle.css" />
       </list>
     </option>
   </component>
@@ -313,8 +305,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="792" />
-    <option name="y" value="98" />
+    <option name="x" value="393" />
+    <option name="y" value="51" />
     <option name="width" value="1087" />
     <option name="height" value="940" />
   </component>
@@ -334,7 +326,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -346,12 +337,13 @@
             <path>
               <item name="Hermes" type="b2602c69:ProjectViewProjectNode" />
               <item name="Hermes" type="462c0819:PsiDirectoryNode" />
-              <item name="HTML" type="462c0819:PsiDirectoryNode" />
+              <item name="Library" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -365,15 +357,15 @@
     <property name="javascript.nodejs.core.library.configured.version" value="6.12.2" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\GeckoDB_MiscBranch\Datasets_CoddsGraph\gecko-misc\Hermes-tool-ToExplore-citationNetwork\Hermes\Library" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\GeckoDB_MiscBranch\Datasets_CoddsGraph\gecko-misc\Hermes-tool-ToExplore-citationNetwork\Hermes\Library" />
       <recent name="F:\GeckoDB_MiscBranch\Datasets_CoddsGraph\gecko-misc\Hermes-tool-ToExplore-citationNetwork\Hermes\Images" />
       <recent name="F:\GeckoDB_MiscBranch\Datasets_CoddsGraph\gecko-misc\Hermes-tool-ToExplore-citationNetwork\Hermes\JSON" />
       <recent name="F:\GeckoDB_MiscBranch\Datasets_CoddsGraph\gecko-misc\Hermes-tool-ToExplore-citationNetwork\Hermes\HTML" />
       <recent name="F:\Hermes_ExploreCitationNetwork\Images" />
-      <recent name="F:\Hermes_ExploreCitationNetwork\JSON" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\GeckoDB_MiscBranch\Datasets_CoddsGraph\gecko-misc\Hermes-tool-ToExplore-citationNetwork\Hermes\Library" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -453,12 +445,13 @@
       <workItem from="1534196233927" duration="34500000" />
       <workItem from="1534299532990" duration="33802000" />
       <workItem from="1534450650428" duration="138982000" />
-      <workItem from="1535204970273" duration="167977000" />
+      <workItem from="1535204970273" duration="191770000" />
+      <workItem from="1536226599363" duration="7448000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1778428000" />
+    <option name="totallyTimeSpent" value="1809669000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -468,7 +461,6 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32930845" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.402854" sideWeight="0.49791667" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -480,6 +472,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -536,38 +529,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="36" />
+      <option name="time" value="37" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/HTML/Header.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="15" column="43" lean-forward="true" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/JS/HermesGraphLoader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="15" column="29" lean-forward="true" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
-          <folding>
-            <element signature="n#!!block;n#poplateClickedNode#0" expanded="false" />
-            <element signature="n#!!block;n#getActiveTabIndex#0" expanded="false" />
-            <element signature="n#!!block;n#checkYear#0" expanded="false" />
-            <element signature="n#!!block;n#sliderMoved#0" expanded="false" />
-            <element signature="n#!!block;n#createGraph#0" expanded="false" />
-            <element signature="n#!!block;n#downloadGraphAsSVG#0" expanded="false" />
-            <element signature="e#32617#32661#0" expanded="false" />
-            <element signature="n#!!block;n#downloadGraphAsData#0" expanded="false" />
-            <element signature="n#!!block;n#clearSVG#0" expanded="false" />
-            <element signature="n#!!block;n#resize#0" expanded="false" />
-            <element signature="n#!!block;n#neighbors#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/JS/Search.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
@@ -577,41 +543,29 @@
             <element signature="n#!!block;n#fillSuggestion#0" expanded="false" />
             <element signature="n#!!block;n#submitIfEnter#0" expanded="false" />
             <element signature="n#!!block;n#submitIfEnter_scholarly#0" expanded="false" />
-            <element signature="e#8218#8722#0" expanded="false" />
+            <element signature="e#8217#8721#0" expanded="false" />
             <element signature="n#!!block;n#searchClickedFromScholarly#0" expanded="false" />
-            <element signature="e#13148#23334#0" expanded="false" />
+            <element signature="n#!!block;n#searchClicked#0" expanded="false" />
+            <element signature="e#13147#23333#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JS/Properties.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="6" column="25" lean-forward="false" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/JSON/QueryData.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1222">
-          <caret line="47" column="33" lean-forward="false" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/JS/Properties.js" />
+    <entry file="file://$PROJECT_DIR$/JSON/QueryData.json" />
     <entry file="file://$PROJECT_DIR$/JS/HermesGraphLoader.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3172">
           <caret line="122" column="0" lean-forward="true" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
           <folding>
             <element signature="n#!!block;n#poplateClickedNode#0" expanded="false" />
+            <element signature="e#4553#4992#0" expanded="false" />
             <element signature="n#!!block;n#getActiveTabIndex#0" expanded="false" />
             <element signature="n#!!block;n#checkYear#0" expanded="false" />
             <element signature="n#!!block;n#sliderMoved#0" expanded="false" />
-            <element signature="n#!!block;n#createGraph#0" expanded="false" />
             <element signature="n#!!block;n#downloadGraphAsSVG#0" expanded="false" />
-            <element signature="e#32617#32661#0" expanded="false" />
+            <element signature="e#33566#33610#0" expanded="false" />
             <element signature="n#!!block;n#downloadGraphAsData#0" expanded="false" />
-            <element signature="n#!!block;n#clearSVG#0" expanded="false" />
             <element signature="n#!!block;n#resize#0" expanded="false" />
             <element signature="n#!!block;n#neighbors#0" expanded="false" />
           </folding>
@@ -626,13 +580,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JS/Properties.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/JS/Properties.js" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/webstorm64.exe.vmoptions">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -737,23 +685,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="292">
           <caret line="1128" column="4" lean-forward="false" selection-start-line="1128" selection-start-column="4" selection-end-line="1128" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JSON/magpaper.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="18" column="52" lean-forward="false" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/JSON/magpaper.json" />
     <entry file="file://$PROJECT_DIR$/JSON/temp.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="78">
           <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -765,51 +704,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JS/Properties.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HTML/pager.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HTML/SearchResult.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1976">
-          <caret line="86" column="33" lean-forward="false" selection-start-line="86" selection-start-column="33" selection-end-line="86" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/JSON/SearchResult.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="15" column="23" lean-forward="true" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/JSON/QueryData.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/JS/Properties.js" />
+    <entry file="file://$PROJECT_DIR$/HTML/pager.html" />
+    <entry file="file://$PROJECT_DIR$/HTML/SearchResult.html" />
+    <entry file="file://$PROJECT_DIR$/JSON/SearchResult.json" />
+    <entry file="file://$PROJECT_DIR$/JSON/QueryData.json" />
     <entry file="file://$PROJECT_DIR$/JSON/StructureofLinks.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1664">
           <caret line="64" column="50" lean-forward="true" selection-start-line="64" selection-start-column="50" selection-end-line="64" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -817,7 +720,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="694">
           <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="LargeFileEditor">
@@ -830,7 +732,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="283">
           <caret line="3777" column="12" lean-forward="false" selection-start-line="3777" selection-start-column="12" selection-end-line="3777" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -842,77 +743,96 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/HTML/about.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HTML/getStarted.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2132">
+          <caret line="131" column="73" lean-forward="true" selection-start-line="131" selection-start-column="73" selection-end-line="131" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Library/log4javascript.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="181" column="393" lean-forward="false" selection-start-line="181" selection-start-column="393" selection-end-line="181" selection-end-column="393" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/JS/Search.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="38" column="26" lean-forward="false" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
+          <folding>
+            <element signature="n#!!block;n#fillSearchInput#0" expanded="false" />
+            <element signature="n#!!block;n#fillSuggestion#0" expanded="false" />
+            <element signature="n#!!block;n#submitIfEnter#0" expanded="false" />
+            <element signature="n#!!block;n#submitIfEnter_scholarly#0" expanded="false" />
+            <element signature="e#8217#8721#0" expanded="false" />
+            <element signature="n#!!block;n#searchClickedFromScholarly#0" expanded="false" />
+            <element signature="n#!!block;n#searchClicked#0" expanded="false" />
+            <element signature="e#13147#23333#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HTML/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="11" column="39" lean-forward="true" selection-start-line="11" selection-start-column="39" selection-end-line="11" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Library/colResizable-1.6.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/JS/HermesGraphLoader.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3042">
-          <caret line="915" column="20" lean-forward="true" selection-start-line="915" selection-start-column="20" selection-end-line="915" selection-end-column="20" />
+        <state relative-caret-position="342">
+          <caret line="935" column="29" lean-forward="false" selection-start-line="935" selection-start-column="29" selection-end-line="935" selection-end-column="29" />
           <folding>
             <element signature="n#!!block;n#poplateClickedNode#0" expanded="false" />
+            <element signature="e#4553#4992#0" expanded="false" />
             <element signature="n#!!block;n#getActiveTabIndex#0" expanded="false" />
             <element signature="n#!!block;n#checkYear#0" expanded="false" />
             <element signature="n#!!block;n#sliderMoved#0" expanded="false" />
-            <element signature="n#!!block;n#createGraph#0" expanded="false" />
             <element signature="n#!!block;n#downloadGraphAsSVG#0" expanded="false" />
-            <element signature="e#32617#32661#0" expanded="false" />
+            <element signature="e#33566#33610#0" expanded="false" />
             <element signature="n#!!block;n#downloadGraphAsData#0" expanded="false" />
-            <element signature="n#!!block;n#clearSVG#0" expanded="false" />
             <element signature="n#!!block;n#resize#0" expanded="false" />
             <element signature="n#!!block;n#neighbors#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CSS/hermesStyle.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2200">
-          <caret line="43" column="1" lean-forward="true" selection-start-line="43" selection-start-column="1" selection-end-line="43" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HTML/scholarlyResult.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1076">
-          <caret line="78" column="61" lean-forward="true" selection-start-line="78" selection-start-column="61" selection-end-line="78" selection-end-column="61" />
-          <folding>
-            <element signature="n#style#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#0;n#table#0;n#div#1;n#div#1;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#td#0;n#tr#0;n#table#0;n#div#1;n#div#1;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#td#1;n#tr#0;n#table#0;n#div#1;n#div#1;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#form#0;n#td#2;n#tr#0;n#table#0;n#div#1;n#div#1;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#form#0;n#td#2;n#tr#0;n#table#0;n#div#1;n#div#1;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#1;n#div#1;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#table#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#1;n#td#0;n#tr#1;n#table#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#td#0;n#tr#4;n#table#0;n#div#1;n#div#0;n#div#0;n#div#5;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#17334#17653#0" expanded="false" />
-            <element signature="e#21712#21964#0" expanded="false" />
-            <element signature="e#21994#22434#0" expanded="false" />
-            <marker date="1535997905056" expanded="true" signature="18345:18390" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/JS/processAndFormEntities.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="2118" column="62" lean-forward="false" selection-start-line="2118" selection-start-column="62" selection-end-line="2118" selection-end-column="62" />
+        <state relative-caret-position="-904">
+          <caret line="1739" column="55" lean-forward="false" selection-start-line="1739" selection-start-column="55" selection-end-line="1739" selection-end-column="55" />
           <folding>
             <element signature="n#!!block;n#createLinks#0" expanded="false" />
             <element signature="n#!!block;n#showAuthors#0" expanded="false" />
             <element signature="n#!!block;n#showJournals#0" expanded="false" />
             <element signature="n#!!block;n#showVenue#0" expanded="false" />
             <element signature="n#!!block;n#showPapersPublished#0" expanded="false" />
-            <element signature="e#17618#21535#0" expanded="false" />
+            <element signature="e#18141#22058#0" expanded="false" />
             <element signature="n#!!block;n#okOfPapersPublishedClicked#0" expanded="false" />
             <element signature="n#!!block;n#fillCoAUthorIds#0" expanded="false" />
             <element signature="n#!!block;n#showAuthorNotCoauthor#0" expanded="false" />
             <element signature="n#!!block;n#okOfNonCoAuthorshipClicked#0" expanded="false" />
-            <element signature="e#48411#48701#0" expanded="false" />
-            <element signature="e#49009#49706#0" expanded="false" />
-            <element signature="e#49994#51010#0" expanded="false" />
+            <element signature="e#41547#41837#0" expanded="false" />
             <element signature="n#!!block;n#showCoAuthorship#0" expanded="false" />
             <element signature="n#!!block;n#okOfCoAuthorshipClicked#0" expanded="false" />
             <element signature="n#!!block;n#showPapersAuthored#0" expanded="false" />
@@ -923,14 +843,14 @@
             <element signature="n#!!block;n#okOfCitationsClicked#0" expanded="false" />
             <element signature="n#!!block;n#checkValueEntered#0" expanded="false" />
             <element signature="n#!!block;n#removeNodeAndLinks#0" expanded="false" />
-            <element signature="e#80717#83582#0" expanded="false" />
+            <element signature="e#76911#79776#0" expanded="false" />
             <element signature="n#!!block;n#showCompleteDetails#0" expanded="false" />
             <element signature="n#!!block;n#renameTab#0" expanded="false" />
             <element signature="n#!!block;n#CloseAddTagWindow#0" expanded="false" />
             <element signature="n#!!block;n#CloseLimitRecordsWindow#0" expanded="false" />
             <element signature="n#!!block;n#CancelLimitRecordsWindow#0" expanded="false" />
             <element signature="n#!!block;n#loadFacets#0" expanded="false" />
-            <element signature="e#93063#93759#0" expanded="false" />
+            <element signature="e#89257#89953#0" expanded="false" />
             <element signature="n#!!block;n#loadResults#0" expanded="false" />
             <element signature="n#_source#0" expanded="false" />
             <element signature="n#!!block;n#showInstitutionFromAuthor#0" expanded="false" />
@@ -943,54 +863,51 @@
             <element signature="n#!!block;n#createPublicationNode#0" expanded="false" />
             <element signature="n#!!block;n#showFOS#0" expanded="false" />
             <element signature="n#!!block;n#showInstitution#0" expanded="false" />
-            <marker date="1535998239186" expanded="false" signature="38373:47677" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JS/Search.js">
+    <entry file="file://$PROJECT_DIR$/HTML/scholarlyResult.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="555" column="67" lean-forward="true" selection-start-line="555" selection-start-column="67" selection-end-line="555" selection-end-column="67" />
+        <state relative-caret-position="350">
+          <caret line="330" column="34" lean-forward="true" selection-start-line="330" selection-start-column="34" selection-end-line="330" selection-end-column="34" />
           <folding>
-            <element signature="n#!!block;n#fillSearchInput#0" expanded="false" />
-            <element signature="n#!!block;n#fillSuggestion#0" expanded="false" />
-            <element signature="n#!!block;n#submitIfEnter#0" expanded="false" />
-            <element signature="n#!!block;n#submitIfEnter_scholarly#0" expanded="false" />
-            <element signature="e#8218#8722#0" expanded="false" />
-            <element signature="n#!!block;n#searchClickedFromScholarly#0" expanded="false" />
-            <element signature="e#13148#23334#0" expanded="false" />
+            <element signature="n#style#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#2;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#td#0;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#td#1;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#form#0;n#td#2;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#form#0;n#td#2;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#1;n#td#0;n#tr#1;n#table#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#p#0;n#td#0;n#tr#4;n#table#0;n#div#1;n#div#0;n#div#0;n#div#5;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#div#6;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#18774#19093#0" expanded="false" />
+            <element signature="e#23152#23404#0" expanded="false" />
+            <element signature="e#23434#23874#0" expanded="false" />
+            <marker date="1536273631016" expanded="true" signature="19785:19830" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HTML/about.html">
+    <entry file="file://$PROJECT_DIR$/CSS/hermesStyle.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state relative-caret-position="634">
+          <caret line="551" column="14" lean-forward="true" selection-start-line="551" selection-start-column="14" selection-end-line="551" selection-end-column="14" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HTML/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-780">
-          <caret line="3" column="6" lean-forward="true" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HTML/getStarted.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="147" column="159" lean-forward="false" selection-start-line="147" selection-start-column="159" selection-end-line="147" selection-end-column="159" />
-          <folding>
-            <element signature="n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

@@ -552,8 +552,8 @@ body {
     left: 50%;
     width: 550px;
     list-style-type: none;
-    margin-top: -240px;
-    margin-left: 260px;
+    margin-top: -250px;
+    margin-left: 210px;
     z-index: 99999;
 }
 
@@ -750,3 +750,20 @@ body {
 #showLimitedRecordstyle{
     width: 410px;
 }
+
+
+.grip {
+    width:20px;
+    height:30px;
+    margin-top:10px;
+    background-image:url(http://www.bacubacu.com/colresizable/img/grip.png);
+    margin-left:-6px;
+    position:relative;
+    z-index:88;
+    cursor:e-resize}
+
+.grip:hover {
+    background-position-x:-20px}
+
+.dragging .grip {
+    background-position-x:-40px}

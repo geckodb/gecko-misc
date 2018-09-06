@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
     <script src="../Library/jquery.twbsPagination.min.js"></script>
+    <script src="../Library/colResizable-1.6.min.js"></script>
+    <script src="../Library/log4javascript.js"></script>
 
 </head>
 
@@ -40,17 +42,35 @@
 </div>
 
 <div id="content">
-    <table>
+    <table id="colResize" width="100%" border="0" cellpadding="0" cellspacing="0">
         <tr>
-            <td >
-                <div id="graphArea" class="startSize">
+            <td id="graphArea" class="startSize">
                     <div>
                         <table>
                             <tr>
                                 <td width="50px" ><a href="#" title="Export data" onclick="downloadGraphAsData(); return false;"><span class="glyphicon glyphicon-save-file" id="exportData_glyphicons"></span></a></td>
                                 <td width="50px"><a href="#" title="Download svg" onclick="downloadGraphAsSVG(); return false;"><span class="glyphicon glyphicon-download-alt" id="exportSVG_glyphicons"></span></a></td>
                                 <td width="50px"><a href="#" title="Clear" onclick="clearSVG();return false;"><img src="../Images/clearicon.png" id="clearSVG"></a></td>
-                                <td width="650px"></td>
+                                <td width="650px">
+                                    <div style=" margin-top:30px;margin-left: 180px;">
+                                    <table>
+                                        <tr>
+                                            <td style="width: 100px;">
+                                              <b>Total Nodes : </b>
+                                            </td>
+                                            <td style="width: 100px; color: green">
+                                               <b id="totnodes"></b>
+                                            </td>
+                                            <td style="width: 100px;">
+                                                <b>Total Edges : </b>
+                                            </td>
+                                            <td style="width: 100px; color: green">
+                                                <b id="totedges"></b>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    </div>
+                                </td>
                                 <td width="250px"></td>
                                 <td width="50px"><a href="#" title="adds all nodes to graph area" onclick=poplateClickedNode("",searchData,true)><span class="glyphicon glyphicon glyphicon-plus" id="enlarge_glyphicons"></span></a></td>
                             </tr>
@@ -66,7 +86,7 @@
                         </ul>
 
                         <div class="tab-content">
-                            <div class="tab-pane fade in active" id="tabArea0" style="overflow: auto; width: 1054px; height: 540px;"></div>
+                            <div class="tab-pane fade in active" id="tabArea0" style="overflow: auto; height: 540px;"></div>
                         </div>
 
                         <div >
@@ -93,7 +113,6 @@
                             </table>
                         </div>
                     </div>
-                </div>
             </td>
             <td id="searchArea">
                 <ul class="nav nav-tabs" id="resultList">
@@ -210,7 +229,6 @@
     </div>
 </div>
 
-
 <div id="showLimitedRecords" class="modal fade" role="dialog">
     <div class="modal-dialog modal-sm">
         <!-- Modal content-->
@@ -285,6 +303,7 @@
        <!-- <li onclick="hideContextMenu()">Close</li>-->
     </ul>
 </div>
+
 <script src="../JS/HermesGraphLoader.js"></script>
 <script src="../JS/Search.js"></script>
 <script src="../JS/processAndFormEntities.js"></script>
@@ -300,6 +319,7 @@
     $(function () {
         $("#header1").load("Header.html");
         $("#footer1").load("Footer.html");
+        updateNodeAndEdgeCount();
     });
     //to obtain the value that was entered in search field which was passed through url
     var url_string = window.location.href;
@@ -307,6 +327,11 @@
     var searchValue = url.searchParams.get("value");
     var typeValue=url.searchParams.get("type");
     //alert("in schol type= "+typeValue)
+
+    $("#colResize").colResizable({
+        liveDrag:true,
+        gripInnerHtml:"<div class='grip'></div>",
+        draggingClass:"dragging" });
 
     $(".workspaceTab").on("click", "a", function (e) {
         e.preventDefault();

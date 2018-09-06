@@ -41,7 +41,7 @@ function fillSuggestion() {
     var val=document.getElementById("searchinput").value;
     console.log(val.length);
     if(val.length>0) {
-        var urlSuggestion = "http://localhost:9200/dblpvertexes/_search?q=Title:\"" + val + "\"* OR AUTHOR_NAME:\"" + val +  "\"* OR JOURNAL_NAME:\""+  val +"\"* OR VENUE_NAME:\""+ val +"\"*&size=10";
+        var urlSuggestion = "http://localhost:9200/dblpvertexes/_search?q=Title:\"" + val + "\"* OR AUTHOR_NAME:\"" + val +  "\"* OR JOURNAL_NAME:\""+  val +"\"* OR VENUE_NAME:\""+ val +"\"*&size=8";
         d3.json(urlSuggestion, function (error, json) {
             if (error) throw error;
 
