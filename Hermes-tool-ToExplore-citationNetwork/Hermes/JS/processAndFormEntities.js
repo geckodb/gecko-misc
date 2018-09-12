@@ -601,7 +601,7 @@ function okOfPapersPublishedClicked(activeTab,index,processedArray) {
         refrom=0;
     }
     sizeofrecords=enteredVal;
-
+//why 90 ? - because pids should have maximum of 90 ids to avoid url exceeding 4096 bytes
     var loopCnt = Math.ceil(enteredVal / 90);
     for (var x = 0; x < loopCnt; x++) {
         if(sizeofrecords>90){
@@ -2261,7 +2261,7 @@ function loadFacets(searchValue,byYear){
             '            "aggs":{\n' +
             '                "paperByYear":{\n' +
             '                    "terms":{\n' +
-            '                        "field":"Year",\n' +
+            '                        "field":"Year.keyword",\n' +
             '                        "size":2000\n' +
             '                    }\n' +
             '                }\n' +
@@ -2277,7 +2277,7 @@ function loadFacets(searchValue,byYear){
             '            "aggs":{\n' +
             '                "paperByYear":{\n' +
             '                    "terms":{\n' +
-            '                        "field":"CitationCount",\n' +
+            '                        "field":"CitationCount.keyword",\n' +
             '                        "size":2000\n' +
             '                    }\n' +
             '                }\n' +
@@ -2286,7 +2286,7 @@ function loadFacets(searchValue,byYear){
     }
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:9200/_search',
+        url: 'http://localhost:9200/dblpvertexes/_search/',
         contentType: 'application/json',
         dataType: 'json',
         async:false,

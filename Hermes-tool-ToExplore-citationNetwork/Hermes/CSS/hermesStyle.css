@@ -234,8 +234,8 @@ body {
 
 .searchResMain{
     margin-bottom: 70px;
-    margin-left: -120px;
-    font-size: 25px;
+    margin-left: -190px;
+    font-size: 28px;
 }
 
 
@@ -260,14 +260,16 @@ body {
 
 .searchbtn{
     margin-left: -80px;
-    font-size: 20px;
+    font-size: 23px;
 }
 
 .searchinputStyling{
     width: 650px;
     height: 50px;
     margin-top: 30px;
-    margin-left: 430px;
+    margin-left: 360px;
+    left: 50%;
+  /*  margin-left: 430px;*/
 }
 
 .scholarlySearch{
@@ -537,23 +539,26 @@ body {
 
 .suggestionboxMain{
     position: absolute;
-    top: 50%;
-    left: 50%;
+    /*top: 50%;*/
+    /*left: 50%;*/
+    left: -2%;
     width: 740px;
     list-style-type: none;
-    margin-top: -240px;
-    margin-left: -360px;
+    margin-top: 0px;
+    margin-left: 360px;
     z-index: 99999;
 }
 
 .suggestionBoxscholarly{
     position: absolute;
-    top: 50%;
+    top: 20%;
     left: 50%;
     width: 550px;
     list-style-type: none;
-    margin-top: -250px;
-    margin-left: 210px;
+    margin-top: 0px;
+    margin-left: 120px;
+   /* margin-top: -250px;*/
+    /*margin-left: 210px;*/
     z-index: 99999;
 }
 

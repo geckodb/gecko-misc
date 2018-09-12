@@ -242,8 +242,8 @@ function searchClicked(userEnteredtext,chosenType) {
         records = [],
         displayRecords = [],
         recPerPage = 5,
-        page = 1,
-        totalPages = 1;
+        page = 1, //min value should be 1.
+        totalPages = 1; //min value should be 1
 
     document.getElementById("overlay").style.display="block";
     document.getElementById("hiddenInput").value="";
@@ -256,7 +256,7 @@ function searchClicked(userEnteredtext,chosenType) {
     //Pagination code
     if(chosenType===vertexType.AUTHOR) {
         console.log(chosenType+userEnteredtext)
-        urlSearch = "http://localhost:9200/dblpvertexes/_search?q=vType:" + chosenType + " AND AUTHOR_NAME:" + userEnteredtext +"*&from=0&size=5";
+        urlSearch = "http://localhost:9200/dblpvertexes/_count?q=vType:" + chosenType + " AND AUTHOR_NAME:" + userEnteredtext;
         _LTracker.push({
             'method':'searchClicked',
             'tag': 'Search-Author',
@@ -267,7 +267,7 @@ function searchClicked(userEnteredtext,chosenType) {
             }
         });
     }else if((chosenType===vertexType.PAPER)){
-        urlSearch = "http://localhost:9200/dblpvertexes/_search?q=vType:" + chosenType + " AND Title:" + userEnteredtext + "*&from=0&size=5";
+        urlSearch = "http://localhost:9200/dblpvertexes/_count?q=vType:" + chosenType + " AND Title:" + userEnteredtext;
         _LTracker.push({
             'method':'searchClicked',
             'tag': 'Search-Paper',
@@ -278,7 +278,7 @@ function searchClicked(userEnteredtext,chosenType) {
             }
         });
     }else{
-        urlSearch="http://localhost:9200/dblpvertexes/_search?q="+userEnteredtext+"&from=0&size=5";
+        urlSearch="http://localhost:9200/dblpvertexes/_count?q="+userEnteredtext;
         _LTracker.push({
             'method':'searchClicked',
             'tag': 'Search-noType',
@@ -303,7 +303,7 @@ function searchClicked(userEnteredtext,chosenType) {
         async: false,
         success: function (json) {
 
-            if (json.hits.total == 0) {
+            if (json.count== 0) {
                 _LTracker.push({
                     'method': 'searchClicked',
                     'tag': 'searchResult-null',
@@ -337,7 +337,7 @@ function searchClicked(userEnteredtext,chosenType) {
                     page = 1,
                     totalPages = 0;
 
-                totalRecords = json.hits.total;
+                totalRecords = json.count;
                 totalPages = Math.ceil(totalRecords / recPerPage);
                 apply_pagination(userEnteredtext, chosenType);
 

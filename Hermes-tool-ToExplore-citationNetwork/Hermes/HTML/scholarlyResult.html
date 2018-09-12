@@ -428,7 +428,7 @@
 
             var tabId = 'paperGraphArea' + id;
             $(this).closest('li').before('<li><a data-toggle="tab" oncontextmenu="return showContextMenu(event,this);" href="#tabArea' + id + '">New Tab</a> <span> x </span></li>');
-            $('.tab-content').append('<div class="tab-pane fade" id="tabArea' + id +'" style="overflow: auto; width: 1054px; height: 540px;"></div>');
+            $('.tab-content').append('<div class="tab-pane fade" id="tabArea' + id +'" style="overflow: auto; height: 540px;"></div>');
 
             //document.getElementById("tabArea"+id).classList.add("active");
             var selector="#tabArea"+ id;
