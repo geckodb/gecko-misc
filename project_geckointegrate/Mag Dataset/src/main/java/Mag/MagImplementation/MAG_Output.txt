@@ -1,0 +1,107 @@
+create(neo4j:paper {title: System and Method for Maskless Direct Write Lithography})
+create(language:text {language: 0000002e-c2f2-4e25-9341-60d39130ac7a})
+create(year:number {year: 2015})
+create(abstract: abstract {abstract: A system and method for maskless direct write lithography are disclosed. The method includes receiving a plurality of pixels that represent an integrated circuit (IC) layout; identifying a first subset of the pixels that are suitable for a first compression method; and identifying a second subset of the pixels that are suitable for a second compression method. The method further includes compressing the first and second subset using the first and second compression method respectively, resulting in compressed data. The method further includes delivering the compressed data to a maskless direct writer for manufacturing a substrate. In embodiments, the first compression method uses a run-length encoding and the second compression method uses a dictionary-based encoding. Due to the hybrid compression method, the compressed data can be decompressed with a data rate expansion ratio sufficient for high-volume IC manufacturing.})
+create(id:id {id: 0000002e-c2f2-4e25-9341-60d39130ac7a})
+
+MATCH (a:paper), (b:text) WHERE a.title=System and Method for Maskless Direct Write Lithography AND b.language=0000002e-c2f2-4e25-9341-60d39130ac7a CREATE (a)-[:language]->(b)
+MATCH (a:paper), (b:year) WHERE a.title=System and Method for Maskless Direct Write Lithography AND b.year=2015 CREATE (a)-[:year]->(b)
+MATCH (a:paper), (b:abstract) WHERE a.title=System and Method for Maskless Direct Write Lithography AND b:abstract=A system and method for maskless direct write lithography are disclosed. The method includes receiving a plurality of pixels that represent an integrated circuit (IC) layout; identifying a first subset of the pixels that are suitable for a first compression method; and identifying a second subset of the pixels that are suitable for a second compression method. The method further includes compressing the first and second subset using the first and second compression method respectively, resulting in compressed data. The method further includes delivering the compressed data to a maskless direct writer for manufacturing a substrate. In embodiments, the first compression method uses a run-length encoding and the second compression method uses a dictionary-based encoding. Due to the hybrid compression method, the compressed data can be decompressed with a data rate expansion ratio sufficient for high-volume IC manufacturing. CREATE (a)-[:abstract]->(b)
+MATCH (a:paper), (b:id) WHERE a.title=System and Method for Maskless Direct Write Lithography AND b:id=0000002e-c2f2-4e25-9341-60d39130ac7a CREATE (a)-[:id]->(b)
+MATCH (n) RETURN n
+
+
+create(neo4j:paper {title: The dilemma of the Mycobacterium avium subspecies paratuberculosis infection: In pursue for effective vaccine})
+create(language:text {language: 0000003d-5ce0-4eed-a56f-bbd3f8d8242b})
+create(year:number {year: 2016})
+create(id:id {id: 0000003d-5ce0-4eed-a56f-bbd3f8d8242b})
+
+MATCH (a:paper), (b:text) WHERE a.title=The dilemma of the Mycobacterium avium subspecies paratuberculosis infection: In pursue for effective vaccine AND b.language=0000003d-5ce0-4eed-a56f-bbd3f8d8242b CREATE (a)-[:language]->(b)
+MATCH (a:paper), (b:year) WHERE a.title=The dilemma of the Mycobacterium avium subspecies paratuberculosis infection: In pursue for effective vaccine AND b.year=2016 CREATE (a)-[:year]->(b)
+MATCH (a:paper), (b:id) WHERE a.title=The dilemma of the Mycobacterium avium subspecies paratuberculosis infection: In pursue for effective vaccine AND b:id=0000003d-5ce0-4eed-a56f-bbd3f8d8242b CREATE (a)-[:id]->(b)
+MATCH (n) RETURN n
+
+
+create(neo4j:paper {title: Should endometriosis be an indication for intracytoplasmic sperm injection (ICSI) in fresh IVF cycles})
+create(language:text {language: 00000061-0bab-468b-9481-de0c899783f3})
+create(year:number {year: 2015})
+create(id:id {id: 00000061-0bab-468b-9481-de0c899783f3})
+
+MATCH (a:paper), (b:text) WHERE a.title=Should endometriosis be an indication for intracytoplasmic sperm injection (ICSI) in fresh IVF cycles AND b.language=00000061-0bab-468b-9481-de0c899783f3 CREATE (a)-[:language]->(b)
+MATCH (a:paper), (b:year) WHERE a.title=Should endometriosis be an indication for intracytoplasmic sperm injection (ICSI) in fresh IVF cycles AND b.year=2015 CREATE (a)-[:year]->(b)
+MATCH (a:paper), (b:id) WHERE a.title=Should endometriosis be an indication for intracytoplasmic sperm injection (ICSI) in fresh IVF cycles AND b:id=00000061-0bab-468b-9481-de0c899783f3 CREATE (a)-[:id]->(b)
+MATCH (n) RETURN n
+
+
+create(neo4j:paper {title: Radio: Radio San Sebasti})
+create(language:text {language: 00000081-4562-4882-a29d-5b9cb510ffc3})
+create(year:number {year: 1950})
+create(id:id {id: 00000081-4562-4882-a29d-5b9cb510ffc3})
+
+MATCH (a:paper), (b:text) WHERE a.title=Radio: Radio San Sebasti AND b.language=00000081-4562-4882-a29d-5b9cb510ffc3 CREATE (a)-[:language]->(b)
+MATCH (a:paper), (b:year) WHERE a.title=Radio: Radio San Sebasti AND b.year=1950 CREATE (a)-[:year]->(b)
+MATCH (a:paper), (b:id) WHERE a.title=Radio: Radio San Sebasti AND b:id=00000081-4562-4882-a29d-5b9cb510ffc3 CREATE (a)-[:id]->(b)
+MATCH (n) RETURN n
+
+
+create(neo4j:paper {title: Radio2: Radio2 San2 Sebasti2})
+create(language:text {language: 00000099-1ee9-4741-908c-02a7bf4857e8})
+create(year:number {year: 2011})
+create(abstract: abstract {abstract: 早期発見と治療成績の向上で担癌患者の生存期間が延びており，それに伴い重複癌を経験する機会も増えている。初発疾患が55歳，男性で，14 年間の経過で六つの悪性疾患（悪性リンパ腫，胃癌，尿管癌，小細胞肺癌，膀胱癌，肺扁平上皮癌）を併発した1 例を経験した。6 重複癌は極めてまれで本邦報告例で16 例目であった。本症例においてはその多重性から治療に難渋した。尿管癌と小細胞肺癌は同時性癌であったが，小細胞肺癌の治療期間を考慮し尿管癌の摘出術を先行したため化学療法は1 か月以上延期となった。また悪性リンパ腫の化学療法による骨髄機能低下が懸念され小細胞肺癌の化学療法は当初から減量した。しかし高度な好中球減少症に伴い尿管癌術創感染を来し，結果として化学療法を中断し放射線療法のみの治療にせざるを得なかった。また6 番目の肺扁平上皮癌に対しては残存肺機能と骨髄機能から十分な根治術や術後治療を行うことができなかった。重複癌では単独の悪性疾患と異なり，他の悪性疾患の特徴や先行治療の影響も考慮に入れて治療や経過観察を行わなくてはならない。})
+create(id:id {id: 00000099-1ee9-4741-908c-02a7bf4857e8})
+
+MATCH (a:paper), (b:text) WHERE a.title=Radio2: Radio2 San2 Sebasti2 AND b.language=00000099-1ee9-4741-908c-02a7bf4857e8 CREATE (a)-[:language]->(b)
+MATCH (a:paper), (b:year) WHERE a.title=Radio2: Radio2 San2 Sebasti2 AND b.year=2011 CREATE (a)-[:year]->(b)
+MATCH (a:paper), (b:abstract) WHERE a.title=Radio2: Radio2 San2 Sebasti2 AND b:abstract=早期発見と治療成績の向上で担癌患者の生存期間が延びており，それに伴い重複癌を経験する機会も増えている。初発疾患が55歳，男性で，14 年間の経過で六つの悪性疾患（悪性リンパ腫，胃癌，尿管癌，小細胞肺癌，膀胱癌，肺扁平上皮癌）を併発した1 例を経験した。6 重複癌は極めてまれで本邦報告例で16 例目であった。本症例においてはその多重性から治療に難渋した。尿管癌と小細胞肺癌は同時性癌であったが，小細胞肺癌の治療期間を考慮し尿管癌の摘出術を先行したため化学療法は1 か月以上延期となった。また悪性リンパ腫の化学療法による骨髄機能低下が懸念され小細胞肺癌の化学療法は当初から減量した。しかし高度な好中球減少症に伴い尿管癌術創感染を来し，結果として化学療法を中断し放射線療法のみの治療にせざるを得なかった。また6 番目の肺扁平上皮癌に対しては残存肺機能と骨髄機能から十分な根治術や術後治療を行うことができなかった。重複癌では単独の悪性疾患と異なり，他の悪性疾患の特徴や先行治療の影響も考慮に入れて治療や経過観察を行わなくてはならない。 CREATE (a)-[:abstract]->(b)
+MATCH (a:paper), (b:id) WHERE a.title=Radio2: Radio2 San2 Sebasti2 AND b:id=00000099-1ee9-4741-908c-02a7bf4857e8 CREATE (a)-[:id]->(b)
+MATCH (n) RETURN n
+
+
+create(neo4j:paper {title: Should APS Discuss Public Issues: Direct, personal participation})
+create(language:text {language: 000000a0-583a-486a-bb5b-38539503fa5c})
+create(year:number {year: 1968})
+create(id:id {id: 000000a0-583a-486a-bb5b-38539503fa5c})
+
+MATCH (a:paper), (b:text) WHERE a.title=Should APS Discuss Public Issues: Direct, personal participation AND b.language=000000a0-583a-486a-bb5b-38539503fa5c CREATE (a)-[:language]->(b)
+MATCH (a:paper), (b:year) WHERE a.title=Should APS Discuss Public Issues: Direct, personal participation AND b.year=1968 CREATE (a)-[:year]->(b)
+MATCH (a:paper), (b:id) WHERE a.title=Should APS Discuss Public Issues: Direct, personal participation AND b:id=000000a0-583a-486a-bb5b-38539503fa5c CREATE (a)-[:id]->(b)
+MATCH (n) RETURN n
+
+
+create(neo4j:paper {title: EFL learners' use of online reading strategies and comprehension of texts: An exploratory study})
+create(language:text {language: 000000b8-7f59-49ad-b9bc-e92aa858fc37})
+create(year:number {year: 2009})
+create(abstract: abstract {abstract: This study investigated EFL learners' online reading strategies and the effects of strategy use on comprehension. To fulfill the purposes of this study, a Web-based reading program, English Reading Online, was created. Thirty applied English majors, divided into a high group and a low group based on their proficiency levels, were asked to read four authentic online texts; two were appropriate to the students' level of proficiency, and two were more difficult. Results from data analysis showed that the use of support strategies dominated the strategy use and contributed to most of the comprehension gains, but an exclusive dependence on support strategies did not successfully predict the increase in scores on main ideas and details when the students were reading more challenging texts. On the whole, the use of global strategies significantly contributed to better comprehension, especially for low proficiency students.})
+create(id:id {id: 000000b8-7f59-49ad-b9bc-e92aa858fc37})
+
+MATCH (a:paper), (b:text) WHERE a.title=EFL learners' use of online reading strategies and comprehension of texts: An exploratory study AND b.language=000000b8-7f59-49ad-b9bc-e92aa858fc37 CREATE (a)-[:language]->(b)
+MATCH (a:paper), (b:year) WHERE a.title=EFL learners' use of online reading strategies and comprehension of texts: An exploratory study AND b.year=2009 CREATE (a)-[:year]->(b)
+MATCH (a:paper), (b:abstract) WHERE a.title=EFL learners' use of online reading strategies and comprehension of texts: An exploratory study AND b:abstract=This study investigated EFL learners' online reading strategies and the effects of strategy use on comprehension. To fulfill the purposes of this study, a Web-based reading program, English Reading Online, was created. Thirty applied English majors, divided into a high group and a low group based on their proficiency levels, were asked to read four authentic online texts; two were appropriate to the students' level of proficiency, and two were more difficult. Results from data analysis showed that the use of support strategies dominated the strategy use and contributed to most of the comprehension gains, but an exclusive dependence on support strategies did not successfully predict the increase in scores on main ideas and details when the students were reading more challenging texts. On the whole, the use of global strategies significantly contributed to better comprehension, especially for low proficiency students. CREATE (a)-[:abstract]->(b)
+MATCH (a:paper), (b:id) WHERE a.title=EFL learners' use of online reading strategies and comprehension of texts: An exploratory study AND b:id=000000b8-7f59-49ad-b9bc-e92aa858fc37 CREATE (a)-[:id]->(b)
+MATCH (n) RETURN n
+
+
+create(neo4j:paper {title: Breast surgery--as an office procedure})
+create(language:text {language: 000000d2-3acb-42cc-8f5d-cf92e7967f32})
+create(year:number {year: 1973})
+create(abstract: abstract {abstract: Full textFull text is available as a scanned copy of the original print version. Get a printable copy (PDF file) of the complete article (1.3M), or click on a page image below to browse page by page. #R##N##R##N##R##N##R##N##R##N#305#R##N##R##N##R##N##R##N#306#R##N##R##N##R##N##R##N##R##N##R##N#Images in this article#R##N##R##N##R##N#FIG. 1 #R##N#on p.305#R##N##R##N##R##N##R##N#FIG. 2 #R##N#on p.305#R##N##R##N##R##N##R##N#FIG. 3 #R##N#on p.306#R##N##R##N#Click on the image to see a larger version.})
+create(id:id {id: 000000d2-3acb-42cc-8f5d-cf92e7967f32})
+
+MATCH (a:paper), (b:text) WHERE a.title=Breast surgery--as an office procedure AND b.language=000000d2-3acb-42cc-8f5d-cf92e7967f32 CREATE (a)-[:language]->(b)
+MATCH (a:paper), (b:year) WHERE a.title=Breast surgery--as an office procedure AND b.year=1973 CREATE (a)-[:year]->(b)
+MATCH (a:paper), (b:abstract) WHERE a.title=Breast surgery--as an office procedure AND b:abstract=Full textFull text is available as a scanned copy of the original print version. Get a printable copy (PDF file) of the complete article (1.3M), or click on a page image below to browse page by page. #R##N##R##N##R##N##R##N##R##N#305#R##N##R##N##R##N##R##N#306#R##N##R##N##R##N##R##N##R##N##R##N#Images in this article#R##N##R##N##R##N#FIG. 1 #R##N#on p.305#R##N##R##N##R##N##R##N#FIG. 2 #R##N#on p.305#R##N##R##N##R##N##R##N#FIG. 3 #R##N#on p.306#R##N##R##N#Click on the image to see a larger version. CREATE (a)-[:abstract]->(b)
+MATCH (a:paper), (b:id) WHERE a.title=Breast surgery--as an office procedure AND b:id=000000d2-3acb-42cc-8f5d-cf92e7967f32 CREATE (a)-[:id]->(b)
+MATCH (n) RETURN n
+
+
+create(neo4j:paper {title: Lasing from Top-Down Gallium Nitride Nanowires.})
+create(language:text {language: 000000f3-061a-447b-b02c-289a1de1a3c4})
+create(year:number {year: 2012})
+create(id:id {id: 000000f3-061a-447b-b02c-289a1de1a3c4})
+
+MATCH (a:paper), (b:text) WHERE a.title=Lasing from Top-Down Gallium Nitride Nanowires. AND b.language=000000f3-061a-447b-b02c-289a1de1a3c4 CREATE (a)-[:language]->(b)
+MATCH (a:paper), (b:year) WHERE a.title=Lasing from Top-Down Gallium Nitride Nanowires. AND b.year=2012 CREATE (a)-[:year]->(b)
+MATCH (a:paper), (b:id) WHERE a.title=Lasing from Top-Down Gallium Nitride Nanowires. AND b:id=000000f3-061a-447b-b02c-289a1de1a3c4 CREATE (a)-[:id]->(b)
+MATCH (n) RETURN n
+
+

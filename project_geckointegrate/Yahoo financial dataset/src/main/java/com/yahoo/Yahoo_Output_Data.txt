@@ -1,0 +1,512 @@
+CREATE (neo4j:yahoo {Date: "2010-07-21"})
+CREATE (Open:openstock {value: "24.333"})
+CREATE (High:highstock {value: "24.333"})
+CREATE (Low:lowstock {value: "23.946"})
+CREATE (Close:closestock {value: "23.946"})
+CREATE (Volume:volumestock {value: "43321"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-07-21 AND b.value=24.333 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-07-21 AND c.value=24.333 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-07-21 AND d.value=23.946 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-07-21 AND e.value=23.946 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-07-21 AND f.value=43321 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-07-21 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-07-22"})
+CREATE (Open:openstock {value: "24.644"})
+CREATE (High:highstock {value: "24.644"})
+CREATE (Low:lowstock {value: "24.362"})
+CREATE (Close:closestock {value: "24.487"})
+CREATE (Volume:volumestock {value: "18031"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-07-22 AND b.value=24.644 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-07-22 AND c.value=24.644 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-07-22 AND d.value=24.362 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-07-22 AND e.value=24.487 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-07-22 AND f.value=18031 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-07-22 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-07-23"})
+CREATE (Open:openstock {value: "24.759"})
+CREATE (High:highstock {value: "24.759"})
+CREATE (Low:lowstock {value: "24.314"})
+CREATE (Close:closestock {value: "24.507"})
+CREATE (Volume:volumestock {value: "8897"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-07-23 AND b.value=24.759 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-07-23 AND c.value=24.759 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-07-23 AND d.value=24.314 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-07-23 AND e.value=24.507 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-07-23 AND f.value=8897 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-07-23 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-07-26"})
+CREATE (Open:openstock {value: "24.624"})
+CREATE (High:highstock {value: "24.624"})
+CREATE (Low:lowstock {value: "24.449"})
+CREATE (Close:closestock {value: "24.595"})
+CREATE (Volume:volumestock {value: "19443"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-07-26 AND b.value=24.624 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-07-26 AND c.value=24.624 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-07-26 AND d.value=24.449 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-07-26 AND e.value=24.595 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-07-26 AND f.value=19443 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-07-26 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-07-27"})
+CREATE (Open:openstock {value: "24.477"})
+CREATE (High:highstock {value: "24.517"})
+CREATE (Low:lowstock {value: "24.431"})
+CREATE (Close:closestock {value: "24.517"})
+CREATE (Volume:volumestock {value: "8456"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-07-27 AND b.value=24.477 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-07-27 AND c.value=24.517 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-07-27 AND d.value=24.431 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-07-27 AND e.value=24.517 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-07-27 AND f.value=8456 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-07-27 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-07-28"})
+CREATE (Open:openstock {value: "24.477"})
+CREATE (High:highstock {value: "24.517"})
+CREATE (Low:lowstock {value: "24.352"})
+CREATE (Close:closestock {value: "24.431"})
+CREATE (Volume:volumestock {value: "4967"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-07-28 AND b.value=24.477 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-07-28 AND c.value=24.517 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-07-28 AND d.value=24.352 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-07-28 AND e.value=24.431 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-07-28 AND f.value=4967 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-07-28 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-07-29"})
+CREATE (Open:openstock {value: "24.527"})
+CREATE (High:highstock {value: "24.527"})
+CREATE (Low:lowstock {value: "24.256"})
+CREATE (Close:closestock {value: "24.256"})
+CREATE (Volume:volumestock {value: "1238"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-07-29 AND b.value=24.527 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-07-29 AND c.value=24.527 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-07-29 AND d.value=24.256 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-07-29 AND e.value=24.256 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-07-29 AND f.value=1238 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-07-29 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-07-30"})
+CREATE (Open:openstock {value: "24.228"})
+CREATE (High:highstock {value: "24.333"})
+CREATE (Low:lowstock {value: "24.228"})
+CREATE (Close:closestock {value: "24.333"})
+CREATE (Volume:volumestock {value: "618"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-07-30 AND b.value=24.228 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-07-30 AND c.value=24.333 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-07-30 AND d.value=24.228 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-07-30 AND e.value=24.333 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-07-30 AND f.value=618 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-07-30 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-02"})
+CREATE (Open:openstock {value: "24.916"})
+CREATE (High:highstock {value: "24.926"})
+CREATE (Low:lowstock {value: "24.664"})
+CREATE (Close:closestock {value: "24.839"})
+CREATE (Volume:volumestock {value: "7161"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-02 AND b.value=24.916 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-02 AND c.value=24.926 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-02 AND d.value=24.664 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-02 AND e.value=24.839 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-02 AND f.value=7161 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-02 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-03"})
+CREATE (Open:openstock {value: "24.966"})
+CREATE (High:highstock {value: "25.069"})
+CREATE (Low:lowstock {value: "24.966"})
+CREATE (Close:closestock {value: "25.042"})
+CREATE (Volume:volumestock {value: "11516"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-03 AND b.value=24.966 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-03 AND c.value=25.069 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-03 AND d.value=24.966 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-03 AND e.value=25.042 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-03 AND f.value=11516 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-03 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-04"})
+CREATE (Open:openstock {value: "25.069"})
+CREATE (High:highstock {value: "25.069"})
+CREATE (Low:lowstock {value: "25.069"})
+CREATE (Close:closestock {value: "25.069"})
+CREATE (Volume:volumestock {value: "513"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-04 AND b.value=25.069 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-04 AND c.value=25.069 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-04 AND d.value=25.069 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-04 AND e.value=25.069 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-04 AND f.value=513 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-04 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-05"})
+CREATE (Open:openstock {value: "25.118"})
+CREATE (High:highstock {value: "25.118"})
+CREATE (Low:lowstock {value: "25.118"})
+CREATE (Close:closestock {value: "25.118"})
+CREATE (Volume:volumestock {value: "513"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-05 AND b.value=25.118 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-05 AND c.value=25.118 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-05 AND d.value=25.118 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-05 AND e.value=25.118 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-05 AND f.value=513 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-05 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-06"})
+CREATE (Open:openstock {value: "24.537"})
+CREATE (High:highstock {value: "24.926"})
+CREATE (Low:lowstock {value: "24.537"})
+CREATE (Close:closestock {value: "24.926"})
+CREATE (Volume:volumestock {value: "720"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-06 AND b.value=24.537 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-06 AND c.value=24.926 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-06 AND d.value=24.537 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-06 AND e.value=24.926 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-06 AND f.value=720 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-06 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-09"})
+CREATE (Open:openstock {value: "25.207"})
+CREATE (High:highstock {value: "25.429"})
+CREATE (Low:lowstock {value: "25.207"})
+CREATE (Close:closestock {value: "25.265"})
+CREATE (Volume:volumestock {value: "5620"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-09 AND b.value=25.207 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-09 AND c.value=25.429 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-09 AND d.value=25.207 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-09 AND e.value=25.265 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-09 AND f.value=5620 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-09 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-10"})
+CREATE (Open:openstock {value: "25.285"})
+CREATE (High:highstock {value: "25.285"})
+CREATE (Low:lowstock {value: "25.285"})
+CREATE (Close:closestock {value: "25.285"})
+CREATE (Volume:volumestock {value: "513"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-10 AND b.value=25.285 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-10 AND c.value=25.285 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-10 AND d.value=25.285 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-10 AND e.value=25.285 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-10 AND f.value=513 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-10 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-11"})
+CREATE (Open:openstock {value: "24.401"})
+CREATE (High:highstock {value: "24.401"})
+CREATE (Low:lowstock {value: "24.401"})
+CREATE (Close:closestock {value: "24.401"})
+CREATE (Volume:volumestock {value: "101"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-11 AND b.value=24.401 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-11 AND c.value=24.401 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-11 AND d.value=24.401 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-11 AND e.value=24.401 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-11 AND f.value=101 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-11 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-12"})
+CREATE (Open:openstock {value: "24.276"})
+CREATE (High:highstock {value: "24.276"})
+CREATE (Low:lowstock {value: "24.276"})
+CREATE (Close:closestock {value: "24.276"})
+CREATE (Volume:volumestock {value: "1032"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-12 AND b.value=24.276 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-12 AND c.value=24.276 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-12 AND d.value=24.276 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-12 AND e.value=24.276 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-12 AND f.value=1032 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-12 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-13"})
+CREATE (Open:openstock {value: "24.401"})
+CREATE (High:highstock {value: "24.401"})
+CREATE (Low:lowstock {value: "24.401"})
+CREATE (Close:closestock {value: "24.401"})
+CREATE (Volume:volumestock {value: "101"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-13 AND b.value=24.401 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-13 AND c.value=24.401 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-13 AND d.value=24.401 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-13 AND e.value=24.401 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-13 AND f.value=101 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-13 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-16"})
+CREATE (Open:openstock {value: "24.507"})
+CREATE (High:highstock {value: "24.507"})
+CREATE (Low:lowstock {value: "24.467"})
+CREATE (Close:closestock {value: "24.467"})
+CREATE (Volume:volumestock {value: "3094"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-16 AND b.value=24.507 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-16 AND c.value=24.507 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-16 AND d.value=24.467 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-16 AND e.value=24.467 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-16 AND f.value=3094 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-16 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-17"})
+CREATE (Open:openstock {value: "24.789"})
+CREATE (High:highstock {value: "24.966"})
+CREATE (Low:lowstock {value: "24.789"})
+CREATE (Close:closestock {value: "24.966"})
+CREATE (Volume:volumestock {value: "6704"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-17 AND b.value=24.789 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-17 AND c.value=24.966 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-17 AND d.value=24.789 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-17 AND e.value=24.966 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-17 AND f.value=6704 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-17 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-18"})
+CREATE (Open:openstock {value: "25.013"})
+CREATE (High:highstock {value: "25.109"})
+CREATE (Low:lowstock {value: "25.013"})
+CREATE (Close:closestock {value: "25.109"})
+CREATE (Volume:volumestock {value: "587"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-18 AND b.value=25.013 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-18 AND c.value=25.109 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-18 AND d.value=25.013 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-18 AND e.value=25.109 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-18 AND f.value=587 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-18 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-19"})
+CREATE (Open:openstock {value: "24.966"})
+CREATE (High:highstock {value: "24.966"})
+CREATE (Low:lowstock {value: "24.966"})
+CREATE (Close:closestock {value: "24.966"})
+CREATE (Volume:volumestock {value: "513"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-19 AND b.value=24.966 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-19 AND c.value=24.966 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-19 AND d.value=24.966 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-19 AND e.value=24.966 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-19 AND f.value=513 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-19 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-20"})
+CREATE (Open:openstock {value: "24.537"})
+CREATE (High:highstock {value: "24.537"})
+CREATE (Low:lowstock {value: "24.517"})
+CREATE (Close:closestock {value: "24.527"})
+CREATE (Volume:volumestock {value: "1238"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-20 AND b.value=24.537 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-20 AND c.value=24.537 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-20 AND d.value=24.517 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-20 AND e.value=24.527 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-20 AND f.value=1238 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-20 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-23"})
+CREATE (Open:openstock {value: "24.557"})
+CREATE (High:highstock {value: "24.557"})
+CREATE (Low:lowstock {value: "24.557"})
+CREATE (Close:closestock {value: "24.557"})
+CREATE (Volume:volumestock {value: "206"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-23 AND b.value=24.557 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-23 AND c.value=24.557 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-23 AND d.value=24.557 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-23 AND e.value=24.557 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-23 AND f.value=206 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-23 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-24"})
+CREATE (Open:openstock {value: "24.14"})
+CREATE (High:highstock {value: "24.198"})
+CREATE (Low:lowstock {value: "24.14"})
+CREATE (Close:closestock {value: "24.198"})
+CREATE (Volume:volumestock {value: "3920"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-24 AND b.value=24.14 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-24 AND c.value=24.198 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-24 AND d.value=24.14 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-24 AND e.value=24.198 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-24 AND f.value=3920 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-24 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-25"})
+CREATE (Open:openstock {value: "24.091"})
+CREATE (High:highstock {value: "24.111"})
+CREATE (Low:lowstock {value: "24.091"})
+CREATE (Close:closestock {value: "24.111"})
+CREATE (Volume:volumestock {value: "720"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-25 AND b.value=24.091 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-25 AND c.value=24.111 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-25 AND d.value=24.091 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-25 AND e.value=24.111 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-25 AND f.value=720 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-25 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-26"})
+CREATE (Open:openstock {value: "24.352"})
+CREATE (High:highstock {value: "24.381"})
+CREATE (Low:lowstock {value: "24.238"})
+CREATE (Close:closestock {value: "24.238"})
+CREATE (Volume:volumestock {value: "7736"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-26 AND b.value=24.352 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-26 AND c.value=24.381 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-26 AND d.value=24.238 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-26 AND e.value=24.238 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-26 AND f.value=7736 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-26 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-27"})
+CREATE (Open:openstock {value: "24.333"})
+CREATE (High:highstock {value: "24.487"})
+CREATE (Low:lowstock {value: "24.188"})
+CREATE (Close:closestock {value: "24.487"})
+CREATE (Volume:volumestock {value: "10547"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-27 AND b.value=24.333 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-27 AND c.value=24.487 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-27 AND d.value=24.188 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-27 AND e.value=24.487 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-27 AND f.value=10547 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-27 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-30"})
+CREATE (Open:openstock {value: "24.517"})
+CREATE (High:highstock {value: "24.517"})
+CREATE (Low:lowstock {value: "24.517"})
+CREATE (Close:closestock {value: "24.517"})
+CREATE (Volume:volumestock {value: "309"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-30 AND b.value=24.517 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-30 AND c.value=24.517 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-30 AND d.value=24.517 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-30 AND e.value=24.517 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-30 AND f.value=309 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-30 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-08-31"})
+CREATE (Open:openstock {value: "24.527"})
+CREATE (High:highstock {value: "24.567"})
+CREATE (Low:lowstock {value: "24.507"})
+CREATE (Close:closestock {value: "24.567"})
+CREATE (Volume:volumestock {value: "1057"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-08-31 AND b.value=24.527 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-08-31 AND c.value=24.567 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-08-31 AND d.value=24.507 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-08-31 AND e.value=24.567 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-08-31 AND f.value=1057 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-08-31 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-09-01"})
+CREATE (Open:openstock {value: "24.888"})
+CREATE (High:highstock {value: "25.158"})
+CREATE (Low:lowstock {value: "24.888"})
+CREATE (Close:closestock {value: "25.158"})
+CREATE (Volume:volumestock {value: "1545"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-09-01 AND b.value=24.888 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-09-01 AND c.value=25.158 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-09-01 AND d.value=24.888 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-09-01 AND e.value=25.158 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-09-01 AND f.value=1545 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-09-01 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
+CREATE (neo4j:yahoo {Date: "2010-09-02"})
+CREATE (Open:openstock {value: "25.236"})
+CREATE (High:highstock {value: "25.236"})
+CREATE (Low:lowstock {value: "25.236"})
+CREATE (Close:closestock {value: "25.236"})
+CREATE (Volume:volumestock {value: "101"})
+CREATE (Openint:openintstock {value: "0"})
+
+MATCH (a:yahoo), (b:openstock) WHERE a.Date=2010-09-02 AND b.value=25.236 CREATE (a)- [r:open_stock]->(b) RETURN a,b
+MATCH (a:yahoo), (c:highstock) WHERE a.Date=2010-09-02 AND c.value=25.236 CREATE (a)- [r:high_stock]->(c) RETURN a,c
+MATCH (a:yahoo), (d:lowstock) WHERE a.Date=2010-09-02 AND d.value=25.236 CREATE (a)- [r:low_stock]->(d) RETURN a,d
+MATCH (a:yahoo), (e:closestock) WHERE a.Date=2010-09-02 AND e.value=25.236 CREATE (a)- [r:close_stock]->(e) RETURN a,e
+MATCH (a:yahoo), (f:volumestock) WHERE a.Date=2010-09-02 AND f.value=101 CREATE (a)- [r:volume_stock]->(f) RETURN a,f
+MATCH (a:yahoo), (g:openintstock) WHERE a.Date=2010-09-02 AND g.value=0 CREATE (a)- [r:openint_stock]->(g) RETURN a,g
+MATCH (n) return n
+
