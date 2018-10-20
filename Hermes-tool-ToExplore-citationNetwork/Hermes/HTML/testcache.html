@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <link rel="stylesheet" type="text/css" href="../CSS/hermesStyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="../JS/testCaching.js"></script>
+</head>
+<body>
+<div>
+    <button type="button" title="Without caching" onclick="executeQueriresWithoutCaching()">Without caching</button>
+    <label>time taken in ms :</label><label id="totalTimewocaching"></label>
+</div>
+
+<div>
+    <button type="button" title="With caching" onclick="executeQueriresWithCaching()">With caching</button>
+    <label>time taken in ms :</label><label id="totalTimewcaching"></label>
+</div>
+
+<div>
+    <button type="button" title="With selected caching" onclick="executeQueriresWithSelectedCaching()">With selected caching</button>
+    <label>time taken in ms :</label><label id="totalTimewSelectedcaching"></label>
+</div>
+</body>
+</html>

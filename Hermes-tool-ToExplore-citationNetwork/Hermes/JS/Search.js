@@ -2,7 +2,6 @@ var searchData=new Array();
 var userEnteredtext;
 var typeOfVertex;
 var fromScholarlyPage;
-
 /**
  * Assigns selected list item to the input box
  * @param index
@@ -25,9 +24,9 @@ function fillSearchInput(index,tempArray){
         assignVal.value = tempArray[index]._source.JOURNAL_NAME;
         hiddenVal.value = vertexType.PUBLICATION;
         document.getElementById("searchRes").focus();
-    } else if (tempArray[index]._source.vType === vertexType.VENUE) {
-        assignVal.value = tempArray[index]._source.VENUE_NAME;
-        hiddenVal.value = vertexType.VENUE;
+    } else if (tempArray[index]._source.vType === vertexType.TOPIC) {
+        assignVal.value = tempArray[index]._source.TopicName;
+        hiddenVal.value = vertexType.TOPIC;
         document.getElementById("searchRes").focus();
     }
 //}
@@ -37,18 +36,19 @@ function fillSearchInput(index,tempArray){
  * shows suggestions for the text entered in search field
  */
 function fillSuggestion() {
+    var suggestionboxitems;
     var suggestionData=new Array();
     var val=document.getElementById("searchinput").value;
     console.log(val.length);
     if(val.length>0) {
-        var urlSuggestion = "http://localhost:9200/dblpvertexes/_search?q=Title:\"" + val + "\"* OR AUTHOR_NAME:\"" + val +  "\"* OR JOURNAL_NAME:\""+  val +"\"* OR VENUE_NAME:\""+ val +"\"*&size=8";
+        var urlSuggestion = "http://localhost:9200/dblpvertexes/_search?q=Title:\"" + val + "\"* OR AUTHOR_NAME:\"" + val +  "\"* OR JOURNAL_NAME:\""+  val +"\"* OR TopicName:\""+ val +"\"*&size=8";
         d3.json(urlSuggestion, function (error, json) {
             if (error) throw error;
 
             suggestionData = json.hits.hits;
             // console.log(suggestionData)
             $('#suggestionBox').html('');
-
+            suggestionboxitems= new Set();
             for (var i = 0; i < suggestionData.length; i++) {
 
                 var sBox = document.getElementById("suggestionBox");
@@ -56,16 +56,16 @@ function fillSuggestion() {
                 // var a = document.createElement("a");
                 li.setAttribute("id", "aTag");
                 if (suggestionData[i]._source.vType === vertexType.PAPER) {
-                    //aTag = sBox.appendChild(a);
-
+                    if (!suggestionboxitems.has(suggestionData[i]._source.Title)) {
+                        suggestionboxitems.add(suggestionData[i]._source.Title);
                     li.setAttribute("class", "suggestedItem");
                     li.setAttribute("id", i);
                     li.innerText = suggestionData[i]._source.Title;
                     liTag = sBox.appendChild(li);
-                    liTag.onclick=function (d) {
-                        if(d.path===undefined){
-                            fillSearchInput( d.currentTarget.id, suggestionData);
-                        }else{
+                    liTag.onclick = function (d) {
+                        if (d.path === undefined) {
+                            fillSearchInput(d.currentTarget.id, suggestionData);
+                        } else {
                             fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
                         }
 
@@ -78,7 +78,7 @@ function fillSuggestion() {
                     citationTag = document.createElement("bold");
                     citationTag.innerText = "Citation : ";
                     spanCitationTag = document.createElement("span");
-                    if ((suggestionData[i]._source.CitationCount === undefined)||(suggestionData[i]._source.CitationCount === 0)) {
+                    if ((suggestionData[i]._source.CitationCount === undefined) || (suggestionData[i]._source.CitationCount === 0)) {
                         spanCitationTag.innerText = "NA";
                     } else {
                         spanCitationTag.innerText = suggestionData[i]._source.CitationCount;
@@ -86,18 +86,18 @@ function fillSuggestion() {
 
                     pTag_handler.appendChild(citationTag);
                     pTag_handler.appendChild(spanCitationTag);
-
-
-
+                    }
                 } else if (suggestionData[i]._source.vType === vertexType.AUTHOR) {
+                    if (!suggestionboxitems.has(suggestionData[i]._source.AUTHOR_ID)) {
+                        suggestionboxitems.add(suggestionData[i]._source.AUTHOR_ID);
                     // aTag = sBox.appendChild(a);
                     li.setAttribute("class", "suggestedItem");
                     li.setAttribute("id", i);
                     li.innerText = suggestionData[i]._source.AUTHOR_NAME;
                     li.onclick = function (d) {
-                        if(d.path===undefined){
+                        if (d.path === undefined) {
                             fillSearchInput(d.currentTarget.id, suggestionData);
-                        }else{
+                        } else {
                             fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
                         }
                         $('#suggestionBox').html('');
@@ -107,39 +107,42 @@ function fillSuggestion() {
                     pTag = document.createElement("p");
                     pTag.innerText = "in author";
                     liTag.appendChild(pTag);
-
-                }else if(suggestionData[i]._source.vType===vertexType.PUBLICATION){
-                    aTag=sBox.appendChild(a);
-                    li.setAttribute("class","suggestedItem");
-                    li.setAttribute("id",i);
-                    li.innerText=suggestionData[i]._source.JOURNAL_NAME ;
-                    a.onclick=function (d) {
-                        fillSearchInput(d.path[1].getAttribute("id"),suggestionData);
-                        $('#suggestionBox').html('');
-                    }
-                    liTag=aTag.appendChild(li);
-                    pTag=document.createElement("p");
-                    pTag.innerText="in journal";
-                    liTag.appendChild(pTag);
-
-                } else if (suggestionData[i]._source.vType === vertexType.VENUE) {
-                    //aTag = sBox.appendChild(a);
+                }
+                }else if(suggestionData[i]._source.vType===vertexType.PUBLICATION) {
+                    if (!suggestionboxitems.has(suggestionData[i]._source.JOURNAL_ID)) {
+                        suggestionboxitems.add(suggestionData[i]._source.JOURNAL_ID);
+                    aTag = sBox.appendChild(a);
                     li.setAttribute("class", "suggestedItem");
                     li.setAttribute("id", i);
-                    li.innerText = suggestionData[i]._source.VENUE_NAME;
+                    li.innerText = suggestionData[i]._source.JOURNAL_NAME;
+                    a.onclick = function (d) {
+                        fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
+                        $('#suggestionBox').html('');
+                    }
+                    liTag = aTag.appendChild(li);
+                    pTag = document.createElement("p");
+                    pTag.innerText = "in journal";
+                    liTag.appendChild(pTag);
+                }
+                } else if (suggestionData[i]._source.vType === vertexType.TOPIC) {
+                    if (!suggestionboxitems.has(suggestionData[i]._source.TopicId)) {
+                        suggestionboxitems.add(suggestionData[i]._source.TopicId);
+                    li.setAttribute("class", "suggestedItem");
+                    li.setAttribute("id", i);
+                    li.innerText = suggestionData[i]._source.TopicName;
                     li.onclick = function (d) {
-                        if(d.path===undefined){
+                        if (d.path === undefined) {
                             fillSearchInput(d.currentTarget.id, suggestionData);
-                        }else{
+                        } else {
                             fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
                         }
                         $('#suggestionBox').html('');
                     }
                     liTag = sBox.appendChild(li);
                     pTag = document.createElement("p");
-                    pTag.innerText = "in venue";
+                    pTag.innerText = "in topic";
                     liTag.appendChild(pTag);
-
+                }
                 }
             }
 
@@ -344,8 +347,9 @@ function searchClicked(userEnteredtext,chosenType) {
             }
             //binds the result obtained for a given text
             function generate_table() {
+                var count=0;
+                var suggestionboxitems=new Set();
                 $('#searchResults').html('');
-
                 var doc = document.getElementById("searchResults");
                 var tr_hits = document.createElement("tr");
                 var td_hits = document.createElement("td");
@@ -358,140 +362,164 @@ function searchClicked(userEnteredtext,chosenType) {
                 doc.appendChild(tr_hits);
 
                 for (var i = 0; i < displayRecords.length; i++) {
+                    if(count<5){
                     var tr = document.createElement("tr");
                     var td = document.createElement("td");
                     if (displayRecords[i]._source.vType === vertexType.PAPER) {
-                        a = document.createElement("a");
-                        a.setAttribute("id", displayRecords[i]._id);
-                        a.style.cursor = "pointer";
-                        a.onclick = function (d) {
-                            if (d.path === undefined) {
-                                poplateClickedNode(d.currentTarget.id, searchData, false);
+                        if (!suggestionboxitems.has(displayRecords[i]._source.PAPER_ID)) {
+                            count++;
+                            suggestionboxitems.add(displayRecords[i]._source.PAPER_ID);
+                            a = document.createElement("a");
+                            a.setAttribute("id", displayRecords[i]._id);
+                            a.style.cursor = "pointer";
+                            a.onclick = function (d) {
+                                if (d.path === undefined) {
+                                    poplateClickedNode(d.currentTarget.id, searchData, false);
+                                } else {
+                                    poplateClickedNode(d.path[1].getAttribute("id"), searchData, false);
+                                }
+                            };
+                            a.setAttribute("data-toggle", "tooltip");
+                            a.setAttribute("title", displayRecords[i]._source.Title);
+                            linebreak = document.createElement("br");
+                            boldHeader = document.createElement("b");
+                            handler_a = td.appendChild(a);
+                            if (displayRecords[i]._source.Title.length > 100) {
+                                boldHeader.innerText = displayRecords[i]._source.Title.slice(0, 110) + "...";
                             } else {
-                                poplateClickedNode(d.path[1].getAttribute("id"), searchData, false);
+                                boldHeader.innerText = displayRecords[i]._source.Title
                             }
-                        };
-                        a.setAttribute("data-toggle", "tooltip");
-                        a.setAttribute("title", displayRecords[i]._source.Title);
-                        linebreak = document.createElement("br");
-                        boldHeader = document.createElement("b");
-                        handler_a = td.appendChild(a);
-                        if (displayRecords[i]._source.Title.length > 100) {
-                            boldHeader.innerText = displayRecords[i]._source.Title.slice(0, 110) + "...";
-                        } else {
-                            boldHeader.innerText = displayRecords[i]._source.Title
+                            handler_a.appendChild(boldHeader);
+
+                            p = document.createElement("p");
+                            handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
+                            b = document.createElement("b");
+                            b.innerText = "Citation :  ";
+                            span = document.createElement("span");
+                            if ((displayRecords[i]._source.CitationCount === undefined) || (displayRecords[i]._source.CitationCount === "0")) {
+                                span.innerText = "NA";
+                            } else {
+                                span.innerText = displayRecords[i]._source.CitationCount;
+                            }
+
+                            handler_p.appendChild(b);
+                            handler_p.appendChild(span);
+
+                            b1 = document.createElement("b");
+                            b1.innerText = " Year of publish: ";
+                            span1 = document.createElement("span");
+                            span1.innerText = displayRecords[i]._source.Year;
+                            handler_p.appendChild(b1);
+                            handler_p.appendChild(span1);
+                            td.appendChild(linebreak);
                         }
-                        handler_a.appendChild(boldHeader);
-
-                        p = document.createElement("p");
-                        handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
-                        b = document.createElement("b");
-                        b.innerText = "Citation :  ";
-                        span = document.createElement("span");
-                        if ((displayRecords[i]._source.CitationCount === undefined) || (displayRecords[i]._source.CitationCount === "0")) {
-                            span.innerText = "NA";
-                        } else {
-                            span.innerText = displayRecords[i]._source.CitationCount;
-                        }
-
-                        handler_p.appendChild(b);
-                        handler_p.appendChild(span);
-
-                        b1 = document.createElement("b");
-                        b1.innerText = " Year of publish: ";
-                        span1 = document.createElement("span");
-                        span1.innerText = displayRecords[i]._source.Year;
-                        handler_p.appendChild(b1);
-                        handler_p.appendChild(span1);
-                        td.appendChild(linebreak);
                     } else if (displayRecords[i]._source.vType === vertexType.AUTHOR) {
-                        a = document.createElement("a");
-                        a.setAttribute("id", displayRecords[i]._id);
-                        a.style.cursor = "pointer";
-                        a.onclick = function (d) {
-                            if (d.path === undefined) {
-                                poplateClickedNode(d.currentTarget.id, searchData, false);
-                            } else {
-                                poplateClickedNode(d.path[1].getAttribute("id"), searchData, false);
+                        if (!suggestionboxitems.has(displayRecords[i]._source.AUTHOR_ID)) {
+                            count++;
+                            suggestionboxitems.add(displayRecords[i]._source.AUTHOR_ID);
+                            a = document.createElement("a");
+                            a.setAttribute("id", displayRecords[i]._id);
+                            a.style.cursor = "pointer";
+                            a.onclick = function (d) {
+                                if (d.path === undefined) {
+                                    poplateClickedNode(d.currentTarget.id, searchData, false);
+                                } else {
+                                    poplateClickedNode(d.path[1].getAttribute("id"), searchData, false);
+                                }
                             }
+                            linebreak = document.createElement("br");
+                            boldHeader = document.createElement("b");
+                            handler_a = td.appendChild(a);
+                            boldHeader.innerText = displayRecords[i]._source.AUTHOR_NAME;
+                            handler_a.appendChild(boldHeader);
+                            p = document.createElement("p");
+                            handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
+                            b = document.createElement("b");
+                            b.innerText = "Papers available :  ";
+                            $.ajax({
+                                dataType: "json",
+                                url: "http://localhost:9200/dblprelation_authorship/_count?q=AUTHOR_ID:\"" + displayRecords[i]._source.AUTHOR_ID + "\"",
+                                async: false,
+                                success: function (paperCount) {
+                                    span = document.createElement("span");
+                                    span.innerText = paperCount.count;
+                                }
+                            });
+
+                            handler_p.appendChild(b);
+                            handler_p.appendChild(span);
+
+                            td.appendChild(linebreak);
                         }
-                        linebreak = document.createElement("br");
-                        boldHeader = document.createElement("b");
-                        handler_a = td.appendChild(a);
-                        boldHeader.innerText = displayRecords[i]._source.AUTHOR_NAME;
-                        handler_a.appendChild(boldHeader);
-                        p = document.createElement("p");
-                        handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
-                        b = document.createElement("b");
-                        b.innerText = "Papers available :  ";
-                        $.ajax({
-                            dataType: "json",
-                            url: "http://localhost:9200/dblprelation_authorship/_count?q=AUTHOR_ID:\""+displayRecords[i]._source.AUTHOR_ID+"\"",
-                            async: false,
-                            success: function (paperCount) {
-                                span = document.createElement("span");
-                                span.innerText = paperCount.count;
+                    } else if (displayRecords[i]._source.vType === vertexType.PUBLICATION) {
+                        if (!suggestionboxitems.has(displayRecords[i]._source.JOURNAL_ID)) {
+                            count++;
+                            suggestionboxitems.add(displayRecords[i]._source.JOURNAL_ID);
+                            a = document.createElement("a");
+                            a.setAttribute("id", displayRecords[i]._id);
+                            a.style.cursor = "pointer";
+                            a.onclick = function (d) {
+                                if (d.path === undefined) {
+                                    poplateClickedNode(d.currentTarget.id, searchData, false);
+                                } else {
+                                    poplateClickedNode(d.path[1].getAttribute("id"), searchData, false);
+                                }
+                            };
+                            linebreak = document.createElement("br");
+                            boldHeader = document.createElement("b");
+                            handler_a = td.appendChild(a);
+                            boldHeader.innerText = displayRecords[i]._source.JOURNAL_NAME;
+                            handler_a.appendChild(boldHeader);
+
+                            p = document.createElement("p");
+                            handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
+                            b = document.createElement("b");
+                            b.innerText = " ";
+                            span = document.createElement("span");
+                            span.innerText = " ";
+                            handler_p.appendChild(b);
+                            handler_p.appendChild(span);
+
+                            td.appendChild(linebreak);
+                        }
+                    } else if (displayRecords[i]._source.vType === vertexType.TOPIC) {
+                        if (!suggestionboxitems.has(displayRecords[i]._source.TopicId)) {
+                            count++;
+                            suggestionboxitems.add(displayRecords[i]._source.TopicId);
+                            a = document.createElement("a");
+                            a.setAttribute("id", displayRecords[i]._id);
+                            a.style.cursor = "pointer";
+                            a.onclick = function (d) {
+                                if (d.path === undefined) {
+                                    poplateClickedNode(d.currentTarget.id, searchData, false);
+                                } else {
+                                    poplateClickedNode(d.path[1].getAttribute("id"), searchData, false);
+                                }
                             }
-                        });
+                            linebreak = document.createElement("br");
+                            boldHeader = document.createElement("b");
+                            handler_a = td.appendChild(a);
+                            boldHeader.innerText = displayRecords[i]._source.TopicName;
+                            handler_a.appendChild(boldHeader);
+                            p = document.createElement("p");
+                            handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
+                            b = document.createElement("b");
+                            b.innerText = "Papers available :  ";
+                            /*$.ajax({
+                                dataType: "json",
+                                url: "http://localhost:9200/dblprelation_topicpaper/_count?q=Topic_Id:\""+displayRecords[i]._source.Topic_Id+"\"",
+                                async: false,
+                                success: function (paperCount) {
+                                    span = document.createElement("span");
+                                    span.innerText = paperCount.count;
+                                }
+                            });*/
 
-                        handler_p.appendChild(b);
-                        handler_p.appendChild(span);
+                            handler_p.appendChild(b);
+                            // handler_p.appendChild(span);
 
-                        td.appendChild(linebreak);
-                    }else if (displayRecords[i]._source.vType === vertexType.PUBLICATION) {
-                        a = document.createElement("a");
-                        a.setAttribute("id", displayRecords[i]._id);
-                        a.style.cursor = "pointer";
-                        a.onclick = function (d) {
-                            if (d.path === undefined) {
-                                poplateClickedNode(d.currentTarget.id, searchData, false);
-                            } else {
-                                poplateClickedNode(d.path[1].getAttribute("id"), searchData, false);
-                            }
-                        };
-                        linebreak = document.createElement("br");
-                        boldHeader = document.createElement("b");
-                        handler_a = td.appendChild(a);
-                        boldHeader.innerText = displayRecords[i]._source.JOURNAL_NAME;
-                        handler_a.appendChild(boldHeader);
-
-                        p = document.createElement("p");
-                        handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
-                        b = document.createElement("b");
-                        b.innerText = " ";
-                        span = document.createElement("span");
-                        span.innerText = " ";
-                        handler_p.appendChild(b);
-                        handler_p.appendChild(span);
-
-                        td.appendChild(linebreak);
-                    } else if (displayRecords[i]._source.vType === vertexType.FOS) {
-                        a = document.createElement("a");
-                        a.setAttribute("id", displayRecords[i]._id);
-                        a.style.cursor = "pointer";
-                        a.onclick = function (d) {
-                            if (d.path === undefined) {
-                                poplateClickedNode(d.currentTarget.id, searchData, false);
-                            } else {
-                                poplateClickedNode(d.path[1].getAttribute("id"), searchData, false);
-                            }
-                        };
-                        linebreak = document.createElement("br");
-                        boldHeader = document.createElement("b");
-                        handler_a = td.appendChild(a);
-                        boldHeader.innerText = displayRecords[i]._source.fos;
-                        handler_a.appendChild(boldHeader);
-
-                        p = document.createElement("p");
-                        handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
-                        b = document.createElement("b");
-                        b.innerText = " ";
-                        span = document.createElement("span");
-                        span.innerText = " ";
-                        handler_p.appendChild(b);
-                        handler_p.appendChild(span);
-
-                        td.appendChild(linebreak);
+                            td.appendChild(linebreak);
+                        }
                     } else if (displayRecords[i]._source.vType === vertexType.VENUE) {
                         a = document.createElement("a");
                         a.setAttribute("id", displayRecords[i]._id);
@@ -523,6 +551,7 @@ function searchClicked(userEnteredtext,chosenType) {
                     tr.appendChild(td);
                     doc.appendChild(tr);
                 }
+                }
                 // if(!fromScholarly){
                 document.getElementById("overlay").style.display = "none";
                 //}
@@ -539,13 +568,15 @@ function searchClicked(userEnteredtext,chosenType) {
                         displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
 
                         if (typeOfVertex === vertexType.AUTHOR) {
-                            url = "http://localhost:9200/dblpvertexes/_search?q=vType:" + typeOfVertex + " AND AUTHOR_NAME:" + enteredtext + "*" + "&from=" + displayRecordsIndex + "&size=5";
+                            url = "http://localhost:9200/dblpvertexes/_search?q=vType:" + typeOfVertex + " AND AUTHOR_NAME:" + enteredtext + "*" + "&from=" + displayRecordsIndex + "&size=10";
                             console.log("table" + url)
                         } else if (typeOfVertex === vertexType.PAPER) {
-                            url = "http://localhost:9200/dblpvertexes/_search?q=vType:" + typeOfVertex + " AND Title:" + enteredtext + "*&from=" + displayRecordsIndex + "&size=5";
+                            url = "http://localhost:9200/dblpvertexes/_search?q=vType:" + typeOfVertex + " AND Title:" + enteredtext + "*&from=" + displayRecordsIndex + "&size=10";
+                        } else if (typeOfVertex === vertexType.TOPIC) {
+                            url = "http://localhost:9200/dblpvertexes/_search?q=vType:" + typeOfVertex + " AND TopicName:" + enteredtext + "*&from=" + displayRecordsIndex + "&size=10";
                         }
                         else {
-                            url = "http://localhost:9200/dblpvertexes/_search?q=" + enteredtext + "&from=" + displayRecordsIndex + "&size=5";
+                            url = "http://localhost:9200/dblpvertexes/_search?q=" + enteredtext + "&from=" + displayRecordsIndex + "&size=10";
                         }
 
                         d3.json(url, function (error, jsonrangeResult) {

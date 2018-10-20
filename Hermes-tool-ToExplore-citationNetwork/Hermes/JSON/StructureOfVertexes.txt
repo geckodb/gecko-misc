@@ -19,7 +19,8 @@
     "Abstract":"In this paper, we propose parametric correlation models for the assessment of biometric classification error rates. Correctly specified correlations are integral to variance estimation and the corresponding inferential quantities which depend upon these estimates. We present methodology here for false match and false nonmatch error rates for a single environment. This paper generalizes other work that has previously appeared in the bioauthentication literature. Since symmetric- and asymmetric-matching algorithms are used in practice, we present a general correlation structure for both types of algorithms. Along with the correlation structure, we describe estimators for the parameters in these models. The correlation structure described here for binary decision data is then used to derive explicit confidence intervals and sample-size calculations for the estimation of false match and false nonmatch error rates. We then apply the correlation structure described herein to two match scores databases to illustrate our approach. A discussion of the utility and consequences of this correlation structure are also provided.","Number":"","vType":"paper","Title":"A Parametric Correlation Framework for the Statistical Evaluation and Estimation of Biometric-Based Classification Performance in a Single Environment",
     "BookTitle":"",
     "Year":"2009",
-    "Journal":"IEEE Trans. Information Forensics and Security"}}]
+    "Journal":"IEEE Trans. Information Forensics and Security",
+    "vType":"paper"}}]
 
 //dblpvertexes - Type: author
 [{"_index":"dblpvertexes","_type":"vertex","_id":"DgjDBGUBw7UqFATQq4kd","_score":1.0204782,

@@ -46,7 +46,7 @@ svg[0]=d3.select("#tabArea0")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-var paperMenuItems = ["Show more info","Remove","Show Authors", "References", "Hosting", "Publishing", "Citations"]; //,"Domain", "Co-citation", "Bibliographic Coupling"
+var paperMenuItems = ["Show more info","Show Authors", "References", "Hosting", "Publishing", "Citations","Remove"]; //,"Domain", "Co-citation", "Bibliographic Coupling"
 var authorMenuItems=["Co-authorship", "Papers Authored","Citing non-coauthors","Remove"];
 var venueMenuItems=["Remove"];
 var publicationMenuItems=["Papers published","Remove"];
@@ -111,11 +111,9 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
 
                         _LTracker.push({
                             'method':'poplateClickedNode',
-                            'PaperNode': {
-                                'PaperID': dataArray[i]._source.PAPER_ID,
-                                'Title':dataArray[i]._source.Title
-                            },
-                            'tag':'PopulateNode-paper'
+                            'PaperID': dataArray[i]._source.PAPER_ID,
+                            'Title':dataArray[i]._source.Title,
+                            'Node':'paper'
                         });
                         buildGraph=true;
                     }
@@ -133,13 +131,13 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                             },
                             'tag':'PopulateNode-author'
                         });*/
+
+
                         _LTracker.push({
                             'method':'poplateClickedNode',
-                            'AuthorNode': {
-                                'AuthorId': dataArray[i]._source.AUTHOR_ID,
-                                'AuthorName':dataArray[i]._source.AUTHOR_NAME
-                            },
-                            'tag':'PopulateNode-author'
+                            'AuthorId': dataArray[i]._source.AUTHOR_ID,
+                            'AuthorName':dataArray[i]._source.AUTHOR_NAME,
+                            'Node':'author'
                         });
                         buildGraph=true;
                     }
@@ -148,25 +146,25 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                         pos=processedArray[activeTabIndex].push(dataArray[i]);
                         publicationAlreadyAdded[activeTabIndex].set(dataArray[i]._source.JOURNAL_NAME,pos-1);
 
+
                         _LTracker.push({
                             'method':'poplateClickedNode',
-                            'JournalNode': {
-                                'JournalId': dataArray[i]._source.JOURNAL_ID,
-                            },
-                            'tag':'PopulateNode-journal'
+                            'JournalId': dataArray[i]._source.JOURNAL_ID,
+                            'JournalName':dataArray[i]._source.JOURNAL_NAME,
+                            'Node':'journal'
                         });
                         buildGraph=true;
                     }
-                }else if(dataArray[i]._source.vType===vertexType.VENUE){
-                    if(!publicationAlreadyAdded[activeTabIndex].has(dataArray[i]._source.VENUE_NAME)){
+                }else if(dataArray[i]._source.vType===vertexType.TOPIC){
+                    if(!topicAlreadyAdded[activeTabIndex].has(dataArray[i]._source.TopicName)){
                         pos=processedArray[activeTabIndex].push(dataArray[i]);
-                        publicationAlreadyAdded[activeTabIndex].set(dataArray[i]._source.VENUE_NAME,pos-1);
+                        topicAlreadyAdded[activeTabIndex].set(dataArray[i]._source.TopicName,pos-1);
+
                         _LTracker.push({
                             'method':'poplateClickedNode',
-                            'VenueNode': {
-                                'VenueId': dataArray[i]._source.VENUE_ID,
-                            },
-                            'tag':'PopulateNode-venue'
+                            'TopicId': dataArray[i]._source.Topic_Id,
+                            'TopicName':dataArray[i]._source.TopicName,
+                            'Node':'topic'
                         });
                         buildGraph=true;
                     }
@@ -181,32 +179,52 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
         }
     }else{
         for(let i=0;i<dataArray.length;i++){
-            if(dataArray[i]._source.PAPER_ID!==undefined){
+            if(dataArray[i]._source.vType===vertexType.PAPER){
                 if(!paperAlreadyAdded[activeTabIndex].has(dataArray[i]._source.PAPER_ID)){
                     _LTracker.push({
                         'method':'poplateClickedNode',
-                        'PaperNode': {
-                            'PaperID': dataArray[i]._source.PAPER_ID,
-                            'Title':dataArray[i]._source.Title
-                        },
-                        'tag':'PopulateNode-paper'
+                        'PaperID': dataArray[i]._source.PAPER_ID,
+                        'Title':dataArray[i]._source.Title,
+                        'Node':'paper'
                     });
                     processedArray[activeTabIndex].push(dataArray[i]);
                     paperAlreadyAdded[activeTabIndex].set(dataArray[i]._source.PAPER_ID,pos-1)
                 }
-            }else if(dataArray[i]._source.AUTHOR_ID!==undefined){
+            }else if(dataArray[i]._source.vType===vertexType.AUTHOR){
                 if(!authorAlreadyAdded[activeTabIndex].has(dataArray[i]._source.AUTHOR_NAME)){
                     _LTracker.push({
                         'method':'poplateClickedNode',
-                        'AuthorNode': {
-                            'AuthorId': dataArray[i]._source.AUTHOR_ID,
-                            'AuthorName':dataArray[i]._source.AUTHOR_NAME
-                        },
-                        'tag':'PopulateNode-author'
+                        'AuthorId': dataArray[i]._source.AUTHOR_ID,
+                        'AuthorName':dataArray[i]._source.AUTHOR_NAME,
+                        'Node':'author'
                     });
 
                     processedArray[activeTabIndex].push(dataArray[i]);
                     authorAlreadyAdded[activeTabIndex].set(dataArray[i]._source.AUTHOR_NAME,pos-1)
+                }
+            }else if(dataArray[i]._source.vType===vertexType.TOPIC){
+                if(!topicAlreadyAdded[activeTabIndex].has(dataArray[i]._source.TopicName)){
+                    _LTracker.push({
+                        'method':'poplateClickedNode',
+                        'TopicId': dataArray[i]._source.Topic_Id,
+                        'TopicName':dataArray[i]._source.TopicName,
+                        'Node':'topic'
+                    });
+
+                    processedArray[activeTabIndex].push(dataArray[i]);
+                    topicAlreadyAdded[activeTabIndex].set(dataArray[i]._source.TopicName,pos-1)
+                }
+            }else if(dataArray[i]._source.vType===vertexType.PUBLICATION){
+                if(!publicationAlreadyAdded[activeTabIndex].has(dataArray[i]._source.JOURNAL_NAME)){
+                    _LTracker.push({
+                        'method':'poplateClickedNode',
+                        'JournalId': dataArray[i]._source.JOURNAL_ID,
+                        'JournalName':dataArray[i]._source.JOURNAL_NAME,
+                        'Node':'journal'
+                    });
+
+                    processedArray[activeTabIndex].push(dataArray[i]);
+                    publicationAlreadyAdded[activeTabIndex].set(dataArray[i]._source.JOURNAL_NAME,pos-1)
                 }
             }
         }
@@ -311,10 +329,8 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
 
     _LTracker.push({
         'method':'createGraph',
-        'graphStructure': {
-            'nodes': nodes.length,
-            'edges': links.length
-        },
+        'Total nodes': nodes.length,
+        'Total edges': links.length,
         'tag':'graphstructure'
     });
 
@@ -470,16 +486,16 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
 
     node[activeTab].append("image")
         .attr("xlink:href", function (d) {
-            if((d._source.vType==="paper") || (d._source.vType==="reference")||(d._source.vType==="cites")) {
+            if(d._source.vType===vertexType.PAPER) {
                 return "http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/512/Document-icon.png"
             }
-            else if (d._source.vType==="author"){
+            else if (d._source.vType===vertexType.AUTHOR){
                 return "http://www.clker.com/cliparts/3/V/U/m/W/U/admin-button-icon-md.png"
             }
             else if(d._source.vType==="org"){
                 return "http://www.freeiconspng.com/uploads/institution-icon-15.png"
             }
-            else if(d._source.vType==="fos"){
+            else if(d._source.vType===vertexType.TOPIC){
                 return "https://www.sas.com/content/dam/SAS/en_us/image/sas-com/icons/navmenu/universities-icon.png/_jcr_content/renditions/cq5dam.thumbnail.140.100.png"
             }
             else if(d._source.vType===vertexType.PUBLICATION){
@@ -524,7 +540,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                         return publicationMenuItems;
                     }else if(d._source.vType===vertexType.VENUE){
                         return venueMenuItems;
-                    }else if(d._source.vType===vertexType.FOS){
+                    }else if(d._source.vType===vertexType.TOPIC){
                         return FOSMenuItems;
                     }
 
@@ -601,7 +617,8 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                     }else if(d=="Citing non-coauthors"){
                         d3.select('.context-menu').style('display', 'none');
                         $("#graphArea").css("cursor", "wait");
-                        showAuthorNotCoauthor(selectedIndex,processedArray[activeTabIndex],activeTabIndex);
+                        document.getElementById("overlay").style.display="block";
+                        showCitingnonCoauthor(selectedIndex,processedArray[activeTabIndex],activeTabIndex);
                     }
                     else if(d=="Add tag"){
                         addTag();
@@ -696,11 +713,12 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 30) + "px");
             }
-            else if(d._source.vType===vertexType.ORG){
+            else if(d._source.vType===vertexType.TOPIC){
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 0.9);
-                tooltip.html(d._source.org + "<br/>")
+                tooltip.html("<b>Topic : </b>"+d._source.TopicName + "<br/>"+
+                    "<b>Words: </b>"+d._source.TopicWords+ "<br/>")
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 30) + "px");
             }
@@ -758,7 +776,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
         .attr("dx", 20)
         .attr("dy", ".35em")
         .text(function (d) {
-            if((d._source.vType===vertexType.PAPER)||(d._source.vType==="cites")){
+            if((d._source.vType===vertexType.PAPER)){
                 var temp=d._source.Title;
                 return temp.substring(0,15)+"...";
             }
@@ -774,8 +792,8 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                 return d._source.fos;
             }else if(d._source.vType===vertexType.PUBLICATION){
                 return d._source.JOURNAL_NAME;
-            }else if(d._source.vType===vertexType.VENUE){
-                return d._source.VENUE_NAME;
+            }else if(d._source.vType===vertexType.TOPIC){
+                return d._source.TopicName;
             }
         });
 
@@ -937,18 +955,17 @@ function clearSVG() {
 }
 
 /**
- * Holds constant values as an object
- * @type {{PAPER: string, AUTHOR: string, ORG: string, FOS: string, PUBLICATION: string, VENUE: string, CITES: string, REFERENCES: string}}
+ *
+ * @type {{PAPER: string, AUTHOR: string, TOPIC: string, PUBLICATION: string, VENUE: string, CITES: string, REFERENCES: string}}
  */
 var vertexType={
     PAPER:"paper",
     AUTHOR:"author",
-    ORG:"org",
-    FOS:"fos",
+    TOPIC:"TopicDescription",
     PUBLICATION:"journal",
     VENUE:"venue",
     CITES:"cites",
-    REFERENCES:""
+    REFERENCES:"refers"
 }
 
 

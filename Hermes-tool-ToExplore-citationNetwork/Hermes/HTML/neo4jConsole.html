@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <link rel="stylesheet" type="text/css" href="../CSS/hermesStyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+    <!-- jsDelivr CDN non-minified -->
+    <script src="https://cdn.jsdelivr.net/npm/neo4j-driver"></script>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="../JS/neo4jQueryProcessor.js"></script>
+    <script src="../Library/log4javascript.js"></script>
+</head>
+<body>
+
+<div id="header2">
+</div>
+<div id="queryContainer">
+<div class="container" style="overflow: auto; border-style: double; height: 100px; position: relative" >
+    <textarea id="queryArea" rows="25" cols="153" placeholder="type query here.." style="border: hidden;position: absolute"></textarea>
+</div>
+<div class="container">
+
+   <table>
+
+        <tr >
+
+            <td>
+                <button type="submit" style="margin-left: 480px" class="btn btn-primary" onclick="submitQuery()">Submit</button>
+            </td>
+            <td>
+                <button type="submit" style="margin-left: 20px" class="btn btn-primary" onclick="clearQuery()">Clear</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="container">
+    <b style="color: darkblue">Search Results(JSON format): </b>
+</div>
+
+<div class="container" style="height: 510px; border-style: double; overflow: auto;">
+
+    <p id="queryResult" style="width: "></p>
+</div>
+</div>
+<div id="footer2" class="footerClass">
+
+</div>
+</body>
+<script>
+    $(function () {
+        $("#header2").load("Header.html");
+        $("#footer2").load("Footer.html");
+
+    });
+</script>
+</html>

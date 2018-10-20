@@ -290,7 +290,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="submit" id="OKbtn" class="btn btn-primary">OK</button>
+                <button type="submit" id="OKbtn" class="btn btn-primary" >OK</button>
                 <button type="submit" id="Cancelbtn" class="btn btn-primary" onclick="CancelLimitRecordsWindow()">Cancel</button>
             </div>
         </div>
@@ -380,20 +380,33 @@
 
 
     $("#OKbtn").click(function(){
-
+        $("#showLimitedRecords").modal('hide');
         var activetab=parseInt(getActiveTabIndex());
         var index=parseInt(document.getElementById("selectedIndexValue").innerText);
         if(document.getElementById("headerTitle").innerText==="Citations"){
+            document.getElementById("OKbtn").style.cursor="wait";
+           // document.getElementById("showLimitedRecords").style.zIndex=0;
+
             okOfCitationsClicked(activetab,index,processedArray[activetab]);
         }else if(document.getElementById("headerTitle").innerText==="References"){
+            document.getElementById("OKbtn").style.cursor="wait";
+
             okOfReferencesClicked(activetab,index,processedArray[activetab]);
         }else if(document.getElementById("headerTitle").innerText==="Publications"){
+            document.getElementById("OKbtn").style.cursor="wait";
+
             okOfPapersAuthoredClicked(activetab,index,processedArray[activetab]);
         }else if(document.getElementById("headerTitle").innerText==="Co-authorship"){
+            document.getElementById("OKbtn").style.cursor="wait";
+
             okOfCoAuthorshipClicked(activetab,index,processedArray[activetab]);
         }else if(document.getElementById("headerTitle").innerText==="Citing non-coauthors"){
+            document.getElementById("OKbtn").style.cursor="wait";
+
             okOfNonCoAuthorshipClicked(activetab,index,processedArray[activetab]);
         }else if(document.getElementById("headerTitle").innerText==="Papers Published"){
+            document.getElementById("OKbtn").style.cursor="wait";
+
             okOfPapersPublishedClicked(activetab,index,processedArray[activetab]);
         }
     });
