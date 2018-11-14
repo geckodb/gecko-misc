@@ -412,6 +412,221 @@ function showVenue(index,processedArray,activeTab) {
     }
 }
 
+/***
+ *shows the associated topics to the entity
+ * @param index
+ * @param processedArray
+ * @param activeTab
+ */
+function showTopic(index,processedArray,activeTab) {
+    var topicIds = [];
+    var topiccompltDetails = [];
+    var topids;
+
+    d3.select('.context-menu').style('display', 'none');
+    $("#graphArea").css("cursor", "wait");
+
+    _LTracker.push({
+        'method':'showTopic',
+        'tag': 'showTopic-of-Paper',
+        'value':processedArray[index]._source.PAPER_ID
+    });
+
+    var urlfortopicId = "http://localhost:9200/dblprelation_topicsofpaper/_search?q=PAPER_ID:" + "\"" + processedArray[index]._source.PAPER_ID + "\"";
+
+    d3.json(urlfortopicId, function (error, resultIds) {
+
+        if (error)
+            _LTracker.push({
+                'method':'showTopic',
+                'tag': 'Error',
+                'PaperId': processedArray[index]._source.PAPER_ID,
+                'Query':urlfortopicId,
+                'value':error
+            });
+
+
+        topicIds=resultIds.hits.hits;
+        _LTracker.push({
+            'method':'showTopic',
+            'tag': 'showTopic-Q1',
+            'PaperId': processedArray[index]._source.PAPER_ID,
+            'Query': urlfortopicId,
+            'time in ms':resultIds.took,
+            'Count':resultIds.hits.total
+        });
+
+        if(topicIds.length>0){
+            for(var m=0;m<topicIds.length;m++){
+
+                if( m<topicIds.length-1){
+                    topids=topids+("\""+topicIds[m]._source.Topic_Id+"\"")+"OR";
+                }
+                else{
+                    topids=topids+("\""+topicIds[m]._source.Topic_Id+"\"");
+                }
+            }
+        }
+        if(topids!==undefined) {
+            var urlforTopicName = "http://localhost:9200/dblpvertexes/_search?q=vType:TopicDescription AND Topic_Id:(" + topids.substring(9, topids.length) + ")";
+
+
+            d3.json(urlforTopicName, function (error, resultnames) {
+
+                if (error)
+                    _LTracker.push({
+                        'method':'showTopic',
+                        'tag': 'Error',
+                        'PaperId': processedArray[index]._source.PAPER_ID,
+                        'Query': urlforTopicName,
+                        'value':error
+                    });
+
+                topiccompltDetails = resultnames.hits.hits;
+                _LTracker.push({
+                    'method':'showTopic',
+                    'tag': 'showTopic-Q2',
+                    'PaperId': processedArray[index]._source.PAPER_ID,
+                    'Query':urlforTopicName,
+                    'time in ms':resultnames.took,
+                    'Count':resultnames.hits.total
+                });
+
+                for (var j = 0; j < topiccompltDetails.length; j++) {
+                    if (!topicAlreadyAdded[activeTab].has(topiccompltDetails[j]._source.TopicName)) {
+
+                        var idPos = processedArray.push(topiccompltDetails[j]);
+                        topicAlreadyAdded[activeTab].set(topiccompltDetails[j]._source.TopicName, idPos - 1);
+                        var newLink = new createLinks(index, processedArray.length - 1, "has_topic");
+                        linksArray[activeTab].push(newLink);
+                    } else {
+                        var newLink = new createLinks(index, topicAlreadyAdded[activeTab].get(topiccompltDetails[j]._source.TopicName), "has_topic");
+                        linksArray[activeTab].push(newLink);
+                    }
+                }
+
+                JSON.stringify(linksArray);
+                JSON.stringify(processedArray);
+                addedSVGs = d3.selectAll("svg");
+                idName = "#" + addedSVGs[0][activeTab].getAttribute("id");
+                $(idName).empty();
+
+                createGraph(processedArray, linksArray[activeTab], false, false, activeTab);
+                $("#graphArea").css("cursor", "default");
+
+
+            });
+        }else{
+            alert("Topic information of the paper is not available");
+            $("#graphArea").css("cursor", "default");
+        }
+    });
+}
+
+function showTopicsOfAuthor(index,processedArray,activeTab){
+    var topicIds = [];
+    var topiccompltDetails = [];
+    var topids;
+
+    d3.select('.context-menu').style('display', 'none');
+    $("#graphArea").css("cursor", "wait");
+
+    _LTracker.push({
+        'method':'showTopicsOfAuthor',
+        'tag': 'showTopicsOfAuthor-of-Paper',
+        'value':processedArray[index]._source.AUTHOR_ID
+    });
+
+    var urlfortopicId = "http://localhost:9200/dblprelations_topicsofauthor/_search?q=AUTHOR_ID:" + "\"" + processedArray[index]._source.AUTHOR_ID + "\"";
+
+    d3.json(urlfortopicId, function (error, resultIds) {
+
+        if (error)
+            _LTracker.push({
+                'method':'showTopicsOfAuthor',
+                'tag': 'Error',
+                'authorId': processedArray[index]._source.AUTHOR_ID,
+                'Query':urlfortopicId,
+                'value':error
+            });
+
+
+        topicIds=resultIds.hits.hits;
+        _LTracker.push({
+            'method':'showTopicsOfAuthor',
+            'tag': 'showTopicsOfAuthor-Q1',
+            'authorId': processedArray[index]._source.AUTHOR_ID,
+            'Query': urlfortopicId,
+            'time in ms':resultIds.took,
+            'Count':resultIds.hits.total
+        });
+
+        if(topicIds.length>0){
+            for(var m=0;m<topicIds.length;m++){
+
+                if( m<topicIds.length-1){
+                    topids=topids+("\""+topicIds[m]._source.TOPIC_ID+"\"")+"OR";
+                }
+                else{
+                    topids=topids+("\""+topicIds[m]._source.TOPIC_ID+"\"");
+                }
+            }
+        }
+        if(topids!==undefined) {
+            var urlforTopicName = "http://localhost:9200/dblpvertexes/_search?q=vType:TopicDescription AND Topic_Id:(" + topids.substring(9, topids.length) + ")";
+
+
+            d3.json(urlforTopicName, function (error, resultnames) {
+
+                if (error)
+                    _LTracker.push({
+                        'method':'showTopicsOfAuthor',
+                        'tag': 'Error',
+                        'authorId': processedArray[index]._source.AUTHOR_ID,
+                        'Query': urlforTopicName,
+                        'value':error
+                    });
+
+                topiccompltDetails = resultnames.hits.hits;
+                _LTracker.push({
+                    'method':'showTopicsOfAuthor',
+                    'tag': 'showTopicsOfAuthor-Q2',
+                    'authorId': processedArray[index]._source.AUTHOR_ID,
+                    'Query':urlforTopicName,
+                    'time in ms':resultnames.took,
+                    'Count':resultnames.hits.total
+                });
+
+                for (var j = 0; j < topiccompltDetails.length; j++) {
+                    if (!topicAlreadyAdded[activeTab].has(topiccompltDetails[j]._source.TopicName)) {
+
+                        var idPos = processedArray.push(topiccompltDetails[j]);
+                        topicAlreadyAdded[activeTab].set(topiccompltDetails[j]._source.TopicName, idPos - 1);
+                        var newLink = new createLinks(index, processedArray.length - 1, "has_topic");
+                        linksArray[activeTab].push(newLink);
+                    } else {
+                        var newLink = new createLinks(index, topicAlreadyAdded[activeTab].get(topiccompltDetails[j]._source.TopicName), "has_topic");
+                        linksArray[activeTab].push(newLink);
+                    }
+                }
+
+                JSON.stringify(linksArray);
+                JSON.stringify(processedArray);
+                addedSVGs = d3.selectAll("svg");
+                idName = "#" + addedSVGs[0][activeTab].getAttribute("id");
+                $(idName).empty();
+
+                createGraph(processedArray, linksArray[activeTab], false, false, activeTab);
+                $("#graphArea").css("cursor", "default");
+
+
+            });
+        }else{
+            alert("Topic information of the Author is not available");
+            $("#graphArea").css("cursor", "default");
+        }
+    });
+}
 
 /**
  * shows the papers published for a selected journal/publication
@@ -598,12 +813,6 @@ function okOfPapersPublishedClicked(activeTab,index,processedArray) {
     $("#graphArea").css("cursor", "wait");
     //CloseLimitRecordsWindow();
 
-    generatePaperpublished();
-    $("#graphArea").css("cursor", "default");
-}
-
-function generatePaperpublished(){
-
     var pids;
     var retrievalSize;
     var sizeofrecords;
@@ -710,7 +919,9 @@ function generatePaperpublished(){
     $(idName).empty();
 
     createGraph(processedArray, linksArray[activeTab], false, false, parseInt(activeTab));
+    $("#graphArea").css("cursor", "default");
 }
+
 
 /**
  * Returns a set filled with coauthor ids for a given author id
@@ -2118,7 +2329,7 @@ function showCompleteDetails(idsOfDetailToShow,processedArray){
     _LTracker.push({
         'method':'showCompleteDetails',
         'tag': 'showCompleteDetails-of-Paper',
-        'PaperID':processedArray[idsOfDetailToShow]._source.PAPER_ID,
+        'PaperId':processedArray[idsOfDetailToShow]._source.PAPER_ID,
     });
 
     //To bind Title

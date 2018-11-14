@@ -26,8 +26,6 @@ ajaxAppender.setLayout(new log4javascript.JsonLayout());
 //ajaxAppender.setThreshold(15);
 ajaxLogger.addAppender(ajaxAppender);
 
-
-
 var margin = {
         top: 40,
         right: 20,
@@ -46,11 +44,11 @@ svg[0]=d3.select("#tabArea0")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-var paperMenuItems = ["Show more info","Show Authors", "References", "Hosting", "Publishing", "Citations","Remove"]; //,"Domain", "Co-citation", "Bibliographic Coupling"
-var authorMenuItems=["Co-authorship", "Papers Authored","Citing non-coauthors","Remove"];
+var paperMenuItems = ["Show more info","Show Authors", "References", "Hosting", "Topic(s)", "Publishing", "Citations","Remove"]; //,"Domain", "Co-citation", "Bibliographic Coupling"
+var authorMenuItems=["Co-authorship", "Papers Authored","Citing non-coauthors", "Research Topic(s)","Remove"];
 var venueMenuItems=["Remove"];
 var publicationMenuItems=["Papers published","Remove"];
-var FOSMenuItems=["Papers","Authors","Remove"];
+var FOSMenuItems=["Remove"];
 var selectedSVG;
 
 //force for default tab - d3 directed force layout that handles the physics of nodes and edges in each of the svg
@@ -107,11 +105,11 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                         pos=processedArray[activeTabIndex].push(dataArray[i]);
                         paperAlreadyAdded[activeTabIndex].set(dataArray[i]._source.PAPER_ID,pos-1);
 
-                       // ajaxLogger.info("In paper");
+                        //ajaxLogger.info("In paper");
 
                         _LTracker.push({
                             'method':'poplateClickedNode',
-                            'PaperID': dataArray[i]._source.PAPER_ID,
+                            'PaperId': dataArray[i]._source.PAPER_ID,
                             'Title':dataArray[i]._source.Title,
                             'Node':'paper'
                         });
@@ -183,7 +181,7 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                 if(!paperAlreadyAdded[activeTabIndex].has(dataArray[i]._source.PAPER_ID)){
                     _LTracker.push({
                         'method':'poplateClickedNode',
-                        'PaperID': dataArray[i]._source.PAPER_ID,
+                        'PaperId': dataArray[i]._source.PAPER_ID,
                         'Title':dataArray[i]._source.Title,
                         'Node':'paper'
                     });
@@ -561,21 +559,12 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                         d3.select('.context-menu').style('display', 'none');
                         nodeExpandedforRefernce.add(paperId);
                     }
-                    else if(d==="Domain"){
-                        if((processedArray[activeTab][scrIdPaperIndex]._source.vType===vertexType.CITES)&&(processedArray[activeTab][scrIdPaperIndex]._source.fosPaper===undefined)){
-                            var url="http://localhost:9200/https://mondrian-db.slack.com//_search?q=vType:paper AND jgId="+processedArray[scrIdPaperIndex]._id;
-                            d3.json(url,function (error,json){
-                                if (error) throw error;
-                                if(json.hits.hits.length==1){
-                                    processedArray[activeTabIndex][scrIdPaperIndex]._source=json.hits.hits[0]._source;
-                                    showFOS(paperId,scrIdPaperIndex,processedArray[activeTabIndex],activeTabIndex);
-                                    dataLoaded=true;
-                                }
-                            });
-                        }else{
-                            showFOS(paperId,scrIdPaperIndex,processedArray[activeTabIndex],activeTabIndex);
-                        }
+                    else if(d==="Topic(s)"){
+                        showTopic(selectedIndex,processedArray[activeTabIndex],activeTabIndex);
                         d3.select('.context-menu').style('display', 'none');
+                    }
+                    else if(d==="Research Topic(s)"){
+                        showTopicsOfAuthor(selectedIndex,processedArray[activeTabIndex],activeTabIndex);
                     }
                     else if(d==="Publishing") {
                         if (processedArray[activeTab][scrIdPaperIndex]._source.vType === vertexType.PAPER) {
@@ -714,11 +703,49 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                     .style("top", (d3.event.pageY - 30) + "px");
             }
             else if(d._source.vType===vertexType.TOPIC){
+                var paper_count;
+                var author_count;
+                var urlforPaperCnt="http://localhost:9200/dblprelation_topicsofpaper/_count?q=Topic_Id:"+d._source.Topic_Id;
+                $.ajax({
+                    dataType: "json",
+                    url: urlforPaperCnt,
+                    async: false,
+                    success: function (paperCnt) {
+                        _LTracker.push({
+                            'method':'Topictooltip',
+                            'tag': 'Topictooltip-Q1',
+                            'TopicId': d._source.Topic_Id,
+                            'Query':urlforPaperCnt,
+                            'Count':paperCnt.count
+                        });
+                        paper_count=paperCnt.count;
+                    }
+                });
+
+                var urlforAuthorCnt="http://localhost:9200/dblprelations_authortopics/_count?q=TOPIC_ID:"+d._source.Topic_Id;
+                $.ajax({
+                    dataType: "json",
+                    url: urlforAuthorCnt,
+                    async: false,
+                    success: function (authorCnt) {
+                        _LTracker.push({
+                            'method':'Topictooltip',
+                            'tag': 'Topictooltip-Q2',
+                            'TopicId': d._source.Topic_Id,
+                            'Query':urlforPaperCnt,
+                            'Count':authorCnt.count
+                        });
+                        author_count=authorCnt.count;
+                    }
+                });
+
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 0.9);
                 tooltip.html("<b>Topic : </b>"+d._source.TopicName + "<br/>"+
-                    "<b>Words: </b>"+d._source.TopicWords+ "<br/>")
+                    "<b>Words: </b>"+d._source.TopicWords+ "<br/>"+
+                    "<b>Total Papers: </b>"+paper_count+ "<br/>"+
+                    "<b>Total Authors: </b>"+author_count+ "<br/>")
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 30) + "px");
             }
@@ -779,21 +806,14 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
             if((d._source.vType===vertexType.PAPER)){
                 var temp=d._source.Title;
                 return temp.substring(0,15)+"...";
-            }
-            else if(d._source.vType===vertexType.AUTHOR){
+            }else if(d._source.vType===vertexType.AUTHOR){
                 return d._source.AUTHOR_NAME;
-            }
-            else if(d._source.vType==="reference"){
-                return d._source.title;
-            }
-            else if(d._source.vType===vertexType.ORG){
-                return d._source.org;
-            }else if(d._source.vType===vertexType.FOS){
-                return d._source.fos;
             }else if(d._source.vType===vertexType.PUBLICATION){
                 return d._source.JOURNAL_NAME;
             }else if(d._source.vType===vertexType.TOPIC){
                 return d._source.TopicName;
+            }else if(d._source.vType===vertexType.VENUE){
+                return d._source.VENUE_NAME;
             }
         });
 

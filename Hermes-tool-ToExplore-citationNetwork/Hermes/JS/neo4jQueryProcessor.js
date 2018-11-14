@@ -18,6 +18,12 @@ function submitQuery() {
 
         // Create a session to run Cypher statements.
         var session = driver.session();
+        
+        _LTracker.push({
+            'method':'submitQuery',
+            'Query':query
+        });
+
         //Run a Cypher statement, perform operation on the result in a streaming manner as records arrive
         session
             .run(query)

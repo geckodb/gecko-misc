@@ -41,7 +41,7 @@ function fillSuggestion() {
     var val=document.getElementById("searchinput").value;
     console.log(val.length);
     if(val.length>0) {
-        var urlSuggestion = "http://localhost:9200/dblpvertexes/_search?q=Title:\"" + val + "\"* OR AUTHOR_NAME:\"" + val +  "\"* OR JOURNAL_NAME:\""+  val +"\"* OR TopicName:\""+ val +"\"*&size=8";
+        var urlSuggestion = "http://localhost:9200/dblpvertexes/_search?q=Title:\"" + val + "\"* OR AUTHOR_NAME:\"" + val +  "\"* OR JOURNAL_NAME:\""+  val +"\"* OR TopicWords:\""+ val +"\"*&size=8";
         d3.json(urlSuggestion, function (error, json) {
             if (error) throw error;
 
@@ -58,91 +58,90 @@ function fillSuggestion() {
                 if (suggestionData[i]._source.vType === vertexType.PAPER) {
                     if (!suggestionboxitems.has(suggestionData[i]._source.Title)) {
                         suggestionboxitems.add(suggestionData[i]._source.Title);
-                    li.setAttribute("class", "suggestedItem");
-                    li.setAttribute("id", i);
-                    li.innerText = suggestionData[i]._source.Title;
-                    liTag = sBox.appendChild(li);
-                    liTag.onclick = function (d) {
-                        if (d.path === undefined) {
-                            fillSearchInput(d.currentTarget.id, suggestionData);
+                        li.setAttribute("class", "suggestedItem");
+                        li.setAttribute("id", i);
+                        li.innerText = suggestionData[i]._source.Title;
+                        li.onclick = function (d) {
+                            if (d.path === undefined) {
+                                fillSearchInput(d.currentTarget.id, suggestionData);
+                            } else {
+                                fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
+                            }
+
+                            $('#suggestionBox').html('');
+                        };
+                        liTag = sBox.appendChild(li);
+                        pTag = document.createElement("p");
+                        pTag.innerText = "in paper ";
+                        pTag_handler = liTag.appendChild(pTag);
+                        citationTag = document.createElement("bold");
+                        citationTag.innerText = "Citation : ";
+                        spanCitationTag = document.createElement("span");
+                        if ((suggestionData[i]._source.CitationCount === undefined) || (suggestionData[i]._source.CitationCount === 0)) {
+                            spanCitationTag.innerText = "NA";
                         } else {
-                            fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
+                            spanCitationTag.innerText = suggestionData[i]._source.CitationCount;
                         }
 
-                        $('#suggestionBox').html('');
-                    };
-
-                    pTag = document.createElement("p");
-                    pTag.innerText = "in paper ";
-                    pTag_handler = liTag.appendChild(pTag);
-                    citationTag = document.createElement("bold");
-                    citationTag.innerText = "Citation : ";
-                    spanCitationTag = document.createElement("span");
-                    if ((suggestionData[i]._source.CitationCount === undefined) || (suggestionData[i]._source.CitationCount === 0)) {
-                        spanCitationTag.innerText = "NA";
-                    } else {
-                        spanCitationTag.innerText = suggestionData[i]._source.CitationCount;
-                    }
-
-                    pTag_handler.appendChild(citationTag);
-                    pTag_handler.appendChild(spanCitationTag);
+                        pTag_handler.appendChild(citationTag);
+                        pTag_handler.appendChild(spanCitationTag);
                     }
                 } else if (suggestionData[i]._source.vType === vertexType.AUTHOR) {
                     if (!suggestionboxitems.has(suggestionData[i]._source.AUTHOR_ID)) {
                         suggestionboxitems.add(suggestionData[i]._source.AUTHOR_ID);
-                    // aTag = sBox.appendChild(a);
-                    li.setAttribute("class", "suggestedItem");
-                    li.setAttribute("id", i);
-                    li.innerText = suggestionData[i]._source.AUTHOR_NAME;
-                    li.onclick = function (d) {
-                        if (d.path === undefined) {
-                            fillSearchInput(d.currentTarget.id, suggestionData);
-                        } else {
-                            fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
-                        }
-                        $('#suggestionBox').html('');
-                    }
 
-                    liTag = sBox.appendChild(li);
-                    pTag = document.createElement("p");
-                    pTag.innerText = "in author";
-                    liTag.appendChild(pTag);
-                }
+                        li.setAttribute("class", "suggestedItem");
+                        li.setAttribute("id", i);
+                        li.innerText = suggestionData[i]._source.AUTHOR_NAME;
+                        li.onclick = function (d) {
+                            if (d.path === undefined) {
+                                fillSearchInput(d.currentTarget.id, suggestionData);
+                            } else {
+                                fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
+                            }
+                            $('#suggestionBox').html('');
+                        }
+
+                        liTag = sBox.appendChild(li);
+                        pTag = document.createElement("p");
+                        pTag.innerText = "in author";
+                        liTag.appendChild(pTag);
+                    }
                 }else if(suggestionData[i]._source.vType===vertexType.PUBLICATION) {
                     if (!suggestionboxitems.has(suggestionData[i]._source.JOURNAL_ID)) {
                         suggestionboxitems.add(suggestionData[i]._source.JOURNAL_ID);
-                    aTag = sBox.appendChild(a);
-                    li.setAttribute("class", "suggestedItem");
-                    li.setAttribute("id", i);
-                    li.innerText = suggestionData[i]._source.JOURNAL_NAME;
-                    a.onclick = function (d) {
-                        fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
-                        $('#suggestionBox').html('');
+
+                        li.setAttribute("class", "suggestedItem");
+                        li.setAttribute("id", i);
+                        li.innerText = suggestionData[i]._source.JOURNAL_NAME;
+                        li.onclick = function (d) {
+                            fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
+                            $('#suggestionBox').html('');
+                        }
+                        liTag = sBox.appendChild(li);
+                        pTag = document.createElement("p");
+                        pTag.innerText = "in journal";
+                        liTag.appendChild(pTag);
                     }
-                    liTag = aTag.appendChild(li);
-                    pTag = document.createElement("p");
-                    pTag.innerText = "in journal";
-                    liTag.appendChild(pTag);
-                }
                 } else if (suggestionData[i]._source.vType === vertexType.TOPIC) {
                     if (!suggestionboxitems.has(suggestionData[i]._source.TopicId)) {
                         suggestionboxitems.add(suggestionData[i]._source.TopicId);
-                    li.setAttribute("class", "suggestedItem");
-                    li.setAttribute("id", i);
-                    li.innerText = suggestionData[i]._source.TopicName;
-                    li.onclick = function (d) {
-                        if (d.path === undefined) {
-                            fillSearchInput(d.currentTarget.id, suggestionData);
-                        } else {
-                            fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
+                        li.setAttribute("class", "suggestedItem");
+                        li.setAttribute("id", i);
+                        li.innerText = suggestionData[i]._source.TopicName;
+                        li.onclick = function (d) {
+                            if (d.path === undefined) {
+                                fillSearchInput(d.currentTarget.id, suggestionData);
+                            } else {
+                                fillSearchInput(d.path[1].getAttribute("id"), suggestionData);
+                            }
+                            $('#suggestionBox').html('');
                         }
-                        $('#suggestionBox').html('');
+                        liTag = sBox.appendChild(li);
+                        pTag = document.createElement("p");
+                        pTag.innerText = "in topic";
+                        liTag.appendChild(pTag);
                     }
-                    liTag = sBox.appendChild(li);
-                    pTag = document.createElement("p");
-                    pTag.innerText = "in topic";
-                    liTag.appendChild(pTag);
-                }
                 }
             }
 
@@ -520,37 +519,10 @@ function searchClicked(userEnteredtext,chosenType) {
 
                             td.appendChild(linebreak);
                         }
-                    } else if (displayRecords[i]._source.vType === vertexType.VENUE) {
-                        a = document.createElement("a");
-                        a.setAttribute("id", displayRecords[i]._id);
-                        a.style.cursor = "pointer";
-                        a.onclick = function (d) {
-                            if (d.path === undefined) {
-                                poplateClickedNode(d.currentTarget.id, searchData, false);
-                            } else {
-                                poplateClickedNode(d.path[1].getAttribute("id"), searchData, false);
-                            }
-                        };
-                        linebreak = document.createElement("br");
-                        boldHeader = document.createElement("b");
-                        handler_a = td.appendChild(a);
-                        boldHeader.innerText = displayRecords[i]._source.VENUE_NAME;
-                        handler_a.appendChild(boldHeader);
-
-                        p = document.createElement("p");
-                        handler_p = td.appendChild(p); //change to doc to keep citation and reference count out of "a" tag
-                        b = document.createElement("b");
-                        b.innerText = " ";
-                        span = document.createElement("span");
-                        span.innerText = " ";
-                        handler_p.appendChild(b);
-                        handler_p.appendChild(span);
-
-                        td.appendChild(linebreak);
                     }
                     tr.appendChild(td);
                     doc.appendChild(tr);
-                }
+                    }
                 }
                 // if(!fromScholarly){
                 document.getElementById("overlay").style.display = "none";
