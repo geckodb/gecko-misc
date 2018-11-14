@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c547c847-dc05-4c6a-8c3a-344bb1fc2699" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/CSS/hermesStyle.css" afterPath="$PROJECT_DIR$/CSS/hermesStyle.css" />
-      <change beforePath="$PROJECT_DIR$/JS/HermesGraphLoader.js" afterPath="$PROJECT_DIR$/JS/HermesGraphLoader.js" />
-      <change beforePath="$PROJECT_DIR$/JS/Search.js" afterPath="$PROJECT_DIR$/JS/Search.js" />
+      <change beforePath="$PROJECT_DIR$/HTML/index.html" afterPath="$PROJECT_DIR$/HTML/index.html" />
+      <change beforePath="$PROJECT_DIR$/HTML/neo4jConsole.html" afterPath="$PROJECT_DIR$/HTML/neo4jConsole.html" />
       <change beforePath="$PROJECT_DIR$/JS/neo4jQueryProcessor.js" afterPath="$PROJECT_DIR$/JS/neo4jQueryProcessor.js" />
-      <change beforePath="$PROJECT_DIR$/JS/processAndFormEntities.js" afterPath="$PROJECT_DIR$/JS/processAndFormEntities.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,11 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/HTML/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="104">
-              <caret line="4" column="57" lean-forward="false" selection-start-line="4" selection-start-column="57" selection-end-line="4" selection-end-column="57" />
+            <state relative-caret-position="572">
+              <caret line="37" column="16" lean-forward="true" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -58,18 +55,28 @@
       <file leaf-file-name="neo4jQueryProcessor.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/JS/neo4jQueryProcessor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="520">
-              <caret line="20" column="8" lean-forward="true" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
+            <state relative-caret-position="312">
+              <caret line="18" column="53" lean-forward="true" selection-start-line="18" selection-start-column="53" selection-end-line="18" selection-end-column="53" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HermesGraphLoader.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="neo4jConsole.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/HTML/neo4jConsole.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-419">
+              <caret line="21" column="40" lean-forward="true" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HermesGraphLoader.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/JS/HermesGraphLoader.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1300">
-              <caret line="50" column="28" lean-forward="true" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
+            <state relative-caret-position="208">
+              <caret line="8" column="20" lean-forward="true" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -100,8 +107,8 @@
       <file leaf-file-name="scholarlyResult.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HTML/scholarlyResult.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="8" column="40" lean-forward="false" selection-start-line="8" selection-start-column="40" selection-end-line="8" selection-end-column="40" />
+            <state relative-caret-position="260">
+              <caret line="10" column="13" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="10" selection-end-column="13" />
               <folding>
                 <element signature="n#style#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -238,11 +245,9 @@
         <option value="$PROJECT_DIR$/JSON/Completedata.json" />
         <option value="$PROJECT_DIR$/JSON/StructureofLinks.txt" />
         <option value="$PROJECT_DIR$/HTML/about.html" />
-        <option value="$PROJECT_DIR$/HTML/index.html" />
         <option value="$PROJECT_DIR$/JS/Data.js" />
         <option value="$PROJECT_DIR$/HTML/testcache.html" />
         <option value="$PROJECT_DIR$/HTML/Header.html" />
-        <option value="$PROJECT_DIR$/HTML/neo4jConsole.html" />
         <option value="$PROJECT_DIR$/JS/testCaching.js" />
         <option value="$PROJECT_DIR$/JSON/StructureOfVertexes.txt" />
         <option value="$PROJECT_DIR$/HTML/getStarted.html" />
@@ -250,8 +255,10 @@
         <option value="$PROJECT_DIR$/CSS/hermesStyle.css" />
         <option value="$PROJECT_DIR$/HTML/scholarlyResult.html" />
         <option value="$PROJECT_DIR$/JS/processAndFormEntities.js" />
-        <option value="$PROJECT_DIR$/JS/neo4jQueryProcessor.js" />
         <option value="$PROJECT_DIR$/JS/HermesGraphLoader.js" />
+        <option value="$PROJECT_DIR$/HTML/index.html" />
+        <option value="$PROJECT_DIR$/HTML/neo4jConsole.html" />
+        <option value="$PROJECT_DIR$/JS/neo4jQueryProcessor.js" />
       </list>
     </option>
   </component>
@@ -299,6 +306,11 @@
             <path>
               <item name="Hermes" type="b2602c69:ProjectViewProjectNode" />
               <item name="Hermes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Hermes" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Hermes" type="462c0819:PsiDirectoryNode" />
+              <item name="HTML" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Hermes" type="b2602c69:ProjectViewProjectNode" />
@@ -431,12 +443,12 @@
       <workItem from="1540133381163" duration="14956000" />
       <workItem from="1540410607133" duration="8210000" />
       <workItem from="1540817903206" duration="10629000" />
-      <workItem from="1542212014376" duration="82000" />
+      <workItem from="1542212014376" duration="3494000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2031649000" />
+    <option name="totallyTimeSpent" value="2035061000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -713,14 +725,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HTML/neo4jConsole.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="18" column="24" lean-forward="false" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Images/Tlogo.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -771,18 +775,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HTML/index.html">
+    <entry file="file://$PROJECT_DIR$/JS/processAndFormEntities.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="4" column="57" lean-forward="false" selection-start-line="4" selection-start-column="57" selection-end-line="4" selection-end-column="57" />
-          <folding />
+        <state relative-caret-position="312">
+          <caret line="12" column="10" lean-forward="true" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
+          <folding>
+            <element signature="n#!!block;n#createLinks#0" expanded="false" />
+            <element signature="e#26702#30619#0" expanded="false" />
+            <element signature="n#!!block;n#checkValueEntered#0" expanded="false" />
+            <element signature="n#!!block;n#removeNodeAndLinks#0" expanded="false" />
+            <element signature="e#86726#89591#0" expanded="false" />
+            <element signature="n#!!block;n#showCompleteDetails#0" expanded="false" />
+            <element signature="n#!!block;n#renameTab#0" expanded="false" />
+            <element signature="n#!!block;n#CloseAddTagWindow#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/HTML/scholarlyResult.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="8" column="40" lean-forward="false" selection-start-line="8" selection-start-column="40" selection-end-line="8" selection-end-column="40" />
+        <state relative-caret-position="260">
+          <caret line="10" column="13" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="10" selection-end-column="13" />
           <folding>
             <element signature="n#style#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -811,35 +824,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JS/neo4jQueryProcessor.js">
+    <entry file="file://$PROJECT_DIR$/JS/HermesGraphLoader.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="20" column="8" lean-forward="true" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
+        <state relative-caret-position="208">
+          <caret line="8" column="20" lean-forward="true" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JS/processAndFormEntities.js">
+    <entry file="file://$PROJECT_DIR$/HTML/neo4jConsole.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="12" column="10" lean-forward="true" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-          <folding>
-            <element signature="n#!!block;n#createLinks#0" expanded="false" />
-            <element signature="e#26702#30619#0" expanded="false" />
-            <element signature="n#!!block;n#checkValueEntered#0" expanded="false" />
-            <element signature="n#!!block;n#removeNodeAndLinks#0" expanded="false" />
-            <element signature="e#86726#89591#0" expanded="false" />
-            <element signature="n#!!block;n#showCompleteDetails#0" expanded="false" />
-            <element signature="n#!!block;n#renameTab#0" expanded="false" />
-            <element signature="n#!!block;n#CloseAddTagWindow#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="-419">
+          <caret line="21" column="40" lean-forward="true" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JS/HermesGraphLoader.js">
+    <entry file="file://$PROJECT_DIR$/JS/neo4jQueryProcessor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1300">
-          <caret line="50" column="28" lean-forward="true" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
+        <state relative-caret-position="312">
+          <caret line="18" column="53" lean-forward="true" selection-start-line="18" selection-start-column="53" selection-end-line="18" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HTML/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="37" column="16" lean-forward="true" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="16" />
           <folding />
         </state>
       </provider>

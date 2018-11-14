@@ -20,6 +20,7 @@ function submitQuery() {
         var session = driver.session();
         
         _LTracker.push({
+            'Database':'Neo4j',
             'method':'submitQuery',
             'Query':query
         });
