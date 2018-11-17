@@ -14,7 +14,7 @@ function submitQuery() {
         document.getElementById("queryContainer").style.cursor="wait";
 
         //creates connection to Neo4j graph db
-        var driver = neo4j.v1.driver("http://localhost:7474/browser/", neo4j.v1.auth.basic(USER_NAME, PWD),{maxTransactionRetryTime: 30000});
+        var driver = neo4j.v1.driver("http://"+IP_ADDRESS+":7474/browser/", neo4j.v1.auth.basic(USER_NAME, PWD),{maxTransactionRetryTime: 30000});
 
         // Create a session to run Cypher statements.
         var session = driver.session();

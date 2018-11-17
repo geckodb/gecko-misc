@@ -102,7 +102,7 @@ function showAuthors(idToEXpand,index, processedArray,activeTab) {
                 'PaperId':processedArray[index]._source.PAPER_ID,
             });
 
-             urlforAuthorId="http://localhost:9200/dblprelation_authorship/_search?q=PAPER_ID:"+"\""+idToEXpand+"\"";
+             urlforAuthorId="http://"+IP_ADDRESS+":9200/dblprelation_authorship/_search?q=PAPER_ID:"+"\""+idToEXpand+"\"";
             d3.json(urlforAuthorId,function (error,resultIds) {
 
                 if (error)
@@ -137,7 +137,7 @@ function showAuthors(idToEXpand,index, processedArray,activeTab) {
                         }
                     }
                 }
-                var urlforAuthorName="http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:("+auids.substring(9,auids.length)+")";
+                var urlforAuthorName="http://"+IP_ADDRESS+":9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:("+auids.substring(9,auids.length)+")";
 
 
                 d3.json(urlforAuthorName,function (error,resultnames) {
@@ -207,7 +207,7 @@ function showJournals(index, processedArray,activeTab) {
             'PaperId': processedArray[index]._source.PAPER_ID
         });
 
-        var urlforjournalId = "http://localhost:9200/dblprelation_journalofpaper/_search?q=PAPER_ID:" + "\"" + processedArray[index]._source.PAPER_ID + "\"";
+        var urlforjournalId = "http://"+IP_ADDRESS+":9200/dblprelation_journalofpaper/_search?q=PAPER_ID:" + "\"" + processedArray[index]._source.PAPER_ID + "\"";
 
         d3.json(urlforjournalId, function (error, resultIds) {
 
@@ -243,7 +243,7 @@ function showJournals(index, processedArray,activeTab) {
                 }
             }
             if(jouids!==undefined) {
-                var urlforJournalName = "http://localhost:9200/dblpvertexes/_search?q=vType:journal AND JOURNAL_ID:(" + jouids.substring(9, jouids.length) + ")";
+                var urlforJournalName = "http://"+IP_ADDRESS+":9200/dblpvertexes/_search?q=vType:journal AND JOURNAL_ID:(" + jouids.substring(9, jouids.length) + ")";
 
                 d3.json(urlforJournalName, function (error, resultnames) {
 
@@ -320,7 +320,7 @@ function showVenue(index,processedArray,activeTab) {
             'value':processedArray[index]._source.PAPER_ID
         });
 
-        var urlforvenueId = "http://localhost:9200/dblprelation_venueofpaper/_search?q=PAPER_ID:" + "\"" + processedArray[index]._source.PAPER_ID + "\"";
+        var urlforvenueId = "http://"+IP_ADDRESS+":9200/dblprelation_venueofpaper/_search?q=PAPER_ID:" + "\"" + processedArray[index]._source.PAPER_ID + "\"";
 
         d3.json(urlforvenueId, function (error, resultIds) {
 
@@ -356,7 +356,7 @@ function showVenue(index,processedArray,activeTab) {
                 }
             }
             if(venids!==undefined) {
-                var urlforVenueName = "http://localhost:9200/dblpvertexes/_search?q=vType:venue AND VENUE_ID:(" + venids.substring(9, venids.length) + ")";
+                var urlforVenueName = "http://"+IP_ADDRESS+":9200/dblpvertexes/_search?q=vType:venue AND VENUE_ID:(" + venids.substring(9, venids.length) + ")";
 
 
                 d3.json(urlforVenueName, function (error, resultnames) {
@@ -432,7 +432,7 @@ function showTopic(index,processedArray,activeTab) {
         'value':processedArray[index]._source.PAPER_ID
     });
 
-    var urlfortopicId = "http://localhost:9200/dblprelation_topicsofpaper/_search?q=PAPER_ID:" + "\"" + processedArray[index]._source.PAPER_ID + "\"";
+    var urlfortopicId = "http://"+IP_ADDRESS+":9200/dblprelation_topicsofpaper/_search?q=PAPER_ID:" + "\"" + processedArray[index]._source.PAPER_ID + "\"";
 
     d3.json(urlfortopicId, function (error, resultIds) {
 
@@ -468,7 +468,7 @@ function showTopic(index,processedArray,activeTab) {
             }
         }
         if(topids!==undefined) {
-            var urlforTopicName = "http://localhost:9200/dblpvertexes/_search?q=vType:TopicDescription AND Topic_Id:(" + topids.substring(9, topids.length) + ")";
+            var urlforTopicName = "http://"+IP_ADDRESS+":9200/dblpvertexes/_search?q=vType:TopicDescription AND Topic_Id:(" + topids.substring(9, topids.length) + ")";
 
 
             d3.json(urlforTopicName, function (error, resultnames) {
@@ -537,7 +537,7 @@ function showTopicsOfAuthor(index,processedArray,activeTab){
         'value':processedArray[index]._source.AUTHOR_ID
     });
 
-    var urlfortopicId = "http://localhost:9200/dblprelations_topicsofauthor/_search?q=AUTHOR_ID:" + "\"" + processedArray[index]._source.AUTHOR_ID + "\"";
+    var urlfortopicId = "http://"+IP_ADDRESS+":9200/dblprelations_topicsofauthor/_search?q=AUTHOR_ID:" + "\"" + processedArray[index]._source.AUTHOR_ID + "\"";
 
     d3.json(urlfortopicId, function (error, resultIds) {
 
@@ -573,7 +573,7 @@ function showTopicsOfAuthor(index,processedArray,activeTab){
             }
         }
         if(topids!==undefined) {
-            var urlforTopicName = "http://localhost:9200/dblpvertexes/_search?q=vType:TopicDescription AND Topic_Id:(" + topids.substring(9, topids.length) + ")";
+            var urlforTopicName = "http://"+IP_ADDRESS+":9200/dblpvertexes/_search?q=vType:TopicDescription AND Topic_Id:(" + topids.substring(9, topids.length) + ")";
 
 
             d3.json(urlforTopicName, function (error, resultnames) {
@@ -647,7 +647,7 @@ function showPapersPublished(index,processedArray,activeTab) {
         });
     }
 
-    var urlforpaperId="http://localhost:9200/dblprelation_journalofpaper/_count?q=JOURNAL_ID:"+"\""+processedArray[index]._source.JOURNAL_ID+"\"";
+    var urlforpaperId="http://"+IP_ADDRESS+":9200/dblprelation_journalofpaper/_count?q=JOURNAL_ID:"+"\""+processedArray[index]._source.JOURNAL_ID+"\"";
 
     $.ajax({
         dataType: "json",
@@ -716,7 +716,7 @@ function showPapersPublished(index,processedArray,activeTab) {
         });
 
 
-        var urlforpaperId="http://localhost:9200/dblprelation_journalofpaper/_search?q=JOURNAL_ID:"+"\""+processedArray[index]._source.JOURNAL_ID+"\""+"&size=90";
+        var urlforpaperId="http://"+IP_ADDRESS+":9200/dblprelation_journalofpaper/_search?q=JOURNAL_ID:"+"\""+processedArray[index]._source.JOURNAL_ID+"\""+"&size=90";
         _LTracker.push({
             'method':'showPapersPublished',
             'tag': 'Queries',
@@ -753,7 +753,7 @@ function showPapersPublished(index,processedArray,activeTab) {
                 pids=pids+("\""+paperIds[0]._source.PAPER_ID+"\"");
             }
 
-            var urlforPapers="http://localhost:9200/dblpvertexes/_search?q=vType:paper AND PAPER_ID:("+pids.substring(9,pids.length)+")&size=90";
+            var urlforPapers="http://"+IP_ADDRESS+":9200/dblpvertexes/_search?q=vType:paper AND PAPER_ID:("+pids.substring(9,pids.length)+")&size=90";
             _LTracker.push({
                 'method':'showPapersPublished',
                 'tag': 'Queries',
@@ -847,7 +847,7 @@ function okOfPapersPublishedClicked(activeTab,index,processedArray) {
         }else{
             refrom=(x*90);
         }
-        var urlforpaperId="http://localhost:9200/dblprelation_journalofpaper/_search?q=JOURNAL_ID:"+"\""+processedArray[index]._source.JOURNAL_ID+"\"&from="+refrom+"&size="+retrievalSize;
+        var urlforpaperId="http://"+IP_ADDRESS+":9200/dblprelation_journalofpaper/_search?q=JOURNAL_ID:"+"\""+processedArray[index]._source.JOURNAL_ID+"\"&from="+refrom+"&size="+retrievalSize;
 
         $.ajax({
 
@@ -880,7 +880,7 @@ function okOfPapersPublishedClicked(activeTab,index,processedArray) {
             }
         }
 
-        var urlforPaperDetails = "http://localhost:9200/dblpvertexes/_search?q=vType:paper AND PAPER_ID:(" + pids + ")&size="+retrievalSize;
+        var urlforPaperDetails = "http://"+IP_ADDRESS+":9200/dblpvertexes/_search?q=vType:paper AND PAPER_ID:(" + pids + ")&size="+retrievalSize;
 
         $.ajax({
             dataType: "json",
@@ -931,7 +931,7 @@ function okOfPapersPublishedClicked(activeTab,index,processedArray) {
 function fillCoAUthorIds(authorId,from) {
     var totalRecords;
     var coAuthorIds=new Set();
-    var urlcoAuthors = "http://localhost:9200/dblprelation_coauthorship/_search?q=AUTHOR_ID:" + "\"" + authorId + "\"&from=0&size=1000";
+    var urlcoAuthors = "http://"+IP_ADDRESS+":9200/dblprelation_coauthorship/_search?q=AUTHOR_ID:" + "\"" + authorId + "\"&from=0&size=1000";
 
 
     $.ajax({
@@ -958,7 +958,7 @@ function fillCoAUthorIds(authorId,from) {
             if (totalRecords > 1000) {
                 var loopCnt = Math.ceil(totalRecords / 1000);
                 for (var j = 1; j < loopCnt; j++) {
-                    var urlcoAuthorsextnd="http://localhost:9200/dblprelation_coauthorship/_search?q=AUTHOR_ID:" + "\"" + authorId + "\"&from=" + (j * 1000) + "&size=1000";
+                    var urlcoAuthorsextnd="http://"+IP_ADDRESS+":9200/dblprelation_coauthorship/_search?q=AUTHOR_ID:" + "\"" + authorId + "\"&from=" + (j * 1000) + "&size=1000";
                     $.ajax({
                         dataType: "json",
                         url:urlcoAuthorsextnd ,
@@ -986,7 +986,7 @@ function fillCoAUthorIds(authorId,from) {
         }
     });
 
-    var urlAuthors = "http://localhost:9200/dblprelation_coauthorship/_search?q=COAUTHOR_ID:" + "\"" + authorId + "\"&from=0&size=1000";
+    var urlAuthors = "http://"+IP_ADDRESS+":9200/dblprelation_coauthorship/_search?q=COAUTHOR_ID:" + "\"" + authorId + "\"&from=0&size=1000";
 
     $.ajax({
         dataType: "json",
@@ -1015,7 +1015,7 @@ function fillCoAUthorIds(authorId,from) {
                 for (var j = 1; j < loopCnt; j++) {
                     $.ajax({
                         dataType: "json",
-                        url: "http://localhost:9200/dblprelation_coauthorship/_search?q=COAUTHOR_ID:" + "\"" + authorId + "\"&from=" + (j * 1000) + "&size=1000",
+                        url: "http://"+IP_ADDRESS+":9200/dblprelation_coauthorship/_search?q=COAUTHOR_ID:" + "\"" + authorId + "\"&from=" + (j * 1000) + "&size=1000",
                         async: false,
                         success: function (extendeddata) {
                             var extendedIds = [];
@@ -1087,7 +1087,7 @@ function showCitingnonCoauthor(index, processedArray, activeTab) {
         nonCoAuthorId=citingNoncoAtuthorIdsofAuthor[activeTab].get(processedArray[index]._source.AUTHOR_ID);
     }else {
         //get all papers of the author
-        var urlPaperIds = "http://localhost:9200/dblprelation_authorship/_search?q=AUTHOR_ID:\"" + processedArray[index]._source.AUTHOR_ID + "\"&size=1000";
+        var urlPaperIds = "http://"+IP_ADDRESS+":9200/dblprelation_authorship/_search?q=AUTHOR_ID:\"" + processedArray[index]._source.AUTHOR_ID + "\"&size=1000";
         $.ajax({
             dataType: "json",
             url: urlPaperIds,
@@ -1113,7 +1113,7 @@ function showCitingnonCoauthor(index, processedArray, activeTab) {
                 if (totalRecordCnt > 1000) {
                     var loopCnt = Math.ceil(totalRecordCnt / 1000);
                     for (var j = 1; j < loopCnt; j++) {
-                        var urlPaperIdextnd="http://localhost:9200/dblprelation_authorship/_search?q=AUTHOR_ID:\"" + processedArray[index]._source.AUTHOR_ID + "\"&from=" + (j * 1000) + "&size=1000"
+                        var urlPaperIdextnd="http://"+IP_ADDRESS+":9200/dblprelation_authorship/_search?q=AUTHOR_ID:\"" + processedArray[index]._source.AUTHOR_ID + "\"&from=" + (j * 1000) + "&size=1000"
                         $.ajax({
                             dataType: "json",
                             url:urlPaperIdextnd ,
@@ -1163,7 +1163,7 @@ function showCitingnonCoauthor(index, processedArray, activeTab) {
                 }
             }
 
-            var urlforCitingIds = "http://localhost:9200/dblprelation_citation/_search?q=REFERENCE_ID:(" + pids + ")&size=" + retrievalSize;
+            var urlforCitingIds = "http://"+IP_ADDRESS+":9200/dblprelation_citation/_search?q=REFERENCE_ID:(" + pids + ")&size=" + retrievalSize;
 
             start += retrievalSize;
 
@@ -1212,7 +1212,7 @@ function showCitingnonCoauthor(index, processedArray, activeTab) {
                 }
             }
 
-            var urlforCitedAuthorIds = "http://localhost:9200/dblprelation_authorship/_search?q=PAPER_ID:(" + cids + ")&size=" + retrievalSize;
+            var urlforCitedAuthorIds = "http://"+IP_ADDRESS+":9200/dblprelation_authorship/_search?q=PAPER_ID:(" + cids + ")&size=" + retrievalSize;
 
             start += retrievalSize;
 
@@ -1321,7 +1321,7 @@ function okOfNonCoAuthorshipClicked(activeTab,index,processedArray) {
             }
         }
 
-        var urlforAuthorDetails = "http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:(" + aids + ")&size="+enteredVal;
+        var urlforAuthorDetails = "http://"+IP_ADDRESS+":9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:(" + aids + ")&size="+enteredVal;
 
         $.ajax({
             dataType: "json",
@@ -1367,7 +1367,7 @@ function okOfNonCoAuthorshipClicked(activeTab,index,processedArray) {
                 }
             }
 
-            var urlforAuthorDetails = "http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:(" + aids + ")&size="+retrievalSize;
+            var urlforAuthorDetails = "http://"+IP_ADDRESS+":9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:(" + aids + ")&size="+retrievalSize;
 
             start+=retrievalSize;
 
@@ -1519,7 +1519,7 @@ function okOfCoAuthorshipClicked(activeTab,index,processedArray) {
             }
         }
 
-        var urlforAuthorDetails = "http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:(" + aids + ")&size="+enteredVal;
+        var urlforAuthorDetails = "http://"+IP_ADDRESS+":9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:(" + aids + ")&size="+enteredVal;
 
         $.ajax({
             dataType: "json",
@@ -1565,7 +1565,7 @@ function okOfCoAuthorshipClicked(activeTab,index,processedArray) {
                     }
                 }
 
-                var urlforAuthorDetails = "http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:(" + aids + ")&size="+retrievalSize;
+                var urlforAuthorDetails = "http://"+IP_ADDRESS+":9200/dblpvertexes/_search?q=vType:author AND AUTHOR_ID:(" + aids + ")&size="+retrievalSize;
 
                 start+=retrievalSize;
 
@@ -1634,7 +1634,7 @@ function showPapersAuthored(index,processedArray,activeTab) {
         });
     }
 
-    var urlforpaperId="http://localhost:9200/dblprelation_authorship/_count?q=AUTHOR_ID:"+"\""+processedArray[index]._source.AUTHOR_ID+"\"";
+    var urlforpaperId="http://"+IP_ADDRESS+":9200/dblprelation_authorship/_count?q=AUTHOR_ID:"+"\""+processedArray[index]._source.AUTHOR_ID+"\"";
 
     $.ajax({
         dataType: "json",
@@ -1731,7 +1731,7 @@ function okOfPapersAuthoredClicked(activeTab,index,processedArray) {
             refrom=(x*90);
         }
 
-        var urlforpaperId="http://localhost:9200/dblprelation_authorship/_search?q=AUTHOR_ID:"+"\""+processedArray[index]._source.AUTHOR_ID+"\"&from="+refrom+"&size="+retrievalSize;
+        var urlforpaperId="http://"+IP_ADDRESS+":9200/dblprelation_authorship/_search?q=AUTHOR_ID:"+"\""+processedArray[index]._source.AUTHOR_ID+"\"&from="+refrom+"&size="+retrievalSize;
 
         $.ajax({
             dataType: "json",
@@ -1762,7 +1762,7 @@ function okOfPapersAuthoredClicked(activeTab,index,processedArray) {
             }
         }
 
-        var urlforPaperDetails = "http://localhost:9200/dblpvertexes/_search?q=vType:paper AND PAPER_ID:(" + pids + ")&size="+retrievalSize;
+        var urlforPaperDetails = "http://"+IP_ADDRESS+":9200/dblpvertexes/_search?q=vType:paper AND PAPER_ID:(" + pids + ")&size="+retrievalSize;
 
         $.ajax({
             dataType: "json",
@@ -1825,7 +1825,7 @@ function showReferences(index,processedArray,activeTab) {
         });
     }
 
-    var urlforReferenceids="http://localhost:9200/dblprelation_citation/_count?q=PAPER_ID:"+"\""+processedArray[index]._source.PAPER_ID+"\"";
+    var urlforReferenceids="http://"+IP_ADDRESS+":9200/dblprelation_citation/_count?q=PAPER_ID:"+"\""+processedArray[index]._source.PAPER_ID+"\"";
 
     $.ajax({
         dataType: "json",
@@ -1924,7 +1924,7 @@ function okOfReferencesClicked(activeTab,index,processedArray) {
             refrom=(x*90);
         }
 
-        var urlforReferenceids="http://localhost:9200/dblprelation_citation/_search?q=PAPER_ID:"+"\""+processedArray[index]._source.PAPER_ID+"\"&from="+refrom+"&size="+retrievalSize;
+        var urlforReferenceids="http://"+IP_ADDRESS+":9200/dblprelation_citation/_search?q=PAPER_ID:"+"\""+processedArray[index]._source.PAPER_ID+"\"&from="+refrom+"&size="+retrievalSize;
         $.ajax({
             dataType: "json",
             url: urlforReferenceids,
@@ -1954,7 +1954,7 @@ function okOfReferencesClicked(activeTab,index,processedArray) {
             }
         }
 
-        var urlforPaperDetails = "http://localhost:9200/dblpvertexes/_search?q=vType:paper AND PAPER_ID:(" + rids + ")&size="+retrievalSize;
+        var urlforPaperDetails = "http://"+IP_ADDRESS+":9200/dblpvertexes/_search?q=vType:paper AND PAPER_ID:(" + rids + ")&size="+retrievalSize;
 
         $.ajax({
             dataType: "json",
@@ -2018,7 +2018,7 @@ function showCitations(index,processedArray,activeTab) {
         });
     }
 
-    var urlforReferenceids="http://localhost:9200/dblprelation_citation/_count?q=REFERENCE_ID:"+"\""+processedArray[index]._source.PAPER_ID+"\"";
+    var urlforReferenceids="http://"+IP_ADDRESS+":9200/dblprelation_citation/_count?q=REFERENCE_ID:"+"\""+processedArray[index]._source.PAPER_ID+"\"";
 
     $.ajax({
         dataType: "json",
@@ -2120,7 +2120,7 @@ function okOfCitationsClicked(activeTab,index,processedArray) {
                     refrom=(x*90);
                 }
 
-                var urlforReferenceids="http://localhost:9200/dblprelation_citation/_search?q=REFERENCE_ID:"+"\""+processedArray[index]._source.PAPER_ID+"\"&from="+refrom+"&size="+retrievalSize;
+                var urlforReferenceids="http://"+IP_ADDRESS+":9200/dblprelation_citation/_search?q=REFERENCE_ID:"+"\""+processedArray[index]._source.PAPER_ID+"\"&from="+refrom+"&size="+retrievalSize;
                 $.ajax({
                     dataType: "json",
                     url: urlforReferenceids,
@@ -2149,7 +2149,7 @@ function okOfCitationsClicked(activeTab,index,processedArray) {
                     }
                 }
 
-                var urlforPaperDetails = "http://localhost:9200/dblpvertexes/_search?q=vType:paper AND PAPER_ID:(" + cids + ")&size="+retrievalSize;
+                var urlforPaperDetails = "http://"+IP_ADDRESS+":9200/dblpvertexes/_search?q=vType:paper AND PAPER_ID:(" + cids + ")&size="+retrievalSize;
 
                 $.ajax({
                     dataType: "json",

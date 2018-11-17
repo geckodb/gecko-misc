@@ -16,8 +16,9 @@ var linkedByIndex = {};
 var sliderEnabled;
 var logArray=new Array();
 
+
 log4javascript.setEnabled(true);
-var pathurl="../JSON/log4j.txt"
+var pathurl="../JSON/log4j.txt";
 var ajaxLogger = log4javascript.getLogger();
 //ajaxLogger.setLevel(log4javascript.Level.ALL);
 var ajaxAppender = new log4javascript.AjaxAppender(pathurl); //"../Logs/log4j.txt"
@@ -584,7 +585,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                     }
                     else if(d=="Show more info"){
                         if(processedArray[activeTab][scrIdPaperIndex]._type===vertexType.CITES){
-                            var url="http://localhost:9200/janusgraph_vertexes/_search?q=vType:paper AND _id="+processedArray[activeTab][scrIdPaperIndex]._id;
+                            var url="http://"+IP_ADDRESS+":9200/janusgraph_vertexes/_search?q=vType:paper AND _id="+processedArray[activeTab][scrIdPaperIndex]._id;
                             d3.json(url,function (error,json){
                                 if (error) throw error;
                                 if(json.hits.hits.length==1){
@@ -705,7 +706,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
             else if(d._source.vType===vertexType.TOPIC){
                 var paper_count;
                 var author_count;
-                var urlforPaperCnt="http://localhost:9200/dblprelation_topicsofpaper/_count?q=Topic_Id:"+d._source.Topic_Id;
+                var urlforPaperCnt="http://"+IP_ADDRESS+":9200/dblprelation_topicsofpaper/_count?q=Topic_Id:"+d._source.Topic_Id;
                 $.ajax({
                     dataType: "json",
                     url: urlforPaperCnt,
@@ -722,7 +723,7 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                     }
                 });
 
-                var urlforAuthorCnt="http://localhost:9200/dblprelations_authortopics/_count?q=TOPIC_ID:"+d._source.Topic_Id;
+                var urlforAuthorCnt="http://"+IP_ADDRESS+":9200/dblprelations_authortopics/_count?q=TOPIC_ID:"+d._source.Topic_Id;
                 $.ajax({
                     dataType: "json",
                     url: urlforAuthorCnt,

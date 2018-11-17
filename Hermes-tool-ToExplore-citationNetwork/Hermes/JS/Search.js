@@ -2,6 +2,7 @@ var searchData=new Array();
 var userEnteredtext;
 var typeOfVertex;
 var fromScholarlyPage;
+var IP_ADDRESS= "35.204.36.246";
 /**
  * Assigns selected list item to the input box
  * @param index
@@ -41,7 +42,7 @@ function fillSuggestion() {
     var val=document.getElementById("searchinput").value;
     console.log(val.length);
     if(val.length>0) {
-        var urlSuggestion = "http://localhost:9200/dblpvertexes/_search?q=Title:\"" + val + "\"* OR AUTHOR_NAME:\"" + val +  "\"* OR JOURNAL_NAME:\""+  val +"\"* OR TopicWords:\""+ val +"\"*&size=8";
+        var urlSuggestion = "http://"+IP_ADDRESS+":9200/dblpvertexes/_search?q=Title:\"" + val + "\"* OR AUTHOR_NAME:\"" + val +  "\"* OR JOURNAL_NAME:\""+  val +"\"* OR TopicWords:\""+ val +"\"*&size=8";
         d3.json(urlSuggestion, function (error, json) {
             if (error) throw error;
 
@@ -257,8 +258,8 @@ function searchClicked(userEnteredtext,chosenType) {
     //$('#search').removeClass('open');
     //Pagination code
     if(chosenType===vertexType.AUTHOR) {
-        console.log(chosenType+userEnteredtext)
-        urlSearch = "http://35.204.36.246//localhost:9200/dblpvertexes/_count?q=vType:" + chosenType + " AND AUTHOR_NAME:" + userEnteredtext;
+        console.log(chosenType+userEnteredtext);
+        urlSearch = "http://"+IP_ADDRESS+":9200/dblpvertexes/_count?q=vType:" + chosenType + " AND AUTHOR_NAME:" + userEnteredtext;
         _LTracker.push({
             'method':'searchClicked',
             'tag': 'Search-Author',
@@ -269,7 +270,7 @@ function searchClicked(userEnteredtext,chosenType) {
             }
         });
     }else if((chosenType===vertexType.PAPER)){
-        urlSearch = "http://35.204.36.246//localhost:9200/dblpvertexes/_count?q=vType:" + chosenType + " AND Title:" + userEnteredtext;
+        urlSearch = "http://"+IP_ADDRESS+":9200/dblpvertexes/_count?q=vType:" + chosenType + " AND Title:" + userEnteredtext;
         _LTracker.push({
             'method':'searchClicked',
             'tag': 'Search-Paper',
@@ -280,7 +281,7 @@ function searchClicked(userEnteredtext,chosenType) {
             }
         });
     }else{
-        urlSearch="http://35.204.36.246//localhost:9200/dblpvertexes/_count?q="+userEnteredtext;
+        urlSearch="http://"+IP_ADDRESS+":9200/dblpvertexes/_count?q="+userEnteredtext;
         _LTracker.push({
             'method':'searchClicked',
             'tag': 'Search-noType',
@@ -437,7 +438,7 @@ function searchClicked(userEnteredtext,chosenType) {
                             b.innerText = "Papers available :  ";
                             $.ajax({
                                 dataType: "json",
-                                url: "http://35.204.36.246//localhost:9200/dblprelation_authorship/_count?q=AUTHOR_ID:\"" + displayRecords[i]._source.AUTHOR_ID + "\"",
+                                url: "http://"+IP_ADDRESS+":9200/dblprelation_authorship/_count?q=AUTHOR_ID:\"" + displayRecords[i]._source.AUTHOR_ID + "\"",
                                 async: false,
                                 success: function (paperCount) {
                                     span = document.createElement("span");
@@ -506,7 +507,7 @@ function searchClicked(userEnteredtext,chosenType) {
                             b.innerText = "Papers available :  ";
                             /*$.ajax({
                                 dataType: "json",
-                                url: "http://localhost:9200/dblprelation_topicpaper/_count?q=Topic_Id:\""+displayRecords[i]._source.Topic_Id+"\"",
+                                url: "http://"+IP_ADDRESS+":9200/dblprelation_topicpaper/_count?q=Topic_Id:\""+displayRecords[i]._source.Topic_Id+"\"",
                                 async: false,
                                 success: function (paperCount) {
                                     span = document.createElement("span");
@@ -540,15 +541,15 @@ function searchClicked(userEnteredtext,chosenType) {
                         displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
 
                         if (typeOfVertex === vertexType.AUTHOR) {
-                            url = "http://35.204.36.246//localhost:9200/dblpvertexes/_search?q=vType:" + typeOfVertex + " AND AUTHOR_NAME:" + enteredtext + "*" + "&from=" + displayRecordsIndex + "&size=10";
+                            url = "http://"+IP_ADDRESS+":9200/dblpvertexes/_search?q=vType:" + typeOfVertex + " AND AUTHOR_NAME:" + enteredtext + "*" + "&from=" + displayRecordsIndex + "&size=10";
                             console.log("table" + url)
                         } else if (typeOfVertex === vertexType.PAPER) {
-                            url = "http://35.204.36.246//localhost:9200/dblpvertexes/_search?q=vType:" + typeOfVertex + " AND Title:" + enteredtext + "*&from=" + displayRecordsIndex + "&size=10";
+                            url = "http://"+IP_ADDRESS+":9200/dblpvertexes/_search?q=vType:" + typeOfVertex + " AND Title:" + enteredtext + "*&from=" + displayRecordsIndex + "&size=10";
                         } else if (typeOfVertex === vertexType.TOPIC) {
-                            url = "http://35.204.36.246//localhost:9200/dblpvertexes/_search?q=vType:" + typeOfVertex + " AND TopicName:" + enteredtext + "*&from=" + displayRecordsIndex + "&size=10";
+                            url = "http://"+IP_ADDRESS+":9200/dblpvertexes/_search?q=vType:" + typeOfVertex + " AND TopicName:" + enteredtext + "*&from=" + displayRecordsIndex + "&size=10";
                         }
                         else {
-                            url = "http://35.204.36.246//localhost:9200/dblpvertexes/_search?q=" + enteredtext + "&from=" + displayRecordsIndex + "&size=10";
+                            url = "http://"+IP_ADDRESS+":9200/dblpvertexes/_search?q=" + enteredtext + "&from=" + displayRecordsIndex + "&size=10";
                         }
 
                         d3.json(url, function (error, jsonrangeResult) {
