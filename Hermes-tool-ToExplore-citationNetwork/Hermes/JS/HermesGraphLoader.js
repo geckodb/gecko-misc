@@ -112,7 +112,8 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                             'method':'poplateClickedNode',
                             'PaperId': dataArray[i]._source.PAPER_ID,
                             'Title':dataArray[i]._source.Title,
-                            'Node':'paper'
+                            'Node':'paper',
+                            'UserID':sessionStorage.enteredUserID
                         });
                         buildGraph=true;
                     }
@@ -136,7 +137,8 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                             'method':'poplateClickedNode',
                             'AuthorId': dataArray[i]._source.AUTHOR_ID,
                             'AuthorName':dataArray[i]._source.AUTHOR_NAME,
-                            'Node':'author'
+                            'Node':'author',
+                            'UserID':sessionStorage.enteredUserID
                         });
                         buildGraph=true;
                     }
@@ -150,7 +152,8 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                             'method':'poplateClickedNode',
                             'JournalId': dataArray[i]._source.JOURNAL_ID,
                             'JournalName':dataArray[i]._source.JOURNAL_NAME,
-                            'Node':'journal'
+                            'Node':'journal',
+                            'UserID':sessionStorage.enteredUserID
                         });
                         buildGraph=true;
                     }
@@ -163,7 +166,8 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                             'method':'poplateClickedNode',
                             'TopicId': dataArray[i]._source.Topic_Id,
                             'TopicName':dataArray[i]._source.TopicName,
-                            'Node':'topic'
+                            'Node':'topic',
+                            'UserID':sessionStorage.enteredUserID
                         });
                         buildGraph=true;
                     }
@@ -184,7 +188,8 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                         'method':'poplateClickedNode',
                         'PaperId': dataArray[i]._source.PAPER_ID,
                         'Title':dataArray[i]._source.Title,
-                        'Node':'paper'
+                        'Node':'paper',
+                        'UserID':sessionStorage.enteredUserID
                     });
                     processedArray[activeTabIndex].push(dataArray[i]);
                     paperAlreadyAdded[activeTabIndex].set(dataArray[i]._source.PAPER_ID,pos-1)
@@ -195,7 +200,8 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                         'method':'poplateClickedNode',
                         'AuthorId': dataArray[i]._source.AUTHOR_ID,
                         'AuthorName':dataArray[i]._source.AUTHOR_NAME,
-                        'Node':'author'
+                        'Node':'author',
+                        'UserID':sessionStorage.enteredUserID
                     });
 
                     processedArray[activeTabIndex].push(dataArray[i]);
@@ -207,7 +213,8 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                         'method':'poplateClickedNode',
                         'TopicId': dataArray[i]._source.Topic_Id,
                         'TopicName':dataArray[i]._source.TopicName,
-                        'Node':'topic'
+                        'Node':'topic',
+                        'UserID':sessionStorage.enteredUserID
                     });
 
                     processedArray[activeTabIndex].push(dataArray[i]);
@@ -219,7 +226,8 @@ function poplateClickedNode(nodeId,dataArray,populateAllNodes) {
                         'method':'poplateClickedNode',
                         'JournalId': dataArray[i]._source.JOURNAL_ID,
                         'JournalName':dataArray[i]._source.JOURNAL_NAME,
-                        'Node':'journal'
+                        'Node':'journal',
+                        'UserID':sessionStorage.enteredUserID
                     });
 
                     processedArray[activeTabIndex].push(dataArray[i]);
@@ -330,7 +338,8 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
         'method':'createGraph',
         'Total nodes': nodes.length,
         'Total edges': links.length,
-        'tag':'graphstructure'
+        'tag':'graphstructure',
+        'UserID':sessionStorage.enteredUserID
     });
 
 //To form arrowhead
@@ -717,7 +726,8 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                             'tag': 'Topictooltip-Q1',
                             'TopicId': d._source.Topic_Id,
                             'Query':urlforPaperCnt,
-                            'Count':paperCnt.count
+                            'Count':paperCnt.count,
+                            'UserID':sessionStorage.enteredUserID
                         });
                         paper_count=paperCnt.count;
                     }
@@ -734,7 +744,8 @@ function createGraph(nodes, links, drawnodesOnly,noArrowhead,activeTab) {
                             'tag': 'Topictooltip-Q2',
                             'TopicId': d._source.Topic_Id,
                             'Query':urlforPaperCnt,
-                            'Count':authorCnt.count
+                            'Count':authorCnt.count,
+                            'UserID':sessionStorage.enteredUserID
                         });
                         author_count=authorCnt.count;
                     }
@@ -901,7 +912,8 @@ function downloadGraphAsSVG() {
     _LTracker.push({
         'method':'downloadGraphAsSVG',
         'text': 'Graph image downloaded',
-        'Image-elements': graphDwn
+        'Image-elements': graphDwn,
+        'UserID':sessionStorage.enteredUserID
     });
 }
 
@@ -924,7 +936,8 @@ function downloadGraphAsData() {
     _LTracker.push({
         'method':'downloadGraphAsData',
         'text': 'Graph data downloaded',
-        'Data Size(in rows)': processedArray[tabIndexToDownload].length
+        'Data Size(in rows)': processedArray[tabIndexToDownload].length,
+        'UserID':sessionStorage.enteredUserID
     });
 
     for(var j=0;j<linksArray[tabIndexToDownload].length;j++){
@@ -936,7 +949,8 @@ function downloadGraphAsData() {
     _LTracker.push({
         'method':'downloadGraphAsData',
         'text': 'Graph data downloaded',
-        'Data Size(in rows)': linksArray[tabIndexToDownload].length
+        'Data Size(in rows)': linksArray[tabIndexToDownload].length,
+        'UserID':sessionStorage.enteredUserID
     });
 
 }

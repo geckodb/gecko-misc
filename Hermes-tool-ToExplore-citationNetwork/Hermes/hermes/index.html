@@ -18,13 +18,15 @@
 
 </head>
 
-<body>
+<body onload=openEnterUserIdModal()>
     <div id="header">
 
     </div>
 
+
 <div class="container-fluid">
     <table>
+
         <tr>
             <td>
             <input id="searchinput" class="searchinputStyling" autocomplete="off" type="search" onkeypress="submitIfEnter(event)" onkeyup="fillSuggestion()" placeholder="type keyword(s) here" />
@@ -46,42 +48,54 @@
                 </div>
             </td>
         </tr>
-      <!--  <tr>
-            <td>
-                <div class="row infoBox">
-                    <div class="col-sm-12 col-xs-12">
-                        <div class="panel panel-default text-center">
-                            <div class="panel-heading">
-                                <h3>What's new in Hermes?</h3>
-                            </div>
-                            <div class="panel-body" style="font-family: 'Open Sans'">
-                                <p><strong>1. &nbsp;</strong> Search for papers, authors, Institutions, Field of studies, Publications and Venues</p>
-                                <p><strong>2. &nbsp;</strong> Click on search results and navigate through
-                                    different network entities</p>
-                                <p><strong>3. &nbsp;</strong> Explore dependencies between results </p>
-                                <p><strong>4. &nbsp;</strong> Dataset is the complete Microsoft Academic graph, which is made publicly available by Microsoft </p>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </td>
-        </tr>-->
     </table>
-
-
 </div>
+
+    <div id="enteruserIDModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <!-- Modal content-->
+            <div class="modal-content" id="adduserIdstyle">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Enter User ID</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="useridInput" autofocus>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" id="btnuserId" onclick="closeEnterUserIdModal()">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="../JS/Search.js"></script>
     <script src="../JS/HermesGraphLoader.js"></script>
 
-    <div id="footer" class="footerClass">
+    <!--<div id="footer" class="footerClass">
 
-    </div>
+    </div>-->
     <script>
+       // var userId=0;
         $(function () {
             $("#header").load("Header.html");
-            $("#footer").load("Footer.html");
+
+            <!--$("#footer").load("Footer.html");-->
         });
+
+       function openEnterUserIdModal() {
+           if(sessionStorage.enteredUserID===undefined){
+               $("#enteruserIDModal").modal('show');
+           }
+       }
+
+       function closeEnterUserIdModal() {
+           //document.getElementById("userInput").value=document.getElementById("useridInput").value;
+           sessionStorage.setItem("enteredUserID", document.getElementById("useridInput").value);
+           $("#enteruserIDModal").modal('hide');
+       }
     </script>
 
 </body>

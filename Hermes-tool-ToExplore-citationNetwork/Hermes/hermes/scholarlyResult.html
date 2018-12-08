@@ -209,6 +209,7 @@
     </ul>
 <!--</div>-->
 
+
 <div id="addTagModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-sm">
         <!-- Modal content-->
@@ -304,11 +305,13 @@
     </ul>
 </div>
 
+
 <script src="../JS/HermesGraphLoader.js"></script>
 <script src="../JS/Search.js"></script>
 <script src="../JS/processAndFormEntities.js"></script>
 
-<div id="footer1" class="footerClass"></div>
+
+<!--<div id="footer1" class="footerClass"></div>-->
 
 <!-- This script is used for 2 purposes
 1. To extract data from the input field  and use it as parameter for searchClicked() which is invoked in onload
@@ -318,9 +321,12 @@
     var tabsClosedRecently=false;
     $(function () {
         $("#header1").load("Header.html");
-        $("#footer1").load("Footer.html");
+        <!--$("#footer1").load("Footer.html");-->
         updateNodeAndEdgeCount();
     });
+
+
+
     //to obtain the value that was entered in search field which was passed through url
     var url_string = window.location.href;
     var url = new URL(url_string);

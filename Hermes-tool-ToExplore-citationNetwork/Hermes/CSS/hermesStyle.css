@@ -44,7 +44,7 @@
 }
 
 #myNavbar{
-    margin-right: 470px;
+    margin-right: 350px;
 }
 
 /* Add a gray background color and some padding to the footer */
@@ -551,7 +551,7 @@ body {
 
 .suggestionBoxscholarly{
     position: absolute;
-    top: 18%;
+    top: 135px;
     left: 55%;
     width: 550px;
     list-style-type: none;

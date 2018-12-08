@@ -100,6 +100,7 @@ function showAuthors(idToEXpand,index, processedArray,activeTab) {
                 'method':'showAuthors',
                 'tag': 'showAuthors-of-Papers',
                 'PaperId':processedArray[index]._source.PAPER_ID,
+                'UserID':sessionStorage.enteredUserID
             });
 
              urlforAuthorId="http://"+IP_ADDRESS+":9200/dblprelation_authorship/_search?q=PAPER_ID:"+"\""+idToEXpand+"\"";
@@ -111,7 +112,8 @@ function showAuthors(idToEXpand,index, processedArray,activeTab) {
                         'tag': 'Error',
                         'PaperId':processedArray[index]._source.PAPER_ID,
                         'Query':urlforAuthorId,
-                        'value':error
+                        'value':error,
+                        'UserID':sessionStorage.enteredUserID
                     });
 
 
@@ -122,7 +124,8 @@ function showAuthors(idToEXpand,index, processedArray,activeTab) {
                     'PaperId':processedArray[index]._source.PAPER_ID,
                     'Query':urlforAuthorId,
                     'time in ms':resultIds.took,
-                    'Count':resultIds.hits.total
+                    'Count':resultIds.hits.total,
+                    'UserID':sessionStorage.enteredUserID
                 });
 
                 if(authorIds.length>0){
@@ -145,7 +148,8 @@ function showAuthors(idToEXpand,index, processedArray,activeTab) {
                         'method':'showAuthors',
                         'tag': 'Error',
                         'Query':urlforAuthorName,
-                        'value':error
+                        'value':error,
+                        'UserID':sessionStorage.enteredUserID
                     });
                     authorcompltDetails=resultnames.hits.hits;
 
@@ -155,7 +159,8 @@ function showAuthors(idToEXpand,index, processedArray,activeTab) {
                         'PaperId':processedArray[index]._source.PAPER_ID,
                         'Query':urlforAuthorName,
                         'time in ms':resultnames.took,
-                        'Count':resultnames.hits.total
+                        'Count':resultnames.hits.total,
+                        'UserID':sessionStorage.enteredUserID
                     });
 
                     for (var j = 0; j < authorcompltDetails.length; j++) {
@@ -204,7 +209,8 @@ function showJournals(index, processedArray,activeTab) {
         _LTracker.push({
             'method': 'showJournals',
             'tag': 'showJournals-of-Paper',
-            'PaperId': processedArray[index]._source.PAPER_ID
+            'PaperId': processedArray[index]._source.PAPER_ID,
+            'UserID':sessionStorage.enteredUserID
         });
 
         var urlforjournalId = "http://"+IP_ADDRESS+":9200/dblprelation_journalofpaper/_search?q=PAPER_ID:" + "\"" + processedArray[index]._source.PAPER_ID + "\"";
@@ -217,7 +223,8 @@ function showJournals(index, processedArray,activeTab) {
                     'tag': 'Error',
                     'PaperId': processedArray[index]._source.PAPER_ID,
                     'Query':urlforjournalId,
-                    'value':error
+                    'value':error,
+                    'UserID':sessionStorage.enteredUserID
                 });
 
             journalIds=resultIds.hits.hits;
@@ -227,7 +234,8 @@ function showJournals(index, processedArray,activeTab) {
                 'PaperId': processedArray[index]._source.PAPER_ID,
                 'Query':urlforjournalId,
                 'time in ms':resultIds.took,
-                'Count':resultIds.hits.total
+                'Count':resultIds.hits.total,
+                'UserID':sessionStorage.enteredUserID
             });
 
             if(journalIds.length>0){
@@ -252,7 +260,8 @@ function showJournals(index, processedArray,activeTab) {
                             'method':'showJournals',
                             'tag': 'Error',
                             'PaperId': processedArray[index]._source.PAPER_ID,
-                            'value':error
+                            'value':error,
+                            'UserID':sessionStorage.enteredUserID
                         });
 
                     journalcompltDetails = resultnames.hits.hits;
@@ -262,7 +271,8 @@ function showJournals(index, processedArray,activeTab) {
                         'PaperId': processedArray[index]._source.PAPER_ID,
                         'Query':urlforJournalName,
                         'time in ms':resultnames.took,
-                        'Count':resultnames.hits.total
+                        'Count':resultnames.hits.total,
+                        'UserID':sessionStorage.enteredUserID
                     });
 
                     for (var j = 0; j < journalcompltDetails.length; j++) {
@@ -317,7 +327,8 @@ function showVenue(index,processedArray,activeTab) {
         _LTracker.push({
             'method':'showVenue',
             'tag': 'showVenue-of-Paper',
-            'value':processedArray[index]._source.PAPER_ID
+            'value':processedArray[index]._source.PAPER_ID,
+            'UserID':sessionStorage.enteredUserID
         });
 
         var urlforvenueId = "http://"+IP_ADDRESS+":9200/dblprelation_venueofpaper/_search?q=PAPER_ID:" + "\"" + processedArray[index]._source.PAPER_ID + "\"";
@@ -330,7 +341,8 @@ function showVenue(index,processedArray,activeTab) {
                     'tag': 'Error',
                     'PaperId': processedArray[index]._source.PAPER_ID,
                     'Query':urlforvenueId,
-                    'value':error
+                    'value':error,
+                    'UserID':sessionStorage.enteredUserID
                 });
 
 
@@ -341,7 +353,8 @@ function showVenue(index,processedArray,activeTab) {
                 'PaperId': processedArray[index]._source.PAPER_ID,
                 'Query': urlforvenueId,
                 'time in ms':resultIds.took,
-                'Count':resultIds.hits.total
+                'Count':resultIds.hits.total,
+                'UserID':sessionStorage.enteredUserID
             });
 
             if(venueIds.length>0){
@@ -367,7 +380,8 @@ function showVenue(index,processedArray,activeTab) {
                             'tag': 'Error',
                             'PaperId': processedArray[index]._source.PAPER_ID,
                             'Query': urlforVenueName,
-                            'value':error
+                            'value':error,
+                            'UserID':sessionStorage.enteredUserID
                         });
 
                     venuecompltDetails = resultnames.hits.hits;
@@ -377,7 +391,8 @@ function showVenue(index,processedArray,activeTab) {
                         'PaperId': processedArray[index]._source.PAPER_ID,
                         'Query':urlforVenueName,
                         'time in ms':resultnames.took,
-                        'Count':resultnames.hits.total
+                        'Count':resultnames.hits.total,
+                        'UserID':sessionStorage.enteredUserID
                     });
 
                     for (var j = 0; j < venuecompltDetails.length; j++) {
@@ -429,7 +444,8 @@ function showTopic(index,processedArray,activeTab) {
     _LTracker.push({
         'method':'showTopic',
         'tag': 'showTopic-of-Paper',
-        'value':processedArray[index]._source.PAPER_ID
+        'value':processedArray[index]._source.PAPER_ID,
+        'UserID':sessionStorage.enteredUserID
     });
 
     var urlfortopicId = "http://"+IP_ADDRESS+":9200/dblprelation_topicsofpaper/_search?q=PAPER_ID:" + "\"" + processedArray[index]._source.PAPER_ID + "\"";
@@ -442,7 +458,8 @@ function showTopic(index,processedArray,activeTab) {
                 'tag': 'Error',
                 'PaperId': processedArray[index]._source.PAPER_ID,
                 'Query':urlfortopicId,
-                'value':error
+                'value':error,
+                'UserID':sessionStorage.enteredUserID
             });
 
 
@@ -453,7 +470,8 @@ function showTopic(index,processedArray,activeTab) {
             'PaperId': processedArray[index]._source.PAPER_ID,
             'Query': urlfortopicId,
             'time in ms':resultIds.took,
-            'Count':resultIds.hits.total
+            'Count':resultIds.hits.total,
+            'UserID':sessionStorage.enteredUserID
         });
 
         if(topicIds.length>0){
@@ -479,7 +497,8 @@ function showTopic(index,processedArray,activeTab) {
                         'tag': 'Error',
                         'PaperId': processedArray[index]._source.PAPER_ID,
                         'Query': urlforTopicName,
-                        'value':error
+                        'value':error,
+                        'UserID':sessionStorage.enteredUserID
                     });
 
                 topiccompltDetails = resultnames.hits.hits;
@@ -489,7 +508,8 @@ function showTopic(index,processedArray,activeTab) {
                     'PaperId': processedArray[index]._source.PAPER_ID,
                     'Query':urlforTopicName,
                     'time in ms':resultnames.took,
-                    'Count':resultnames.hits.total
+                    'Count':resultnames.hits.total,
+                    'UserID':sessionStorage.enteredUserID
                 });
 
                 for (var j = 0; j < topiccompltDetails.length; j++) {
@@ -534,7 +554,8 @@ function showTopicsOfAuthor(index,processedArray,activeTab){
     _LTracker.push({
         'method':'showTopicsOfAuthor',
         'tag': 'showTopicsOfAuthor-of-Paper',
-        'value':processedArray[index]._source.AUTHOR_ID
+        'value':processedArray[index]._source.AUTHOR_ID,
+        'UserID':sessionStorage.enteredUserID
     });
 
     var urlfortopicId = "http://"+IP_ADDRESS+":9200/dblprelations_topicsofauthor/_search?q=AUTHOR_ID:" + "\"" + processedArray[index]._source.AUTHOR_ID + "\"";
@@ -547,7 +568,8 @@ function showTopicsOfAuthor(index,processedArray,activeTab){
                 'tag': 'Error',
                 'authorId': processedArray[index]._source.AUTHOR_ID,
                 'Query':urlfortopicId,
-                'value':error
+                'value':error,
+                'UserID':sessionStorage.enteredUserID
             });
 
 
@@ -558,7 +580,8 @@ function showTopicsOfAuthor(index,processedArray,activeTab){
             'authorId': processedArray[index]._source.AUTHOR_ID,
             'Query': urlfortopicId,
             'time in ms':resultIds.took,
-            'Count':resultIds.hits.total
+            'Count':resultIds.hits.total,
+            'UserID':sessionStorage.enteredUserID
         });
 
         if(topicIds.length>0){
@@ -584,7 +607,8 @@ function showTopicsOfAuthor(index,processedArray,activeTab){
                         'tag': 'Error',
                         'authorId': processedArray[index]._source.AUTHOR_ID,
                         'Query': urlforTopicName,
-                        'value':error
+                        'value':error,
+                        'UserID':sessionStorage.enteredUserID
                     });
 
                 topiccompltDetails = resultnames.hits.hits;
@@ -594,7 +618,8 @@ function showTopicsOfAuthor(index,processedArray,activeTab){
                     'authorId': processedArray[index]._source.AUTHOR_ID,
                     'Query':urlforTopicName,
                     'time in ms':resultnames.took,
-                    'Count':resultnames.hits.total
+                    'Count':resultnames.hits.total,
+                    'UserID':sessionStorage.enteredUserID
                 });
 
                 for (var j = 0; j < topiccompltDetails.length; j++) {
@@ -643,7 +668,8 @@ function showPapersPublished(index,processedArray,activeTab) {
         _LTracker.push({
             'method':'showPapersPublished',
             'tag': 'showPapersPublished-by-journals',
-            'journalId':processedArray[index]._source.JOURNAL_ID
+            'journalId':processedArray[index]._source.JOURNAL_ID,
+            'UserID':sessionStorage.enteredUserID
         });
     }
 
@@ -659,7 +685,8 @@ function showPapersPublished(index,processedArray,activeTab) {
                 'tag': 'showPapersPublished-Q0',
                 'journalId':processedArray[index]._source.JOURNAL_ID,
                 'Query':urlforpaperId,
-                'Total Count':dataCount.count
+                'Total Count':dataCount.count,
+                'UserID':sessionStorage.enteredUserID
             });
             totalRecords=parseInt(dataCount.count);
         }
@@ -862,7 +889,8 @@ function okOfPapersPublishedClicked(activeTab,index,processedArray) {
                     'journalId':processedArray[index]._source.JOURNAL_ID,
                     'Query':urlforpaperId,
                     'time in ms':dataids.took,
-                    'Count':dataids.hits.total
+                    'Count':dataids.hits.total,
+                    'UserID':sessionStorage.enteredUserID
 
                 });
                 journalpublishedPaperIds=[];
@@ -893,7 +921,8 @@ function okOfPapersPublishedClicked(activeTab,index,processedArray) {
                     'journalId':processedArray[index]._source.JOURNAL_ID,
                     'Query':urlforPaperDetails,
                     'time in ms':data.took,
-                    'Count':data.hits.total
+                    'Count':data.hits.total,
+                    'UserID':sessionStorage.enteredUserID
                 });
                 journalpublishedPaperdetails= journalpublishedPaperdetails.concat(data.hits.hits)
             }
@@ -948,7 +977,8 @@ function fillCoAUthorIds(authorId,from) {
                 'authorId':authorId,
                 'Query':urlcoAuthors,
                 'time in ms':data.took,
-                'Count':data.hits.total
+                'Count':data.hits.total,
+                'UserID':sessionStorage.enteredUserID
             });
 
             for (var i = 0; i < ids.length; i++) {
@@ -973,7 +1003,8 @@ function fillCoAUthorIds(authorId,from) {
                                 'authorId':authorId,
                                 'Query':urlcoAuthorsextnd,
                                 'time in ms':extendeddata.took,
-                                'Count':extendeddata.hits.total
+                                'Count':extendeddata.hits.total,
+                                'UserID':sessionStorage.enteredUserID
                             });
 
                             for (var i = 0; i < extendedIds.length; i++) {
@@ -1003,7 +1034,8 @@ function fillCoAUthorIds(authorId,from) {
                 'authorId':authorId,
                 'Query':urlAuthors,
                 'time in ms':data.took,
-                'Count':data.hits.total
+                'Count':data.hits.total,
+                'UserID':sessionStorage.enteredUserID
             });
 
             for (var i = 0; i < ids.length; i++) {
@@ -1026,7 +1058,8 @@ function fillCoAUthorIds(authorId,from) {
                                 'authorId':authorId,
                                 'Query':urlAuthors,
                                 'time in ms':extendeddata.took,
-                                'Count':extendeddata.hits.total
+                                'Count':extendeddata.hits.total,
+                                'UserID':sessionStorage.enteredUserID
                             });
 
                             for (var i = 0; i < extendedIds.length; i++) {
@@ -1072,7 +1105,8 @@ function showCitingnonCoauthor(index, processedArray, activeTab) {
     _LTracker.push({
         'method': 'showCitingnonCoauthor',
         'tag': 'showCitingnonCoauthor-of-Authors',
-        'authorId': processedArray[index]._source.AUTHOR_ID
+        'authorId': processedArray[index]._source.AUTHOR_ID,
+        'UserID':sessionStorage.enteredUserID
     });
 
     if(coAtuthorIdsofAuthor[activeTab].has(processedArray[index]._source.AUTHOR_ID)){
@@ -1102,7 +1136,8 @@ function showCitingnonCoauthor(index, processedArray, activeTab) {
                     'authorId': processedArray[index]._source.AUTHOR_ID,
                     'Query':urlPaperIds,
                     'time in ms':data.took,
-                    'Count':data.hits.total
+                    'Count':data.hits.total,
+                    'UserID':sessionStorage.enteredUserID
 
                 });
 
@@ -1128,7 +1163,8 @@ function showCitingnonCoauthor(index, processedArray, activeTab) {
                                     'authorId': processedArray[index]._source.AUTHOR_ID,
                                     'Query':urlPaperIdextnd,
                                     'time in ms':data.took,
-                                    'Count':data.hits.total
+                                    'Count':data.hits.total,
+                                    'UserID':sessionStorage.enteredUserID
 
                                 });
 
@@ -1179,8 +1215,8 @@ function showCitingnonCoauthor(index, processedArray, activeTab) {
                         'authorId': processedArray[index]._source.AUTHOR_ID,
                         'Query':urlforCitingIds,
                         'time in ms':data.took,
-                        'Count':data.hits.total
-
+                        'Count':data.hits.total,
+                        'UserID':sessionStorage.enteredUserID
                     });
 
                     citingIds = citingIds.concat(data.hits.hits);
@@ -1227,7 +1263,8 @@ function showCitingnonCoauthor(index, processedArray, activeTab) {
                         'authorId': processedArray[index]._source.AUTHOR_ID,
                         'Query':urlforCitedAuthorIds,
                         'time in ms':data.took,
-                        'Count':data.hits.total
+                        'Count':data.hits.total,
+                        'UserID':sessionStorage.enteredUserID
 
                     });
                     citedAuthorIds = citedAuthorIds.concat(data.hits.hits);
@@ -1334,7 +1371,8 @@ function okOfNonCoAuthorshipClicked(activeTab,index,processedArray) {
                     'authorId':processedArray[index]._source.AUTHOR_ID,
                     'Query':urlforAuthorDetails,
                     'time in ms':data.took,
-                    'Count':data.hits.total
+                    'Count':data.hits.total,
+                    'UserID':sessionStorage.enteredUserID
 
                 });
                 nonCoAuthorDetails= nonCoAuthorDetails.concat(data.hits.hits)
@@ -1382,7 +1420,8 @@ function okOfNonCoAuthorshipClicked(activeTab,index,processedArray) {
                         'authorId':processedArray[index]._source.AUTHOR_ID,
                         'Query':urlforAuthorDetails,
                         'time in ms':data.took,
-                        'Count':data.hits.total
+                        'Count':data.hits.total,
+                        'UserID':sessionStorage.enteredUserID
 
                     });
                     nonCoAuthorDetails= nonCoAuthorDetails.concat(data.hits.hits)
@@ -1434,7 +1473,8 @@ function showCoAuthorship(index,processedArray,activeTab) {
     _LTracker.push({
         'method': 'showCoAuthorship',
         'tag': 'showCoAuthorship-of-Author',
-        'authorId':processedArray[index]._source.AUTHOR_ID
+        'authorId':processedArray[index]._source.AUTHOR_ID,
+        'UserID':sessionStorage.enteredUserID
     });
 
     if(coAtuthorIdsofAuthor[activeTab].has(processedArray[index]._source.AUTHOR_ID)){
@@ -1533,7 +1573,8 @@ function okOfCoAuthorshipClicked(activeTab,index,processedArray) {
                     'authorId':processedArray[index]._source.AUTHOR_ID,
                     'Query':urlforAuthorDetails,
                     'time in ms':data.took,
-                    'Count':data.hits.total
+                    'Count':data.hits.total,
+                    'UserID':sessionStorage.enteredUserID
                 });
                 coAuthorDetails= coAuthorDetails.concat(data.hits.hits)
             }
@@ -1580,7 +1621,8 @@ function okOfCoAuthorshipClicked(activeTab,index,processedArray) {
                             'authorId':processedArray[index]._source.AUTHOR_ID,
                             'Query':urlforAuthorDetails,
                             'time in ms':data.took,
-                            'Count':data.hits.total
+                            'Count':data.hits.total,
+                            'UserID':sessionStorage.enteredUserID
                         });
                         coAuthorDetails= coAuthorDetails.concat(data.hits.hits)
                     }
@@ -1630,7 +1672,8 @@ function showPapersAuthored(index,processedArray,activeTab) {
         _LTracker.push({
             'method':'showPapersAuthored',
             'tag': 'showPapersAuthored-by-Author',
-            'authorId':processedArray[index]._source.AUTHOR_ID
+            'authorId':processedArray[index]._source.AUTHOR_ID,
+            'UserID':sessionStorage.enteredUserID
         });
     }
 
@@ -1646,7 +1689,8 @@ function showPapersAuthored(index,processedArray,activeTab) {
                 'tag': 'showPapersAuthored-Q0',
                 'authorId':processedArray[index]._source.AUTHOR_ID,
                 'Query':urlforpaperId,
-                'Total Count':dataCount.count
+                'Total Count':dataCount.count,
+                'UserID':sessionStorage.enteredUserID
             });
             totalRecords=parseInt(dataCount.count);
         }
@@ -1744,7 +1788,8 @@ function okOfPapersAuthoredClicked(activeTab,index,processedArray) {
                     'authorId':processedArray[index]._source.AUTHOR_ID,
                     'Query':urlforpaperId,
                     'time in ms':dataids.took,
-                    'Count':dataids.hits.total
+                    'Count':dataids.hits.total,
+                    'UserID':sessionStorage.enteredUserID
                 });
 
                 publishedPaperIds=[];
@@ -1775,7 +1820,8 @@ function okOfPapersAuthoredClicked(activeTab,index,processedArray) {
                     'authorId':processedArray[index]._source.AUTHOR_ID,
                     'Query':urlforpaperId,
                     'time in ms':data.took,
-                    'Count':data.hits.total
+                    'Count':data.hits.total,
+                    'UserID':sessionStorage.enteredUserID
                 });
 
                 publishedPaperdetails= publishedPaperdetails.concat(data.hits.hits)
@@ -1821,7 +1867,8 @@ function showReferences(index,processedArray,activeTab) {
         _LTracker.push({
             'method': 'showReferences',
             'tag': 'showReferences-of-Paper',
-            'PaperId': processedArray[index]._source.PAPER_ID
+            'PaperId': processedArray[index]._source.PAPER_ID,
+            'UserID':sessionStorage.enteredUserID
         });
     }
 
@@ -1837,7 +1884,8 @@ function showReferences(index,processedArray,activeTab) {
                 'tag': 'showReferences-Q0',
                 'PaperId': processedArray[index]._source.PAPER_ID,
                 'Query':urlforReferenceids,
-                'Total Count':dataCount.count
+                'Total Count':dataCount.count,
+                'UserID':sessionStorage.enteredUserID
             });
             totalRecords=parseInt(dataCount.count);
         }
@@ -1936,7 +1984,8 @@ function okOfReferencesClicked(activeTab,index,processedArray) {
                     'PaperId': processedArray[index]._source.PAPER_ID,
                     'Query':urlforReferenceids,
                     'time in ms':dataids.took,
-                    'Count':dataids.hits.total
+                    'Count':dataids.hits.total,
+                    'UserID':sessionStorage.enteredUserID
                 });
 
                 referenceIds=[];
@@ -1967,7 +2016,8 @@ function okOfReferencesClicked(activeTab,index,processedArray) {
                     'PaperId': processedArray[index]._source.PAPER_ID,
                     'Query':urlforPaperDetails,
                     'time in ms':data.took,
-                    'Count':data.hits.total
+                    'Count':data.hits.total,
+                    'UserID':sessionStorage.enteredUserID
                 });
                 referencePaperdetails= referencePaperdetails.concat(data.hits.hits)
             }
@@ -2014,7 +2064,8 @@ function showCitations(index,processedArray,activeTab) {
         _LTracker.push({
             'method': 'showCitations',
             'tag': 'showCitations-of-papers',
-            'PaperId': processedArray[index]._source.PAPER_ID
+            'PaperId': processedArray[index]._source.PAPER_ID,
+            'UserID':sessionStorage.enteredUserID
         });
     }
 
@@ -2030,7 +2081,8 @@ function showCitations(index,processedArray,activeTab) {
                 'tag': 'showCitations-Q0',
                 'PaperId': processedArray[index]._source.PAPER_ID,
                 'Query':urlforReferenceids,
-                'Total Count':dataCount.count
+                'Total Count':dataCount.count,
+                'UserID':sessionStorage.enteredUserID
             });
             totalRecords=parseInt(dataCount.count);
         }
@@ -2132,7 +2184,8 @@ function okOfCitationsClicked(activeTab,index,processedArray) {
                             'PaperId': processedArray[index]._source.PAPER_ID,
                             'Query':urlforReferenceids,
                             'time in ms':dataids.took,
-                            'Count':dataids.hits.total
+                            'Count':dataids.hits.total,
+                            'UserID':sessionStorage.enteredUserID
                         });
                         citedIds=[];
                         citedIds= citedIds.concat(dataids.hits.hits);
@@ -2162,7 +2215,8 @@ function okOfCitationsClicked(activeTab,index,processedArray) {
                             'PaperId': processedArray[index]._source.PAPER_ID,
                             'Query':urlforReferenceids,
                             'time in ms':data.took,
-                            'Count':data.hits.total
+                            'Count':data.hits.total,
+                            'UserID':sessionStorage.enteredUserID
                         });
                         citedPaperdetails= citedPaperdetails.concat(data.hits.hits)
                     }
@@ -2330,6 +2384,7 @@ function showCompleteDetails(idsOfDetailToShow,processedArray){
         'method':'showCompleteDetails',
         'tag': 'showCompleteDetails-of-Paper',
         'PaperId':processedArray[idsOfDetailToShow]._source.PAPER_ID,
+        'UserID':sessionStorage.enteredUserID
     });
 
     //To bind Title
@@ -2581,7 +2636,8 @@ function loadFacets(searchValue,byYear){
                 'query':query,
                 'value':response,
                 'timetaken':response.took,
-                'totalHits':response.hits.total
+                'totalHits':response.hits.total,
+                'UserID':sessionStorage.enteredUserID
             });
             buckets=response.aggregations.paperByYear.buckets;
            // console.log(response.aggregations.paperByYear.buckets);

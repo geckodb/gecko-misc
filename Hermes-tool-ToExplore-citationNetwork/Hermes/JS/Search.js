@@ -3,6 +3,7 @@ var userEnteredtext;
 var typeOfVertex;
 var fromScholarlyPage;
 var IP_ADDRESS= "35.204.36.246";
+
 /**
  * Assigns selected list item to the input box
  * @param index
@@ -239,6 +240,7 @@ function searchClickedFromScholarly() {
  * @param fromScholarly
  */
 function searchClicked(userEnteredtext,chosenType) {
+    alert(sessionStorage.enteredUserID);
     var urlSearch;
     var $pagination = $('#pagination'),
         totalRecords = 0,
@@ -264,6 +266,7 @@ function searchClicked(userEnteredtext,chosenType) {
             'method':'searchClicked',
             'tag': 'Search-Author',
             'Query': urlSearch,
+            'UserID':sessionStorage.enteredUserID,
             'searchParams': {
                 'chosenType': chosenType,
                 'enteredText': userEnteredtext
@@ -275,6 +278,7 @@ function searchClicked(userEnteredtext,chosenType) {
             'method':'searchClicked',
             'tag': 'Search-Paper',
             'Query': urlSearch,
+            'UserID':sessionStorage.enteredUserID,
             'searchParams': {
                 'chosenType': chosenType,
                 'enteredText': userEnteredtext
@@ -286,6 +290,7 @@ function searchClicked(userEnteredtext,chosenType) {
             'method':'searchClicked',
             'tag': 'Search-noType',
             'Query': urlSearch,
+            'UserID':sessionStorage.enteredUserID,
             'searchParams': {
                 'chosenType': "",
                 'enteredText': userEnteredtext
@@ -311,6 +316,8 @@ function searchClicked(userEnteredtext,chosenType) {
                     'method': 'searchClicked',
                     'tag': 'searchResult-null',
                     'Query': urlSearch,
+                    'UserID':sessionStorage.enteredUserID,
+                    'userid':userId,
                     'searchParams': {
                         'chosenType': chosenType,
                         'enteredText': userEnteredtext
@@ -565,6 +572,7 @@ function searchClicked(userEnteredtext,chosenType) {
                                 'method': 'searchClicked',
                                 'tag': 'searchResult',
                                 'Query': url,
+                                'UserID':sessionStorage.enteredUserID,
                                 'searchParams': {
                                     'chosenType': typeOfVertex,
                                     'enteredText': enteredtext

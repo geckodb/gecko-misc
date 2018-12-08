@@ -27,45 +27,45 @@
 </head>
 <body>
 
-<div id="header2">
+<div id="header3">
 </div>
 
-<div id="queryContainer">
-<div class="container" style="overflow: auto; border-style: double; height: 120px; margin-top:30px; position: relative" >
-    <textarea id="queryArea" rows="25" cols="153" placeholder="type query here.." style="border: hidden;position: absolute"></textarea>
-</div>
-<div class="container">
-   <table>
-        <tr >
+<div id="fbContainer">
+    <div class="container" style="overflow: auto; border-style: double; height: 320px; margin-top:30px; position: relative" >
+        <textarea id="fbArea" rows="45" cols="140" placeholder="type your feedback here.." style="border: hidden;position: absolute"></textarea>
+    </div>
+    <div class="container">
+        <table>
+            <tr >
 
-            <td>
-                <button type="submit" style="margin-left: 480px" class="btn btn-primary" onclick="submitQuery()">Submit</button>
-            </td>
-            <td>
-                <button type="submit" style="margin-left: 20px" class="btn btn-primary" onclick="clearQuery()">Clear</button>
-            </td>
-        </tr>
-    </table>
+                <td>
+                    <button type="submit" style="margin-left: 480px" class="btn btn-primary" onclick="submitFeedback()">Submit</button>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
 
-<div class="container">
-    <b style="color: darkblue">Search Results(JSON format): </b>
-</div>
-
-<div class="container" style="height: 510px; border-style: double; overflow: auto;">
-
-    <p id="queryResult" style="width: "></p>
-</div>
-</div>
-<!--<div id="footer2" class="footerClass">-->
-
-</div>
 </body>
+
 <script>
     $(function () {
-       $("#header2").load("Header.html");
-        /*  $("#footer2").load("Footer.html");*/
-
+        $("#header3").load("Header.html");
     });
+
+    function submitFeedback() {
+       if(document.getElementById("fbArea").value.length>0) {
+           _LTracker.push({
+               'UserID':sessionStorage.enteredUserID,
+               'Feedback':document.getElementById("fbArea").value
+           });
+           alert("Thank you for participating in the survey and for your valuable feedback!");
+           document.getElementById("fbArea").value="";
+       }else {
+           alert("Please enter your feedback before submitting");
+       }
+
+    }
+
 </script>
 </html>
