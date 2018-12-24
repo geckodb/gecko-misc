@@ -2304,6 +2304,7 @@ var aggregationVal=["5978024e-76c2-4990-a330-6c51125c88d0",
 function executeQueriresWithoutCaching() {
     var arr=new Array();
     var arr2=new Array();
+    var Finaltime=0;
     var clearUrl="http://localhost:9200/dblpvertexes,dblprelation_authorship,dblprelation_citation,dblprelation_coauthorship,dblprelation_journalofpaper,dblprelation_venueofpaper/_cache/clear?request=true";
     $.ajax({
         dataType: "json",
@@ -2313,182 +2314,187 @@ function executeQueriresWithoutCaching() {
             console.log(data._shards.successful);
         }
     });
+    for(var loopcnt=0; loopcnt<100;loopcnt++){
+        totalTime=0,authorNameCnt=0,authorIdCnt=0,randomValCnt=0,coAuthorIDCnt=0,journalIDCnt=0,venueIDCnt=0,referenceIDCnt=0,paperIDCnt=0,aggregationValCnt=0;
+        randomValArr=[5, 6, 10, 5, 9, 1, 5, 5, 8, 1, 15, 12, 18, 10, 8, 12, 7, 16, 0, 13, 17, 17, 5, 2, 3, 6, 13, 10, 7, 4, 9, 14, 0, 14, 3, 1, 16, 8, 14, 4, 16, 3, 10, 9, 5, 11, 4, 18, 17, 6, 10, 17, 12, 17, 1, 10, 16, 11, 9, 18, 16, 5, 12, 4, 11, 9, 16, 7, 1, 2, 13, 18, 0, 0, 15, 7, 5, 13, 13, 7, 8, 0, 10, 6, 11, 13, 10, 10, 8, 7, 14, 11, 11, 7, 1, 11, 6, 11, 0, 18];
+        arr=[3, 8, 4, 9, 4, 1, 5, 9, 4, 8, 1, 3, 1, 10, 1, 4, 2, 7, 6, 7, 7, 2, 9, 6, 9, 10, 1, 9, 1, 8, 1, 2, 2, 5, 9, 2, 5, 4, 1, 10, 1, 10, 3, 7, 1, 3, 5, 2, 4, 3, 10, 10, 10, 5, 2, 8, 1, 5, 3, 9, 6, 10, 5, 5, 10, 10, 10, 4, 5, 6, 3, 8, 9, 3, 3, 2, 6, 3, 4, 2, 3, 5, 4, 4, 7, 5, 1, 1, 3, 1, 1, 3, 2, 2, 6, 5, 1, 5, 2, 7, 1, 1, 7, 9, 3, 7, 10, 7, 9, 4, 10, 2, 7, 1, 4, 5, 4, 8, 9, 6, 1, 1, 10, 6, 9, 1, 3, 1, 1, 5, 10, 6, 9, 5, 1, 8, 6, 7, 8, 10, 5, 9, 7, 1, 3, 4, 3, 2, 5, 7, 4, 7, 1, 4, 5, 3, 7, 7, 4, 5, 8, 10, 4, 6, 2, 9, 6, 4, 10, 4, 7, 6, 2, 8, 9, 7, 5, 3, 2, 9, 3, 10, 6, 10, 9, 4, 10, 5, 5, 2, 8, 7, 2, 1, 3, 9, 2, 5, 3, 4, 9, 3, 10, 8, 1, 5, 6, 6, 2, 10, 3, 8, 9, 3, 6, 4, 3, 6, 3, 2, 8, 6, 7, 7, 7, 10, 8, 4, 8, 5, 8, 6, 3, 4, 6, 1, 4, 10, 10, 5, 6, 8, 8, 5, 1, 2, 4, 3, 9, 3, 3, 9, 2, 7, 3, 8, 4, 1, 3, 10, 2, 5, 1, 7, 6, 8, 5, 2, 10, 4, 5, 2, 5, 4, 6, 9, 1, 3, 4, 5, 1, 8, 1, 9, 3, 4, 7, 10, 9, 7, 2, 2, 1, 7, 9, 4, 5, 5, 8, 3, 7, 3, 3, 7, 5, 5, 4, 1, 8, 7, 9, 10, 9, 5, 1, 4, 8, 7, 10, 9, 7, 2, 6, 5, 8, 2, 4, 5, 9, 3, 2, 4, 6, 1, 3, 9, 5, 2, 1, 10, 10, 2, 4, 3, 1, 1, 4, 9, 9, 4, 8, 4, 4, 9, 4, 7, 6, 8, 7, 10, 8, 4, 5, 8, 8, 6, 9, 2, 5, 10, 3, 8, 9, 2, 1, 9, 9, 4, 6, 5, 8, 5, 1, 3, 3, 2, 4, 4, 8, 7, 9, 4, 3, 7, 10, 4, 8, 4, 5, 10, 4, 4, 2, 2, 8, 7, 2, 3, 10, 6, 10, 9, 2, 4, 4, 8, 4, 6, 5, 5, 7, 1, 9, 10, 3, 10, 3, 5, 9, 10, 8, 1, 5, 4, 1, 5, 1, 9, 10, 7, 4, 7, 3, 1, 7, 6, 7, 6, 4, 4, 8, 3, 4, 4, 8, 6, 2, 1, 10, 8, 8, 10, 7, 3, 2, 1, 1, 3, 1, 10, 3, 4, 4, 8, 5, 3, 6, 1, 10, 7, 10, 6, 7, 5, 6, 3, 3, 6, 5, 3, 7, 5, 8, 6, 2, 6, 6, 2, 4, 9, 2, 9, 2, 5, 6, 5, 4, 6, 3, 9, 6, 3, 4, 5, 6, 4, 2, 8, 7, 10, 6, 1, 8, 3, 6, 10, 5, 6, 2, 6, 2, 2, 3, 2, 5, 4, 5, 9, 9, 8, 2, 10, 8, 3, 6, 4, 4, 6, 3, 7, 1, 8, 8, 1, 9, 7, 5, 6, 8, 2, 4, 10, 5, 9, 10, 3, 4, 1, 3, 2, 3, 1, 4, 10, 4, 7, 4, 2, 8, 10, 10, 4, 2, 4, 3, 3, 1, 7, 5, 4, 2, 7, 10, 10, 1, 8, 8, 4, 6, 1, 2, 8, 10, 7, 1, 8, 4, 7, 8, 10, 8, 6, 1, 1, 2, 10, 6, 8, 5, 7, 1, 2, 2, 4, 6, 3, 2, 7, 2, 3, 10, 1, 4, 2, 3, 3, 1, 10, 3, 5, 2, 1, 2, 9, 7, 1, 10, 1, 5, 8, 5, 8, 7, 9, 4, 5, 6, 6, 7, 8, 1, 5, 4, 6, 8, 8, 3, 4, 1, 10, 9, 8, 2, 8, 1, 10, 4, 4, 4, 3, 10, 5, 1, 8, 2, 7, 8, 4, 3, 8, 7, 2, 10, 10, 8, 5, 1, 7, 10, 5, 6, 2, 8, 4, 1, 3, 4, 1, 7, 4, 2, 1, 5, 4, 7, 5, 6, 8, 3, 9, 10, 8, 10, 9, 2, 6, 3, 1, 3, 9, 10, 2, 5, 4, 5, 1, 8, 5, 6, 9, 2, 9, 5, 5, 2, 9, 3, 1, 6, 7, 8, 6, 3, 10, 2, 9, 8, 3, 5, 3, 10, 7, 2, 4, 5, 8, 9, 10, 1, 5, 5, 1, 2, 9, 10, 7, 7, 5, 5, 2, 4, 10, 3, 2, 3, 5, 1, 3, 9, 3, 5, 7, 7, 8, 1, 4, 8, 5, 4, 9, 5, 7, 5, 4, 7, 2, 7, 3, 6, 6, 10, 10, 10, 1, 6, 7, 7, 2, 3, 6, 4, 7, 3, 1, 9, 8, 7, 6, 9, 5, 6, 1, 7, 2, 9, 4, 9, 4, 2, 3, 3, 7, 8, 1, 7, 6, 5, 1, 3, 8, 10, 5, 9, 3, 5, 4, 10, 8, 3, 3, 2, 8, 6, 10, 3, 4, 6, 10, 1, 8, 2, 10, 7, 7, 10, 1, 5, 7, 7, 3, 2, 4, 1, 2, 3, 8, 6, 6, 10, 3, 3, 8, 6, 8, 7, 8, 8, 1, 1, 1, 2, 10, 1, 1, 10, 8, 5, 10, 6, 4, 5, 3, 10, 2, 9, 2, 10, 1, 8, 8, 9, 10, 10, 1, 8, 1, 3, 5, 10, 3, 4, 3, 5, 8, 1, 10, 1, 1, 5, 6, 5, 7, 1, 6, 9, 1, 4, 4, 9, 1, 8, 2, 4, 4, 5, 3, 9, 4, 4, 5, 1, 10, 7, 5, 3, 5, 3, 5, 2, 5, 9, 7, 1, 2, 5, 2, 10, 4, 2, 6, 2, 8, 3, 10, 7, 2, 6, 9, 5, 5, 1, 7, 3, 9, 7, 4, 3, 9, 6, 6];
+        arr2=[3, 23, 27, 29, 15, 27, 24, 6, 5, 19, 13, 21, 23, 28, 8, 16, 16, 20, 28, 24, 23, 10, 25, 4, 10, 7, 25, 5, 25, 1, 15, 14, 25, 15, 13, 14, 20, 7, 1, 3, 12, 19, 4, 28, 19, 9, 16, 17, 22, 8, 21, 25, 18, 16, 18, 7, 1, 15, 0, 1, 0, 17, 17, 15, 18, 25, 14, 23, 9, 28, 16, 25, 11, 8, 4, 27, 22, 7, 9, 4, 12, 27, 16, 0, 14, 13, 17, 2, 5, 19, 18, 18, 16, 15, 6, 26, 15, 7, 0, 10, 28, 13, 25, 26, 21, 6, 29, 10, 24, 15, 21];
+        for (var i=0;i<1000;i++){
+            switch (arr[i]){
+                case 1:{
+                    var url="http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_NAME:" + authorName[authorNameCnt++]+"&request_cache=false";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime =totalTime+ parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 9:{
 
-    totalTime=0,authorNameCnt=0,authorIdCnt=0,randomValCnt=0,coAuthorIDCnt=0,journalIDCnt=0,venueIDCnt=0,referenceIDCnt=0,paperIDCnt=0,aggregationValCnt=0;
-    randomValArr=[5, 6, 10, 5, 9, 1, 5, 5, 8, 1, 15, 12, 18, 10, 8, 12, 7, 16, 0, 13, 17, 17, 5, 2, 3, 6, 13, 10, 7, 4, 9, 14, 0, 14, 3, 1, 16, 8, 14, 4, 16, 3, 10, 9, 5, 11, 4, 18, 17, 6, 10, 17, 12, 17, 1, 10, 16, 11, 9, 18, 16, 5, 12, 4, 11, 9, 16, 7, 1, 2, 13, 18, 0, 0, 15, 7, 5, 13, 13, 7, 8, 0, 10, 6, 11, 13, 10, 10, 8, 7, 14, 11, 11, 7, 1, 11, 6, 11, 0, 18];
-    arr=[3, 8, 4, 9, 4, 1, 5, 9, 4, 8, 1, 3, 1, 10, 1, 4, 2, 7, 6, 7, 7, 2, 9, 6, 9, 10, 1, 9, 1, 8, 1, 2, 2, 5, 9, 2, 5, 4, 1, 10, 1, 10, 3, 7, 1, 3, 5, 2, 4, 3, 10, 10, 10, 5, 2, 8, 1, 5, 3, 9, 6, 10, 5, 5, 10, 10, 10, 4, 5, 6, 3, 8, 9, 3, 3, 2, 6, 3, 4, 2, 3, 5, 4, 4, 7, 5, 1, 1, 3, 1, 1, 3, 2, 2, 6, 5, 1, 5, 2, 7, 1, 1, 7, 9, 3, 7, 10, 7, 9, 4, 10, 2, 7, 1, 4, 5, 4, 8, 9, 6, 1, 1, 10, 6, 9, 1, 3, 1, 1, 5, 10, 6, 9, 5, 1, 8, 6, 7, 8, 10, 5, 9, 7, 1, 3, 4, 3, 2, 5, 7, 4, 7, 1, 4, 5, 3, 7, 7, 4, 5, 8, 10, 4, 6, 2, 9, 6, 4, 10, 4, 7, 6, 2, 8, 9, 7, 5, 3, 2, 9, 3, 10, 6, 10, 9, 4, 10, 5, 5, 2, 8, 7, 2, 1, 3, 9, 2, 5, 3, 4, 9, 3, 10, 8, 1, 5, 6, 6, 2, 10, 3, 8, 9, 3, 6, 4, 3, 6, 3, 2, 8, 6, 7, 7, 7, 10, 8, 4, 8, 5, 8, 6, 3, 4, 6, 1, 4, 10, 10, 5, 6, 8, 8, 5, 1, 2, 4, 3, 9, 3, 3, 9, 2, 7, 3, 8, 4, 1, 3, 10, 2, 5, 1, 7, 6, 8, 5, 2, 10, 4, 5, 2, 5, 4, 6, 9, 1, 3, 4, 5, 1, 8, 1, 9, 3, 4, 7, 10, 9, 7, 2, 2, 1, 7, 9, 4, 5, 5, 8, 3, 7, 3, 3, 7, 5, 5, 4, 1, 8, 7, 9, 10, 9, 5, 1, 4, 8, 7, 10, 9, 7, 2, 6, 5, 8, 2, 4, 5, 9, 3, 2, 4, 6, 1, 3, 9, 5, 2, 1, 10, 10, 2, 4, 3, 1, 1, 4, 9, 9, 4, 8, 4, 4, 9, 4, 7, 6, 8, 7, 10, 8, 4, 5, 8, 8, 6, 9, 2, 5, 10, 3, 8, 9, 2, 1, 9, 9, 4, 6, 5, 8, 5, 1, 3, 3, 2, 4, 4, 8, 7, 9, 4, 3, 7, 10, 4, 8, 4, 5, 10, 4, 4, 2, 2, 8, 7, 2, 3, 10, 6, 10, 9, 2, 4, 4, 8, 4, 6, 5, 5, 7, 1, 9, 10, 3, 10, 3, 5, 9, 10, 8, 1, 5, 4, 1, 5, 1, 9, 10, 7, 4, 7, 3, 1, 7, 6, 7, 6, 4, 4, 8, 3, 4, 4, 8, 6, 2, 1, 10, 8, 8, 10, 7, 3, 2, 1, 1, 3, 1, 10, 3, 4, 4, 8, 5, 3, 6, 1, 10, 7, 10, 6, 7, 5, 6, 3, 3, 6, 5, 3, 7, 5, 8, 6, 2, 6, 6, 2, 4, 9, 2, 9, 2, 5, 6, 5, 4, 6, 3, 9, 6, 3, 4, 5, 6, 4, 2, 8, 7, 10, 6, 1, 8, 3, 6, 10, 5, 6, 2, 6, 2, 2, 3, 2, 5, 4, 5, 9, 9, 8, 2, 10, 8, 3, 6, 4, 4, 6, 3, 7, 1, 8, 8, 1, 9, 7, 5, 6, 8, 2, 4, 10, 5, 9, 10, 3, 4, 1, 3, 2, 3, 1, 4, 10, 4, 7, 4, 2, 8, 10, 10, 4, 2, 4, 3, 3, 1, 7, 5, 4, 2, 7, 10, 10, 1, 8, 8, 4, 6, 1, 2, 8, 10, 7, 1, 8, 4, 7, 8, 10, 8, 6, 1, 1, 2, 10, 6, 8, 5, 7, 1, 2, 2, 4, 6, 3, 2, 7, 2, 3, 10, 1, 4, 2, 3, 3, 1, 10, 3, 5, 2, 1, 2, 9, 7, 1, 10, 1, 5, 8, 5, 8, 7, 9, 4, 5, 6, 6, 7, 8, 1, 5, 4, 6, 8, 8, 3, 4, 1, 10, 9, 8, 2, 8, 1, 10, 4, 4, 4, 3, 10, 5, 1, 8, 2, 7, 8, 4, 3, 8, 7, 2, 10, 10, 8, 5, 1, 7, 10, 5, 6, 2, 8, 4, 1, 3, 4, 1, 7, 4, 2, 1, 5, 4, 7, 5, 6, 8, 3, 9, 10, 8, 10, 9, 2, 6, 3, 1, 3, 9, 10, 2, 5, 4, 5, 1, 8, 5, 6, 9, 2, 9, 5, 5, 2, 9, 3, 1, 6, 7, 8, 6, 3, 10, 2, 9, 8, 3, 5, 3, 10, 7, 2, 4, 5, 8, 9, 10, 1, 5, 5, 1, 2, 9, 10, 7, 7, 5, 5, 2, 4, 10, 3, 2, 3, 5, 1, 3, 9, 3, 5, 7, 7, 8, 1, 4, 8, 5, 4, 9, 5, 7, 5, 4, 7, 2, 7, 3, 6, 6, 10, 10, 10, 1, 6, 7, 7, 2, 3, 6, 4, 7, 3, 1, 9, 8, 7, 6, 9, 5, 6, 1, 7, 2, 9, 4, 9, 4, 2, 3, 3, 7, 8, 1, 7, 6, 5, 1, 3, 8, 10, 5, 9, 3, 5, 4, 10, 8, 3, 3, 2, 8, 6, 10, 3, 4, 6, 10, 1, 8, 2, 10, 7, 7, 10, 1, 5, 7, 7, 3, 2, 4, 1, 2, 3, 8, 6, 6, 10, 3, 3, 8, 6, 8, 7, 8, 8, 1, 1, 1, 2, 10, 1, 1, 10, 8, 5, 10, 6, 4, 5, 3, 10, 2, 9, 2, 10, 1, 8, 8, 9, 10, 10, 1, 8, 1, 3, 5, 10, 3, 4, 3, 5, 8, 1, 10, 1, 1, 5, 6, 5, 7, 1, 6, 9, 1, 4, 4, 9, 1, 8, 2, 4, 4, 5, 3, 9, 4, 4, 5, 1, 10, 7, 5, 3, 5, 3, 5, 2, 5, 9, 7, 1, 2, 5, 2, 10, 4, 2, 6, 2, 8, 3, 10, 7, 2, 6, 9, 5, 5, 1, 7, 3, 9, 7, 4, 3, 9, 6, 6];
-    arr2=[3, 23, 27, 29, 15, 27, 24, 6, 5, 19, 13, 21, 23, 28, 8, 16, 16, 20, 28, 24, 23, 10, 25, 4, 10, 7, 25, 5, 25, 1, 15, 14, 25, 15, 13, 14, 20, 7, 1, 3, 12, 19, 4, 28, 19, 9, 16, 17, 22, 8, 21, 25, 18, 16, 18, 7, 1, 15, 0, 1, 0, 17, 17, 15, 18, 25, 14, 23, 9, 28, 16, 25, 11, 8, 4, 27, 22, 7, 9, 4, 12, 27, 16, 0, 14, 13, 17, 2, 5, 19, 18, 18, 16, 15, 6, 26, 15, 7, 0, 10, 28, 13, 25, 26, 21, 6, 29, 10, 24, 15, 21];
-    for (var i=0;i<1000;i++){
-        switch (arr[i]){
-            case 1:{
-                var url="http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_NAME:" + authorName[authorNameCnt++]+"&request_cache=false";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 9:{
+                }
+                case 3:{
+                    var url="http://localhost:9200/dblprelation_authorship/_search?q=AUTHOR_ID:"+authorID[authorIdCnt++]+"&request_cache=false";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime =totalTime+ parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 4:{
+                    var url="http://localhost:9200/dblprelation_coauthorship/_search?q=COAUTHOR_ID:"+coAuthorID[coAuthorIDCnt++]+"&request_cache=false";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime =totalTime+ parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 5:{
+                    var url="http://localhost:9200/dblprelation_journalofpaper/_search?q=JOURNAL_ID:"+journalID[arr2[journalIDCnt++]]+"&request_cache=false";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime =totalTime+ parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 6:{
+                    var url="http://localhost:9200/dblprelation_venueofpaper/_search?q=VENUE_ID:"+venueID[venueIDCnt++]+"&request_cache=false";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime =totalTime+ parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 7:{
+                    var url="http://localhost:9200/dblprelation_citation/_search?q=REFERENCE_ID:"+referenceID[referenceIDCnt++]+"&request_cache=false";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime =totalTime+ parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 8:{
+                    var url="http://localhost:9200/dblprelation_citation/_search?q=PAPER_ID:"+paperID[paperIDCnt++]+"&request_cache=false";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime =totalTime+ parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 2:{
+                    var urls;
+                    var  query = '{\n' +
+                        '            "size":0,\n' +
+                        '            "query":{\n' +
+                        '                "query_string":{\n' +
+                        '                    "query":' +"\""+ randomVal[randomValArr[aggregationValCnt++]] +"\""+ '\n' +
+                        '                }\n' +
+                        '            },\n' +
+                        '            "aggs":{\n' +
+                        '                "paperByYear":{\n' +
+                        '                    "terms":{\n' +
+                        '                        "field":"Year.keyword",\n' +
+                        '                        "size":2000\n' +
+                        '                    }\n' +
+                        '                }\n' +
+                        '            }\n' +
+                        '        }';
+                    $.ajax({
+                        type:"POST",
+                        url: 'http://localhost:9200/dblpvertexes/_search?request_cache=false',
+                        contentType: 'application/json',
+                        dataType: "json",
+                        async: false,
+                        data:query,
+                        success: function (data) {
+                            totalTime =totalTime+ parseInt(data.took);
+                        }
+                    });
 
-            }
-            case 3:{
-                var url="http://localhost:9200/dblprelation_authorship/_search?q=AUTHOR_ID:"+authorID[authorIdCnt++]+"&request_cache=false";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 4:{
-                var url="http://localhost:9200/dblprelation_coauthorship/_search?q=COAUTHOR_ID:"+coAuthorID[coAuthorIDCnt++]+"&request_cache=false";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 5:{
-                var url="http://localhost:9200/dblprelation_journalofpaper/_search?q=JOURNAL_ID:"+journalID[arr2[journalIDCnt++]]+"&request_cache=false";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 6:{
-                var url="http://localhost:9200/dblprelation_venueofpaper/_search?q=VENUE_ID:"+venueID[venueIDCnt++]+"&request_cache=false";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 7:{
-                var url="http://localhost:9200/dblprelation_citation/_search?q=REFERENCE_ID:"+referenceID[referenceIDCnt++]+"&request_cache=false";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 8:{
-                var url="http://localhost:9200/dblprelation_citation/_search?q=PAPER_ID:"+paperID[paperIDCnt++]+"&request_cache=false";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 2:{
-                var urls;
-                var  query = '{\n' +
-                    '            "size":0,\n' +
-                    '            "query":{\n' +
-                    '                "query_string":{\n' +
-                    '                    "query":' +"\""+ randomVal[randomValArr[aggregationValCnt++]] +"\""+ '\n' +
-                    '                }\n' +
-                    '            },\n' +
-                    '            "aggs":{\n' +
-                    '                "paperByYear":{\n' +
-                    '                    "terms":{\n' +
-                    '                        "field":"Year.keyword",\n' +
-                    '                        "size":2000\n' +
-                    '                    }\n' +
-                    '                }\n' +
-                    '            }\n' +
-                    '        }';
-                $.ajax({
-                    type:"POST",
-                    url: 'http://localhost:9200/dblpvertexes/_search?request_cache=false',
-                    contentType: 'application/json',
-                    dataType: "json",
-                    async: false,
-                    data:query,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
+                    break;
+                    //var url='{"size":0,"query": {"bool":{"must": [{"match":{"REFERENCE_ID.keyword:'+aggregationVal[aggregationValCnt++]+'}}]}},"aggs":{"paperByYear":{"terms":{"field":"REFERENCE_ID.keyword","size":10}}}';
 
-                break;
-                //var url='{"size":0,"query": {"bool":{"must": [{"match":{"REFERENCE_ID.keyword:'+aggregationVal[aggregationValCnt++]+'}}]}},"aggs":{"paperByYear":{"terms":{"field":"REFERENCE_ID.keyword","size":10}}}';
+                    /*
+                                        var query="{\"size\":0,\n" +
+                                        "  \"query\": {\n" +
+                                        "    \"bool\": {\n" +
+                                        "      \"must\": [\n" +
+                                        "        {\n" +
+                                        "          \"match\": {\n" +
+                                                  "REFERENCE_ID.keyword:\"" +aggregationVal[aggregationValCnt++]+"\""+
+                                        "          }\n" +
+                                        "        }\n" +
+                                        "      ]\n" +
+                                        "    }\n" +
+                                        "  },\n" +
+                                        "   \"aggs\":{\n" +
+                                        "                \"paperByYear\":{\n" +
+                                        "                    \"terms\":{\n" +
+                                        "                        \"field\":\"REFERENCE_ID.keyword\",\n" +
+                                        "                        \"size\":10\n" +
+                                        "                    }\n" +
+                                        "                }\n" +
+                                        "            }\n" +
+                                        "}";
+                                    $.ajax({
+                                        type:"POST",
+                                        url: 'http://localhost:9200/dblprelation_citation/_search/',
+                                        dataType: "application/json",
+                                        async: false,
+                                        data:query,
+                                        success: function (data) {
+                                            totalTime =totalTime+ parseInt(data.took);
+                                        }
+                                    });*/
+                }
+                case 10:{
 
-                /*
-                                    var query="{\"size\":0,\n" +
-                                    "  \"query\": {\n" +
-                                    "    \"bool\": {\n" +
-                                    "      \"must\": [\n" +
-                                    "        {\n" +
-                                    "          \"match\": {\n" +
-                                              "REFERENCE_ID.keyword:\"" +aggregationVal[aggregationValCnt++]+"\""+
-                                    "          }\n" +
-                                    "        }\n" +
-                                    "      ]\n" +
-                                    "    }\n" +
-                                    "  },\n" +
-                                    "   \"aggs\":{\n" +
-                                    "                \"paperByYear\":{\n" +
-                                    "                    \"terms\":{\n" +
-                                    "                        \"field\":\"REFERENCE_ID.keyword\",\n" +
-                                    "                        \"size\":10\n" +
-                                    "                    }\n" +
-                                    "                }\n" +
-                                    "            }\n" +
-                                    "}";
-                                $.ajax({
-                                    type:"POST",
-                                    url: 'http://localhost:9200/dblprelation_citation/_search/',
-                                    dataType: "application/json",
-                                    async: false,
-                                    data:query,
-                                    success: function (data) {
-                                        totalTime =totalTime+ parseInt(data.took);
-                                    }
-                                });*/
-            }
-            case 10:{
-
-                var url= "http://localhost:9200/dblpvertexes/_search?q="+randomVal[randomValArr[randomValCnt++]]+"&request_cache=false";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
+                    var url= "http://localhost:9200/dblpvertexes/_search?q="+randomVal[randomValArr[randomValCnt++]]+"&request_cache=false";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime =totalTime+ parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
             }
         }
+        Finaltime=Finaltime+totalTime;
+
     }
-    document.getElementById("totalTimewocaching").innerText=totalTime;
+
+
+    document.getElementById("totalTimewocaching").innerText=Finaltime;
     var clearUrl="http://localhost:9200/dblpvertexes,dblprelation_authorship,dblprelation_citation,dblprelation_coauthorship,dblprelation_journalofpaper,dblprelation_venueofpaper/_cache/clear?request=true";
     $.ajax({
         dataType: "json",
@@ -2503,178 +2509,185 @@ function executeQueriresWithoutCaching() {
 function executeQueriresWithCaching() {
     var arr2=new Array();
     var arr=new Array();
+    var Finaltime=0;
+
+    for(var loopcnt=0; loopcnt<10;loopcnt++) {
     totalTime=0,authorNameCnt=0,authorIdCnt=0,randomValCnt=0,coAuthorIDCnt=0,journalIDCnt=0,venueIDCnt=0,referenceIDCnt=0,paperIDCnt=0,aggregationValCnt=0;
     randomValArr=[5, 6, 10, 5, 9, 1, 5, 5, 8, 1, 15, 12, 18, 10, 8, 12, 7, 16, 0, 13, 17, 17, 5, 2, 3, 6, 13, 10, 7, 4, 9, 14, 0, 14, 3, 1, 16, 8, 14, 4, 16, 3, 10, 9, 5, 11, 4, 18, 17, 6, 10, 17, 12, 17, 1, 10, 16, 11, 9, 18, 16, 5, 12, 4, 11, 9, 16, 7, 1, 2, 13, 18, 0, 0, 15, 7, 5, 13, 13, 7, 8, 0, 10, 6, 11, 13, 10, 10, 8, 7, 14, 11, 11, 7, 1, 11, 6, 11, 0, 18];
     arr=[3, 8, 4, 9, 4, 1, 5, 9, 4, 8, 1, 3, 1, 10, 1, 4, 2, 7, 6, 7, 7, 2, 9, 6, 9, 10, 1, 9, 1, 8, 1, 2, 2, 5, 9, 2, 5, 4, 1, 10, 1, 10, 3, 7, 1, 3, 5, 2, 4, 3, 10, 10, 10, 5, 2, 8, 1, 5, 3, 9, 6, 10, 5, 5, 10, 10, 10, 4, 5, 6, 3, 8, 9, 3, 3, 2, 6, 3, 4, 2, 3, 5, 4, 4, 7, 5, 1, 1, 3, 1, 1, 3, 2, 2, 6, 5, 1, 5, 2, 7, 1, 1, 7, 9, 3, 7, 10, 7, 9, 4, 10, 2, 7, 1, 4, 5, 4, 8, 9, 6, 1, 1, 10, 6, 9, 1, 3, 1, 1, 5, 10, 6, 9, 5, 1, 8, 6, 7, 8, 10, 5, 9, 7, 1, 3, 4, 3, 2, 5, 7, 4, 7, 1, 4, 5, 3, 7, 7, 4, 5, 8, 10, 4, 6, 2, 9, 6, 4, 10, 4, 7, 6, 2, 8, 9, 7, 5, 3, 2, 9, 3, 10, 6, 10, 9, 4, 10, 5, 5, 2, 8, 7, 2, 1, 3, 9, 2, 5, 3, 4, 9, 3, 10, 8, 1, 5, 6, 6, 2, 10, 3, 8, 9, 3, 6, 4, 3, 6, 3, 2, 8, 6, 7, 7, 7, 10, 8, 4, 8, 5, 8, 6, 3, 4, 6, 1, 4, 10, 10, 5, 6, 8, 8, 5, 1, 2, 4, 3, 9, 3, 3, 9, 2, 7, 3, 8, 4, 1, 3, 10, 2, 5, 1, 7, 6, 8, 5, 2, 10, 4, 5, 2, 5, 4, 6, 9, 1, 3, 4, 5, 1, 8, 1, 9, 3, 4, 7, 10, 9, 7, 2, 2, 1, 7, 9, 4, 5, 5, 8, 3, 7, 3, 3, 7, 5, 5, 4, 1, 8, 7, 9, 10, 9, 5, 1, 4, 8, 7, 10, 9, 7, 2, 6, 5, 8, 2, 4, 5, 9, 3, 2, 4, 6, 1, 3, 9, 5, 2, 1, 10, 10, 2, 4, 3, 1, 1, 4, 9, 9, 4, 8, 4, 4, 9, 4, 7, 6, 8, 7, 10, 8, 4, 5, 8, 8, 6, 9, 2, 5, 10, 3, 8, 9, 2, 1, 9, 9, 4, 6, 5, 8, 5, 1, 3, 3, 2, 4, 4, 8, 7, 9, 4, 3, 7, 10, 4, 8, 4, 5, 10, 4, 4, 2, 2, 8, 7, 2, 3, 10, 6, 10, 9, 2, 4, 4, 8, 4, 6, 5, 5, 7, 1, 9, 10, 3, 10, 3, 5, 9, 10, 8, 1, 5, 4, 1, 5, 1, 9, 10, 7, 4, 7, 3, 1, 7, 6, 7, 6, 4, 4, 8, 3, 4, 4, 8, 6, 2, 1, 10, 8, 8, 10, 7, 3, 2, 1, 1, 3, 1, 10, 3, 4, 4, 8, 5, 3, 6, 1, 10, 7, 10, 6, 7, 5, 6, 3, 3, 6, 5, 3, 7, 5, 8, 6, 2, 6, 6, 2, 4, 9, 2, 9, 2, 5, 6, 5, 4, 6, 3, 9, 6, 3, 4, 5, 6, 4, 2, 8, 7, 10, 6, 1, 8, 3, 6, 10, 5, 6, 2, 6, 2, 2, 3, 2, 5, 4, 5, 9, 9, 8, 2, 10, 8, 3, 6, 4, 4, 6, 3, 7, 1, 8, 8, 1, 9, 7, 5, 6, 8, 2, 4, 10, 5, 9, 10, 3, 4, 1, 3, 2, 3, 1, 4, 10, 4, 7, 4, 2, 8, 10, 10, 4, 2, 4, 3, 3, 1, 7, 5, 4, 2, 7, 10, 10, 1, 8, 8, 4, 6, 1, 2, 8, 10, 7, 1, 8, 4, 7, 8, 10, 8, 6, 1, 1, 2, 10, 6, 8, 5, 7, 1, 2, 2, 4, 6, 3, 2, 7, 2, 3, 10, 1, 4, 2, 3, 3, 1, 10, 3, 5, 2, 1, 2, 9, 7, 1, 10, 1, 5, 8, 5, 8, 7, 9, 4, 5, 6, 6, 7, 8, 1, 5, 4, 6, 8, 8, 3, 4, 1, 10, 9, 8, 2, 8, 1, 10, 4, 4, 4, 3, 10, 5, 1, 8, 2, 7, 8, 4, 3, 8, 7, 2, 10, 10, 8, 5, 1, 7, 10, 5, 6, 2, 8, 4, 1, 3, 4, 1, 7, 4, 2, 1, 5, 4, 7, 5, 6, 8, 3, 9, 10, 8, 10, 9, 2, 6, 3, 1, 3, 9, 10, 2, 5, 4, 5, 1, 8, 5, 6, 9, 2, 9, 5, 5, 2, 9, 3, 1, 6, 7, 8, 6, 3, 10, 2, 9, 8, 3, 5, 3, 10, 7, 2, 4, 5, 8, 9, 10, 1, 5, 5, 1, 2, 9, 10, 7, 7, 5, 5, 2, 4, 10, 3, 2, 3, 5, 1, 3, 9, 3, 5, 7, 7, 8, 1, 4, 8, 5, 4, 9, 5, 7, 5, 4, 7, 2, 7, 3, 6, 6, 10, 10, 10, 1, 6, 7, 7, 2, 3, 6, 4, 7, 3, 1, 9, 8, 7, 6, 9, 5, 6, 1, 7, 2, 9, 4, 9, 4, 2, 3, 3, 7, 8, 1, 7, 6, 5, 1, 3, 8, 10, 5, 9, 3, 5, 4, 10, 8, 3, 3, 2, 8, 6, 10, 3, 4, 6, 10, 1, 8, 2, 10, 7, 7, 10, 1, 5, 7, 7, 3, 2, 4, 1, 2, 3, 8, 6, 6, 10, 3, 3, 8, 6, 8, 7, 8, 8, 1, 1, 1, 2, 10, 1, 1, 10, 8, 5, 10, 6, 4, 5, 3, 10, 2, 9, 2, 10, 1, 8, 8, 9, 10, 10, 1, 8, 1, 3, 5, 10, 3, 4, 3, 5, 8, 1, 10, 1, 1, 5, 6, 5, 7, 1, 6, 9, 1, 4, 4, 9, 1, 8, 2, 4, 4, 5, 3, 9, 4, 4, 5, 1, 10, 7, 5, 3, 5, 3, 5, 2, 5, 9, 7, 1, 2, 5, 2, 10, 4, 2, 6, 2, 8, 3, 10, 7, 2, 6, 9, 5, 5, 1, 7, 3, 9, 7, 4, 3, 9, 6, 6];
     arr2=[3, 23, 27, 29, 15, 27, 24, 6, 5, 19, 13, 21, 23, 28, 8, 16, 16, 20, 28, 24, 23, 10, 25, 4, 10, 7, 25, 5, 25, 1, 15, 14, 25, 15, 13, 14, 20, 7, 1, 3, 12, 19, 4, 28, 19, 9, 16, 17, 22, 8, 21, 25, 18, 16, 18, 7, 1, 15, 0, 1, 0, 17, 17, 15, 18, 25, 14, 23, 9, 28, 16, 25, 11, 8, 4, 27, 22, 7, 9, 4, 12, 27, 16, 0, 14, 13, 17, 2, 5, 19, 18, 18, 16, 15, 6, 26, 15, 7, 0, 10, 28, 13, 25, 26, 21, 6, 29, 10, 24, 15, 21];
     //randomValArr=[4, 8, 3, 9, 7, 7, 6, 16, 6, 2, 4, 0, 18, 17, 4, 15, 18, 12, 3, 4, 1, 14, 9, 14, 6, 9, 14, 1, 4, 0, 18, 11, 5, 11, 6, 16, 13, 0, 1, 17, 13, 17, 13, 10, 5, 15, 8, 5, 12, 4, 14, 11, 7, 10, 13, 14, 17, 11, 5, 3, 16, 11, 6, 7, 18, 15, 13, 13, 13, 15, 11, 10, 9, 6, 0, 5, 0, 2, 16, 17, 7, 0, 2, 6, 2, 12, 11, 10, 17, 14, 12, 18, 9, 9, 15, 10, 2, 7, 7, 13];
     //arr=[1, 2, 1, 9, 9, 9, 2, 7, 1, 7, 3, 1, 3, 4, 5, 6, 8, 10, 9, 10, 6, 2, 1, 3, 6, 1, 8, 7, 4, 5, 2, 4, 7, 3, 1, 10, 7, 8, 7, 7, 4, 10, 10, 2, 4, 3, 4, 7, 6, 10, 1, 8, 4, 3, 7, 4, 9, 7, 3, 10, 3, 3, 2, 10, 8, 2, 7, 6, 1, 3, 3, 6, 7, 8, 8, 3, 4, 8, 8, 4, 9, 5, 7, 1, 2, 6, 2, 9, 8, 5, 2, 4, 1, 5, 8, 8, 8, 7, 10, 1, 6, 2, 5, 10, 2, 6, 8, 1, 9, 3, 1, 2, 1, 6, 6, 3, 9, 7, 3, 4, 10, 4, 2, 4, 4, 2, 6, 6, 4, 2, 6, 5, 4, 10, 9, 5, 7, 2, 2, 10, 7, 9, 2, 8, 6, 4, 7, 6, 1, 3, 7, 7, 1, 5, 2, 8, 8, 2, 7, 1, 1, 1, 10, 4, 5, 9, 5, 10, 3, 3, 9, 5, 8, 8, 9, 8, 9, 2, 9, 7, 7, 5, 6, 9, 9, 4, 1, 8, 9, 2, 4, 10, 9, 8, 6, 5, 1, 6, 2, 5, 1, 5, 5, 9, 8, 6, 4, 3, 3, 7, 9, 2, 3, 1, 9, 7, 3, 4, 10, 10, 5, 3, 9, 10, 7, 3, 5, 6, 1, 3, 4, 4, 3, 9, 7, 8, 9, 2, 7, 10, 8, 9, 1, 7, 5, 10, 6, 3, 5, 8, 1, 8, 6, 1, 4, 10, 3, 10, 5, 1, 6, 10, 6, 2, 7, 8, 8, 2, 2, 6, 4, 10, 2, 1, 8, 6, 2, 1, 3, 1, 6, 6, 4, 4, 4, 2, 9, 8, 10, 7, 8, 1, 2, 1, 1, 8, 7, 2, 5, 6, 10, 10, 7, 2, 4, 10, 4, 9, 8, 9, 6, 5, 5, 1, 10, 5, 10, 1, 8, 5, 1, 4, 9, 9, 3, 6, 1, 6, 1, 5, 8, 2, 8, 6, 10, 7, 1, 8, 10, 1, 9, 10, 3, 2, 8, 10, 3, 1, 4, 1, 3, 10, 2, 3, 5, 9, 6, 10, 4, 4, 5, 1, 5, 4, 1, 7, 1, 9, 8, 5, 4, 10, 8, 6, 10, 3, 2, 1, 8, 4, 6, 4, 8, 4, 3, 5, 5, 4, 4, 6, 6, 3, 4, 10, 8, 6, 8, 9, 8, 7, 5, 10, 1, 2, 10, 9, 7, 8, 3, 2, 1, 8, 5, 4, 8, 8, 1, 8, 10, 4, 9, 8, 5, 9, 7, 7, 9, 2, 1, 8, 10, 8, 6, 9, 7, 5, 9, 4, 6, 1, 3, 2, 7, 1, 5, 9, 2, 6, 1, 6, 5, 5, 3, 4, 5, 6, 6, 3, 3, 8, 10, 9, 4, 3, 8, 6, 1, 5, 1, 1, 1, 3, 5, 5, 6, 2, 10, 7, 2, 1, 7, 6, 1, 5, 6, 10, 10, 6, 3, 5, 1, 3, 4, 4, 8, 3, 8, 7, 5, 4, 7, 6, 8, 2, 2, 5, 3, 5, 9, 10, 9, 2, 2, 5, 8, 9, 3, 2, 7, 4, 5, 1, 8, 3, 8, 1, 5, 10, 2, 9, 10, 9, 8, 6, 3, 1, 1, 4, 1, 10, 5, 2, 10, 8, 1, 4, 4, 3, 9, 9, 7, 2, 9, 8, 7, 6, 6, 1, 3, 3, 10, 1, 7, 4, 8, 1, 6, 7, 2, 6, 9, 7, 5, 2, 7, 8, 6, 1, 2, 1, 4, 5, 10, 9, 4, 1, 9, 8, 6, 4, 5, 3, 3, 8, 3, 5, 3, 8, 5, 10, 3, 8, 9, 4, 6, 8, 7, 2, 7, 3, 8, 9, 2, 3, 5, 10, 10, 7, 4, 9, 3, 4, 1, 5, 8, 2, 1, 6, 5, 3, 6, 1, 4, 4, 7, 9, 6, 7, 8, 3, 3, 7, 7, 1, 2, 3, 3, 4, 1, 2, 5, 4, 7, 4, 6, 4, 5, 6, 4, 9, 9, 9, 2, 3, 5, 2, 5, 3, 3, 3, 4, 8, 3, 5, 5, 8, 10, 7, 6, 5, 6, 10, 10, 9, 4, 4, 10, 7, 7, 1, 5, 9, 8, 5, 3, 1, 8, 3, 9, 10, 1, 8, 7, 2, 9, 4, 7, 6, 4, 9, 7, 8, 10, 9, 6, 4, 9, 6, 9, 10, 1, 4, 5, 8, 6, 2, 4, 10, 8, 6, 4, 4, 10, 10, 5, 8, 9, 1, 1, 2, 1, 1, 4, 7, 5, 4, 5, 1, 5, 5, 5, 10, 9, 1, 1, 10, 3, 4, 10, 3, 3, 5, 9, 1, 5, 3, 4, 3, 4, 5, 2, 9, 6, 9, 3, 10, 10, 3, 8, 10, 8, 3, 2, 6, 8, 4, 2, 9, 7, 1, 3, 2, 6, 3, 3, 1, 8, 4, 4, 1, 5, 8, 5, 6, 7, 9, 1, 9, 9, 8, 2, 1, 6, 2, 4, 5, 2, 7, 1, 9, 9, 10, 6, 6, 2, 3, 7, 3, 9, 10, 3, 1, 3, 8, 3, 4, 8, 4, 8, 2, 6, 8, 6, 1, 4, 1, 7, 4, 5, 8, 6, 8, 8, 9, 2, 1, 7, 6, 6, 9, 3, 9, 1, 10, 4, 6, 7, 1, 10, 1, 9, 2, 7, 4, 1, 2, 2, 6, 9, 1, 9, 2, 8, 9, 10, 2, 7, 7, 8, 8, 6, 3, 1, 3, 10, 3, 8, 6, 6, 6, 9, 8, 4, 3, 10, 6, 10, 10, 1, 7, 8, 3, 4, 8, 9, 4, 8, 6, 7, 4, 9, 10, 10, 1, 5, 6, 6, 5, 6, 2, 9, 7, 8, 9, 7, 8, 7, 9, 8, 6, 1, 10, 6, 1, 4, 6, 6, 7, 2, 4, 2, 3, 2, 5, 9, 9, 9, 2, 5, 6, 1, 6, 1, 10, 10, 7, 10, 8, 7, 6, 10, 7, 10, 8, 7, 2, 6, 5, 7, 10, 2, 9, 6, 1, 9, 5, 8, 10, 8, 2, 9, 1, 4, 7, 5, 4, 3, 7, 6, 2];
-    for (var i=0;i<1000;i++){
-        switch (arr[i]){
-            case 1:{
-                var url="http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_NAME:" + authorName1[authorNameCnt++]+"&request_cache=true";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 2:{
-                var  query = '{\n' +
-                    '            "size":0,\n' +
-                    '            "query":{\n' +
-                    '                "query_string":{\n' +
-                    '                    "query":' +"\""+ randomVal1[randomValArr[aggregationValCnt++]] +"\""+ '\n' +
-                    '                }\n' +
-                    '            },\n' +
-                    '            "aggs":{\n' +
-                    '                "paperByYear":{\n' +
-                    '                    "terms":{\n' +
-                    '                        "field":"Year.keyword",\n' +
-                    '                        "size":2000\n' +
-                    '                    }\n' +
-                    '                }\n' +
-                    '            }\n' +
-                    '        }';
-                $.ajax({
-                    type:"POST",
-                    url: 'http://localhost:9200/dblpvertexes/_search?request_cache=true',
-                    contentType: 'application/json',
-                    dataType: "json",
-                    async: false,
-                    data:query,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 3:{
-                var url="http://localhost:9200/dblprelation_authorship/_search?q=AUTHOR_ID:"+authorID1[authorIdCnt++]+"&request_cache=true";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 4:{
-                var url="http://localhost:9200/dblprelation_coauthorship/_search?q=COAUTHOR_ID:"+coAuthorID1[coAuthorIDCnt++]+"&request_cache=true";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 5:{
-                var url="http://localhost:9200/dblprelation_journalofpaper/_search?q=JOURNAL_ID:"+journalID1[arr2[journalIDCnt++]]+"&request_cache=true";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 6:{
-                var url="http://localhost:9200/dblprelation_venueofpaper/_search?q=VENUE_ID:"+venueID1[venueIDCnt++]+"&request_cache=true";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 7:{
-                var url="http://localhost:9200/dblprelation_citation/_search?q=REFERENCE_ID:"+referenceID1[referenceIDCnt++]+"&request_cache=true";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 8:{
-                var url="http://localhost:9200/dblprelation_citation/_search?q=PAPER_ID:"+paperID1[paperIDCnt++]+"&request_cache=true";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 9:{
-                //var url='{"size":0,"query": {"bool":{"must": [{"match":{"REFERENCE_ID.keyword:'+aggregationVal[aggregationValCnt++]+'}}]}},"aggs":{"paperByYear":{"terms":{"field":"REFERENCE_ID.keyword","size":10}}}';
 
-                /*"http://localhost:9200/dblpvertexes/_search?request_cache=true\n" +
-                "{\"size\":0,\n" +
-                "  \"query\": {\n" +
-                "    \"bool\": {\n" +
-                "      \"must\": [\n" +
-                "        {\n" +
-                "          \"match\": {\n" +
-                "REFERENCE_ID.keyword:" +aggregationVal[aggregationValCnt++]+
-                "          }\n" +
-                "        }\n" +
-                "      ]\n" +
-                "    }\n" +
-                "  },\n" +
-                "   \"aggs\":{\n" +
-                "                \"paperByYear\":{\n" +
-                "                    \"terms\":{\n" +
-                "                        \"field\":\"REFERENCE_ID.keyword\",\n" +
-                "                        \"size\":10\n" +
-                "                    }\n" +
-                "                }\n" +
-                "            }\n" +
-                "}";*/
-                /* $.ajax({
-                     dataType: "json",
-                     url: url,
-                     async: false,
-                     success: function (data) {
-                         totalTime =totalTime+ parseInt(data.took);
-                     }
-                 });*/
-            }
-            case 10:{
 
-                var url="http://localhost:9200/dblpvertexes/_search?q="+randomVal1[randomValArr[randomValCnt++]]+"&request_cache=true";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
+        for (var i = 0; i < 1000; i++) {
+            switch (arr[i]) {
+                case 1: {
+                    var url = "http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_NAME:" + authorName1[authorNameCnt++] + "&request_cache=true";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime = totalTime + parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 2: {
+                    var query = '{\n' +
+                        '            "size":0,\n' +
+                        '            "query":{\n' +
+                        '                "query_string":{\n' +
+                        '                    "query":' + "\"" + randomVal1[randomValArr[aggregationValCnt++]] + "\"" + '\n' +
+                        '                }\n' +
+                        '            },\n' +
+                        '            "aggs":{\n' +
+                        '                "paperByYear":{\n' +
+                        '                    "terms":{\n' +
+                        '                        "field":"Year.keyword",\n' +
+                        '                        "size":2000\n' +
+                        '                    }\n' +
+                        '                }\n' +
+                        '            }\n' +
+                        '        }';
+                    $.ajax({
+                        type: "POST",
+                        url: 'http://localhost:9200/dblpvertexes/_search?request_cache=true',
+                        contentType: 'application/json',
+                        dataType: "json",
+                        async: false,
+                        data: query,
+                        success: function (data) {
+                            totalTime = totalTime + parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 3: {
+                    var url = "http://localhost:9200/dblprelation_authorship/_search?q=AUTHOR_ID:" + authorID1[authorIdCnt++] + "&request_cache=true";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime = totalTime + parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 4: {
+                    var url = "http://localhost:9200/dblprelation_coauthorship/_search?q=COAUTHOR_ID:" + coAuthorID1[coAuthorIDCnt++] + "&request_cache=true";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime = totalTime + parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 5: {
+                    var url = "http://localhost:9200/dblprelation_journalofpaper/_search?q=JOURNAL_ID:" + journalID1[arr2[journalIDCnt++]] + "&request_cache=true";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime = totalTime + parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 6: {
+                    var url = "http://localhost:9200/dblprelation_venueofpaper/_search?q=VENUE_ID:" + venueID1[venueIDCnt++] + "&request_cache=true";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime = totalTime + parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 7: {
+                    var url = "http://localhost:9200/dblprelation_citation/_search?q=REFERENCE_ID:" + referenceID1[referenceIDCnt++] + "&request_cache=true";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime = totalTime + parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 8: {
+                    var url = "http://localhost:9200/dblprelation_citation/_search?q=PAPER_ID:" + paperID1[paperIDCnt++] + "&request_cache=true";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime = totalTime + parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 9: {
+                    //var url='{"size":0,"query": {"bool":{"must": [{"match":{"REFERENCE_ID.keyword:'+aggregationVal[aggregationValCnt++]+'}}]}},"aggs":{"paperByYear":{"terms":{"field":"REFERENCE_ID.keyword","size":10}}}';
+
+                    /*"http://localhost:9200/dblpvertexes/_search?request_cache=true\n" +
+                    "{\"size\":0,\n" +
+                    "  \"query\": {\n" +
+                    "    \"bool\": {\n" +
+                    "      \"must\": [\n" +
+                    "        {\n" +
+                    "          \"match\": {\n" +
+                    "REFERENCE_ID.keyword:" +aggregationVal[aggregationValCnt++]+
+                    "          }\n" +
+                    "        }\n" +
+                    "      ]\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "   \"aggs\":{\n" +
+                    "                \"paperByYear\":{\n" +
+                    "                    \"terms\":{\n" +
+                    "                        \"field\":\"REFERENCE_ID.keyword\",\n" +
+                    "                        \"size\":10\n" +
+                    "                    }\n" +
+                    "                }\n" +
+                    "            }\n" +
+                    "}";*/
+                    /* $.ajax({
+                         dataType: "json",
+                         url: url,
+                         async: false,
+                         success: function (data) {
+                             totalTime =totalTime+ parseInt(data.took);
+                         }
+                     });*/
+                }
+                case 10: {
+
+                    var url = "http://localhost:9200/dblpvertexes/_search?q=" + randomVal1[randomValArr[randomValCnt++]] + "&request_cache=true";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime = totalTime + parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
             }
         }
+        Finaltime=Finaltime+totalTime;
     }
-    document.getElementById("totalTimewcaching").innerText=totalTime;
+    document.getElementById("totalTimewcaching").innerText=Finaltime;
     var clearUrl="http://localhost:9200/dblpvertexes,dblprelation_authorship,dblprelation_citation,dblprelation_coauthorship,dblprelation_journalofpaper,dblprelation_venueofpaper/_cache/clear?request=true";
     $.ajax({
         dataType: "json",
@@ -2689,6 +2702,7 @@ function executeQueriresWithCaching() {
 function executeQueriresWithSelectedCaching() {
     var arr=new Array();
     var arr2=new Array();
+    var Finaltime=0;
     /* var clearUrl="http://localhost:9200/dblpvertexes,dblprelation_authorship,dblprelation_citation,dblprelation_coauthorship,dblprelation_journalofpaper,dblprelation_venueofpaper/_cache/clear?request=true";
      $.ajax({
          dataType: "json",
@@ -2698,177 +2712,181 @@ function executeQueriresWithSelectedCaching() {
              console.log(data._shards.successful);
          }
      });*/
-
+    for(var loopcnt=0; loopcnt<10;loopcnt++) {
     totalTime=0,authorNameCnt=0,authorIdCnt=0,randomValCnt=0,coAuthorIDCnt=0,journalIDCnt=0,venueIDCnt=0,referenceIDCnt=0,paperIDCnt=0,aggregationValCnt=0;
     randomValArr=[5, 6, 10, 5, 9, 1, 5, 5, 8, 1, 15, 12, 18, 10, 8, 12, 7, 16, 0, 13, 17, 17, 5, 2, 3, 6, 13, 10, 7, 4, 9, 14, 0, 14, 3, 1, 16, 8, 14, 4, 16, 3, 10, 9, 5, 11, 4, 18, 17, 6, 10, 17, 12, 17, 1, 10, 16, 11, 9, 18, 16, 5, 12, 4, 11, 9, 16, 7, 1, 2, 13, 18, 0, 0, 15, 7, 5, 13, 13, 7, 8, 0, 10, 6, 11, 13, 10, 10, 8, 7, 14, 11, 11, 7, 1, 11, 6, 11, 0, 18];
     arr=[3, 8, 4, 9, 4, 1, 5, 9, 4, 8, 1, 3, 1, 10, 1, 4, 2, 7, 6, 7, 7, 2, 9, 6, 9, 10, 1, 9, 1, 8, 1, 2, 2, 5, 9, 2, 5, 4, 1, 10, 1, 10, 3, 7, 1, 3, 5, 2, 4, 3, 10, 10, 10, 5, 2, 8, 1, 5, 3, 9, 6, 10, 5, 5, 10, 10, 10, 4, 5, 6, 3, 8, 9, 3, 3, 2, 6, 3, 4, 2, 3, 5, 4, 4, 7, 5, 1, 1, 3, 1, 1, 3, 2, 2, 6, 5, 1, 5, 2, 7, 1, 1, 7, 9, 3, 7, 10, 7, 9, 4, 10, 2, 7, 1, 4, 5, 4, 8, 9, 6, 1, 1, 10, 6, 9, 1, 3, 1, 1, 5, 10, 6, 9, 5, 1, 8, 6, 7, 8, 10, 5, 9, 7, 1, 3, 4, 3, 2, 5, 7, 4, 7, 1, 4, 5, 3, 7, 7, 4, 5, 8, 10, 4, 6, 2, 9, 6, 4, 10, 4, 7, 6, 2, 8, 9, 7, 5, 3, 2, 9, 3, 10, 6, 10, 9, 4, 10, 5, 5, 2, 8, 7, 2, 1, 3, 9, 2, 5, 3, 4, 9, 3, 10, 8, 1, 5, 6, 6, 2, 10, 3, 8, 9, 3, 6, 4, 3, 6, 3, 2, 8, 6, 7, 7, 7, 10, 8, 4, 8, 5, 8, 6, 3, 4, 6, 1, 4, 10, 10, 5, 6, 8, 8, 5, 1, 2, 4, 3, 9, 3, 3, 9, 2, 7, 3, 8, 4, 1, 3, 10, 2, 5, 1, 7, 6, 8, 5, 2, 10, 4, 5, 2, 5, 4, 6, 9, 1, 3, 4, 5, 1, 8, 1, 9, 3, 4, 7, 10, 9, 7, 2, 2, 1, 7, 9, 4, 5, 5, 8, 3, 7, 3, 3, 7, 5, 5, 4, 1, 8, 7, 9, 10, 9, 5, 1, 4, 8, 7, 10, 9, 7, 2, 6, 5, 8, 2, 4, 5, 9, 3, 2, 4, 6, 1, 3, 9, 5, 2, 1, 10, 10, 2, 4, 3, 1, 1, 4, 9, 9, 4, 8, 4, 4, 9, 4, 7, 6, 8, 7, 10, 8, 4, 5, 8, 8, 6, 9, 2, 5, 10, 3, 8, 9, 2, 1, 9, 9, 4, 6, 5, 8, 5, 1, 3, 3, 2, 4, 4, 8, 7, 9, 4, 3, 7, 10, 4, 8, 4, 5, 10, 4, 4, 2, 2, 8, 7, 2, 3, 10, 6, 10, 9, 2, 4, 4, 8, 4, 6, 5, 5, 7, 1, 9, 10, 3, 10, 3, 5, 9, 10, 8, 1, 5, 4, 1, 5, 1, 9, 10, 7, 4, 7, 3, 1, 7, 6, 7, 6, 4, 4, 8, 3, 4, 4, 8, 6, 2, 1, 10, 8, 8, 10, 7, 3, 2, 1, 1, 3, 1, 10, 3, 4, 4, 8, 5, 3, 6, 1, 10, 7, 10, 6, 7, 5, 6, 3, 3, 6, 5, 3, 7, 5, 8, 6, 2, 6, 6, 2, 4, 9, 2, 9, 2, 5, 6, 5, 4, 6, 3, 9, 6, 3, 4, 5, 6, 4, 2, 8, 7, 10, 6, 1, 8, 3, 6, 10, 5, 6, 2, 6, 2, 2, 3, 2, 5, 4, 5, 9, 9, 8, 2, 10, 8, 3, 6, 4, 4, 6, 3, 7, 1, 8, 8, 1, 9, 7, 5, 6, 8, 2, 4, 10, 5, 9, 10, 3, 4, 1, 3, 2, 3, 1, 4, 10, 4, 7, 4, 2, 8, 10, 10, 4, 2, 4, 3, 3, 1, 7, 5, 4, 2, 7, 10, 10, 1, 8, 8, 4, 6, 1, 2, 8, 10, 7, 1, 8, 4, 7, 8, 10, 8, 6, 1, 1, 2, 10, 6, 8, 5, 7, 1, 2, 2, 4, 6, 3, 2, 7, 2, 3, 10, 1, 4, 2, 3, 3, 1, 10, 3, 5, 2, 1, 2, 9, 7, 1, 10, 1, 5, 8, 5, 8, 7, 9, 4, 5, 6, 6, 7, 8, 1, 5, 4, 6, 8, 8, 3, 4, 1, 10, 9, 8, 2, 8, 1, 10, 4, 4, 4, 3, 10, 5, 1, 8, 2, 7, 8, 4, 3, 8, 7, 2, 10, 10, 8, 5, 1, 7, 10, 5, 6, 2, 8, 4, 1, 3, 4, 1, 7, 4, 2, 1, 5, 4, 7, 5, 6, 8, 3, 9, 10, 8, 10, 9, 2, 6, 3, 1, 3, 9, 10, 2, 5, 4, 5, 1, 8, 5, 6, 9, 2, 9, 5, 5, 2, 9, 3, 1, 6, 7, 8, 6, 3, 10, 2, 9, 8, 3, 5, 3, 10, 7, 2, 4, 5, 8, 9, 10, 1, 5, 5, 1, 2, 9, 10, 7, 7, 5, 5, 2, 4, 10, 3, 2, 3, 5, 1, 3, 9, 3, 5, 7, 7, 8, 1, 4, 8, 5, 4, 9, 5, 7, 5, 4, 7, 2, 7, 3, 6, 6, 10, 10, 10, 1, 6, 7, 7, 2, 3, 6, 4, 7, 3, 1, 9, 8, 7, 6, 9, 5, 6, 1, 7, 2, 9, 4, 9, 4, 2, 3, 3, 7, 8, 1, 7, 6, 5, 1, 3, 8, 10, 5, 9, 3, 5, 4, 10, 8, 3, 3, 2, 8, 6, 10, 3, 4, 6, 10, 1, 8, 2, 10, 7, 7, 10, 1, 5, 7, 7, 3, 2, 4, 1, 2, 3, 8, 6, 6, 10, 3, 3, 8, 6, 8, 7, 8, 8, 1, 1, 1, 2, 10, 1, 1, 10, 8, 5, 10, 6, 4, 5, 3, 10, 2, 9, 2, 10, 1, 8, 8, 9, 10, 10, 1, 8, 1, 3, 5, 10, 3, 4, 3, 5, 8, 1, 10, 1, 1, 5, 6, 5, 7, 1, 6, 9, 1, 4, 4, 9, 1, 8, 2, 4, 4, 5, 3, 9, 4, 4, 5, 1, 10, 7, 5, 3, 5, 3, 5, 2, 5, 9, 7, 1, 2, 5, 2, 10, 4, 2, 6, 2, 8, 3, 10, 7, 2, 6, 9, 5, 5, 1, 7, 3, 9, 7, 4, 3, 9, 6, 6];
     arr2=[3, 23, 27, 29, 15, 27, 24, 6, 5, 19, 13, 21, 23, 28, 8, 16, 16, 20, 28, 24, 23, 10, 25, 4, 10, 7, 25, 5, 25, 1, 15, 14, 25, 15, 13, 14, 20, 7, 1, 3, 12, 19, 4, 28, 19, 9, 16, 17, 22, 8, 21, 25, 18, 16, 18, 7, 1, 15, 0, 1, 0, 17, 17, 15, 18, 25, 14, 23, 9, 28, 16, 25, 11, 8, 4, 27, 22, 7, 9, 4, 12, 27, 16, 0, 14, 13, 17, 2, 5, 19, 18, 18, 16, 15, 6, 26, 15, 7, 0, 10, 28, 13, 25, 26, 21, 6, 29, 10, 24, 15, 21];
     //randomValArr=[11, 10, 4, 13, 15, 1, 4, 5, 10, 9, 15, 0, 6, 8, 6, 9, 6, 17, 16, 14, 5, 4, 13, 0, 14, 2, 6, 2, 4, 7, 3, 15, 15, 8, 17, 1, 10, 0, 1, 3, 13, 1, 3, 15, 13, 18, 12, 3, 16, 7, 14, 4, 4, 4, 16, 4, 16, 0, 11, 13, 6, 10, 1, 17, 10, 12, 5, 4, 6, 6, 15, 15, 14, 2, 17, 0, 2, 3, 8, 8, 8, 5, 14, 10, 8, 7, 11, 10, 15, 11, 0, 11, 17, 4, 2, 10, 2, 11, 17, 9];
     //arr=[10, 10, 8, 1, 2, 4, 1, 1, 8, 3, 10, 5, 10, 5, 9, 3, 5, 2, 9, 1, 8, 4, 4, 4, 4, 6, 7, 2, 6, 6, 6, 5, 8, 7, 1, 1, 3, 5, 9, 9, 8, 4, 10, 9, 6, 9, 7, 7, 3, 3, 10, 8, 4, 9, 2, 4, 4, 1, 8, 4, 3, 10, 7, 10, 4, 3, 3, 7, 3, 5, 3, 3, 10, 5, 1, 7, 4, 4, 5, 7, 5, 3, 9, 10, 2, 9, 3, 7, 3, 8, 6, 9, 2, 5, 2, 1, 7, 1, 10, 3, 2, 2, 8, 3, 6, 3, 3, 7, 7, 1, 2, 7, 5, 9, 8, 8, 4, 4, 9, 9, 5, 7, 7, 9, 3, 10, 1, 3, 10, 10, 4, 6, 1, 4, 2, 2, 2, 6, 2, 9, 9, 10, 8, 8, 10, 6, 9, 5, 1, 4, 2, 3, 9, 1, 3, 2, 9, 10, 8, 7, 8, 6, 7, 3, 6, 3, 3, 3, 8, 2, 10, 9, 8, 1, 4, 7, 3, 3, 8, 6, 7, 3, 3, 8, 10, 8, 8, 1, 2, 9, 6, 1, 1, 8, 9, 6, 5, 3, 6, 4, 9, 6, 9, 7, 2, 10, 1, 1, 10, 10, 8, 2, 2, 5, 1, 1, 6, 3, 2, 6, 5, 10, 5, 9, 1, 2, 3, 4, 2, 10, 5, 5, 10, 2, 3, 5, 7, 8, 5, 6, 8, 5, 9, 8, 3, 8, 8, 8, 8, 1, 1, 9, 6, 6, 2, 6, 8, 5, 1, 9, 9, 4, 9, 5, 8, 8, 8, 7, 10, 1, 9, 6, 8, 7, 2, 8, 2, 6, 2, 9, 1, 9, 6, 5, 9, 7, 6, 7, 7, 10, 1, 7, 7, 1, 7, 7, 7, 1, 9, 5, 4, 4, 5, 8, 3, 5, 4, 9, 7, 5, 5, 4, 7, 3, 9, 5, 5, 9, 4, 9, 4, 5, 1, 1, 7, 5, 9, 3, 6, 4, 4, 9, 5, 3, 5, 1, 4, 9, 2, 10, 2, 9, 4, 8, 9, 10, 8, 1, 4, 8, 1, 8, 1, 5, 3, 1, 6, 8, 10, 1, 10, 7, 9, 7, 5, 8, 10, 9, 7, 5, 3, 6, 8, 7, 10, 8, 2, 9, 3, 9, 4, 8, 5, 2, 3, 6, 4, 10, 8, 3, 8, 8, 5, 4, 1, 6, 2, 4, 1, 6, 6, 10, 3, 9, 7, 9, 3, 5, 3, 5, 6, 4, 1, 2, 1, 8, 9, 8, 2, 7, 1, 8, 1, 5, 3, 6, 5, 4, 10, 1, 8, 5, 10, 9, 9, 9, 3, 10, 9, 5, 5, 6, 8, 6, 1, 7, 4, 1, 10, 8, 7, 8, 3, 6, 8, 10, 1, 3, 3, 1, 8, 2, 4, 3, 4, 1, 1, 6, 9, 10, 3, 8, 6, 6, 7, 8, 3, 5, 4, 9, 7, 1, 1, 9, 8, 5, 4, 10, 7, 5, 2, 2, 10, 1, 6, 4, 7, 10, 7, 6, 5, 4, 5, 4, 2, 2, 3, 7, 10, 5, 4, 2, 2, 10, 2, 6, 6, 10, 5, 4, 1, 1, 10, 8, 4, 10, 3, 1, 6, 7, 8, 6, 3, 10, 6, 5, 2, 6, 2, 2, 8, 2, 4, 5, 4, 2, 9, 2, 9, 1, 8, 2, 9, 9, 4, 5, 1, 5, 2, 1, 3, 4, 10, 4, 2, 3, 1, 1, 1, 6, 4, 10, 5, 8, 7, 7, 7, 10, 5, 5, 2, 5, 6, 3, 7, 10, 10, 5, 3, 5, 2, 8, 7, 2, 4, 3, 2, 10, 10, 1, 2, 4, 10, 2, 9, 4, 7, 4, 8, 9, 4, 7, 5, 1, 4, 3, 10, 2, 7, 8, 6, 4, 7, 6, 10, 1, 9, 7, 5, 5, 8, 6, 6, 6, 4, 3, 2, 6, 2, 5, 10, 4, 4, 6, 8, 3, 9, 4, 4, 6, 4, 3, 9, 9, 8, 6, 3, 2, 8, 2, 4, 8, 8, 4, 1, 3, 4, 6, 1, 10, 7, 7, 9, 10, 3, 8, 2, 1, 10, 2, 3, 6, 3, 1, 3, 5, 6, 1, 1, 7, 8, 3, 7, 1, 7, 9, 9, 1, 2, 10, 3, 3, 10, 6, 2, 4, 10, 3, 7, 9, 9, 5, 8, 1, 10, 4, 3, 8, 8, 3, 4, 10, 7, 8, 6, 4, 10, 6, 5, 8, 8, 7, 9, 7, 4, 10, 10, 1, 9, 4, 5, 5, 3, 5, 4, 6, 8, 4, 3, 6, 7, 7, 6, 2, 2, 6, 1, 5, 9, 8, 9, 3, 1, 10, 7, 7, 5, 6, 10, 5, 9, 7, 5, 9, 9, 1, 7, 10, 7, 2, 10, 3, 5, 2, 3, 2, 7, 2, 3, 4, 3, 6, 3, 10, 5, 9, 6, 9, 7, 7, 6, 5, 6, 10, 9, 1, 2, 6, 8, 4, 10, 10, 6, 9, 3, 8, 1, 9, 2, 6, 6, 7, 4, 2, 7, 4, 8, 2, 1, 7, 3, 7, 1, 3, 8, 6, 3, 6, 3, 2, 10, 1, 6, 4, 6, 10, 5, 7, 5, 2, 1, 8, 2, 10, 6, 10, 6, 3, 4, 6, 8, 1, 7, 5, 2, 5, 10, 3, 6, 5, 2, 3, 1, 10, 6, 4, 10, 4, 7, 6, 2, 7, 2, 2, 4, 4, 8, 5, 5, 8, 3, 4, 3, 7, 8, 10, 3, 2, 5, 1, 10, 6, 8, 7, 8, 10, 5, 10, 10, 9, 1, 6, 9, 6, 2, 7, 8, 6, 1, 8, 9, 1, 7, 8, 1, 3, 10, 10, 3, 6, 3, 4, 7, 8, 4, 8, 4, 2, 7, 10, 5, 3, 1, 7, 6, 2, 1, 7, 5, 2, 9, 7, 10, 9, 10, 4, 4, 8, 2, 1, 1, 9, 1, 8, 4, 6, 9, 10, 4, 8, 7, 1, 3, 6, 6, 2, 6, 6, 3, 3, 9, 9, 3, 2, 5, 5, 9, 1, 8, 6, 9, 4, 3, 8, 1, 5, 9, 8, 8, 2];
-    for (var i=0;i<1000;i++){
-        switch (arr[i]){
-            case 1:{
-                var url="http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_NAME:" + authorName2[authorNameCnt++]+"&request_cache=false";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-            }
-            case 2:{
-                var  query = '{\n' +
-                    '            "size":0,\n' +
-                    '            "query":{\n' +
-                    '                "query_string":{\n' +
-                    '                    "query":' +"\""+ randomVal2[randomValArr[aggregationValCnt++]] +"\""+ '\n' +
-                    '                }\n' +
-                    '            },\n' +
-                    '            "aggs":{\n' +
-                    '                "paperByYear":{\n' +
-                    '                    "terms":{\n' +
-                    '                        "field":"Year.keyword",\n' +
-                    '                        "size":2000\n' +
-                    '                    }\n' +
-                    '                }\n' +
-                    '            }\n' +
-                    '        }';
-                $.ajax({
-                    type:"POST",
-                    url: 'http://localhost:9200/dblpvertexes/_search?request_cache=true',
-                    contentType: 'application/json',
-                    dataType: "json",
-                    async: false,
-                    data:query,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 3:{
-                var url="http://localhost:9200/dblprelation_authorship/_search?q=AUTHOR_ID:"+authorID2[authorIdCnt++]+"&request_cache=false";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 4:{
-                var url="http://localhost:9200/dblprelation_coauthorship/_search?q=COAUTHOR_ID:"+coAuthorID2[coAuthorIDCnt++]+"&request_cache=false";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 5:{
-                var url="http://localhost:9200/dblprelation_journalofpaper/_search?q=JOURNAL_ID:"+journalID2[arr2[journalIDCnt++]]+"&request_cache=true";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 6:{
-                var url="http://localhost:9200/dblprelation_venueofpaper/_search?q=VENUE_ID:"+venueID2[venueIDCnt++]+"&request_cache=false";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 7:{
-                var url="http://localhost:9200/dblprelation_citation/_search?q=REFERENCE_ID:"+referenceID2[referenceIDCnt++]+"&request_cache=false";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 8:{
-                var url="http://localhost:9200/dblprelation_citation/_search?q=PAPER_ID:"+paperID2[paperIDCnt++]+"&request_cache=false";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
-            }
-            case 9:{
-                /* var url="http://localhost:9200/dblpvertexes/_search?request_cache=false\n" +
-                     "{\"size\":0,\n" +
-                     "  \"query\": {\n" +
-                     "    \"bool\": {\n" +
-                     "      \"must\": [\n" +
-                     "        {\n" +
-                     "          \"match\": {\n" +
-                     "REFERENCE_ID.keyword:" +aggregationVal[aggregationValCnt++]+
-                     "          }\n" +
-                     "        }\n" +
-                     "      ]\n" +
-                     "    }\n" +
-                     "  },\n" +
-                     "   \"aggs\":{\n" +
-                     "                \"paperByYear\":{\n" +
-                     "                    \"terms\":{\n" +
-                     "                        \"field\":\"REFERENCE_ID.keyword\",\n" +
-                     "                        \"size\":10\n" +
-                     "                    }\n" +
-                     "                }\n" +
-                     "            }\n" +
-                     "}";*/
-                /* var url='{"size":0,"query": {"bool":{"must": [{"match":{"REFERENCE_ID.keyword:'+aggregationVal[aggregationValCnt++]+'}}]}},"aggs":{"paperByYear":{"terms":{"field":"REFERENCE_ID.keyword","size":10}}}';
-                  $.ajax({
-                      dataType: "json",
-                      url: url,
-                      async: false,
-                      success: function (data) {
-                          totalTime =totalTime+ parseInt(data.took);
-                      }
-                  });*/
-            }
-            case 10:{
 
-                var url="http://localhost:9200/dblpvertexes/_search?q="+randomVal2[randomValArr[randomValCnt++]]+"&request_cache=false";
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    async: false,
-                    success: function (data) {
-                        totalTime =totalTime+ parseInt(data.took);
-                    }
-                });
-                break;
+
+        for (var i = 0; i < 1000; i++) {
+            switch (arr[i]) {
+                case 1: {
+                    var url = "http://localhost:9200/dblpvertexes/_search?q=vType:author AND AUTHOR_NAME:" + authorName2[authorNameCnt++] + "&request_cache=false";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime = totalTime + parseInt(data.took);
+                        }
+                    });
+                }
+                case 2: {
+                    var query = '{\n' +
+                        '            "size":0,\n' +
+                        '            "query":{\n' +
+                        '                "query_string":{\n' +
+                        '                    "query":' + "\"" + randomVal2[randomValArr[aggregationValCnt++]] + "\"" + '\n' +
+                        '                }\n' +
+                        '            },\n' +
+                        '            "aggs":{\n' +
+                        '                "paperByYear":{\n' +
+                        '                    "terms":{\n' +
+                        '                        "field":"Year.keyword",\n' +
+                        '                        "size":2000\n' +
+                        '                    }\n' +
+                        '                }\n' +
+                        '            }\n' +
+                        '        }';
+                    $.ajax({
+                        type: "POST",
+                        url: 'http://localhost:9200/dblpvertexes/_search?request_cache=true',
+                        contentType: 'application/json',
+                        dataType: "json",
+                        async: false,
+                        data: query,
+                        success: function (data) {
+                            totalTime = totalTime + parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 3: {
+                    var url = "http://localhost:9200/dblprelation_authorship/_search?q=AUTHOR_ID:" + authorID2[authorIdCnt++] + "&request_cache=false";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime = totalTime + parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 4: {
+                    var url = "http://localhost:9200/dblprelation_coauthorship/_search?q=COAUTHOR_ID:" + coAuthorID2[coAuthorIDCnt++] + "&request_cache=false";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime = totalTime + parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 5: {
+                    var url = "http://localhost:9200/dblprelation_journalofpaper/_search?q=JOURNAL_ID:" + journalID2[arr2[journalIDCnt++]] + "&request_cache=true";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime = totalTime + parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 6: {
+                    var url = "http://localhost:9200/dblprelation_venueofpaper/_search?q=VENUE_ID:" + venueID2[venueIDCnt++] + "&request_cache=false";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime = totalTime + parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 7: {
+                    var url = "http://localhost:9200/dblprelation_citation/_search?q=REFERENCE_ID:" + referenceID2[referenceIDCnt++] + "&request_cache=false";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime = totalTime + parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 8: {
+                    var url = "http://localhost:9200/dblprelation_citation/_search?q=PAPER_ID:" + paperID2[paperIDCnt++] + "&request_cache=false";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime = totalTime + parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
+                case 9: {
+                    /* var url="http://localhost:9200/dblpvertexes/_search?request_cache=false\n" +
+                         "{\"size\":0,\n" +
+                         "  \"query\": {\n" +
+                         "    \"bool\": {\n" +
+                         "      \"must\": [\n" +
+                         "        {\n" +
+                         "          \"match\": {\n" +
+                         "REFERENCE_ID.keyword:" +aggregationVal[aggregationValCnt++]+
+                         "          }\n" +
+                         "        }\n" +
+                         "      ]\n" +
+                         "    }\n" +
+                         "  },\n" +
+                         "   \"aggs\":{\n" +
+                         "                \"paperByYear\":{\n" +
+                         "                    \"terms\":{\n" +
+                         "                        \"field\":\"REFERENCE_ID.keyword\",\n" +
+                         "                        \"size\":10\n" +
+                         "                    }\n" +
+                         "                }\n" +
+                         "            }\n" +
+                         "}";*/
+                    /* var url='{"size":0,"query": {"bool":{"must": [{"match":{"REFERENCE_ID.keyword:'+aggregationVal[aggregationValCnt++]+'}}]}},"aggs":{"paperByYear":{"terms":{"field":"REFERENCE_ID.keyword","size":10}}}';
+                      $.ajax({
+                          dataType: "json",
+                          url: url,
+                          async: false,
+                          success: function (data) {
+                              totalTime =totalTime+ parseInt(data.took);
+                          }
+                      });*/
+                }
+                case 10: {
+
+                    var url = "http://localhost:9200/dblpvertexes/_search?q=" + randomVal2[randomValArr[randomValCnt++]] + "&request_cache=false";
+                    $.ajax({
+                        dataType: "json",
+                        url: url,
+                        async: false,
+                        success: function (data) {
+                            totalTime = totalTime + parseInt(data.took);
+                        }
+                    });
+                    break;
+                }
             }
         }
+        Finaltime=Finaltime+totalTime;
     }
-    document.getElementById("totalTimewSelectedcaching").innerText=totalTime;
+    document.getElementById("totalTimewSelectedcaching").innerText=Finaltime;
     var clearUrl="http://localhost:9200/dblpvertexes,dblprelation_authorship,dblprelation_citation,dblprelation_coauthorship,dblprelation_journalofpaper,dblprelation_venueofpaper/_cache/clear?request=true";
     $.ajax({
         dataType: "json",

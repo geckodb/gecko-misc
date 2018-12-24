@@ -240,7 +240,6 @@ function searchClickedFromScholarly() {
  * @param fromScholarly
  */
 function searchClicked(userEnteredtext,chosenType) {
-    alert(sessionStorage.enteredUserID);
     var urlSearch;
     var $pagination = $('#pagination'),
         totalRecords = 0,
@@ -273,7 +272,7 @@ function searchClicked(userEnteredtext,chosenType) {
             }
         });
     }else if((chosenType===vertexType.PAPER)){
-        urlSearch = "http://"+IP_ADDRESS+":9200/dblpvertexes/_count?q=vType:" + chosenType + " AND Title:" + userEnteredtext;
+        urlSearch = "http://"+IP_ADDRESS+":9200/dblpvertexes/_count?q=vType:" + chosenType + " AND Title:" + userEnteredtext+"&sort:year:desc" ;
         _LTracker.push({
             'method':'searchClicked',
             'tag': 'Search-Paper',

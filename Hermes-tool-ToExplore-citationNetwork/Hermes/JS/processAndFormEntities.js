@@ -2624,7 +2624,8 @@ function loadFacets(searchValue,byYear){
     }
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:9200/dblpvertexes/_search?request_cache=false',
+
+        url: "http://"+IP_ADDRESS+":9200/dblpvertexes/_search?request_cache=false",
         contentType: 'application/json',
         dataType: 'json',
         async:false,

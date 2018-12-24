@@ -977,6 +977,7 @@ function clearSVG() {
     paperExpanded= new Set();
     nodeExpandedforRefernce = new Set();
     instituteAlreadyAdded[tabIndexToCLear]=new Map();
+    topicAlreadyAdded[tabIndexToCLear]=new Map();
 
     paperWithCitationSeen[tabIndexToCLear]=new Map();
     paperWithReferenceSeen[tabIndexToCLear]=new Map();

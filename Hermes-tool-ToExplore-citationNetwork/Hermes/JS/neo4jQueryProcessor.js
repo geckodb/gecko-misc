@@ -1,5 +1,6 @@
 var USER_NAME="neo4j";
 var PWD="123";
+var IP_ADDRESS= "35.204.36.246";
 function clearQuery() {
     document.getElementById("queryArea").value="";
 }
@@ -18,17 +19,19 @@ function submitQuery() {
         // Create a session to run Cypher statements.
         var session = driver.session();
         
-        _LTracker.push({
-            'Database':'Neo4j',
-            'method':'submitQuery',
-            'Query':query,
-            'UserID':sessionStorage.enteredUserID
-        });
+
 
         //Run a Cypher statement, perform operation on the result in a streaming manner as records arrive
         session
             .run(query)
             .then(function (result) {
+                _LTracker.push({
+                    'Database':'Neo4j',
+                    'method':'submitQuery',
+                    'Query':query,
+                    'Result':JSON.stringify(result.records),
+                    'UserID':sessionStorage.enteredUserID
+                });
                 resultTextArea.innerText=JSON.stringify(result.records);
                 resultTextArea.style.color="black";
                 session.close();
@@ -38,6 +41,7 @@ function submitQuery() {
                 console.log(error);
                 resultTextArea.innerText=error.message;
                 resultTextArea.style.color="red"
+                document.getElementById("queryContainer").style.cursor="default";
             });
 
 // This closes all used network connections.
@@ -45,6 +49,7 @@ function submitQuery() {
     }else{
         resultTextArea.innerText="Please enter the query!";
         resultTextArea.style.color="red"
+        document.getElementById("queryContainer").style.cursor="default";
     }
 
 }
