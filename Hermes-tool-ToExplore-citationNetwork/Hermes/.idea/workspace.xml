@@ -2,19 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c547c847-dc05-4c6a-8c3a-344bb1fc2699" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/Images/hss2.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/Images/hss3.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/Images/hss4.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/Images/ss1.jpg" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/Images/enableslider.png" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/JS/HermesGraphLoader.js" afterPath="$PROJECT_DIR$/JS/HermesGraphLoader.js" />
+      <change beforePath="$PROJECT_DIR$/CSS/hermesStyle.css" afterPath="$PROJECT_DIR$/CSS/hermesStyle.css" />
       <change beforePath="$PROJECT_DIR$/JS/Search.js" afterPath="$PROJECT_DIR$/JS/Search.js" />
-      <change beforePath="$PROJECT_DIR$/JS/neo4jQueryProcessor.js" afterPath="$PROJECT_DIR$/JS/neo4jQueryProcessor.js" />
-      <change beforePath="$PROJECT_DIR$/JS/processAndFormEntities.js" afterPath="$PROJECT_DIR$/JS/processAndFormEntities.js" />
       <change beforePath="$PROJECT_DIR$/JS/testCaching.js" afterPath="$PROJECT_DIR$/JS/testCaching.js" />
-      <change beforePath="$PROJECT_DIR$/hermes/Header.html" afterPath="$PROJECT_DIR$/hermes/Header.html" />
       <change beforePath="$PROJECT_DIR$/hermes/getStarted.html" afterPath="$PROJECT_DIR$/hermes/getStarted.html" />
-      <change beforePath="$PROJECT_DIR$/hermes/scholarlyResult.html" afterPath="$PROJECT_DIR$/hermes/scholarlyResult.html" />
+      <change beforePath="$PROJECT_DIR$/hermes/index.html" afterPath="$PROJECT_DIR$/hermes/index.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -36,8 +30,8 @@
       <file leaf-file-name="processAndFormEntities.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/JS/processAndFormEntities.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="62738">
-              <caret line="2583" column="12" lean-forward="false" selection-start-line="2583" selection-start-column="9" selection-end-line="2583" selection-end-column="12" />
+            <state relative-caret-position="504">
+              <caret line="86" column="15" lean-forward="false" selection-start-line="86" selection-start-column="9" selection-end-line="86" selection-end-column="15" />
               <folding>
                 <element signature="n#!!block;n#createLinks#0" expanded="false" />
                 <element signature="e#28305#32232#0" expanded="false" />
@@ -48,11 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="neo4jQueryProcessor.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/JS/neo4jQueryProcessor.js">
+      <file leaf-file-name="Search.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/JS/Search.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="936">
-              <caret line="36" column="32" lean-forward="false" selection-start-line="36" selection-start-column="32" selection-end-line="36" selection-end-column="32" />
+            <state relative-caret-position="280">
+              <caret line="18" column="53" lean-forward="true" selection-start-line="18" selection-start-column="53" selection-end-line="18" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -61,66 +55,12 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hermes/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1911">
-              <caret line="91" column="8" lean-forward="true" selection-start-line="91" selection-start-column="8" selection-end-line="91" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="testCaching.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/JS/testCaching.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="523">
-              <caret line="2316" column="34" lean-forward="false" selection-start-line="2316" selection-start-column="34" selection-end-line="2316" selection-end-column="34" />
+            <state relative-caret-position="312">
+              <caret line="60" column="13" lean-forward="true" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
               <folding>
-                <element signature="e#158#2623#0" expanded="false" />
-                <element signature="e#2647#5154#0" expanded="false" />
-                <element signature="e#5178#7575#0" expanded="false" />
-                <element signature="e#7597#7939#0" expanded="false" />
-                <element signature="e#8801#10257#0" expanded="false" />
-                <element signature="e#10279#12291#0" expanded="false" />
-                <element signature="e#12313#14325#0" expanded="false" />
-                <element signature="e#14348#15954#0" expanded="false" />
-                <element signature="e#15978#18044#0" expanded="false" />
-                <element signature="e#18068#20134#0" expanded="false" />
-                <element signature="e#20156#21923#0" expanded="false" />
-                <element signature="e#21946#23838#0" expanded="false" />
-                <element signature="e#23861#25829#0" expanded="false" />
-                <element signature="e#25849#27007#0" expanded="false" />
-                <element signature="e#27027#28268#0" expanded="false" />
-                <element signature="e#28288#29529#0" expanded="false" />
-                <element signature="e#29552#33552#0" expanded="false" />
-                <element signature="e#33576#37576#0" expanded="false" />
-                <element signature="e#37600#41600#0" expanded="false" />
-                <element signature="e#41619#45883#0" expanded="false" />
-                <element signature="e#45903#50167#0" expanded="false" />
-                <element signature="e#50187#54451#0" expanded="false" />
-                <element signature="e#54477#57949#0" expanded="false" />
-                <element signature="e#62631#70780#0" expanded="false" />
-                <element signature="e#79055#86587#0" expanded="false" />
-                <element signature="e#95272#102905#0" expanded="false" />
+                <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#button#0;n#td#1;n#tr#0;n#table#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="testcache.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hermes/testcache.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="11" column="39" lean-forward="true" selection-start-line="11" selection-start-column="39" selection-end-line="11" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Header.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hermes/Header.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -128,71 +68,36 @@
       <file leaf-file-name="getStarted.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hermes/getStarted.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1716">
-              <caret line="66" column="18" lean-forward="true" selection-start-line="66" selection-start-column="18" selection-end-line="66" selection-end-column="18" />
+            <state relative-caret-position="314">
+              <caret line="74" column="25" lean-forward="false" selection-start-line="74" selection-start-column="25" selection-end-line="74" selection-end-column="25" />
               <folding>
-                <marker date="1545682025104" expanded="false" signature="8510:8528" ph="..." />
-                <marker date="1545682025104" expanded="false" signature="8688:8746" ph="..." />
+                <element signature="n#style#0;n#span#0;n#p#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#p#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#p#0;n#div#2;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#p#0;n#div#3;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#p#0;n#div#4;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#p#0;n#div#5;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#p#0;n#div#6;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#p#0;n#div#7;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#p#0;n#div#8;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#p#0;n#div#9;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#p#0;n#div#10;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#p#0;n#div#11;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HermesGraphLoader.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/JS/HermesGraphLoader.js">
+      <file leaf-file-name="hermesStyle.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CSS/hermesStyle.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23166">
-              <caret line="891" column="10" lean-forward="false" selection-start-line="891" selection-start-column="8" selection-end-line="891" selection-end-column="10" />
+            <state relative-caret-position="186">
+              <caret line="45" column="16" lean-forward="false" selection-start-line="45" selection-start-column="1" selection-end-line="45" selection-end-column="16" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="scholarlyResult.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hermes/scholarlyResult.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7722">
-              <caret line="535" column="14" lean-forward="false" selection-start-line="535" selection-start-column="14" selection-end-line="535" selection-end-column="14" />
-              <folding>
-                <element signature="n#style#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#style#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#2;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#td#0;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#td#1;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#form#0;n#td#2;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#form#0;n#td#2;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#label#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#table#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#1;n#td#0;n#tr#1;n#table#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ul#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#style#0;n#p#0;n#td#0;n#tr#4;n#table#0;n#div#1;n#div#0;n#div#0;n#div#5;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#div#6;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="e#19322#19641#0" expanded="false" />
-                <element signature="e#23967#24407#0" expanded="false" />
-                <marker date="1545410864968" expanded="true" signature="20333:20363" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="neo4jConsole.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hermes/neo4jConsole.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="988">
-              <caret line="38" column="13" lean-forward="false" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#textarea#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -211,8 +116,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>PapaerID</find>
-      <find>paperId</find>
       <find>paperId'</find>
       <find>PaperId'</find>
       <find>PaperId</find>
@@ -240,7 +143,9 @@
       <find>update</find>
       <find>lo</find>
       <find>loa</find>
+      <find>showPa</find>
       <find>bla</find>
+      <find>showAu</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;instId&quot;</replace>
@@ -294,17 +199,18 @@
         <option value="$PROJECT_DIR$/HTML/index.html" />
         <option value="$PROJECT_DIR$/HTML/neo4jConsole.html" />
         <option value="$PROJECT_DIR$/HTML/getStarted.html" />
-        <option value="$PROJECT_DIR$/hermes/index.html" />
-        <option value="$PROJECT_DIR$/CSS/hermesStyle.css" />
         <option value="$PROJECT_DIR$/hermes/neo4jConsole.html" />
         <option value="$PROJECT_DIR$/hermes/feedbackform.html" />
-        <option value="$PROJECT_DIR$/JS/Search.js" />
         <option value="$PROJECT_DIR$/JS/processAndFormEntities.js" />
         <option value="$PROJECT_DIR$/JS/neo4jQueryProcessor.js" />
         <option value="$PROJECT_DIR$/JS/HermesGraphLoader.js" />
         <option value="$PROJECT_DIR$/hermes/scholarlyResult.html" />
-        <option value="$PROJECT_DIR$/JS/testCaching.js" />
         <option value="$PROJECT_DIR$/hermes/Header.html" />
+        <option value="$PROJECT_DIR$/JS/testCaching.js" />
+        <option value="$PROJECT_DIR$/hermes/Neo4j API.html" />
+        <option value="$PROJECT_DIR$/JS/Search.js" />
+        <option value="$PROJECT_DIR$/hermes/index.html" />
+        <option value="$PROJECT_DIR$/CSS/hermesStyle.css" />
         <option value="$PROJECT_DIR$/hermes/getStarted.html" />
       </list>
     </option>
@@ -324,11 +230,11 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-9" />
     <option name="y" value="-9" />
-    <option name="width" value="1087" />
-    <option name="height" value="940" />
+    <option name="width" value="1938" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -500,18 +406,17 @@
       <workItem from="1544265865705" duration="29915000" />
       <workItem from="1544976256682" duration="3163000" />
       <workItem from="1545393252099" duration="3740000" />
-      <workItem from="1545583557108" duration="9674000" />
+      <workItem from="1545583557108" duration="27848000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2086933000" />
+    <option name="totallyTimeSpent" value="2105107000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
-    <editor active="true" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24635416" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14635417" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32930845" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
@@ -583,18 +488,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="58" />
+      <option name="time" value="59" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/hermes/Footer.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="936">
-          <caret line="36" column="55" lean-forward="true" selection-start-line="36" selection-start-column="55" selection-end-line="36" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/hermes/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -757,26 +655,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CSS/hermesStyle.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1144">
-          <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/hermes/feedbackform.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="148">
           <caret line="42" column="21" lean-forward="true" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/JS/Search.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1014">
-          <caret line="39" column="9" lean-forward="false" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -785,8 +667,8 @@
         <state relative-caret-position="988">
           <caret line="38" column="13" lean-forward="false" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#textarea#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#textarea#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -804,27 +686,27 @@
         <state relative-caret-position="7722">
           <caret line="535" column="14" lean-forward="false" selection-start-line="535" selection-start-column="14" selection-end-line="535" selection-end-column="14" />
           <folding>
-            <element signature="n#style#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#2;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#td#0;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#td#1;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#form#0;n#td#2;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#form#0;n#td#2;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#table#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#1;n#td#0;n#tr#1;n#table#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#td#0;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#td#1;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#td#2;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#td#0;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#p#0;n#td#0;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#p#0;n#td#1;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#form#0;n#td#2;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#input#0;n#form#0;n#td#2;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#label#0;n#div#0;n#td#3;n#tr#0;n#table#0;n#div#1;n#div#1;n#td#0;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#table#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#p#1;n#td#0;n#tr#1;n#table#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#ul#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#p#0;n#td#0;n#tr#4;n#table#0;n#div#1;n#div#0;n#div#0;n#div#5;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#td#0;n#tr#4;n#table#0;n#div#1;n#div#0;n#div#0;n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#6;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="e#19322#19641#0" expanded="false" />
             <element signature="e#23967#24407#0" expanded="false" />
@@ -841,31 +723,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JS/processAndFormEntities.js">
+    <entry file="file://$PROJECT_DIR$/hermes/Header.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62738">
-          <caret line="2583" column="12" lean-forward="false" selection-start-line="2583" selection-start-column="9" selection-end-line="2583" selection-end-column="12" />
-          <folding>
-            <element signature="n#!!block;n#createLinks#0" expanded="false" />
-            <element signature="e#28305#32232#0" expanded="false" />
-            <element signature="e#90113#92978#0" expanded="false" />
-            <element signature="n#!!block;n#CloseAddTagWindow#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="442">
+          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hermes/testcache.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="11" column="39" lean-forward="true" selection-start-line="11" selection-start-column="39" selection-end-line="11" selection-end-column="39" />
+        <state relative-caret-position="174">
+          <caret line="12" column="70" lean-forward="false" selection-start-line="12" selection-start-column="70" selection-end-line="12" selection-end-column="70" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/JS/testCaching.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523">
-          <caret line="2316" column="34" lean-forward="false" selection-start-line="2316" selection-start-column="34" selection-end-line="2316" selection-end-column="34" />
+        <state relative-caret-position="355">
+          <caret line="2313" column="43" lean-forward="true" selection-start-line="2313" selection-start-column="43" selection-end-line="2313" selection-end-column="43" />
           <folding>
             <element signature="e#158#2623#0" expanded="false" />
             <element signature="e#2647#5154#0" expanded="false" />
@@ -890,36 +767,82 @@
             <element signature="e#45903#50167#0" expanded="false" />
             <element signature="e#50187#54451#0" expanded="false" />
             <element signature="e#54477#57949#0" expanded="false" />
-            <element signature="e#62631#70780#0" expanded="false" />
-            <element signature="e#79055#86587#0" expanded="false" />
-            <element signature="e#95272#102905#0" expanded="false" />
+            <element signature="e#58693#59150#0" expanded="false" />
+            <element signature="e#59165#63261#0" expanded="false" />
+            <element signature="e#80273#87805#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hermes/Header.html">
+    <entry file="file://$PROJECT_DIR$/hermes/Neo4j API.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state relative-caret-position="104">
+          <caret line="4" column="16" lean-forward="false" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/JS/Search.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="18" column="53" lean-forward="true" selection-start-line="18" selection-start-column="53" selection-end-line="18" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/JS/processAndFormEntities.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="86" column="15" lean-forward="false" selection-start-line="86" selection-start-column="9" selection-end-line="86" selection-end-column="15" />
+          <folding>
+            <element signature="n#!!block;n#createLinks#0" expanded="false" />
+            <element signature="e#28305#32232#0" expanded="false" />
+            <element signature="e#90113#92978#0" expanded="false" />
+            <element signature="n#!!block;n#CloseAddTagWindow#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CSS/hermesStyle.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="45" column="16" lean-forward="false" selection-start-line="45" selection-start-column="1" selection-end-line="45" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hermes/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1911">
-          <caret line="91" column="8" lean-forward="true" selection-start-line="91" selection-start-column="8" selection-end-line="91" selection-end-column="8" />
-          <folding />
+        <state relative-caret-position="312">
+          <caret line="60" column="13" lean-forward="true" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
+          <folding>
+            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#td#1;n#tr#0;n#table#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hermes/getStarted.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1716">
-          <caret line="66" column="18" lean-forward="true" selection-start-line="66" selection-start-column="18" selection-end-line="66" selection-end-column="18" />
+        <state relative-caret-position="314">
+          <caret line="74" column="25" lean-forward="false" selection-start-line="74" selection-start-column="25" selection-end-line="74" selection-end-column="25" />
           <folding>
-            <marker date="1545682025104" expanded="false" signature="8510:8528" ph="..." />
-            <marker date="1545682025104" expanded="false" signature="8688:8746" ph="..." />
+            <element signature="n#style#0;n#span#0;n#p#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#p#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#p#0;n#div#2;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#p#0;n#div#3;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#p#0;n#div#4;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#p#0;n#div#5;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#p#0;n#div#6;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#p#0;n#div#7;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#p#0;n#div#8;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#p#0;n#div#9;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#p#0;n#div#10;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#p#0;n#div#11;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

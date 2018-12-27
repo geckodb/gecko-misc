@@ -272,7 +272,7 @@ function searchClicked(userEnteredtext,chosenType) {
             }
         });
     }else if((chosenType===vertexType.PAPER)){
-        urlSearch = "http://"+IP_ADDRESS+":9200/dblpvertexes/_count?q=vType:" + chosenType + " AND Title:" + userEnteredtext+"&sort:year:desc" ;
+        urlSearch = "http://"+IP_ADDRESS+":9200/dblpvertexes/_count?q=vType:" + chosenType + " AND Title:" + userEnteredtext;
         _LTracker.push({
             'method':'searchClicked',
             'tag': 'Search-Paper',

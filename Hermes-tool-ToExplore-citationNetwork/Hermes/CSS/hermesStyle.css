@@ -43,6 +43,10 @@
     font-weight: bold;
 }
 
+.getstarteditems{
+    height: 630px;
+}
+
 #myNavbar{
     margin-right: 350px;
 }
